@@ -1,13 +1,16 @@
+# Local files
 .DS_Store
 node_modules
 .turbo
 *.log
 .next
-dist
-dist-ssr
-*.local
 .env
 .cache
+*.local
+
+# Build results
+dist
+dist-ssr
 server/dist
 public/dist
 storybook-static/

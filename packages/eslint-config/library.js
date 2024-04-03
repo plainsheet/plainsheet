@@ -20,10 +20,6 @@ module.exports = {
     project,
   },
   plugins: ["only-warn"],
-  globals: {
-    React: true,
-    JSX: true,
-  },
   settings: {
     "import/resolver": {
       typescript: {

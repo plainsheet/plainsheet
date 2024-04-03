@@ -1,0 +1,11 @@
+{
+  "extends": "@internal/typescript-config/base.json",
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "NodeNext",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "skipLibCheck": true,
+    "types": ["node"]
+  },
+  "include": ["./vite.config.ts"]
+}
