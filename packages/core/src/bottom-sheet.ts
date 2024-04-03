@@ -1,13 +1,13 @@
 import "./bottom-sheet.css";
 
-interface BottomSheetProps {
+export interface BottomSheetProps {
   content: string;
   width?: string;
   marginTop?: string;
   defaultPosition?: BottomSheetPosition;
 }
 
-type BottomSheetPosition = "top" | "middle" | "content-height";
+export type BottomSheetPosition = "top" | "middle" | "content-height";
 
 // enum ClassNames {
 //   Root = "root",
@@ -16,7 +16,7 @@ type BottomSheetPosition = "top" | "middle" | "content-height";
 //   Backdrop = "backdrop",
 // }
 
-interface BottomSheet {
+export interface BottomSheet {
   mount: (mountingPoint?: HTMLElement) => void;
   unmount: () => void;
 }

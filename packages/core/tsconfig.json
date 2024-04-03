@@ -1,7 +1,7 @@
 {
   "extends": "@internal/typescript-config/base.json",
   "compilerOptions": {
-    "baseUrl": "./src",
+    "baseUrl": ".",
     "target": "ES2020",
     "useDefineForClassFields": true,
     "module": "ESNext",
