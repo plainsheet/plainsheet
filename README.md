@@ -1,3 +1,7 @@
+# Plain Bottom Sheet
+
+A minimalistic, extensible bottom-sheet for everyone.
+
 ### Commands
 
 - `pnpm build` - Build all packages.
