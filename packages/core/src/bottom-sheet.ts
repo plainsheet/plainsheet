@@ -9,7 +9,7 @@ import { createElement } from "./utils/dom/createElement";
 export interface BottomSheetProps {
   content: string;
   width?: string;
-  marginTop?: string;
+  marginTop?: number;
   defaultPosition?: BottomSheetPosition;
 }
 
@@ -35,7 +35,7 @@ export interface BottomSheet {
 }
 
 export function CreateBottomSheet(props: BottomSheetProps): BottomSheet {
-  const { defaultPosition = "top" } = props;
+  const { defaultPosition = "middle", marginTop = 100 } = props;
 
   const {
     bottomSheetBackdrop,
@@ -64,8 +64,7 @@ export function CreateBottomSheet(props: BottomSheetProps): BottomSheet {
 
     console.log({ viewportHeight });
 
-    const topMargin = 100;
-    bottomSheetSheet.style.paddingBottom = `${viewportHeight - bottomSheetContentWrapper.clientHeight - topMargin}px`;
+    bottomSheetSheet.style.paddingBottom = `${viewportHeight - bottomSheetContentWrapper.clientHeight - marginTop}px`;
 
     bottomSheetData.sheetHeight =
       bottomSheetContentWrapper.clientHeight + bottomSheetHandle.clientHeight;
@@ -79,15 +78,16 @@ export function CreateBottomSheet(props: BottomSheetProps): BottomSheet {
   };
 
   function defaultPositionToYCoordinate(position: BottomSheetPosition) {
-    console.log("{ position }");
-    console.log({ position });
-    const viewportHeight = window.innerHeight;
-
     switch (position) {
       case "content-height":
-        return 0;
+        return (
+          bottomSheetSheet.clientHeight - (bottomSheetData?.sheetHeight ?? 0)
+        );
       case "middle":
-        return viewportHeight / 2 - (bottomSheetData?.sheetHeight ?? 0);
+        return (
+          bottomSheetSheet.clientHeight / 2 -
+          (bottomSheetData?.sheetHeight ?? 0)
+        );
       case "top":
         return 0;
       default:
@@ -96,10 +96,7 @@ export function CreateBottomSheet(props: BottomSheetProps): BottomSheet {
   }
   const open = (): void => {
     const yCoordinate = defaultPositionToYCoordinate(defaultPosition);
-    console.log("yy");
-    console.log({ yCoordinate });
-
-    bottomSheetSheet.style.transform = `translate(0, -${yCoordinate}px)`;
+    bottomSheetSheet.style.transform = `translate(0, ${yCoordinate}px)`;
 
     addClassName(bottomSheetBackdrop, "open");
   };
@@ -117,12 +114,7 @@ export function CreateBottomSheet(props: BottomSheetProps): BottomSheet {
   };
 
   function initializeBottomSheet(props: BottomSheetProps) {
-    const {
-      // width = "100%",
-      // defaultPosition = "content-height",
-      // marginTop = "3vh",
-      content = "",
-    } = props;
+    const { content = "" } = props;
 
     const bottomSheetRoot = createElement(
       "dialog",
