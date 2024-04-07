@@ -1,6 +1,11 @@
 import path from "node:path";
 import { defineConfig } from "vite";
 import dts from "vite-plugin-dts";
+/**
+ * TODO: Replace it with a built-in feature when it is merged
+ * @see https://github.com/vitejs/vite/pull/13565
+ */
+import { libInjectCss } from "vite-plugin-lib-inject-css";
 
 export default defineConfig({
   build: {
@@ -10,8 +15,8 @@ export default defineConfig({
       formats: ["es", "cjs"],
       fileName: (format) => `plain-bottom-sheet-core.${format}.js`,
     },
-    cssCodeSplit: true,
     cssMinify: true,
+    cssCodeSplit: true,
   },
-  plugins: [dts()],
+  plugins: [dts(), libInjectCss()],
 });

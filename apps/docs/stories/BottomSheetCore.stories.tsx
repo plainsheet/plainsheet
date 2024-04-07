@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { CreateBottomSheet } from "plain-bottom-sheet-core";
-import { useEffect } from "react";
+import { BottomSheet, CreateBottomSheet } from "plain-bottom-sheet-core";
+import { useEffect, useRef } from "react";
 
 const meta: Meta<typeof BottomSheetWrapper> = {
   argTypes: {},
@@ -22,11 +22,35 @@ export const Primary: Story = {
 };
 
 function BottomSheetWrapper() {
+  const bottomSheetRef = useRef<BottomSheet | null>(null);
+
   useEffect(() => {
-    CreateBottomSheet({
-      content: "Hello World.",
-    }).mount();
+    const mountingPoint = document.querySelector("#pbs-mounting-point");
+    if (mountingPoint) {
+      bottomSheetRef.current = CreateBottomSheet({
+        content: "Hello World. 🐯",
+      });
+
+      bottomSheetRef.current.mount(mountingPoint);
+    }
   }, []);
 
-  return <div>Hello</div>;
+  const handleOpen = () => {
+    bottomSheetRef.current?.open();
+  };
+
+  const handleClose = () => {
+    bottomSheetRef.current?.close();
+  };
+
+  return (
+    <section>
+      <header>
+        <button onClick={handleOpen}>Open</button>
+        <button onClick={handleClose}>Close</button>
+      </header>
+
+      <div id="pbs-mounting-point">a</div>
+    </section>
+  );
 }

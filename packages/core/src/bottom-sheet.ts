@@ -1,4 +1,10 @@
 import "./bottom-sheet.css";
+import {
+  addClassName,
+  mergeClassNames,
+  removeClassName,
+} from "./utils/css/classNames";
+import { createElement } from "./utils/dom/createElement";
 
 export interface BottomSheetProps {
   content: string;
@@ -9,46 +15,62 @@ export interface BottomSheetProps {
 
 export type BottomSheetPosition = "top" | "middle" | "content-height";
 
-// enum ClassNames {
-//   Root = "root",
-//   Handle = "handle",
-//   ContentWrapper = "contentWrapper",
-//   Backdrop = "backdrop",
-// }
+enum ClassNames {
+  Backdrop = "pbs-backdrop",
+
+  Root = "pbs-root",
+  Sheet = "pbs-sheet",
+
+  Handle = "pbs-handle",
+  HandleBar = "pbs-handle-bar",
+
+  ContentWrapper = "pbs-content-wrapper",
+}
 
 export interface BottomSheet {
-  mount: (mountingPoint?: HTMLElement) => void;
+  mount: (mountingPoint?: Element) => void;
   unmount: () => void;
+  open: () => void;
+  close: () => void;
 }
 
 export function CreateBottomSheet(props: BottomSheetProps): BottomSheet {
+  const { defaultPosition = "top" } = props;
+
   const {
-    // width = "100%",
-    // defaultPosition = "content-height",
-    // marginTop = "3vh",
-    content = "",
-  } = props;
+    bottomSheetBackdrop,
+    bottomSheetRoot,
+    bottomSheetSheet,
+    bottomSheetContentWrapper,
+    bottomSheetHandle,
+  } = initializeBottomSheet(props);
 
-  const bottomSheetRoot = document.createElement("dialog");
-  const bottomSheetHandle = document.createElement("button");
-  const bottomSheetContentWrapper = document.createElement("article");
-  // TODO: Use a better html element
-  const bottomSheetBackdrop = document.createElement("div");
+  // TODO: Use a class
+  const bottomSheetData: {
+    sheetHeight: number | null;
+  } = {
+    sheetHeight: null,
+  };
 
-  bottomSheetRoot.appendChild(bottomSheetHandle);
-  bottomSheetRoot.appendChild(bottomSheetContentWrapper);
-
-  const contentElement = document.createElement("div");
-  // TODO: sanitize the content
-  contentElement.innerHTML = content;
-  bottomSheetContentWrapper.appendChild(contentElement);
-
-  const mount = (mountingPoint?: HTMLElement): void => {
+  const mount = (mountingPoint?: Element): void => {
     const mountingPointOrFallback = mountingPoint ?? window.document.body;
 
     mountingPointOrFallback.appendChild(bottomSheetRoot);
     mountingPointOrFallback.appendChild(bottomSheetBackdrop);
+
     // TODO: setup event-listeners
+
+    const viewportHeight = window.innerHeight;
+
+    console.log({ viewportHeight });
+
+    const topMargin = 100;
+    bottomSheetSheet.style.paddingBottom = `${viewportHeight - bottomSheetContentWrapper.clientHeight - topMargin}px`;
+
+    bottomSheetData.sheetHeight =
+      bottomSheetContentWrapper.clientHeight + bottomSheetHandle.clientHeight;
+
+    close();
   };
 
   const unmount = (): void => {
@@ -56,14 +78,93 @@ export function CreateBottomSheet(props: BottomSheetProps): BottomSheet {
     // TODO: remove event-listeners, timers, references, etc...
   };
 
+  function defaultPositionToYCoordinate(position: BottomSheetPosition) {
+    console.log("{ position }");
+    console.log({ position });
+    const viewportHeight = window.innerHeight;
+
+    switch (position) {
+      case "content-height":
+        return 0;
+      case "middle":
+        return viewportHeight / 2 - (bottomSheetData?.sheetHeight ?? 0);
+      case "top":
+        return 0;
+      default:
+        return 0;
+    }
+  }
+  const open = (): void => {
+    const yCoordinate = defaultPositionToYCoordinate(defaultPosition);
+    console.log("yy");
+    console.log({ yCoordinate });
+
+    bottomSheetSheet.style.transform = `translate(0, -${yCoordinate}px)`;
+
+    addClassName(bottomSheetBackdrop, "open");
+  };
+
+  const close = (): void => {
+    bottomSheetSheet.style.transform = `translate(0, ${bottomSheetSheet.clientHeight}px)`;
+    removeClassName(bottomSheetBackdrop, "open");
+  };
+
   return {
     mount,
     unmount,
+    open,
+    close,
   };
 
+  function initializeBottomSheet(props: BottomSheetProps) {
+    const {
+      // width = "100%",
+      // defaultPosition = "content-height",
+      // marginTop = "3vh",
+      content = "",
+    } = props;
+
+    const bottomSheetRoot = createElement(
+      "dialog",
+      mergeClassNames([ClassNames.Root, "root-reset-style"])
+    );
+
+    const bottomSheetSheet = createElement("section", ClassNames.Sheet);
+
+    const bottomSheetHandle = createElement("button", ClassNames.Handle);
+
+    const bottomSheetHandleBar = createElement("span", ClassNames.HandleBar);
+
+    bottomSheetHandle.appendChild(bottomSheetHandleBar);
+
+    const bottomSheetContentWrapper = createElement(
+      "article",
+      ClassNames.ContentWrapper
+    );
+
+    bottomSheetRoot.appendChild(bottomSheetSheet);
+
+    bottomSheetSheet.appendChild(bottomSheetHandle);
+    bottomSheetSheet.appendChild(bottomSheetContentWrapper);
+
+    // TODO: Sanitize the content.
+    const contentElement = document.createElement("div");
+    contentElement.innerHTML = content;
+    bottomSheetContentWrapper.appendChild(contentElement);
+
+    // TODO: Use a better html element for the backdrop.
+    const bottomSheetBackdrop = createElement("div", ClassNames.Backdrop);
+
+    return {
+      bottomSheetRoot,
+      bottomSheetBackdrop,
+      bottomSheetSheet,
+      bottomSheetHandle,
+      bottomSheetContentWrapper,
+    };
+  }
+
   // TODO: Methods to expose
-  // open: () => void
-  // close: () => void
   // setPosition: (position) => void
 
   // TODO: Properties to expose

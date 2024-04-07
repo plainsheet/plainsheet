@@ -102,6 +102,9 @@ importers:
       vite-plugin-dts:
         specifier: ^3.8.1
         version: 3.8.1(@types/node@20.12.3)(typescript@5.3.3)(vite@5.2.8)
+      vite-plugin-lib-inject-css:
+        specifier: ^2.0.1
+        version: 2.0.1(vite@5.2.8)
 
   packages/eslint-config:
     devDependencies:
@@ -3718,7 +3721,7 @@ packages:
       express: 4.18.2
       find-cache-dir: 3.3.2
       fs-extra: 11.2.0
-      magic-string: 0.30.3
+      magic-string: 0.30.8
       rollup: 3.29.4
       typescript: 5.3.3
       vite: 5.1.4
@@ -11420,6 +11423,16 @@ packages:
       - '@types/node'
       - rollup
       - supports-color
+    dev: true
+
+  /vite-plugin-lib-inject-css@2.0.1(vite@5.2.8):
+    resolution: {integrity: sha512-86VU8m4t3TNPk9xfdnNDqn1OHkgrPHpP7B5wkVys4tWSLwMMIucCgJdc5wenGntLNMWKChJV0Ut3qGH6iGojMg==}
+    peerDependencies:
+      vite: '*'
+    dependencies:
+      magic-string: 0.30.8
+      picocolors: 1.0.0
+      vite: 5.2.8(@types/node@20.12.3)
     dev: true
 
   /vite@5.1.4:
