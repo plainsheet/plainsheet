@@ -1,4 +1,4 @@
-import { toggleClassName } from "./classNames";
+import { addClassName, removeClassName, toggleClassName } from "./classNames";
 
 const OPEN = "open";
 
@@ -10,13 +10,13 @@ export function setElementVisibility(
 
   if (Array.isArray(element)) {
     element.forEach((el) => {
-      toggleClassName(el, OPEN);
+      shouldOpen ? addClassName(el, OPEN) : removeClassName(el, OPEN);
       el.setAttribute("aria-hidden", shouldOpen ? "true" : "false");
     });
 
     return;
   }
 
-  toggleClassName(element, OPEN);
+  shouldOpen ? addClassName(element, OPEN) : removeClassName(element, OPEN);
   element.setAttribute("aria-hidden", shouldOpen ? "true" : "false");
 }

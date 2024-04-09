@@ -2,9 +2,9 @@ export type EventCallback = (event: MouseEvent | TouchEvent) => void;
 export type CrossPlatFormMouseEvent = MouseEvent | TouchEvent;
 
 export class CrossPlatformEventListener {
-  private currentTarget: HTMLElement;
+  private currentTarget: Window;
 
-  constructor(currentTarget: HTMLElement) {
+  constructor(currentTarget: Window) {
     this.currentTarget = currentTarget;
   }
 
@@ -17,14 +17,10 @@ export class CrossPlatformEventListener {
 
     // Mouse events
     this.currentTarget.addEventListener("mousedown", (event) => {
-      if (event.type !== "touchstart") {
-        onStart(event);
-      }
+      onStart(event);
     });
     this.currentTarget.addEventListener("mouseup", (event) => {
-      if (event.type !== "touchend") {
-        onEnd(event);
-      }
+      onEnd(event);
     });
   }
 

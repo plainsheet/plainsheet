@@ -44,11 +44,12 @@ export function CreateBottomSheet(props: BottomSheetProps): BottomSheet {
   };
 
   // Event listeners
-  const mouseEventListener = new CrossPlatformEventListener(bottomSheetHandle);
+  const mouseEventListener = new CrossPlatformEventListener(window);
+
   let mouseMoveStartY = 0;
   const handleStart: EventCallback = (event) => {
     mouseMoveStartY = mouseEventListener.getCoordinates(event).y;
-    console.log({ mouseMoveStartY });
+    console.log({ event, mouseMoveStartY });
   };
   const handleEnd: EventCallback = (event) => {
     const mouseMoveEndY = mouseEventListener.getCoordinates(event).y;
@@ -60,8 +61,6 @@ export function CreateBottomSheet(props: BottomSheetProps): BottomSheet {
 
     const prevTranslateY = getTranslate(bottomSheetContainer).y;
     setTranslate(bottomSheetContainer, { y: prevTranslateY + offset });
-
-    console.log({ mouseMoveStartY, mouseMoveEndY, offset, prevTranslateY });
   };
 
   const mount = (mountingPoint?: Element): void => {
