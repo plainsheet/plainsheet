@@ -8,9 +8,16 @@ export class CrossPlatformEventListener {
     this.currentTarget = currentTarget;
   }
 
-  public addEventListeners(onStart: EventCallback, onEnd: EventCallback): void {
+  public addEventListeners(
+    onStart: EventCallback,
+    onMove: EventCallback,
+    onEnd: EventCallback
+  ): void {
     // Touch events
     this.currentTarget.addEventListener("touchstart", onStart, {
+      passive: true,
+    });
+    this.currentTarget.addEventListener("touchmove", onMove, {
       passive: true,
     });
     this.currentTarget.addEventListener("touchend", onEnd, { passive: true });
@@ -19,6 +26,9 @@ export class CrossPlatformEventListener {
     this.currentTarget.addEventListener("mousedown", (event) => {
       onStart(event);
     });
+    this.currentTarget.addEventListener("mousemove", onMove, {
+      passive: true,
+    });
     this.currentTarget.addEventListener("mouseup", (event) => {
       onEnd(event);
     });
@@ -26,11 +36,14 @@ export class CrossPlatformEventListener {
 
   public removeEventListeners(
     onStart: EventCallback,
+    onMove: EventCallback,
     onEnd: EventCallback
   ): void {
     this.currentTarget.removeEventListener("touchstart", onStart);
     this.currentTarget.removeEventListener("touchend", onEnd);
+    this.currentTarget.removeEventListener("touchmove", onMove);
     this.currentTarget.removeEventListener("mousedown", onStart);
+    this.currentTarget.removeEventListener("mousemove", onMove);
     this.currentTarget.removeEventListener("mouseup", onEnd);
   }
 
@@ -49,7 +62,12 @@ export class CrossPlatformEventListener {
       }
     }
 
-    if (event.type === "touchend" || event.type === "mouseup") {
+    if (
+      event.type === "touchend" ||
+      event.type === "mouseup" ||
+      event.type === "mousemove" ||
+      event.type === "touchmove"
+    ) {
       if (event instanceof TouchEvent) {
         return {
           x: event.changedTouches[0].clientX,

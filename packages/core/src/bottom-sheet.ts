@@ -49,9 +49,9 @@ export function CreateBottomSheet(props: BottomSheetProps): BottomSheet {
   let mouseMoveStartY = 0;
   const handleStart: EventCallback = (event) => {
     mouseMoveStartY = mouseEventListener.getCoordinates(event).y;
-    console.log({ event, mouseMoveStartY });
   };
-  const handleEnd: EventCallback = (event) => {
+  // TODO: use request animation frame
+  const handleMove: EventCallback = (event) => {
     const mouseMoveEndY = mouseEventListener.getCoordinates(event).y;
     const isUp = mouseMoveStartY < mouseMoveEndY;
 
@@ -59,8 +59,10 @@ export function CreateBottomSheet(props: BottomSheetProps): BottomSheet {
       ? -(mouseMoveStartY - mouseMoveEndY)
       : mouseMoveEndY - mouseMoveStartY;
 
-    const prevTranslateY = getTranslate(bottomSheetContainer).y;
-    setTranslate(bottomSheetContainer, { y: prevTranslateY + offset });
+    setTranslate(bottomSheetContainer, { y: mouseMoveStartY + offset });
+  };
+  const handleEnd: EventCallback = (event) => {
+    // TODO: up, down, snapping logic
   };
 
   const mount = (mountingPoint?: Element): void => {
@@ -81,12 +83,12 @@ export function CreateBottomSheet(props: BottomSheetProps): BottomSheet {
     mountingPointOrFallback.appendChild(bottomSheetBackdrop);
     close();
 
-    mouseEventListener.addEventListeners(handleStart, handleEnd);
+    mouseEventListener.addEventListeners(handleStart, handleMove, handleEnd);
   };
 
   const unmount = (): void => {
     bottomSheetRoot.remove();
-    mouseEventListener.removeEventListeners(handleStart, handleEnd);
+    mouseEventListener.removeEventListeners(handleStart, handleMove, handleEnd);
 
     // TODO: clean up timers, references, etc...
   };
