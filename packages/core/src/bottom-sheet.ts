@@ -1,30 +1,24 @@
 import "./bottom-sheet.css";
+import { BottomSheetData, BottomSheetPosition } from "./bottom-sheet.type";
+
 import {
-  addClassName,
-  mergeClassNames,
-  removeClassName,
-} from "./utils/css/classNames";
-import { createElement } from "./utils/dom/createElement";
+  calcContainerHeight,
+  calcContentWrapperBottomFillerHeight,
+  defaultPositionToYCoordinate,
+} from "./bottom-sheet-calculator";
+import { setElementVisibility } from "./utils/dom/setElementVisibility";
+import { getTranslate, setTranslate } from "./utils/dom/transform";
+import { initializeBottomSheetElements } from "./bottom-sheet-initializer";
+import {
+  CrossPlatformEventListener,
+  EventCallback,
+} from "./utils/event-listeners/CrossPlatformEventListener";
 
 export interface BottomSheetProps {
   content: string;
   width?: string;
   marginTop?: number;
   defaultPosition?: BottomSheetPosition;
-}
-
-export type BottomSheetPosition = "top" | "middle" | "content-height";
-
-enum ClassNames {
-  Backdrop = "pbs-backdrop",
-
-  Root = "pbs-root",
-  Sheet = "pbs-sheet",
-
-  Handle = "pbs-handle",
-  HandleBar = "pbs-handle-bar",
-
-  ContentWrapper = "pbs-content-wrapper",
 }
 
 export interface BottomSheet {
@@ -40,70 +34,81 @@ export function CreateBottomSheet(props: BottomSheetProps): BottomSheet {
   const {
     bottomSheetBackdrop,
     bottomSheetRoot,
-    bottomSheetSheet,
+    bottomSheetContainer,
     bottomSheetContentWrapper,
     bottomSheetHandle,
-  } = initializeBottomSheet(props);
+  } = initializeBottomSheetElements(props);
 
-  // TODO: Use a class
-  const bottomSheetData: {
-    sheetHeight: number | null;
-  } = {
-    sheetHeight: null,
+  const bottomSheetData: BottomSheetData = {
+    containerHeight: null,
+  };
+
+  // Event listeners
+  const mouseEventListener = new CrossPlatformEventListener(bottomSheetHandle);
+  let mouseMoveStartY = 0;
+  const handleStart: EventCallback = (event) => {
+    mouseMoveStartY = mouseEventListener.getCoordinates(event).y;
+    console.log({ mouseMoveStartY });
+  };
+  const handleEnd: EventCallback = (event) => {
+    const mouseMoveEndY = mouseEventListener.getCoordinates(event).y;
+    const isUp = mouseMoveStartY < mouseMoveEndY;
+
+    const offset = isUp
+      ? -(mouseMoveStartY - mouseMoveEndY)
+      : mouseMoveEndY - mouseMoveStartY;
+
+    const prevTranslateY = getTranslate(bottomSheetContainer).y;
+    setTranslate(bottomSheetContainer, { y: prevTranslateY + offset });
+
+    console.log({ mouseMoveStartY, mouseMoveEndY, offset, prevTranslateY });
   };
 
   const mount = (mountingPoint?: Element): void => {
-    const mountingPointOrFallback = mountingPoint ?? window.document.body;
+    // Style
+    bottomSheetContainer.style.paddingBottom =
+      calcContentWrapperBottomFillerHeight(
+        bottomSheetContentWrapper,
+        marginTop
+      );
+    bottomSheetData.containerHeight = calcContainerHeight(
+      bottomSheetContentWrapper,
+      bottomSheetHandle
+    );
 
+    // Mount
+    const mountingPointOrFallback = mountingPoint ?? window.document.body;
     mountingPointOrFallback.appendChild(bottomSheetRoot);
     mountingPointOrFallback.appendChild(bottomSheetBackdrop);
-
-    // TODO: setup event-listeners
-
-    const viewportHeight = window.innerHeight;
-
-    console.log({ viewportHeight });
-
-    bottomSheetSheet.style.paddingBottom = `${viewportHeight - bottomSheetContentWrapper.clientHeight - marginTop}px`;
-
-    bottomSheetData.sheetHeight =
-      bottomSheetContentWrapper.clientHeight + bottomSheetHandle.clientHeight;
-
     close();
+
+    mouseEventListener.addEventListeners(handleStart, handleEnd);
   };
 
   const unmount = (): void => {
     bottomSheetRoot.remove();
-    // TODO: remove event-listeners, timers, references, etc...
+    mouseEventListener.removeEventListeners(handleStart, handleEnd);
+
+    // TODO: clean up timers, references, etc...
   };
 
-  function defaultPositionToYCoordinate(position: BottomSheetPosition) {
-    switch (position) {
-      case "content-height":
-        return (
-          bottomSheetSheet.clientHeight - (bottomSheetData?.sheetHeight ?? 0)
-        );
-      case "middle":
-        return (
-          bottomSheetSheet.clientHeight / 2 -
-          (bottomSheetData?.sheetHeight ?? 0)
-        );
-      case "top":
-        return 0;
-      default:
-        return 0;
-    }
-  }
   const open = (): void => {
-    const yCoordinate = defaultPositionToYCoordinate(defaultPosition);
-    bottomSheetSheet.style.transform = `translate(0, ${yCoordinate}px)`;
+    const yCoordinate = defaultPositionToYCoordinate(
+      bottomSheetContainer,
+      bottomSheetData,
+      defaultPosition
+    );
+    setTranslate(bottomSheetContainer, { y: yCoordinate });
 
-    addClassName(bottomSheetBackdrop, "open");
+    setElementVisibility([bottomSheetBackdrop, bottomSheetContainer], true);
   };
 
   const close = (): void => {
-    bottomSheetSheet.style.transform = `translate(0, ${bottomSheetSheet.clientHeight}px)`;
-    removeClassName(bottomSheetBackdrop, "open");
+    setTranslate(bottomSheetContainer, {
+      y: bottomSheetContainer.clientHeight,
+    });
+
+    setElementVisibility([bottomSheetBackdrop, bottomSheetContainer], false);
   };
 
   return {
@@ -112,54 +117,4 @@ export function CreateBottomSheet(props: BottomSheetProps): BottomSheet {
     open,
     close,
   };
-
-  function initializeBottomSheet(props: BottomSheetProps) {
-    const { content = "" } = props;
-
-    const bottomSheetRoot = createElement(
-      "dialog",
-      mergeClassNames([ClassNames.Root, "root-reset-style"])
-    );
-
-    const bottomSheetSheet = createElement("section", ClassNames.Sheet);
-
-    const bottomSheetHandle = createElement("button", ClassNames.Handle);
-
-    const bottomSheetHandleBar = createElement("span", ClassNames.HandleBar);
-
-    bottomSheetHandle.appendChild(bottomSheetHandleBar);
-
-    const bottomSheetContentWrapper = createElement(
-      "article",
-      ClassNames.ContentWrapper
-    );
-
-    bottomSheetRoot.appendChild(bottomSheetSheet);
-
-    bottomSheetSheet.appendChild(bottomSheetHandle);
-    bottomSheetSheet.appendChild(bottomSheetContentWrapper);
-
-    // TODO: Sanitize the content.
-    const contentElement = document.createElement("div");
-    contentElement.innerHTML = content;
-    bottomSheetContentWrapper.appendChild(contentElement);
-
-    // TODO: Use a better html element for the backdrop.
-    const bottomSheetBackdrop = createElement("div", ClassNames.Backdrop);
-
-    return {
-      bottomSheetRoot,
-      bottomSheetBackdrop,
-      bottomSheetSheet,
-      bottomSheetHandle,
-      bottomSheetContentWrapper,
-    };
-  }
-
-  // TODO: Methods to expose
-  // setPosition: (position) => void
-
-  // TODO: Properties to expose
-  // getSize
-  // getPosition
 }

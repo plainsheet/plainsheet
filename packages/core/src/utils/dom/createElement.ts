@@ -1,4 +1,4 @@
-import { addClassName } from "../css/classNames";
+import { addClassName } from "./classNames";
 
 export function createElement(
   tagName: keyof HTMLElementTagNameMap,

@@ -50,7 +50,7 @@ function BottomSheetWrapper() {
         <button onClick={handleClose}>Close</button>
       </header>
 
-      <div id="pbs-mounting-point">a</div>
+      <div id="pbs-mounting-point" />
     </section>
   );
 }
