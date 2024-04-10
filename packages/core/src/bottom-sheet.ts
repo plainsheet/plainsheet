@@ -1,5 +1,5 @@
 import "./bottom-sheet.css";
-import { BottomSheetPosition } from "./bottom-sheet.type";
+import { BottomSheetPosition, SnapPoints } from "./bottom-sheet.type";
 
 import {
   calcContainerHeightExcludingFiller,
@@ -27,6 +27,7 @@ export interface BottomSheetProps {
   width?: string;
   marginTop?: number;
   defaultPosition?: BottomSheetPosition;
+  snapPoints: SnapPoints;
 }
 
 export interface BottomSheet {
@@ -37,7 +38,11 @@ export interface BottomSheet {
 }
 
 export function CreateBottomSheet(props: BottomSheetProps): BottomSheet {
-  const { defaultPosition = "middle", marginTop = 100 } = props;
+  const {
+    defaultPosition = "middle",
+    marginTop = 100,
+    snapPoints = [0.5, 0.8],
+  } = props;
 
   const {
     bottomSheetBackdrop,
@@ -48,7 +53,7 @@ export function CreateBottomSheet(props: BottomSheetProps): BottomSheet {
   } = initializeBottomSheetElements(props);
 
   const animationFrame = new AnimationFrame();
-  const windowMouseEventListener = new CrossPlatformMouseEventListener(
+  const documentBodyMouseEventListener = new CrossPlatformMouseEventListener(
     window.document.body
   );
   const handleEventListener = new CrossPlatformMouseEventListener(
@@ -56,15 +61,20 @@ export function CreateBottomSheet(props: BottomSheetProps): BottomSheet {
   );
 
   const onDragStart: EventCallback = handleDragStart(
-    windowMouseEventListener,
+    documentBodyMouseEventListener,
     bottomSheetContainer
   );
   const onDragMove: EventCallback = handleDragMove(
-    windowMouseEventListener,
+    documentBodyMouseEventListener,
     animationFrame,
     bottomSheetContainer
   );
-  const onDragEnd: EventCallback = handleDragEnd(windowMouseEventListener);
+  const onDragEnd: EventCallback = handleDragEnd(
+    documentBodyMouseEventListener,
+    snapPoints,
+    bottomSheetContainer,
+    animationFrame
+  );
 
   const mount = (mountingPoint?: Element): void => {
     // NOTE: Apply initial styles to elements.
@@ -85,7 +95,7 @@ export function CreateBottomSheet(props: BottomSheetProps): BottomSheet {
     handleEventListener.addEventListeners({
       onMove: handleDragTriggerClick,
     });
-    windowMouseEventListener.addEventListeners({
+    documentBodyMouseEventListener.addEventListeners({
       onStart: onDragStart,
       onMove: onDragMove,
       onEnd: onDragEnd,
@@ -98,7 +108,7 @@ export function CreateBottomSheet(props: BottomSheetProps): BottomSheet {
     handleEventListener.removeEventListeners({
       onMove: handleDragTriggerClick,
     });
-    windowMouseEventListener.removeEventListeners({
+    documentBodyMouseEventListener.removeEventListeners({
       onStart: onDragStart,
       onMove: onDragMove,
       onEnd: onDragEnd,
