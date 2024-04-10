@@ -6,11 +6,3 @@ export interface BottomSheet {
   open: () => void;
   close: () => void;
 }
-
-// TODO: Promote to a class when you need methods
-export interface BottomSheetData {
-  /**
-   * @description Handle + ContentWrapper
-   */
-  containerHeight: number | null;
-}

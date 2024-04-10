@@ -1,18 +1,25 @@
 import "./bottom-sheet.css";
-import { BottomSheetData, BottomSheetPosition } from "./bottom-sheet.type";
+import { BottomSheetPosition } from "./bottom-sheet.type";
 
 import {
-  calcContainerHeight,
+  calcContainerHeightExcludingFiller,
   calcContentWrapperBottomFillerHeight,
+  calcOffset,
   defaultPositionToYCoordinate,
 } from "./bottom-sheet-calculator";
-import { setElementVisibility } from "./utils/dom/setElementVisibility";
-import { getTranslate, setTranslate } from "./utils/dom/transform";
+import { setVisibility } from "./utils/dom/visibility";
 import { initializeBottomSheetElements } from "./bottom-sheet-initializer";
 import {
   CrossPlatformEventListener,
   EventCallback,
 } from "./utils/event-listeners/CrossPlatformEventListener";
+import { getTranslate, setTranslate } from "./utils/dom/translate";
+import { AnimationFrame } from "./utils/animation/AnimationFrame";
+import {
+  handleDragEnd,
+  handleDragMove,
+  handleDragStart,
+} from "./bottom-sheet-dragging";
 
 export interface BottomSheetProps {
   content: string;
@@ -39,78 +46,76 @@ export function CreateBottomSheet(props: BottomSheetProps): BottomSheet {
     bottomSheetHandle,
   } = initializeBottomSheetElements(props);
 
-  const bottomSheetData: BottomSheetData = {
-    containerHeight: null,
-  };
-
-  // Event listeners
+  const animationFrame = new AnimationFrame();
   const mouseEventListener = new CrossPlatformEventListener(window);
 
-  let mouseMoveStartY = 0;
-  const handleStart: EventCallback = (event) => {
-    mouseMoveStartY = mouseEventListener.getCoordinates(event).y;
-  };
-  // TODO: use request animation frame
-  const handleMove: EventCallback = (event) => {
-    const mouseMoveEndY = mouseEventListener.getCoordinates(event).y;
-    const isUp = mouseMoveStartY < mouseMoveEndY;
-
-    const offset = isUp
-      ? -(mouseMoveStartY - mouseMoveEndY)
-      : mouseMoveEndY - mouseMoveStartY;
-
-    setTranslate(bottomSheetContainer, { y: mouseMoveStartY + offset });
-  };
-  const handleEnd: EventCallback = (event) => {
-    // TODO: up, down, snapping logic
-  };
+  const onDragStart: EventCallback = handleDragStart(mouseEventListener);
+  const onDragMove: EventCallback = handleDragMove(
+    mouseEventListener,
+    animationFrame,
+    bottomSheetContainer
+  );
+  const onDragEnd: EventCallback = handleDragEnd(mouseEventListener);
 
   const mount = (mountingPoint?: Element): void => {
-    // Style
+    // NOTE: Apply initial styles to elements.
     bottomSheetContainer.style.paddingBottom =
       calcContentWrapperBottomFillerHeight(
         bottomSheetContentWrapper,
         marginTop
       );
-    bottomSheetData.containerHeight = calcContainerHeight(
-      bottomSheetContentWrapper,
-      bottomSheetHandle
-    );
 
-    // Mount
+    // NOTE: Mount elements to the document.
     const mountingPointOrFallback = mountingPoint ?? window.document.body;
     mountingPointOrFallback.appendChild(bottomSheetRoot);
     mountingPointOrFallback.appendChild(bottomSheetBackdrop);
-    close();
-
-    mouseEventListener.addEventListeners(handleStart, handleMove, handleEnd);
-  };
-
-  const unmount = (): void => {
-    bottomSheetRoot.remove();
-    mouseEventListener.removeEventListeners(handleStart, handleMove, handleEnd);
-
-    // TODO: clean up timers, references, etc...
-  };
-
-  const open = (): void => {
-    const yCoordinate = defaultPositionToYCoordinate(
-      bottomSheetContainer,
-      bottomSheetData,
-      defaultPosition
-    );
-    setTranslate(bottomSheetContainer, { y: yCoordinate });
-
-    setElementVisibility([bottomSheetBackdrop, bottomSheetContainer], true);
-  };
-
-  const close = (): void => {
     setTranslate(bottomSheetContainer, {
       y: bottomSheetContainer.clientHeight,
     });
 
-    setElementVisibility([bottomSheetBackdrop, bottomSheetContainer], false);
+    mouseEventListener.addEventListeners(onDragStart, onDragMove, onDragEnd);
   };
+
+  const unmount = (): void => {
+    bottomSheetRoot.remove();
+
+    mouseEventListener.removeEventListeners(onDragStart, onDragMove, onDragEnd);
+  };
+
+  const open = (): void => {
+    setVisibility([bottomSheetBackdrop, bottomSheetContainer], true);
+
+    const startY = bottomSheetContainer.clientHeight;
+    const endY = defaultPositionToYCoordinate(
+      bottomSheetContainer,
+      calcContainerHeightExcludingFiller(
+        bottomSheetContentWrapper,
+        bottomSheetHandle
+      ),
+      defaultPosition
+    );
+
+    translateContainer(startY, endY);
+  };
+
+  const close = (): void => {
+    setVisibility([bottomSheetBackdrop, bottomSheetContainer], false);
+
+    const startY = getTranslate(bottomSheetContainer).y;
+    const endY = bottomSheetContainer.clientHeight;
+
+    translateContainer(startY, endY);
+  };
+
+  function translateContainer(startY: number, endY: number) {
+    const offset = calcOffset(startY, endY);
+
+    animationFrame.start((progressPercent) => {
+      setTranslate(bottomSheetContainer, {
+        y: startY + offset * progressPercent,
+      });
+    }, 300);
+  }
 
   return {
     mount,

@@ -1,6 +1,6 @@
 import { BottomSheetProps } from "./bottom-sheet";
 import { ClassNames } from "./style/class-names";
-import { createElement } from "./utils/dom/createElement";
+import { createElement } from "./utils/dom/element";
 import { mergeClassNames } from "./utils/dom/classNames";
 
 export function initializeBottomSheetElements(props: BottomSheetProps) {

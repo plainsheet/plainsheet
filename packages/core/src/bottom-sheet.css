@@ -31,6 +31,14 @@
 
   z-index: 2;
 }
+.root-reset-style {
+  background-color: transparent;
+  color: inherit;
+  border: none;
+  outline: none;
+  padding: 0px;
+  margin: 0px;
+}
 .pbs-container {
   background-color: rgb(240, 240, 240);
 
@@ -46,7 +54,7 @@
 
   border-radius: 12px 12px 0px 0px;
 
-  transition: transform 0.2s ease-in-out;
+  /* transition: transform 0.2s ease-in-out; */
 }
 
 .pbs-handle {
@@ -77,13 +85,4 @@
 .pbs-content-wrapper {
   width: 100%;
   height: fit-content;
-}
-
-.root-reset-style {
-  background-color: transparent;
-  color: inherit;
-  border: none;
-  outline: none;
-  padding: 0px;
-  margin: 0px;
 }

@@ -1,8 +1,8 @@
-import { addClassName, removeClassName, toggleClassName } from "./classNames";
+import { addClassName, removeClassName } from "./classNames";
 
 const OPEN = "open";
 
-export function setElementVisibility(
+export function setVisibility(
   element: Element | Element[],
   visibility: boolean
 ) {
