@@ -10,6 +10,7 @@ export function initializeBottomSheetElements(props: BottomSheetProps) {
   );
   const bottomSheetContainer = createElement("section", ClassNames.Container);
   const bottomSheetHandle = createElement("button", ClassNames.Handle);
+  bottomSheetHandle.setAttribute("type", "button");
   const bottomSheetHandleBar = createElement("span", ClassNames.HandleBar);
   const bottomSheetContentWrapper = createElement(
     "article",

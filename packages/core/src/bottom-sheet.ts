@@ -10,15 +10,16 @@ import {
 import { setVisibility } from "./utils/dom/visibility";
 import { initializeBottomSheetElements } from "./bottom-sheet-initializer";
 import {
-  CrossPlatformEventListener,
+  CrossPlatformMouseEventListener,
   EventCallback,
-} from "./utils/event-listeners/CrossPlatformEventListener";
+} from "./utils/event-listeners/CrossPlatformMouseEventListener";
 import { getTranslate, setTranslate } from "./utils/dom/translate";
 import { AnimationFrame } from "./utils/animation/AnimationFrame";
 import {
   handleDragEnd,
   handleDragMove,
   handleDragStart,
+  handleDragTriggerClick,
 } from "./bottom-sheet-dragging";
 
 export interface BottomSheetProps {
@@ -47,15 +48,23 @@ export function CreateBottomSheet(props: BottomSheetProps): BottomSheet {
   } = initializeBottomSheetElements(props);
 
   const animationFrame = new AnimationFrame();
-  const mouseEventListener = new CrossPlatformEventListener(window);
+  const windowMouseEventListener = new CrossPlatformMouseEventListener(
+    window.document.body
+  );
+  const handleEventListener = new CrossPlatformMouseEventListener(
+    bottomSheetHandle
+  );
 
-  const onDragStart: EventCallback = handleDragStart(mouseEventListener);
+  const onDragStart: EventCallback = handleDragStart(
+    windowMouseEventListener,
+    bottomSheetContainer
+  );
   const onDragMove: EventCallback = handleDragMove(
-    mouseEventListener,
+    windowMouseEventListener,
     animationFrame,
     bottomSheetContainer
   );
-  const onDragEnd: EventCallback = handleDragEnd(mouseEventListener);
+  const onDragEnd: EventCallback = handleDragEnd(windowMouseEventListener);
 
   const mount = (mountingPoint?: Element): void => {
     // NOTE: Apply initial styles to elements.
@@ -73,13 +82,27 @@ export function CreateBottomSheet(props: BottomSheetProps): BottomSheet {
       y: bottomSheetContainer.clientHeight,
     });
 
-    mouseEventListener.addEventListeners(onDragStart, onDragMove, onDragEnd);
+    handleEventListener.addEventListeners({
+      onMove: handleDragTriggerClick,
+    });
+    windowMouseEventListener.addEventListeners({
+      onStart: onDragStart,
+      onMove: onDragMove,
+      onEnd: onDragEnd,
+    });
   };
 
   const unmount = (): void => {
     bottomSheetRoot.remove();
 
-    mouseEventListener.removeEventListeners(onDragStart, onDragMove, onDragEnd);
+    handleEventListener.removeEventListeners({
+      onMove: handleDragTriggerClick,
+    });
+    windowMouseEventListener.removeEventListeners({
+      onStart: onDragStart,
+      onMove: onDragMove,
+      onEnd: onDragEnd,
+    });
   };
 
   const open = (): void => {
@@ -95,6 +118,7 @@ export function CreateBottomSheet(props: BottomSheetProps): BottomSheet {
       defaultPosition
     );
 
+    animationFrame.stop();
     translateContainer(startY, endY);
   };
 
@@ -104,6 +128,7 @@ export function CreateBottomSheet(props: BottomSheetProps): BottomSheet {
     const startY = getTranslate(bottomSheetContainer).y;
     const endY = bottomSheetContainer.clientHeight;
 
+    animationFrame.stop();
     translateContainer(startY, endY);
   };
 

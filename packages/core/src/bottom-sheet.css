@@ -16,7 +16,6 @@
 }
 
 .pbs-root {
-  pointer-events: none;
   position: fixed;
   left: 0;
   bottom: 0;
@@ -53,8 +52,6 @@
   height: fit-content;
 
   border-radius: 12px 12px 0px 0px;
-
-  /* transition: transform 0.2s ease-in-out; */
 }
 
 .pbs-handle {

@@ -1,35 +1,50 @@
 import { calcOffset } from "./bottom-sheet-calculator";
 import { AnimationFrame } from "./utils/animation/AnimationFrame";
-import { setTranslate } from "./utils/dom/translate";
+import { getTranslate, setTranslate } from "./utils/dom/translate";
 import {
-  CrossPlatformEventListener,
-  CrossPlatFormMouseEvent,
-} from "./utils/event-listeners/CrossPlatformEventListener";
+  CrossPlatformMouseEvent,
+  CrossPlatformMouseEventListener,
+} from "./utils/event-listeners/CrossPlatformMouseEventListener";
 import { isNumber } from "./utils/types/isNumber";
 
 interface DraggingState {
   startY: number | null;
+  containerStartTranslate: {
+    x: number;
+    y: number;
+  };
   isDragging: boolean;
 }
 const draggingState: DraggingState = {
   startY: null,
+  containerStartTranslate: {
+    x: 0,
+    y: 0,
+  },
   isDragging: false,
 } as const;
 
+export const handleDragTriggerClick = () => {
+  draggingState.isDragging = true;
+};
+
 export const handleDragStart =
-  (eventListener: CrossPlatformEventListener) =>
-  (event: CrossPlatFormMouseEvent) => {
+  (
+    eventListener: CrossPlatformMouseEventListener,
+    bottomSheetContainer: HTMLElement
+  ) =>
+  (event: CrossPlatformMouseEvent) => {
     draggingState.startY = eventListener.getCoordinates(event).y;
-    draggingState.isDragging = true;
+    draggingState.containerStartTranslate = getTranslate(bottomSheetContainer);
   };
 
 export const handleDragMove =
   (
-    eventListener: CrossPlatformEventListener,
+    eventListener: CrossPlatformMouseEventListener,
     animationFrame: AnimationFrame,
     bottomSheetContainer: HTMLElement
   ) =>
-  (event: CrossPlatFormMouseEvent) => {
+  (event: CrossPlatformMouseEvent) => {
     moveSheetToPointer(
       event,
       eventListener,
@@ -39,8 +54,8 @@ export const handleDragMove =
   };
 
 function moveSheetToPointer(
-  event: CrossPlatFormMouseEvent,
-  eventListener: CrossPlatformEventListener,
+  event: CrossPlatformMouseEvent,
+  eventListener: CrossPlatformMouseEventListener,
   animationFrame: AnimationFrame,
   bottomSheetContainer: HTMLElement
 ) {
@@ -50,21 +65,23 @@ function moveSheetToPointer(
   if (!isNumber(draggingState.startY)) {
     return;
   }
+
   const endY = eventListener.getCoordinates(event).y;
   const offset = calcOffset(draggingState.startY, endY);
+
   animationFrame.start(() => {
     if (!isNumber(draggingState.startY)) {
       return;
     }
     setTranslate(bottomSheetContainer, {
-      y: draggingState.startY + offset,
+      y: draggingState.containerStartTranslate.y + offset,
     });
   }, 0);
 }
 
 export const handleDragEnd =
-  (eventListener: CrossPlatformEventListener) =>
-  (event: CrossPlatFormMouseEvent) => {
+  (eventListener: CrossPlatformMouseEventListener) =>
+  (event: CrossPlatformMouseEvent) => {
     if (!draggingState.isDragging) {
       return;
     }
