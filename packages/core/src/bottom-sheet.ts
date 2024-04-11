@@ -4,7 +4,6 @@ import { BottomSheetPosition, SnapPoints } from "./bottom-sheet.type";
 import {
   calcContainerHeightExcludingFiller,
   calcContentWrapperBottomFillerHeight,
-  calcOffset,
   defaultPositionToYCoordinate,
 } from "./bottom-sheet-calculator";
 import { setVisibility } from "./utils/dom/visibility";
@@ -21,6 +20,7 @@ import {
   handleDragStart,
   handleDragTriggerClick,
 } from "./bottom-sheet-dragging";
+import { translateContainer } from "./utils/animation/translateContainer";
 
 export interface BottomSheetProps {
   content: string;
@@ -67,13 +67,15 @@ export function CreateBottomSheet(props: BottomSheetProps): BottomSheet {
   const onDragMove: EventCallback = handleDragMove(
     documentBodyMouseEventListener,
     animationFrame,
-    bottomSheetContainer
+    bottomSheetContainer,
+    marginTop
   );
   const onDragEnd: EventCallback = handleDragEnd(
     documentBodyMouseEventListener,
     snapPoints,
     bottomSheetContainer,
-    animationFrame
+    animationFrame,
+    close
   );
 
   const mount = (mountingPoint?: Element): void => {
@@ -128,28 +130,16 @@ export function CreateBottomSheet(props: BottomSheetProps): BottomSheet {
       defaultPosition
     );
 
-    animationFrame.stop();
-    translateContainer(startY, endY);
+    translateContainer(startY, endY, animationFrame, bottomSheetContainer);
   };
 
-  const close = (): void => {
+  function close() {
     setVisibility([bottomSheetBackdrop, bottomSheetContainer], false);
 
     const startY = getTranslate(bottomSheetContainer).y;
     const endY = bottomSheetContainer.clientHeight;
 
-    animationFrame.stop();
-    translateContainer(startY, endY);
-  };
-
-  function translateContainer(startY: number, endY: number) {
-    const offset = calcOffset(startY, endY);
-
-    animationFrame.start((progressPercent) => {
-      setTranslate(bottomSheetContainer, {
-        y: startY + offset * progressPercent,
-      });
-    }, 300);
+    translateContainer(startY, endY, animationFrame, bottomSheetContainer);
   }
 
   return {

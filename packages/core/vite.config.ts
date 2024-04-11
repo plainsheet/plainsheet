@@ -5,7 +5,7 @@ import dts from "vite-plugin-dts";
  * TODO: Replace it with a built-in feature when it is merged
  * @see https://github.com/vitejs/vite/pull/13565
  */
-import { libInjectCss } from "vite-plugin-lib-inject-css";
+import cssInjectedByJsPlugin from "vite-plugin-css-injected-by-js";
 
 export default defineConfig({
   build: {
@@ -18,5 +18,5 @@ export default defineConfig({
     cssMinify: true,
     cssCodeSplit: true,
   },
-  plugins: [dts(), libInjectCss()],
+  plugins: [dts(), cssInjectedByJsPlugin()],
 });

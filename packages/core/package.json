@@ -34,8 +34,8 @@
     "eslint": "^8.57.0",
     "typescript": "^5.2.2",
     "vite": "^5.2.0",
-    "vite-plugin-dts": "^3.8.1",
-    "vite-plugin-lib-inject-css": "^2.0.1"
+    "vite-plugin-css-injected-by-js": "^3.5.0",
+    "vite-plugin-dts": "^3.8.1"
   },
   "publishConfig": {
     "access": "public"

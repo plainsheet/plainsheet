@@ -43,14 +43,16 @@ export const handleDragMove =
   (
     eventListener: CrossPlatformMouseEventListener,
     animationFrame: AnimationFrame,
-    bottomSheetContainer: HTMLElement
+    bottomSheetContainer: HTMLElement,
+    dragTopPointLimit: number
   ) =>
   (event: CrossPlatformMouseEvent) => {
     moveSheetToPointer(
       event,
       eventListener,
       animationFrame,
-      bottomSheetContainer
+      bottomSheetContainer,
+      dragTopPointLimit
     );
   };
 
@@ -58,7 +60,8 @@ function moveSheetToPointer(
   event: CrossPlatformMouseEvent,
   eventListener: CrossPlatformMouseEventListener,
   animationFrame: AnimationFrame,
-  bottomSheetContainer: HTMLElement
+  bottomSheetContainer: HTMLElement,
+  dragTopPointLimit: number
 ) {
   if (!draggingState.isDragging) {
     return;
@@ -68,6 +71,10 @@ function moveSheetToPointer(
   }
 
   const endY = eventListener.getCoordinates(event).y;
+  if (endY <= dragTopPointLimit) {
+    return;
+  }
+
   const offset = calcOffset(draggingState.startY, endY);
 
   animationFrame.start(() => {
@@ -85,7 +92,8 @@ export const handleDragEnd =
     eventListener: CrossPlatformMouseEventListener,
     snapPoints: SnapPoints,
     bottomSheetContainer: HTMLElement,
-    animationFrame: AnimationFrame
+    animationFrame: AnimationFrame,
+    onClose: () => void
   ) =>
   (event: CrossPlatformMouseEvent) => {
     if (!draggingState.isDragging) {
@@ -105,13 +113,13 @@ export const handleDragEnd =
     const direction = calcDraggingDirection(startY, endY);
 
     if (direction.isUp) {
-      console.log("UP");
       const snapPointsInAsc = [...snapPoints].sort(
-        (left, right) => right - left
+        (left, right) => left - right
       );
 
       for (let snapPoint of snapPointsInAsc) {
         const snapPointY = window.innerHeight - snapPoint * window.innerHeight;
+
         if (endY >= snapPointY) {
           const offset = calcOffset(containerEndY, snapPointY);
           animationFrame.start((progressPercent) => {
@@ -131,13 +139,13 @@ export const handleDragEnd =
         });
       }, 300);
     } else if (direction.isDown) {
-      console.log("DOWN");
       const snapPointsInDesc = [...snapPoints].sort(
-        (left, right) => left - right
+        (left, right) => right - left
       );
 
       for (let snapPoint of snapPointsInDesc) {
         const snapPointY = window.innerHeight - snapPoint * window.innerHeight;
+
         if (endY <= snapPointY) {
           const offset = calcOffset(containerEndY, snapPointY);
           animationFrame.start((progressPercent) => {
@@ -148,16 +156,8 @@ export const handleDragEnd =
 
           return;
         }
-
-        const offset = calcOffset(
-          containerEndY,
-          bottomSheetContainer.clientHeight
-        );
-        animationFrame.start((progressPercent) => {
-          setTranslate(bottomSheetContainer, {
-            y: containerEndY + offset * progressPercent,
-          });
-        }, 300);
       }
+
+      onClose();
     }
   };
