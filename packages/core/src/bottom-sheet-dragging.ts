@@ -118,10 +118,15 @@ export const handleDragEnd =
       );
 
       for (let snapPoint of snapPointsInAsc) {
-        const snapPointY = window.innerHeight - snapPoint * window.innerHeight;
+        const snapPointY =
+          window.innerHeight -
+          snapPoint * window.innerHeight -
+          (window.innerHeight - bottomSheetContainer.clientHeight);
 
         if (endY >= snapPointY) {
           const offset = calcOffset(containerEndY, snapPointY);
+
+          animationFrame.stop();
           animationFrame.start((progressPercent) => {
             setTranslate(bottomSheetContainer, {
               y: containerEndY + offset * progressPercent,
@@ -144,10 +149,20 @@ export const handleDragEnd =
       );
 
       for (let snapPoint of snapPointsInDesc) {
-        const snapPointY = window.innerHeight - snapPoint * window.innerHeight;
+        // Snap point position from the top
+        //  window.innerHeight - snapPoint * window.innerHeight
+        // Top point of the container when the position is 0.
+        // It could be just marginTop.
+        //  (window.innerHeight - bottomSheetContainer.clientHeight)
+        const snapPointY =
+          window.innerHeight -
+          snapPoint * window.innerHeight -
+          (window.innerHeight - bottomSheetContainer.clientHeight);
 
         if (endY <= snapPointY) {
           const offset = calcOffset(containerEndY, snapPointY);
+
+          animationFrame.stop();
           animationFrame.start((progressPercent) => {
             setTranslate(bottomSheetContainer, {
               y: containerEndY + offset * progressPercent,
