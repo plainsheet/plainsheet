@@ -138,6 +138,7 @@ export const handleDragEnd =
       }
 
       const offset = calcOffset(containerEndY, 0);
+      animationFrame.stop();
       animationFrame.start((progressPercent) => {
         setTranslate(bottomSheetContainer, {
           y: containerEndY + offset * progressPercent,

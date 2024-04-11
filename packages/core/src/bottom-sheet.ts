@@ -41,7 +41,7 @@ export function CreateBottomSheet(props: BottomSheetProps): BottomSheet {
   const {
     defaultPosition = "middle",
     marginTop = 100,
-    snapPoints = [0.2, 0.5, 0.65, 0.8],
+    snapPoints = [0.5],
   } = props;
 
   const {
