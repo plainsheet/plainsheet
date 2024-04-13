@@ -1,6 +1,7 @@
 import { calcOffset } from "../../bottom-sheet-calculator";
 import { setTranslate } from "../dom/translate";
 import { AnimationFrame } from "./AnimationFrame";
+import { easeInOut } from "./cubic-bezier";
 
 export function translateContainer(
   startY: number,
@@ -14,7 +15,7 @@ export function translateContainer(
 
   animationFrame.start((progressPercent) => {
     setTranslate(bottomSheetContainer, {
-      y: startY + offset * progressPercent,
+      y: startY + offset * easeInOut(progressPercent),
     });
-  }, 300);
+  }, 200);
 }
