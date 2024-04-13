@@ -11,7 +11,7 @@ import {
   handleDragMove,
   handleDragStart,
   handleDragTriggerClick,
-} from "./event-handlers/dragging-handler";
+} from "./animation/dragging-handler";
 import { AnimationFrame } from "./utils/animation/AnimationFrame";
 import { calcContentWrapperBottomFillerHeight } from "./calculator/size-calculator";
 

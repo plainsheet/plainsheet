@@ -4,22 +4,25 @@ import {
 } from "src/calculator/position-calculator";
 import { SnapPoints } from "../bottom-sheet.type";
 import { AnimationFrame } from "../utils/animation/AnimationFrame";
-import { spring } from "../utils/animation/cubic-bezier";
 import { getTranslate, setTranslate } from "../utils/dom/translate";
 import {
   CrossPlatformMouseEvent,
   CrossPlatformMouseEventListener,
 } from "../utils/event-listeners/CrossPlatformMouseEventListener";
 import { isNumber } from "../utils/types/isNumber";
+import { Coordinates, Position } from "src/animation/animation.type";
+import { translateContainer } from "./animation";
 
 interface DraggingState {
-  startY: number | null;
-  containerStartTranslate: {
-    x: number;
-    y: number;
-  };
+  /** @description Used to know how far the cursor moved. */
+  startY: Position | null;
+
+  /** @description Used to know where was the bottom sheet before dragging. */
+  containerStartTranslate: Coordinates;
+
   isDragging: boolean;
 }
+
 const draggingState: DraggingState = {
   startY: null,
   containerStartTranslate: {
@@ -35,17 +38,17 @@ export const handleDragTriggerClick = () => {
 
 export const handleDragStart =
   (
-    eventListener: CrossPlatformMouseEventListener,
+    mouseEventListener: CrossPlatformMouseEventListener,
     bottomSheetContainer: HTMLElement
   ) =>
   (event: CrossPlatformMouseEvent) => {
-    draggingState.startY = eventListener.getCoordinates(event).y;
+    draggingState.startY = mouseEventListener.getCoordinates(event).y;
     draggingState.containerStartTranslate = getTranslate(bottomSheetContainer);
   };
 
 export const handleDragMove =
   (
-    eventListener: CrossPlatformMouseEventListener,
+    mouseEventListener: CrossPlatformMouseEventListener,
     bottomSheetContainer: HTMLElement,
     animationFrame: AnimationFrame,
     dragTopPointLimit: number
@@ -53,7 +56,7 @@ export const handleDragMove =
   (event: CrossPlatformMouseEvent) => {
     moveSheetToPointer(
       event,
-      eventListener,
+      mouseEventListener,
       animationFrame,
       bottomSheetContainer,
       dragTopPointLimit
@@ -62,7 +65,7 @@ export const handleDragMove =
 
 function moveSheetToPointer(
   event: CrossPlatformMouseEvent,
-  eventListener: CrossPlatformMouseEventListener,
+  mouseEventListener: CrossPlatformMouseEventListener,
   animationFrame: AnimationFrame,
   bottomSheetContainer: HTMLElement,
   dragTopPointLimit: number
@@ -74,7 +77,7 @@ function moveSheetToPointer(
     return;
   }
 
-  const endY = eventListener.getCoordinates(event).y;
+  const endY = mouseEventListener.getCoordinates(event).y;
   if (endY <= dragTopPointLimit) {
     return;
   }
@@ -116,63 +119,58 @@ export const handleDragEnd =
 
     const direction = calcDraggingDirection(startY, endY);
 
+    /** @description An empty space between open container and the top of the viewport(props.marginTop). */
+    // TODO: Receive it from the caller
+    const dragTopPointLimit =
+      window.innerHeight - bottomSheetContainer.clientHeight;
+
     if (direction.isUp) {
       const snapPointsInAsc = [...snapPoints].sort(
         (left, right) => left - right
       );
 
       for (let snapPoint of snapPointsInAsc) {
-        const snapPointY =
-          window.innerHeight -
-          snapPoint * window.innerHeight -
-          (window.innerHeight - bottomSheetContainer.clientHeight);
+        //  NOTE: snapPointY is a position from the top of the viewport.
+        //    window.innerHeight - (snapPoint * window.innerHeight)
+        const snapPointY = Math.max(
+          window.innerHeight - snapPoint * window.innerHeight,
+          dragTopPointLimit
+        );
 
         if (endY >= snapPointY) {
-          const offset = calcOffset(containerEndY, snapPointY);
-
-          animationFrame.stop();
-          animationFrame.start((progressPercent) => {
-            setTranslate(bottomSheetContainer, {
-              y: containerEndY + offset * spring(progressPercent),
-            });
-          }, 200);
+          translateContainer(
+            containerEndY,
+            snapPointY,
+            animationFrame,
+            bottomSheetContainer
+          );
 
           return;
         }
       }
 
-      const offset = calcOffset(containerEndY, 0);
-      animationFrame.stop();
-      animationFrame.start((progressPercent) => {
-        setTranslate(bottomSheetContainer, {
-          y: containerEndY + offset * spring(progressPercent),
-        });
-      }, 200);
+      // NOTE: Translate to the fully open position when it moves past all snap points.
+      translateContainer(
+        containerEndY,
+        0,
+        animationFrame,
+        bottomSheetContainer
+      );
     } else if (direction.isDown) {
       const snapPointsInDesc = [...snapPoints].sort(
         (left, right) => right - left
       );
 
       for (let snapPoint of snapPointsInDesc) {
-        // Snap point position from the top
-        //  window.innerHeight - snapPoint * window.innerHeight
-        // Top point of the container when the position is 0.
-        // It could be just marginTop.
-        //  (window.innerHeight - bottomSheetContainer.clientHeight)
-        const snapPointY =
-          window.innerHeight -
-          snapPoint * window.innerHeight -
-          (window.innerHeight - bottomSheetContainer.clientHeight);
+        const snapPointY = window.innerHeight - snapPoint * window.innerHeight;
 
         if (endY <= snapPointY) {
-          const offset = calcOffset(containerEndY, snapPointY);
-
-          animationFrame.stop();
-          animationFrame.start((progressPercent) => {
-            setTranslate(bottomSheetContainer, {
-              y: containerEndY + offset * spring(progressPercent),
-            });
-          }, 200);
+          translateContainer(
+            containerEndY,
+            snapPointY,
+            animationFrame,
+            bottomSheetContainer
+          );
 
           return;
         }

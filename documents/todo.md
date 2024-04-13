@@ -1,6 +1,3 @@
-- [] Document the core.
-- [] Refactor it
-
 - [] Make the default appearance beautiful, yet simple.
 - [] Refactor it
 

@@ -13,7 +13,7 @@ import { AnimationFrame } from "./utils/animation/AnimationFrame";
 import { calcContainerHeightExcludingFiller } from "./calculator/size-calculator";
 
 import { convertDefaultPositionToYCoordinate } from "./calculator/position-calculator";
-import { translateContainer } from "./bottom-sheet-animator";
+import { translateContainer } from "./animation/animation";
 
 export interface BottomSheetProps {
   content: string;
