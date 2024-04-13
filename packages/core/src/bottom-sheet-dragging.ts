@@ -1,7 +1,7 @@
 import { calcDraggingDirection, calcOffset } from "./bottom-sheet-calculator";
 import { SnapPoints } from "./bottom-sheet.type";
 import { AnimationFrame } from "./utils/animation/AnimationFrame";
-import { easeInOut } from "./utils/animation/cubic-bezier";
+import { spring } from "./utils/animation/cubic-bezier";
 import { getTranslate, setTranslate } from "./utils/dom/translate";
 import {
   CrossPlatformMouseEvent,
@@ -130,7 +130,7 @@ export const handleDragEnd =
           animationFrame.stop();
           animationFrame.start((progressPercent) => {
             setTranslate(bottomSheetContainer, {
-              y: containerEndY + offset * easeInOut(progressPercent),
+              y: containerEndY + offset * spring(progressPercent),
             });
           }, 200);
 
@@ -142,7 +142,7 @@ export const handleDragEnd =
       animationFrame.stop();
       animationFrame.start((progressPercent) => {
         setTranslate(bottomSheetContainer, {
-          y: containerEndY + offset * easeInOut(progressPercent),
+          y: containerEndY + offset * spring(progressPercent),
         });
       }, 200);
     } else if (direction.isDown) {
@@ -167,7 +167,7 @@ export const handleDragEnd =
           animationFrame.stop();
           animationFrame.start((progressPercent) => {
             setTranslate(bottomSheetContainer, {
-              y: containerEndY + offset * easeInOut(progressPercent),
+              y: containerEndY + offset * spring(progressPercent),
             });
           }, 200);
 

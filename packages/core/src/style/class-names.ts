@@ -13,6 +13,11 @@ export enum ClassNames {
    * It holds the handle and content, and moves up and down.
    */
   Container = "pbs-container",
+  /**
+   * @description Fills the gap between the bottom of the sheet and the bottom of the viewport,
+   * when the sheet is animated to show a bouncing effect.
+   */
+  GapFiller = "pbs-gap-filler",
 
   /**
    * @description The handle to drag the bottom sheet.

@@ -9,6 +9,10 @@ export function initializeBottomSheetElements(props: BottomSheetProps) {
     mergeClassNames([ClassNames.Root, "root-reset-style"])
   );
   const bottomSheetContainer = createElement("section", ClassNames.Container);
+  const bottomSheetContainerGapFiller = createElement(
+    "div",
+    ClassNames.GapFiller
+  );
   const bottomSheetHandle = createElement("button", ClassNames.Handle);
   bottomSheetHandle.setAttribute("type", "button");
   const bottomSheetHandleBar = createElement("span", ClassNames.HandleBar);
@@ -21,6 +25,7 @@ export function initializeBottomSheetElements(props: BottomSheetProps) {
   bottomSheetHandle.appendChild(bottomSheetHandleBar);
   bottomSheetContainer.appendChild(bottomSheetHandle);
   bottomSheetContainer.appendChild(bottomSheetContentWrapper);
+  bottomSheetContainer.appendChild(bottomSheetContainerGapFiller);
 
   // TODO: Sanitize the content.
   const contentElement = document.createElement("div");

@@ -1,3 +1,4 @@
+- [] Document it
 - [] Make the animation beautiful.
 - [] Refactor it
 

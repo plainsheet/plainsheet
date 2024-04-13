@@ -53,6 +53,17 @@
 
   border-radius: 12px 12px 0px 0px;
 }
+.pbs-container .pbs-gap-filler {
+  position: absolute;
+  bottom: -20vh;
+  left: 0;
+
+  background-color: rgb(240, 240, 240);
+  content: "";
+
+  width: 100%;
+  height: 20vh;
+}
 
 .pbs-handle {
   position: relative;
