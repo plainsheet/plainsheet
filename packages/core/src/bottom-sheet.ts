@@ -20,7 +20,7 @@ export interface BottomSheetProps {
   width?: string;
   marginTop?: number;
   defaultPosition?: BottomSheetPosition;
-  snapPoints: SnapPoints;
+  snapPoints?: SnapPoints;
 }
 
 export interface BottomSheet {

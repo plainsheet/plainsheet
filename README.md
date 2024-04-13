@@ -18,6 +18,7 @@ The minimalistic, configurable bottom-sheet for the Web.
   - Lifecycle callbacks
     - `beforeOpen`, `afterOpen`, `beforeClose`, `afterClose`, `onDragStart`, `onDragMove(direction, progress)`, `onDragEnd`
   - Behaviors
+    - `expandable`
     - `snappingPoints`
     - `closeOnOutsideClick`
     - `backgroundScrollable`

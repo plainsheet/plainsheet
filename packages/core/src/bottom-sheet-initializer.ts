@@ -109,7 +109,7 @@ function combineElements({
 
 export type InitializeEventsParams = {
   bottomSheetElements: BottomSheetElements;
-  bottomSheetProps: BottomSheetProps;
+  bottomSheetProps: Required<BottomSheetProps>;
   options: InitializerOptions;
 };
 
