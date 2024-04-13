@@ -1,5 +1,6 @@
 import { BottomSheetPosition } from "../bottom-sheet.type";
 
+/** @description It expects the bottom sheet to be open. */
 export function convertDefaultPositionToYCoordinate(
   viewportHeight: number,
   containerHeight: number,

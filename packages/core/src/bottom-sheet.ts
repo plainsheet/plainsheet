@@ -60,7 +60,7 @@ export function CreateBottomSheet(props: BottomSheetProps): BottomSheet {
     mountingPointOrFallback.appendChild(bottomSheetRoot);
     mountingPointOrFallback.appendChild(bottomSheetBackdrop);
 
-    // Hides the bottom sheet.
+    // Hides the bottom sheet, no matter how large the bottom sheet is.
     const viewportHeight = window.innerHeight;
     setTranslate(bottomSheetContainer, {
       y: viewportHeight,
@@ -78,6 +78,7 @@ export function CreateBottomSheet(props: BottomSheetProps): BottomSheet {
   const open = (): void => {
     setVisibility([bottomSheetBackdrop, bottomSheetContainer], true);
 
+    // Resets the position to the bottom of the viewport
     setTranslate(bottomSheetContainer, {
       y: bottomSheetContainer.clientHeight,
     });
