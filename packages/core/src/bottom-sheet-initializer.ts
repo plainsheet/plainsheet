@@ -17,6 +17,7 @@ import { calcContentWrapperBottomFillerHeight } from "./calculator/size-calculat
 
 export type InitializerOptions = {
   animationFrame: AnimationFrame;
+  onClose: () => void;
 };
 
 export function initializeBottomSheetElements(
@@ -144,7 +145,7 @@ function initializeEvents({
     bottomSheetContainer,
     animationFrame,
     snapPoints,
-    close
+    options.onClose
   );
 
   function attachEventListeners() {

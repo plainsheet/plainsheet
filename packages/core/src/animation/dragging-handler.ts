@@ -1,7 +1,7 @@
 import {
   calcDraggingDirection,
   calcOffset,
-} from "src/calculator/position-calculator";
+} from "../calculator/position-calculator";
 import { SnapPoints } from "../bottom-sheet.type";
 import { AnimationFrame } from "../utils/animation/AnimationFrame";
 import { getTranslate, setTranslate } from "../utils/dom/translate";

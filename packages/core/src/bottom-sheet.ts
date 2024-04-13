@@ -47,7 +47,7 @@ export function CreateBottomSheet(props: BottomSheetProps): BottomSheet {
   };
 
   const animationFrame = new AnimationFrame();
-  const initializerOptions = { animationFrame };
+  const initializerOptions = { animationFrame, onClose: close };
 
   const { elements, eventHandlers } = initializeBottomSheetElements(
     propsWithDefaults,
