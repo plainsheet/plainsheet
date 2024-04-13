@@ -1,6 +1,6 @@
-import { BottomSheetPosition } from "./bottom-sheet.type";
+import { BottomSheetPosition } from "../bottom-sheet.type";
 
-export function defaultPositionToYCoordinate(
+export function convertDefaultPositionToYCoordinate(
   bottomSheetContainer: Element,
   /**
    * @description Handle + ContentWrapper
@@ -24,23 +24,6 @@ export function defaultPositionToYCoordinate(
     default:
       return 0;
   }
-}
-
-export function calcContainerHeightExcludingFiller(
-  bottomSheetContentWrapper: HTMLElement,
-  bottomSheetHandle: HTMLElement
-) {
-  return (
-    bottomSheetContentWrapper.clientHeight + bottomSheetHandle.clientHeight
-  );
-}
-
-export function calcContentWrapperBottomFillerHeight(
-  bottomSheetContentWrapper: HTMLElement,
-  marginTop: number
-) {
-  const viewportHeight = window.innerHeight;
-  return `${viewportHeight - bottomSheetContentWrapper.clientHeight - marginTop}px`;
 }
 
 export function calcDraggingDirection(startY: number, endY: number) {

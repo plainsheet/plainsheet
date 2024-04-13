@@ -1,5 +1,4 @@
-- [] Document it
-- [] Make the animation beautiful.
+- [] Document the core.
 - [] Refactor it
 
 - [] Make the default appearance beautiful, yet simple.

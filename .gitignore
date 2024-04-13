@@ -7,6 +7,7 @@ node_modules
 .env
 .cache
 *.local
+.vscode
 
 # Build results
 dist

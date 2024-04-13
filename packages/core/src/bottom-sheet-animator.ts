@@ -1,7 +1,7 @@
-import { calcOffset } from "../../bottom-sheet-calculator";
-import { setTranslate } from "../dom/translate";
-import { AnimationFrame } from "./AnimationFrame";
-import { spring } from "./cubic-bezier";
+import { calcOffset } from "./calculator/position-calculator";
+import { AnimationFrame } from "./utils/animation/AnimationFrame";
+import { spring } from "./utils/animation/cubic-bezier";
+import { setTranslate } from "./utils/dom/translate";
 
 export function translateContainer(
   startY: number,

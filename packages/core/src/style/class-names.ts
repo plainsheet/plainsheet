@@ -36,3 +36,8 @@ export enum ClassNames {
    */
   ContentWrapper = "pbs-content-wrapper",
 }
+
+export enum ResetClassNames {
+  Button = "pbs-button-reset",
+  Dialog = "pbs-dialog-reset",
+}

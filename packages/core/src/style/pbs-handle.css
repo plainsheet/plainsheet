@@ -1,0 +1,27 @@
+.pbs-handle {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 25px;
+  cursor: pointer;
+}
+
+.pbs-button-reset {
+  background-color: transparent;
+  -webkit-appearance: none;
+  appearance: none;
+  outline: none;
+  border: none;
+}
+
+.pbs-handle-bar {
+  background-color: lightgray;
+  position: relative;
+  width: 40%;
+  height: 7px;
+
+  border-radius: 12px;
+}

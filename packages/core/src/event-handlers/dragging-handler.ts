@@ -1,13 +1,16 @@
-import { calcDraggingDirection, calcOffset } from "./bottom-sheet-calculator";
-import { SnapPoints } from "./bottom-sheet.type";
-import { AnimationFrame } from "./utils/animation/AnimationFrame";
-import { spring } from "./utils/animation/cubic-bezier";
-import { getTranslate, setTranslate } from "./utils/dom/translate";
+import {
+  calcDraggingDirection,
+  calcOffset,
+} from "src/calculator/position-calculator";
+import { SnapPoints } from "../bottom-sheet.type";
+import { AnimationFrame } from "../utils/animation/AnimationFrame";
+import { spring } from "../utils/animation/cubic-bezier";
+import { getTranslate, setTranslate } from "../utils/dom/translate";
 import {
   CrossPlatformMouseEvent,
   CrossPlatformMouseEventListener,
-} from "./utils/event-listeners/CrossPlatformMouseEventListener";
-import { isNumber } from "./utils/types/isNumber";
+} from "../utils/event-listeners/CrossPlatformMouseEventListener";
+import { isNumber } from "../utils/types/isNumber";
 
 interface DraggingState {
   startY: number | null;
@@ -43,8 +46,8 @@ export const handleDragStart =
 export const handleDragMove =
   (
     eventListener: CrossPlatformMouseEventListener,
-    animationFrame: AnimationFrame,
     bottomSheetContainer: HTMLElement,
+    animationFrame: AnimationFrame,
     dragTopPointLimit: number
   ) =>
   (event: CrossPlatformMouseEvent) => {
@@ -91,9 +94,9 @@ function moveSheetToPointer(
 export const handleDragEnd =
   (
     eventListener: CrossPlatformMouseEventListener,
-    snapPoints: SnapPoints,
     bottomSheetContainer: HTMLElement,
     animationFrame: AnimationFrame,
+    snapPoints: SnapPoints,
     onClose: () => void
   ) =>
   (event: CrossPlatformMouseEvent) => {

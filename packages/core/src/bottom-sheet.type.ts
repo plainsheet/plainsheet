@@ -1,11 +1,11 @@
-export type BottomSheetPosition = "top" | "middle" | "content-height";
-
 export interface BottomSheet {
   mount: (mountingPoint?: Element) => void;
   unmount: () => void;
   open: () => void;
   close: () => void;
 }
+
+export type BottomSheetPosition = "top" | "middle" | "content-height";
 
 /**
  * @description Points where it snaps to when the handle is released.
