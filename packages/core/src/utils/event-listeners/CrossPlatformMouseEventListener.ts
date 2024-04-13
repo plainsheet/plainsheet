@@ -1,6 +1,22 @@
 export type CrossPlatformMouseEvent = MouseEvent | TouchEvent;
 export type EventCallback = (event: CrossPlatformMouseEvent) => void;
 
+export enum EventPhase {
+  All = -1,
+  None = 0,
+  Capture = 1,
+  Target = 2,
+  Bubble = 3,
+}
+
+interface EventCallbackOptions {
+  eventPhase: EventPhase;
+}
+
+const defaultEventOptions = {
+  eventPhase: EventPhase.All,
+} as const;
+
 export class CrossPlatformMouseEventListener {
   private currentTarget: HTMLElement;
 
@@ -10,38 +26,72 @@ export class CrossPlatformMouseEventListener {
 
   public addEventListeners({
     onStart,
+    onStartOptions = defaultEventOptions,
     onMove,
     onEnd,
   }: {
     onStart?: EventCallback;
+    onStartOptions?: EventCallbackOptions;
     onMove?: EventCallback;
     onEnd?: EventCallback;
   }): void {
     // Touch events
     onStart &&
-      this.currentTarget.addEventListener("touchstart", onStart, {
-        passive: true,
-      });
-    onMove &&
-      this.currentTarget.addEventListener("touchmove", onMove, {
-        passive: true,
-      });
+      this.currentTarget.addEventListener(
+        "touchstart",
+        (event) => {
+          if (onStartOptions.eventPhase === EventPhase.All) {
+            onStart(event);
+            return;
+          }
+
+          if (
+            eventPhaseToEnum(event.eventPhase) === onStartOptions.eventPhase
+          ) {
+            onStart(event);
+          }
+        },
+        {
+          passive: true,
+        }
+      );
+    onMove && this.currentTarget.addEventListener("touchmove", onMove);
     onEnd &&
-      this.currentTarget.addEventListener("touchend", onEnd, { passive: true });
+      this.currentTarget.addEventListener("touchend", onEnd, {
+        passive: true,
+      });
 
     // Mouse events
     onStart &&
-      this.currentTarget.addEventListener("mousedown", (event) => {
-        onStart(event);
-      });
-    onMove &&
-      this.currentTarget.addEventListener("mousemove", onMove, {
-        passive: true,
-      });
+      this.currentTarget.addEventListener(
+        "mousedown",
+        (event) => {
+          if (onStartOptions.eventPhase === EventPhase.All) {
+            onStart(event);
+            return;
+          }
+
+          if (
+            eventPhaseToEnum(event.eventPhase) === onStartOptions.eventPhase
+          ) {
+            onStart(event);
+          }
+        },
+        {
+          passive: true,
+        }
+      );
+    onMove && this.currentTarget.addEventListener("mousemove", onMove);
     onEnd &&
-      this.currentTarget.addEventListener("mouseup", (event) => {
-        onEnd(event);
-      });
+      this.currentTarget.addEventListener(
+        "mouseup",
+        (event) => {
+          onEnd(event);
+        },
+        {
+          passive: true,
+        }
+      );
   }
 
   public removeEventListeners({
@@ -99,5 +149,20 @@ export class CrossPlatformMouseEventListener {
       x: 0,
       y: 0,
     };
+  }
+}
+
+function eventPhaseToEnum(eventPhase: number) {
+  switch (eventPhase) {
+    case 0:
+      return EventPhase.None;
+    case 1:
+      return EventPhase.Capture;
+    case 2:
+      return EventPhase.Target;
+    case 3:
+      return EventPhase.Bubble;
+    default:
+      return EventPhase.All;
   }
 }

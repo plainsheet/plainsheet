@@ -11,12 +11,12 @@ export function setVisibility(
   if (Array.isArray(element)) {
     element.forEach((el) => {
       shouldOpen ? addClassName(el, OPEN) : removeClassName(el, OPEN);
-      el.setAttribute("aria-hidden", shouldOpen ? "true" : "false");
+      el.setAttribute("aria-hidden", shouldOpen ? "false" : "true");
     });
 
     return;
   }
 
   shouldOpen ? addClassName(element, OPEN) : removeClassName(element, OPEN);
-  element.setAttribute("aria-hidden", shouldOpen ? "true" : "false");
+  element.setAttribute("aria-hidden", shouldOpen ? "false" : "true");
 }

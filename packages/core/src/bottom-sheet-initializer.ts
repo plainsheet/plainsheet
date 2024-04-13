@@ -5,6 +5,7 @@ import { mergeClassNames } from "./utils/dom/classNames";
 import {
   CrossPlatformMouseEventListener,
   EventCallback,
+  EventPhase,
 } from "./utils/event-listeners/CrossPlatformMouseEventListener";
 import {
   handleDragEnd,
@@ -118,11 +119,14 @@ function initializeEvents({
   options,
 }: InitializeEventsParams) {
   const { bottomSheetContainer, bottomSheetHandle } = bottomSheetElements;
-  const { marginTop, snapPoints } = bottomSheetProps;
+  const { snapPoints } = bottomSheetProps;
   const { animationFrame } = options;
 
   const documentBodyMouseEventListener = new CrossPlatformMouseEventListener(
     window.document.body
+  );
+  const containerEventListener = new CrossPlatformMouseEventListener(
+    bottomSheetContainer
   );
   const handleEventListener = new CrossPlatformMouseEventListener(
     bottomSheetHandle
@@ -136,8 +140,7 @@ function initializeEvents({
   const onDragMove: EventCallback = handleDragMove(
     documentBodyMouseEventListener,
     bottomSheetContainer,
-    animationFrame,
-    marginTop ?? 0
+    animationFrame
   );
 
   const onDragEnd: EventCallback = handleDragEnd(
@@ -149,6 +152,12 @@ function initializeEvents({
   );
 
   function attachEventListeners() {
+    containerEventListener.addEventListeners({
+      onStart: handleDragTriggerClick,
+      onStartOptions: {
+        eventPhase: EventPhase.Target,
+      },
+    });
     handleEventListener.addEventListeners({
       onStart: handleDragTriggerClick,
     });
@@ -161,6 +170,9 @@ function initializeEvents({
   }
 
   function clearEventListeners() {
+    containerEventListener.removeEventListeners({
+      onStart: handleDragTriggerClick,
+    });
     handleEventListener.removeEventListeners({
       onMove: handleDragTriggerClick,
     });

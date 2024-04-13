@@ -18,9 +18,9 @@
 }
 
 .pbs-handle-bar {
-  background-color: lightgray;
+  background-color: rgba(168, 168, 168, 1);
   position: relative;
-  width: 40%;
+  width: 12%;
   height: 7px;
 
   border-radius: 12px;

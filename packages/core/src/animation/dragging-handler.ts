@@ -50,16 +50,14 @@ export const handleDragMove =
   (
     mouseEventListener: CrossPlatformMouseEventListener,
     bottomSheetContainer: HTMLElement,
-    animationFrame: AnimationFrame,
-    dragTopPointLimit: number
+    animationFrame: AnimationFrame
   ) =>
   (event: CrossPlatformMouseEvent) => {
     moveSheetToPointer(
       event,
       mouseEventListener,
       animationFrame,
-      bottomSheetContainer,
-      dragTopPointLimit
+      bottomSheetContainer
     );
   };
 
@@ -67,8 +65,7 @@ function moveSheetToPointer(
   event: CrossPlatformMouseEvent,
   mouseEventListener: CrossPlatformMouseEventListener,
   animationFrame: AnimationFrame,
-  bottomSheetContainer: HTMLElement,
-  dragTopPointLimit: number
+  bottomSheetContainer: HTMLElement
 ) {
   if (!draggingState.isDragging) {
     return;
@@ -78,11 +75,14 @@ function moveSheetToPointer(
   }
 
   const endY = mouseEventListener.getCoordinates(event).y;
-  if (endY <= dragTopPointLimit) {
-    return;
-  }
 
   const offset = calcOffset(draggingState.startY, endY);
+
+  const containerTranslateY = draggingState.containerStartTranslate.y + offset;
+
+  if (containerTranslateY <= 0) {
+    return;
+  }
 
   animationFrame.start(() => {
     if (!isNumber(draggingState.startY)) {
