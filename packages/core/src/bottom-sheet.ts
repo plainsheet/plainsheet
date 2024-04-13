@@ -10,7 +10,6 @@ import { setVisibility } from "./utils/dom/visibility";
 import { initializeBottomSheetElements } from "./bottom-sheet-initializer";
 import { getTranslate, setTranslate } from "./utils/dom/translate";
 import { AnimationFrame } from "./utils/animation/AnimationFrame";
-import { calcContainerHeightExcludingFiller } from "./calculator/size-calculator";
 
 import { convertDefaultPositionToYCoordinate } from "./calculator/position-calculator";
 import { translateContainer } from "./animation/animation";
@@ -32,7 +31,7 @@ export interface BottomSheet {
 
 export function CreateBottomSheet(props: BottomSheetProps): BottomSheet {
   const {
-    defaultPosition = "middle",
+    defaultPosition = "top",
     marginTop = 100,
     snapPoints = [0.5],
     width = "100%",
@@ -53,13 +52,8 @@ export function CreateBottomSheet(props: BottomSheetProps): BottomSheet {
     propsWithDefaults,
     initializerOptions
   );
-  const {
-    bottomSheetBackdrop,
-    bottomSheetRoot,
-    bottomSheetContainer,
-    bottomSheetContentWrapper,
-    bottomSheetHandle,
-  } = elements;
+  const { bottomSheetBackdrop, bottomSheetRoot, bottomSheetContainer } =
+    elements;
 
   const mount = (mountingPoint?: Element): void => {
     const mountingPointOrFallback = mountingPoint ?? window.document.body;
@@ -67,8 +61,9 @@ export function CreateBottomSheet(props: BottomSheetProps): BottomSheet {
     mountingPointOrFallback.appendChild(bottomSheetBackdrop);
 
     // Hides the bottom sheet.
+    const viewportHeight = window.innerHeight;
     setTranslate(bottomSheetContainer, {
-      y: bottomSheetContainer.clientHeight,
+      y: viewportHeight,
     });
 
     eventHandlers.attachEventListeners();
@@ -83,14 +78,17 @@ export function CreateBottomSheet(props: BottomSheetProps): BottomSheet {
   const open = (): void => {
     setVisibility([bottomSheetBackdrop, bottomSheetContainer], true);
 
+    setTranslate(bottomSheetContainer, {
+      y: bottomSheetContainer.clientHeight,
+    });
+
     const startY = getTranslate(bottomSheetContainer).y;
 
+    const viewportHeight = window.innerHeight;
     const endY = convertDefaultPositionToYCoordinate(
-      bottomSheetContainer,
-      calcContainerHeightExcludingFiller(
-        bottomSheetContentWrapper,
-        bottomSheetHandle
-      ),
+      viewportHeight,
+      bottomSheetContainer.clientHeight,
+      marginTop,
       defaultPosition
     );
 

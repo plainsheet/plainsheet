@@ -1,26 +1,18 @@
 import { BottomSheetPosition } from "../bottom-sheet.type";
 
 export function convertDefaultPositionToYCoordinate(
-  bottomSheetContainer: Element,
-  /**
-   * @description Handle + ContentWrapper
-   */
-  containerHeightExcludingFiller: number,
+  viewportHeight: number,
+  containerHeight: number,
+  marginTop: number,
   position: BottomSheetPosition
 ) {
   switch (position) {
     case "content-height":
-      return (
-        bottomSheetContainer.clientHeight -
-        (containerHeightExcludingFiller ?? 0)
-      );
-    case "middle":
-      return (
-        bottomSheetContainer.clientHeight / 2 -
-        (containerHeightExcludingFiller ?? 0)
-      );
-    case "top":
       return 0;
+    case "middle":
+      return -(viewportHeight / 2 - containerHeight);
+    case "top":
+      return -(viewportHeight - containerHeight) + marginTop;
     default:
       return 0;
   }

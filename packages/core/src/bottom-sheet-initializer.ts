@@ -14,7 +14,6 @@ import {
   handleDragTriggerClick,
 } from "./animation/dragging-handler";
 import { AnimationFrame } from "./utils/animation/AnimationFrame";
-import { calcContentWrapperBottomFillerHeight } from "./calculator/size-calculator";
 
 export type InitializerOptions = {
   animationFrame: AnimationFrame;
@@ -33,13 +32,6 @@ export function initializeBottomSheetElements(
   const contentElement = document.createElement("div");
   contentElement.innerHTML = props.content ?? "";
   elements.bottomSheetContentWrapper.appendChild(contentElement);
-  // NOTE: To make the content expandable, we add an extra space below it,
-  // Extra space height = viewport height - content height
-  elements.bottomSheetContainer.style.paddingBottom =
-    calcContentWrapperBottomFillerHeight(
-      elements.bottomSheetContentWrapper,
-      props.marginTop
-    );
 
   const eventHandlers = initializeEvents({
     bottomSheetElements: elements,

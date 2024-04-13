@@ -80,7 +80,10 @@ function moveSheetToPointer(
 
   const containerTranslateY = draggingState.containerStartTranslate.y + offset;
 
-  if (containerTranslateY <= 0) {
+  const viewportHeight = window.innerHeight;
+  const containerHeight = bottomSheetContainer.clientHeight;
+  const topDraggingLimit = viewportHeight - containerHeight;
+  if (containerTranslateY <= -topDraggingLimit) {
     return;
   }
 
@@ -121,8 +124,9 @@ export const handleDragEnd =
 
     /** @description An empty space between open container and the top of the viewport(props.marginTop). */
     // TODO: Receive it from the caller
-    const dragTopPointLimit =
-      window.innerHeight - bottomSheetContainer.clientHeight;
+    const viewportHeight = window.innerHeight;
+    const containerHeight = bottomSheetContainer.clientHeight;
+    const topDraggingLimit = viewportHeight - containerHeight;
 
     if (direction.isUp) {
       const snapPointsInAsc = [...snapPoints].sort(
@@ -134,7 +138,7 @@ export const handleDragEnd =
         //    window.innerHeight - (snapPoint * window.innerHeight)
         const snapPointY = Math.max(
           window.innerHeight - snapPoint * window.innerHeight,
-          dragTopPointLimit
+          -topDraggingLimit
         );
 
         if (endY >= snapPointY) {
