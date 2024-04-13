@@ -95,7 +95,7 @@ export function CreateBottomSheet(props: BottomSheetProps): BottomSheet {
     });
 
     handleEventListener.addEventListeners({
-      onMove: handleDragTriggerClick,
+      onStart: handleDragTriggerClick,
     });
     documentBodyMouseEventListener.addEventListeners({
       onStart: onDragStart,
@@ -120,7 +120,7 @@ export function CreateBottomSheet(props: BottomSheetProps): BottomSheet {
   const open = (): void => {
     setVisibility([bottomSheetBackdrop, bottomSheetContainer], true);
 
-    const startY = bottomSheetContainer.clientHeight;
+    const startY = getTranslate(bottomSheetContainer).y;
     const endY = defaultPositionToYCoordinate(
       bottomSheetContainer,
       calcContainerHeightExcludingFiller(
