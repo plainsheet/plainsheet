@@ -31,7 +31,7 @@ export interface BottomSheet {
 
 export function CreateBottomSheet(props: BottomSheetProps): BottomSheet {
   const {
-    defaultPosition = "top",
+    defaultPosition = "fit-content",
     marginTop = 100,
     snapPoints = [0.5],
     width = "100%",

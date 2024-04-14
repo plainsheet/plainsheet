@@ -56,10 +56,7 @@ export class CrossPlatformMouseEventListener {
         }
       );
     onMove && this.currentTarget.addEventListener("touchmove", onMove);
-    onEnd &&
-      this.currentTarget.addEventListener("touchend", onEnd, {
-        passive: true,
-      });
+    onEnd && this.currentTarget.addEventListener("touchend", onEnd);
 
     // Mouse events
     onStart &&
@@ -83,15 +80,9 @@ export class CrossPlatformMouseEventListener {
       );
     onMove && this.currentTarget.addEventListener("mousemove", onMove);
     onEnd &&
-      this.currentTarget.addEventListener(
-        "mouseup",
-        (event) => {
-          onEnd(event);
-        },
-        {
-          passive: true,
-        }
-      );
+      this.currentTarget.addEventListener("mouseup", (event) => {
+        onEnd(event);
+      });
   }
 
   public removeEventListeners({

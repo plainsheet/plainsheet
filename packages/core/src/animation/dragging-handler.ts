@@ -1,4 +1,5 @@
 import {
+  calcDiffOfHeight,
   calcDraggingDirection,
   calcOffset,
 } from "../calculator/position-calculator";
@@ -84,6 +85,10 @@ function moveSheetToPointer(
   const containerHeight = bottomSheetContainer.clientHeight;
   const topDraggingLimit = viewportHeight - containerHeight;
   if (containerTranslateY <= -topDraggingLimit) {
+    console.log({
+      containerTranslateY,
+      "-topDraggingLimit": -topDraggingLimit,
+    });
     return;
   }
 
@@ -103,12 +108,14 @@ export const handleDragEnd =
     bottomSheetContainer: HTMLElement,
     animationFrame: AnimationFrame,
     snapPoints: SnapPoints,
+    marginTop: number,
     onClose: () => void
   ) =>
   (event: CrossPlatformMouseEvent) => {
     if (!draggingState.isDragging) {
       return;
     }
+    console.log("draggingState.isDragging = false;");
     draggingState.isDragging = false;
 
     if (!isNumber(draggingState.startY)) {
@@ -122,11 +129,8 @@ export const handleDragEnd =
 
     const direction = calcDraggingDirection(startY, endY);
 
-    /** @description An empty space between open container and the top of the viewport(props.marginTop). */
-    // TODO: Receive it from the caller
     const viewportHeight = window.innerHeight;
     const containerHeight = bottomSheetContainer.clientHeight;
-    const topDraggingLimit = viewportHeight - containerHeight;
 
     if (direction.isUp) {
       const snapPointsInAsc = [...snapPoints].sort(
@@ -134,17 +138,21 @@ export const handleDragEnd =
       );
 
       for (let snapPoint of snapPointsInAsc) {
-        //  NOTE: snapPointY is a position from the top of the viewport.
-        //    window.innerHeight - (snapPoint * window.innerHeight)
-        const snapPointY = Math.max(
-          window.innerHeight - snapPoint * window.innerHeight,
-          -topDraggingLimit
-        );
+        // The diff between endY and startY can not be used because
+        // the contents can be dragged.
+        const snapPointHeight = snapPoint * window.innerHeight;
+        const containerVisibleHeight = containerHeight + -containerEndY;
 
-        if (endY >= snapPointY) {
+        if (containerVisibleHeight <= snapPointHeight) {
+          // snapPointHeight - containerVisibleHeight
+          const visibleContainerAndSnapPointHeightOffset = calcDiffOfHeight(
+            containerVisibleHeight,
+            snapPointHeight
+          );
+
           translateContainer(
             containerEndY,
-            snapPointY,
+            containerEndY - visibleContainerAndSnapPointHeightOffset,
             animationFrame,
             bottomSheetContainer
           );
@@ -154,9 +162,10 @@ export const handleDragEnd =
       }
 
       // NOTE: Translate to the fully open position when it moves past all snap points.
+      const topPointYLimit = -(viewportHeight - containerHeight) + marginTop;
       translateContainer(
         containerEndY,
-        0,
+        topPointYLimit,
         animationFrame,
         bottomSheetContainer
       );
@@ -166,12 +175,20 @@ export const handleDragEnd =
       );
 
       for (let snapPoint of snapPointsInDesc) {
-        const snapPointY = window.innerHeight - snapPoint * window.innerHeight;
+        const snapPointHeight = snapPoint * window.innerHeight;
 
-        if (endY <= snapPointY) {
+        const containerVisibleHeight = containerHeight + -containerEndY;
+
+        if (containerVisibleHeight >= snapPointHeight) {
+          // containerVisibleHeight - snapPointHeight
+          const visibleContainerAndSnapPointHeightOffset = calcDiffOfHeight(
+            containerVisibleHeight,
+            snapPointHeight
+          );
+
           translateContainer(
             containerEndY,
-            snapPointY,
+            containerEndY + visibleContainerAndSnapPointHeightOffset,
             animationFrame,
             bottomSheetContainer
           );

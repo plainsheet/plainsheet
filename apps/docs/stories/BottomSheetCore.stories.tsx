@@ -30,6 +30,7 @@ function BottomSheetWrapper() {
     if (mountingPoint) {
       bottomSheetRef.current = CreateBottomSheet({
         content: `<div id="bottom-sheet-contents"></div>`,
+        snapPoints: [0.8, 0.5, 0.3],
       });
 
       bottomSheetRef.current.mount(mountingPoint);

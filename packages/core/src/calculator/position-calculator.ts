@@ -42,3 +42,13 @@ export function calcOffset(startY: number, endY: number) {
 
   return offset;
 }
+
+export function calcDiffOfHeight(leftHeight: number, rightHeight: number) {
+  const isLeftLarger = leftHeight > rightHeight;
+
+  const diff = isLeftLarger
+    ? leftHeight - rightHeight
+    : rightHeight - leftHeight;
+
+  return diff;
+}

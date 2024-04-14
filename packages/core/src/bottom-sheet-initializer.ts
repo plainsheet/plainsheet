@@ -140,6 +140,7 @@ function initializeEvents({
     bottomSheetContainer,
     animationFrame,
     snapPoints,
+    bottomSheetProps.marginTop,
     options.onClose
   );
 
