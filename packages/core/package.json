@@ -1,7 +1,7 @@
 {
   "name": "plain-bottom-sheet-core",
   "version": "0.0.1",
-  "description": "A performant, zero-dependency, fully-typed bottom-sheet.",
+  "description": "The minimalistic, configurable bottom-sheet for the Web.",
   "private": false,
   "sideEffects": false,
   "license": "MIT",
@@ -22,20 +22,20 @@
   },
   "scripts": {
     "dev": "vite build --watch",
-    "build": "tsc && vite build",
+    "build": "tsc --no-emit && vite build",
     "preview": "vite preview",
     "lint": "eslint . --max-warnings 0",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "devDependencies": {
-    "@internal/eslint-config": "workspace:*",
-    "@internal/typescript-config": "workspace:*",
-    "@types/node": "^20.12.3",
-    "eslint": "^8.57.0",
     "typescript": "^5.2.2",
     "vite": "^5.2.0",
     "vite-plugin-css-injected-by-js": "^3.5.0",
-    "vite-plugin-dts": "^3.8.1"
+    "vite-plugin-dts": "^3.8.1",
+    "@internal/eslint-config": "workspace:*",
+    "@internal/typescript-config": "workspace:*",
+    "@types/node": "^20.12.3",
+    "eslint": "^8.57.0"
   },
   "publishConfig": {
     "access": "public"
