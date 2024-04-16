@@ -4,7 +4,11 @@ import "./style/pbs-container.css";
 import "./style/pbs-handle.css";
 import "./style/pbs-content.css";
 
-import { BottomSheetPosition, SnapPoints } from "./bottom-sheet.type";
+import {
+  BottomSheetPosition,
+  bottomSheetState,
+  SnapPoints,
+} from "./bottom-sheet.type";
 
 import { setVisibility } from "./utils/dom/visibility";
 import { initializeBottomSheetElements } from "./bottom-sheet-initializer";
@@ -27,11 +31,12 @@ export interface BottomSheet {
   unmount: () => void;
   open: () => void;
   close: () => void;
+  isMounted: () => bottomSheetState["isMounted"];
 }
 
-export function CreateBottomSheet(props: BottomSheetProps): BottomSheet {
+export function createBottomSheet(props: BottomSheetProps): BottomSheet {
   const {
-    defaultPosition = "fit-content",
+    defaultPosition = "content-height",
     marginTop = 100,
     snapPoints = [0.5],
     width = "100%",
@@ -47,6 +52,9 @@ export function CreateBottomSheet(props: BottomSheetProps): BottomSheet {
 
   const animationFrame = new AnimationFrame();
   const initializerOptions = { animationFrame, onClose: close };
+  const bottomSheetState: bottomSheetState = {
+    isMounted: false,
+  };
 
   const { elements, eventHandlers } = initializeBottomSheetElements(
     propsWithDefaults,
@@ -67,12 +75,16 @@ export function CreateBottomSheet(props: BottomSheetProps): BottomSheet {
     });
 
     eventHandlers.attachEventListeners();
+
+    bottomSheetState.isMounted = true;
   };
 
   const unmount = (): void => {
     bottomSheetRoot.remove();
 
     eventHandlers.clearEventListeners();
+
+    bottomSheetState.isMounted = false;
   };
 
   const open = (): void => {
@@ -106,10 +118,15 @@ export function CreateBottomSheet(props: BottomSheetProps): BottomSheet {
     translateContainer(startY, endY, animationFrame, bottomSheetContainer);
   }
 
+  function isMounted() {
+    return bottomSheetState.isMounted;
+  }
+
   return {
     mount,
     unmount,
     open,
     close,
+    isMounted,
   };
 }

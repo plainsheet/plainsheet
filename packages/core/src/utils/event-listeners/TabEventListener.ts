@@ -1,5 +1,5 @@
-export type CrossPlatformMouseEvent = MouseEvent | TouchEvent;
-export type EventCallback = (event: CrossPlatformMouseEvent) => void;
+export type TabEvent = MouseEvent | TouchEvent;
+export type EventCallback = (event: TabEvent) => void;
 
 export enum EventPhase {
   All = -1,
@@ -17,7 +17,7 @@ const defaultEventOptions = {
   eventPhase: EventPhase.All,
 } as const;
 
-export class CrossPlatformMouseEventListener {
+export class TabEventListener {
   private currentTarget: HTMLElement;
 
   constructor(currentTarget: HTMLElement) {
@@ -102,7 +102,7 @@ export class CrossPlatformMouseEventListener {
     onEnd && this.currentTarget.removeEventListener("mouseup", onEnd);
   }
 
-  public getCoordinates(event: CrossPlatformMouseEvent) {
+  public getCoordinates(event: TabEvent) {
     if (event.type === "touchstart" || event.type === "mousedown") {
       if (event instanceof TouchEvent) {
         return {

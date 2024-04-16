@@ -3,17 +3,17 @@ import { ClassNames, ResetClassNames } from "./style/class-names";
 import { createElement } from "./utils/dom/element";
 import { mergeClassNames } from "./utils/dom/classNames";
 import {
-  CrossPlatformMouseEventListener,
-  EventCallback,
-  EventPhase,
-} from "./utils/event-listeners/CrossPlatformMouseEventListener";
-import {
   handleDragEnd,
   handleDragMove,
   handleDragStart,
   handleDragTriggerClick,
 } from "./animation/dragging-handler";
 import { AnimationFrame } from "./utils/animation/AnimationFrame";
+import {
+  EventCallback,
+  EventPhase,
+  TabEventListener,
+} from "./utils/event-listeners/TabEventListener";
 
 export type InitializerOptions = {
   animationFrame: AnimationFrame;
@@ -114,15 +114,11 @@ function initializeEvents({
   const { snapPoints } = bottomSheetProps;
   const { animationFrame } = options;
 
-  const documentBodyMouseEventListener = new CrossPlatformMouseEventListener(
+  const documentBodyMouseEventListener = new TabEventListener(
     window.document.body
   );
-  const containerEventListener = new CrossPlatformMouseEventListener(
-    bottomSheetContainer
-  );
-  const handleEventListener = new CrossPlatformMouseEventListener(
-    bottomSheetHandle
-  );
+  const containerEventListener = new TabEventListener(bottomSheetContainer);
+  const handleEventListener = new TabEventListener(bottomSheetHandle);
 
   const onDragStart: EventCallback = handleDragStart(
     documentBodyMouseEventListener,

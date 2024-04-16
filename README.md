@@ -9,7 +9,7 @@ The minimalistic, configurable bottom-sheet for the Web.
 - 📱 Mobile-friendly, works just like native bottom sheets.
 - 🎛 Highly configurable. You can style anything and listen to any event from it.
 - ⚡️ Performant by default.
-- 📐 Fully-typed.
+- 🦾 Fully-typed.
 
 ## Key Features
 

@@ -3,7 +3,12 @@ export interface BottomSheet {
   unmount: () => void;
   open: () => void;
   close: () => void;
+  isMounted: () => bottomSheetState["isMounted"];
 }
+
+export type bottomSheetState = {
+  isMounted: boolean;
+};
 
 export type BottomSheetPosition = "top" | "middle" | "content-height";
 

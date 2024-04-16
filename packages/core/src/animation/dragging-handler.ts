@@ -6,13 +6,13 @@ import {
 import { SnapPoints } from "../bottom-sheet.type";
 import { AnimationFrame } from "../utils/animation/AnimationFrame";
 import { getTranslate, setTranslate } from "../utils/dom/translate";
-import {
-  CrossPlatformMouseEvent,
-  CrossPlatformMouseEventListener,
-} from "../utils/event-listeners/CrossPlatformMouseEventListener";
 import { isNumber } from "../utils/types/isNumber";
 import { Coordinates, Position } from "src/animation/animation.type";
 import { translateContainer } from "./animation";
+import {
+  TabEvent,
+  TabEventListener,
+} from "src/utils/event-listeners/TabEventListener";
 
 interface DraggingState {
   /** @description Used to know how far the cursor moved. */
@@ -38,22 +38,19 @@ export const handleDragTriggerClick = () => {
 };
 
 export const handleDragStart =
-  (
-    mouseEventListener: CrossPlatformMouseEventListener,
-    bottomSheetContainer: HTMLElement
-  ) =>
-  (event: CrossPlatformMouseEvent) => {
+  (mouseEventListener: TabEventListener, bottomSheetContainer: HTMLElement) =>
+  (event: TabEvent) => {
     draggingState.startY = mouseEventListener.getCoordinates(event).y;
     draggingState.containerStartTranslate = getTranslate(bottomSheetContainer);
   };
 
 export const handleDragMove =
   (
-    mouseEventListener: CrossPlatformMouseEventListener,
+    mouseEventListener: TabEventListener,
     bottomSheetContainer: HTMLElement,
     animationFrame: AnimationFrame
   ) =>
-  (event: CrossPlatformMouseEvent) => {
+  (event: TabEvent) => {
     moveSheetToPointer(
       event,
       mouseEventListener,
@@ -63,8 +60,8 @@ export const handleDragMove =
   };
 
 function moveSheetToPointer(
-  event: CrossPlatformMouseEvent,
-  mouseEventListener: CrossPlatformMouseEventListener,
+  event: TabEvent,
+  mouseEventListener: TabEventListener,
   animationFrame: AnimationFrame,
   bottomSheetContainer: HTMLElement
 ) {
@@ -85,10 +82,6 @@ function moveSheetToPointer(
   const containerHeight = bottomSheetContainer.clientHeight;
   const topDraggingLimit = viewportHeight - containerHeight;
   if (containerTranslateY <= -topDraggingLimit) {
-    console.log({
-      containerTranslateY,
-      "-topDraggingLimit": -topDraggingLimit,
-    });
     return;
   }
 
@@ -100,22 +93,24 @@ function moveSheetToPointer(
       y: draggingState.containerStartTranslate.y + offset,
     });
   }, 0);
+
+  // TODO: calculate the total draggable distance and the current dragged distance based on the direction of dragging, which can be derived from
+  // where was the cursor when dragging started and where is the cursor now.
 }
 
 export const handleDragEnd =
   (
-    eventListener: CrossPlatformMouseEventListener,
+    eventListener: TabEventListener,
     bottomSheetContainer: HTMLElement,
     animationFrame: AnimationFrame,
     snapPoints: SnapPoints,
     marginTop: number,
     onClose: () => void
   ) =>
-  (event: CrossPlatformMouseEvent) => {
+  (event: TabEvent) => {
     if (!draggingState.isDragging) {
       return;
     }
-    console.log("draggingState.isDragging = false;");
     draggingState.isDragging = false;
 
     if (!isNumber(draggingState.startY)) {

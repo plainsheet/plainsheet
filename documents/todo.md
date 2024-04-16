@@ -1,4 +1,3 @@
-- dragging-handler: fix the position calculation logic, reflecting deleted paddings.
 - [] Cross-platform support
 
   - [] Images

@@ -10,6 +10,7 @@
 
   width: 80%;
   height: fit-content;
+  max-height: 100vh;
 
   border-radius: 10px 10px 0px 0px;
 }
@@ -19,6 +20,7 @@
   bottom: -100vh;
   left: 0;
 
+  /* TODO: The background color should be same as the container's color */
   background-color: rgb(240, 240, 240);
   content: "";
 
