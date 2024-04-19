@@ -11,9 +11,9 @@ import {
 import { AnimationFrame } from "./utils/animation/AnimationFrame";
 import {
   EventCallback,
-  EventPhase,
   TabEventListener,
 } from "./utils/event-listeners/TabEventListener";
+import { EventPhase } from "./utils/event-listeners/EventPhase";
 
 export type InitializerOptions = {
   animationFrame: AnimationFrame;
@@ -111,28 +111,29 @@ function initializeEvents({
   options,
 }: InitializeEventsParams) {
   const { bottomSheetContainer, bottomSheetHandle } = bottomSheetElements;
-  const { snapPoints } = bottomSheetProps;
+  const { snapPoints, marginTop } = bottomSheetProps;
   const { animationFrame } = options;
 
-  const documentBodyMouseEventListener = new TabEventListener(
-    window.document.body
+  const windowEventListener = new TabEventListener(
+    window as unknown as HTMLElement
   );
   const containerEventListener = new TabEventListener(bottomSheetContainer);
   const handleEventListener = new TabEventListener(bottomSheetHandle);
 
   const onDragStart: EventCallback = handleDragStart(
-    documentBodyMouseEventListener,
+    windowEventListener,
     bottomSheetContainer
   );
 
   const onDragMove: EventCallback = handleDragMove(
-    documentBodyMouseEventListener,
+    windowEventListener,
     bottomSheetContainer,
-    animationFrame
+    animationFrame,
+    marginTop
   );
 
   const onDragEnd: EventCallback = handleDragEnd(
-    documentBodyMouseEventListener,
+    windowEventListener,
     bottomSheetContainer,
     animationFrame,
     snapPoints,
@@ -151,7 +152,7 @@ function initializeEvents({
       onStart: handleDragTriggerClick,
     });
 
-    documentBodyMouseEventListener.addEventListeners({
+    windowEventListener.addEventListeners({
       onStart: onDragStart,
       onMove: onDragMove,
       onEnd: onDragEnd,
@@ -163,10 +164,10 @@ function initializeEvents({
       onStart: handleDragTriggerClick,
     });
     handleEventListener.removeEventListeners({
-      onMove: handleDragTriggerClick,
+      onStart: handleDragTriggerClick,
     });
 
-    documentBodyMouseEventListener.removeEventListeners({
+    windowEventListener.removeEventListeners({
       onStart: onDragStart,
       onMove: onDragMove,
       onEnd: onDragEnd,

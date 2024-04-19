@@ -48,14 +48,16 @@ export const handleDragMove =
   (
     mouseEventListener: TabEventListener,
     bottomSheetContainer: HTMLElement,
-    animationFrame: AnimationFrame
+    animationFrame: AnimationFrame,
+    marginTop: number
   ) =>
   (event: TabEvent) => {
     moveSheetToPointer(
       event,
       mouseEventListener,
       animationFrame,
-      bottomSheetContainer
+      bottomSheetContainer,
+      marginTop
     );
   };
 
@@ -63,7 +65,8 @@ function moveSheetToPointer(
   event: TabEvent,
   mouseEventListener: TabEventListener,
   animationFrame: AnimationFrame,
-  bottomSheetContainer: HTMLElement
+  bottomSheetContainer: HTMLElement,
+  marginTop: number
 ) {
   if (!draggingState.isDragging) {
     return;
@@ -76,19 +79,16 @@ function moveSheetToPointer(
 
   const offset = calcOffset(draggingState.startY, endY);
 
-  const containerTranslateY = draggingState.containerStartTranslate.y + offset;
-
   const viewportHeight = window.innerHeight;
   const containerHeight = bottomSheetContainer.clientHeight;
-  const topDraggingLimit = viewportHeight - containerHeight;
-  if (containerTranslateY <= -topDraggingLimit) {
+  const visibleContainerHeight =
+    containerHeight - (draggingState.containerStartTranslate.y + offset);
+
+  if (visibleContainerHeight >= viewportHeight - marginTop) {
     return;
   }
 
   animationFrame.start(() => {
-    if (!isNumber(draggingState.startY)) {
-      return;
-    }
     setTranslate(bottomSheetContainer, {
       y: draggingState.containerStartTranslate.y + offset,
     });
