@@ -121,3 +121,79 @@ export const WithImage: Story = {
     children: "Hello, Miles",
   },
 };
+
+export const WithTitleAndFixedButtons: Story = {
+  render: function Render(args) {
+    const bottomSheetRef = useRef<BottomSheet>(createPlaceholderBottomSheet());
+
+    return (
+      <section>
+        <header>
+          <button
+            onClick={() => {
+              bottomSheetRef.current.open();
+            }}
+          >
+            Open
+          </button>
+          <button
+            onClick={() => {
+              bottomSheetRef.current.close();
+            }}
+          >
+            Close
+          </button>
+        </header>
+        <BottomSheetReact ref={bottomSheetRef}>
+          <h3
+            style={{
+              padding: "0 16px",
+            }}
+          >
+            Order Summary
+          </h3>
+          <ul>
+            <li>{args.children}</li>
+            <li>Coke zero🥤: $4</li>
+          </ul>
+
+          <div
+            style={{
+              position: "relative",
+              bottom: 0,
+              left: 0,
+
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+
+              width: "100%",
+              padding: "0 20%",
+              boxSizing: "border-box",
+            }}
+          >
+            <button
+              onClick={() => {
+                bottomSheetRef.current.close();
+              }}
+            >
+              Cancel
+            </button>
+            <button
+              onClick={() => {
+                bottomSheetRef.current.close();
+              }}
+            >
+              Proceed To Checkout
+            </button>
+          </div>
+        </BottomSheetReact>
+      </section>
+    );
+  },
+  name: "WithTitleAndFixedButtons",
+  args: {
+    children: "Fried chicken🍗: $19.5",
+  },
+};
