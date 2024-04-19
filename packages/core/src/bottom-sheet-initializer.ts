@@ -7,7 +7,7 @@ import {
   handleDragMove,
   handleDragStart,
   handleDragTriggerClick,
-} from "./animation/dragging-handler";
+} from "./event-handlers/dragging-handler";
 import { AnimationFrame } from "./utils/animation/AnimationFrame";
 import {
   EventCallback,
@@ -110,15 +110,26 @@ function initializeEvents({
   bottomSheetProps,
   options,
 }: InitializeEventsParams) {
-  const { bottomSheetContainer, bottomSheetHandle } = bottomSheetElements;
-  const { snapPoints, marginTop } = bottomSheetProps;
+  const {
+    bottomSheetContainer,
+    bottomSheetHandle,
+    bottomSheetContainerGapFiller,
+  } = bottomSheetElements;
+  const { snapPoints, marginTop, dragTriggers } = bottomSheetProps;
   const { animationFrame } = options;
 
   const windowEventListener = new TabEventListener(
     window as unknown as HTMLElement
   );
   const containerEventListener = new TabEventListener(bottomSheetContainer);
+
   const handleEventListener = new TabEventListener(bottomSheetHandle);
+  const gapFillerEventListener = new TabEventListener(
+    bottomSheetContainerGapFiller
+  );
+  const draggingTriggerEventListeners = dragTriggers.map(
+    (el) => new TabEventListener(el)
+  );
 
   const onDragStart: EventCallback = handleDragStart(
     windowEventListener,
@@ -142,15 +153,27 @@ function initializeEvents({
   );
 
   function attachEventListeners() {
+    handleEventListener.addEventListeners({
+      onStart: handleDragTriggerClick,
+    });
     containerEventListener.addEventListeners({
       onStart: handleDragTriggerClick,
       onStartOptions: {
         eventPhase: EventPhase.Target,
       },
     });
-    handleEventListener.addEventListeners({
+    gapFillerEventListener.addEventListeners({
       onStart: handleDragTriggerClick,
     });
+
+    draggingTriggerEventListeners.forEach((listener) =>
+      listener.addEventListeners({
+        onStart: handleDragTriggerClick,
+        onStartOptions: {
+          eventPhase: EventPhase.Target,
+        },
+      })
+    );
 
     windowEventListener.addEventListeners({
       onStart: onDragStart,
@@ -160,12 +183,21 @@ function initializeEvents({
   }
 
   function clearEventListeners() {
-    containerEventListener.removeEventListeners({
-      onStart: handleDragTriggerClick,
-    });
     handleEventListener.removeEventListeners({
       onStart: handleDragTriggerClick,
     });
+    containerEventListener.removeEventListeners({
+      onStart: handleDragTriggerClick,
+    });
+    gapFillerEventListener.removeEventListeners({
+      onStart: handleDragTriggerClick,
+    });
+
+    draggingTriggerEventListeners.forEach((listener) =>
+      listener.removeEventListeners({
+        onStart: handleDragTriggerClick,
+      })
+    );
 
     windowEventListener.removeEventListeners({
       onStart: onDragStart,

@@ -21,9 +21,18 @@ import { translateContainer } from "./animation/animation";
 export interface BottomSheetProps {
   content: string;
   width?: string;
+  /**
+   * Space between the top of the bottom sheet and the viewport's top.
+   * @default 20
+   */
   marginTop?: number;
   defaultPosition?: BottomSheetPosition;
   snapPoints?: SnapPoints;
+  /**
+   * @description Elements that will trigger dragging of the bottom sheet.
+   * By default, the background is draggable unless it is covered by the content.
+   */
+  dragTriggers?: HTMLElement[];
 }
 
 export interface BottomSheet {
@@ -37,9 +46,10 @@ export interface BottomSheet {
 export function createBottomSheet(props: BottomSheetProps): BottomSheet {
   const {
     defaultPosition = "content-height",
-    marginTop = 100,
+    marginTop = 20,
     snapPoints = [0.5],
     width = "100%",
+    dragTriggers = [],
   } = props;
 
   const propsWithDefaults = {
@@ -48,6 +58,7 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
     marginTop,
     snapPoints,
     width,
+    dragTriggers,
   };
 
   const animationFrame = new AnimationFrame();

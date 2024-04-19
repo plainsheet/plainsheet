@@ -8,7 +8,7 @@ import { AnimationFrame } from "../utils/animation/AnimationFrame";
 import { getTranslate, setTranslate } from "../utils/dom/translate";
 import { isNumber } from "../utils/types/isNumber";
 import { Coordinates, Position } from "src/animation/animation.type";
-import { translateContainer } from "./animation";
+import { translateContainer } from "../animation/animation";
 import {
   TabEvent,
   TabEventListener,

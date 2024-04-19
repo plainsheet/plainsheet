@@ -21,7 +21,8 @@ The minimalistic, configurable bottom-sheet for the Web.
     - `expandable`
     - `snappingPoints`
     - `closeOnOutsideClick`
-    - `backgroundScrollable`
+    - `draggingTriggers`
+    - `backgroundDraggable`
   - Styling
     - `hideHandle`
     - `hideBackdrop`

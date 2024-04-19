@@ -17,7 +17,7 @@
 
 .pbs-container .pbs-gap-filler {
   position: absolute;
-  bottom: -100vh;
+  bottom: calc(-100vh + 1px);
   left: 0;
 
   /* TODO: The background color should be same as the container's color */
