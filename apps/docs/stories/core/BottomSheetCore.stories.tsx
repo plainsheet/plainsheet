@@ -4,8 +4,10 @@ import {
   createPlaceholderBottomSheet,
 } from "plain-bottom-sheet-core";
 import { useRef } from "react";
-import { BottomSheetReact } from "./BottomSheetReact";
-import { ExampleForm } from "./examples/ExampleForm";
+import { BottomSheetReact } from "../../src/BottomSheetReact";
+import { ExampleForm } from "../../src/examples/ExampleForm";
+
+import miles from "../../assets/images/miles.jpg";
 
 const meta: Meta<typeof BottomSheetReact> = {
   argTypes: {},
@@ -82,5 +84,40 @@ export const WithForm: Story = {
   name: "WithForm",
   args: {
     children: "Args content: Edit here via args.children",
+  },
+};
+
+export const WithImage: Story = {
+  render: function Render(args) {
+    const bottomSheetRef = useRef<BottomSheet>(createPlaceholderBottomSheet());
+
+    return (
+      <section>
+        <header>
+          <button
+            onClick={() => {
+              bottomSheetRef.current.open();
+            }}
+          >
+            Open
+          </button>
+          <button
+            onClick={() => {
+              bottomSheetRef.current.close();
+            }}
+          >
+            Close
+          </button>
+        </header>
+        <BottomSheetReact ref={bottomSheetRef}>
+          {args.children} <br />
+          <img src={miles} alt="" />
+        </BottomSheetReact>
+      </section>
+    );
+  },
+  name: "WithImage",
+  args: {
+    children: "Hello, Miles",
   },
 };

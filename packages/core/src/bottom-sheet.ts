@@ -91,9 +91,9 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
   };
 
   const unmount = (): void => {
-    bottomSheetRoot.remove();
-
     eventHandlers.clearEventListeners();
+
+    Object.values(elements).forEach((el) => el.remove());
 
     bottomSheetState.isMounted = false;
   };

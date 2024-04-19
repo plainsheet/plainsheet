@@ -114,6 +114,7 @@ function initializeEvents({
     bottomSheetContainer,
     bottomSheetHandle,
     bottomSheetContainerGapFiller,
+    bottomSheetContentWrapper,
   } = bottomSheetElements;
   const { snapPoints, marginTop, dragTriggers } = bottomSheetProps;
   const { animationFrame } = options;
@@ -121,7 +122,9 @@ function initializeEvents({
   const windowEventListener = new TabEventListener(
     window as unknown as HTMLElement
   );
-  const containerEventListener = new TabEventListener(bottomSheetContainer);
+  const contentsWrapperEventListener = new TabEventListener(
+    bottomSheetContentWrapper
+  );
 
   const handleEventListener = new TabEventListener(bottomSheetHandle);
   const gapFillerEventListener = new TabEventListener(
@@ -156,7 +159,7 @@ function initializeEvents({
     handleEventListener.addEventListeners({
       onStart: handleDragTriggerClick,
     });
-    containerEventListener.addEventListeners({
+    contentsWrapperEventListener.addEventListeners({
       onStart: handleDragTriggerClick,
       onStartOptions: {
         eventPhase: EventPhase.Target,
@@ -186,7 +189,7 @@ function initializeEvents({
     handleEventListener.removeEventListeners({
       onStart: handleDragTriggerClick,
     });
-    containerEventListener.removeEventListeners({
+    contentsWrapperEventListener.removeEventListeners({
       onStart: handleDragTriggerClick,
     });
     gapFillerEventListener.removeEventListeners({

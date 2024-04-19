@@ -1,10 +1,7 @@
 - [] Cross-platform support
 
-  - [] Images
   - [] Title
   - [] Fixed buttons
-
-- [] Accessibility support
 
 - [] Make it configurable.
 
@@ -12,3 +9,5 @@
 
 - [] Write tests
 - [] Performance optimization
+
+- [] Accessibility support

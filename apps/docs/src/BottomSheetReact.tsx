@@ -68,6 +68,10 @@ export const BottomSheetReact = forwardRef<BottomSheet, BottomSheetReactProps>(
       bottomSheetContentsWrapperRef.current = document.querySelector(
         BOTTOM_SHEET_SELECTORS.CONTENTS_WRAPPER
       );
+
+      return () => {
+        bottomSheet.unmount();
+      };
     }, []);
 
     return (
