@@ -1,4 +1,4 @@
-import { BottomSheetPosition } from "../bottom-sheet.type";
+import { BottomSheetPosition } from "../types/bottom-sheet-props.type";
 
 /** @description It expects the bottom sheet to be open. */
 export function convertDefaultPositionToYCoordinate(
