@@ -3,7 +3,6 @@ import {
   calcDraggingDirection,
   calcOffset,
 } from "../calculator/position-calculator";
-import { SnapPoints } from "../bottom-sheet.type";
 import { AnimationFrame } from "../utils/animation/AnimationFrame";
 import { getTranslate, setTranslate } from "../utils/dom/translate";
 import { isNumber } from "../utils/types/isNumber";
@@ -13,6 +12,7 @@ import {
   TabEvent,
   TabEventListener,
 } from "src/utils/event-listeners/TabEventListener";
+import { SnapPoints } from "src/types/bottom-sheet-props.type";
 
 interface DraggingState {
   /** @description Used to know how far the cursor moved. */

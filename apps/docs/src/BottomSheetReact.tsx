@@ -45,7 +45,7 @@ export const BottomSheetReact = forwardRef<BottomSheet, BottomSheetReactProps>(
       if (!mountingPoint) {
         return;
       }
-      if (bottomSheet.isMounted()) {
+      if (bottomSheet.getIsMounted()) {
         if (!bottomSheetContentsWrapperRef.current) {
           return;
         }

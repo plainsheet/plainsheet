@@ -1,6 +1,6 @@
 import { pxToNumber } from "../math/unit";
 import {
-  extractTransforms,
+  stringToTransforms,
   getTransformValues,
   pickTransformValue,
   TransformValue,
@@ -10,7 +10,7 @@ const TRANSLATE = "translate";
 
 export function getTranslate(element: HTMLElement) {
   const currentTransform = element.style.transform;
-  const currentTransformValues = extractTransforms(currentTransform);
+  const currentTransformValues = stringToTransforms(currentTransform);
 
   const currentTranslate = pickTransformValue(
     currentTransformValues,
@@ -35,8 +35,10 @@ export function setTranslate(
     y?: number;
   }
 ) {
-  const { currentTransform, currentTransformValues } =
-    getTransformValues(element);
+  const {
+    transform: currentTransform,
+    transformValues: currentTransformValues,
+  } = getTransformValues(element);
 
   const currentTranslate = pickTransformValue(
     currentTransformValues,

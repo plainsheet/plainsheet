@@ -4,66 +4,33 @@ import "./style/pbs-container.css";
 import "./style/pbs-handle.css";
 import "./style/pbs-content.css";
 
-import {
-  BottomSheetPosition,
-  bottomSheetState,
-  SnapPoints,
-} from "./bottom-sheet.type";
-
 import { setVisibility } from "./utils/dom/visibility";
-import { initializeBottomSheetElements } from "./bottom-sheet-initializer";
+import { initializeBottomSheetElements } from "./initializer/bottom-sheet-initializer";
 import { getTranslate, setTranslate } from "./utils/dom/translate";
 import { AnimationFrame } from "./utils/animation/AnimationFrame";
 
 import { convertDefaultPositionToYCoordinate } from "./calculator/position-calculator";
 import { translateContainer } from "./animation/animation";
-
-export interface BottomSheetProps {
-  content: string;
-  width?: string;
-  /**
-   * Space between the top of the bottom sheet and the viewport's top.
-   * @default 20
-   */
-  marginTop?: number;
-  defaultPosition?: BottomSheetPosition;
-  snapPoints?: SnapPoints;
-  /**
-   * @description Elements that will trigger dragging of the bottom sheet.
-   * By default, the background is draggable unless it is covered by the content.
-   */
-  dragTriggers?: HTMLElement[];
-}
-
-export interface BottomSheet {
-  mount: (mountingPoint?: Element) => void;
-  unmount: () => void;
-  open: () => void;
-  close: () => void;
-  isMounted: () => bottomSheetState["isMounted"];
-}
+import { BottomSheetState } from "./types/bottom-sheet-state.type";
+import { BottomSheetProps } from "./types/bottom-sheet-props.type";
+import { DEFAULT_OPTIONS } from "./initializer/bottom-sheet-defaults";
+import { BottomSheet } from "./types/bottom-sheet.type";
 
 export function createBottomSheet(props: BottomSheetProps): BottomSheet {
-  const {
-    defaultPosition = "content-height",
-    marginTop = 20,
-    snapPoints = [0.5],
-    width = "100%",
-    dragTriggers = [],
-  } = props;
-
+  // TODO: Set default props only when the prop is not provided.
   const propsWithDefaults = {
     ...props,
-    defaultPosition,
-    marginTop,
-    snapPoints,
-    width,
-    dragTriggers,
+    ...DEFAULT_OPTIONS,
   };
+  const {
+    defaultPosition = DEFAULT_OPTIONS.defaultPosition,
+    marginTop = DEFAULT_OPTIONS.marginTop,
+  } = propsWithDefaults;
 
+  // Make it a BottomSheetState.
   const animationFrame = new AnimationFrame();
   const initializerOptions = { animationFrame, onClose: close };
-  const bottomSheetState: bottomSheetState = {
+  const bottomSheetState: BottomSheetState = {
     isMounted: false,
   };
 
@@ -79,7 +46,6 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
     mountingPointOrFallback.appendChild(bottomSheetRoot);
     mountingPointOrFallback.appendChild(bottomSheetBackdrop);
 
-    // Hides the bottom sheet, no matter how large the bottom sheet is.
     const viewportHeight = window.innerHeight;
     setTranslate(bottomSheetContainer, {
       y: viewportHeight,
@@ -101,12 +67,19 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
   const open = (): void => {
     setVisibility([bottomSheetBackdrop, bottomSheetContainer], true);
 
-    // Resets the position to the bottom of the viewport
+    const startContainerY = getTranslate(bottomSheetContainer).y;
+
+    const isOpen = getIsOpen();
+    if (isOpen) {
+      return;
+    }
+
+    // NOTE: Resets the position to the bottom of the viewport
+    // Because it was pushed 100vh down below the viewport when it is mounted,
+    // which will make the animation timing incorrect.
     setTranslate(bottomSheetContainer, {
       y: bottomSheetContainer.clientHeight,
     });
-
-    const startY = getTranslate(bottomSheetContainer).y;
 
     const viewportHeight = window.innerHeight;
     const endY = convertDefaultPositionToYCoordinate(
@@ -116,21 +89,29 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
       defaultPosition
     );
 
-    translateContainer(startY, endY, animationFrame, bottomSheetContainer);
+    translateContainer(
+      startContainerY,
+      endY,
+      animationFrame,
+      bottomSheetContainer
+    );
   };
 
   function close() {
     setVisibility([bottomSheetBackdrop, bottomSheetContainer], false);
 
     const startY = getTranslate(bottomSheetContainer).y;
-
     const endY = bottomSheetContainer.clientHeight;
 
     translateContainer(startY, endY, animationFrame, bottomSheetContainer);
   }
 
-  function isMounted() {
+  function getIsMounted() {
     return bottomSheetState.isMounted;
+  }
+  function getIsOpen() {
+    const startContainerY = getTranslate(bottomSheetContainer).y;
+    return startContainerY < bottomSheetContainer.clientHeight;
   }
 
   return {
@@ -138,6 +119,6 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
     unmount,
     open,
     close,
-    isMounted,
+    getIsMounted,
   };
 }

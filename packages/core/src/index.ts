@@ -1,5 +1,5 @@
 export * from "./bottom-sheet";
-export * from "./bottom-sheet-placeholder";
+export * from "./initializer/bottom-sheet-placeholder";
 
-export * from "./style/class-names";
-export * from "./style/selectors";
+export * from "./class-names/class-names";
+export * from "./class-names/selectors";

@@ -1,19 +1,19 @@
-import { BottomSheetProps } from "./bottom-sheet";
-import { ClassNames, ResetClassNames } from "./style/class-names";
-import { createElement } from "./utils/dom/element";
-import { mergeClassNames } from "./utils/dom/classNames";
+import { ClassNames, ResetClassNames } from "../class-names/class-names";
+import { createElement } from "../utils/dom/element";
+import { mergeClassNames } from "../utils/dom/classNames";
 import {
   handleDragEnd,
   handleDragMove,
   handleDragStart,
   handleDragTriggerClick,
-} from "./event-handlers/dragging-handler";
-import { AnimationFrame } from "./utils/animation/AnimationFrame";
+} from "../event-handlers/dragging-handler";
+import { AnimationFrame } from "../utils/animation/AnimationFrame";
 import {
   EventCallback,
   TabEventListener,
-} from "./utils/event-listeners/TabEventListener";
-import { EventPhase } from "./utils/event-listeners/EventPhase";
+} from "../utils/event-listeners/TabEventListener";
+import { EventPhase } from "../utils/event-listeners/EventPhase";
+import { BottomSheetProps } from "../types/bottom-sheet-props.type";
 
 export type InitializerOptions = {
   animationFrame: AnimationFrame;
@@ -27,9 +27,9 @@ export function initializeBottomSheetElements(
   const elements = createElements();
   combineElements(elements);
 
-  // NOTE: Mounts the user-provided content.
-  // TODO: Sanitize the content
+  // NOTE: Mounts the user-provided content to the content wrapper.
   const contentElement = document.createElement("div");
+  // TODO: Sanitize the content
   contentElement.innerHTML = props.content ?? "";
   elements.bottomSheetContentWrapper.appendChild(contentElement);
 
@@ -102,6 +102,7 @@ function combineElements({
 export type InitializeEventsParams = {
   bottomSheetElements: BottomSheetElements;
   bottomSheetProps: Required<BottomSheetProps>;
+  // TODO: Change this to "bottom sheet state"
   options: InitializerOptions;
 };
 
@@ -116,22 +117,22 @@ function initializeEvents({
     bottomSheetContainerGapFiller,
     bottomSheetContentWrapper,
   } = bottomSheetElements;
-  const { snapPoints, marginTop, dragTriggers } = bottomSheetProps;
+  const { snapPoints, dragTriggers, marginTop } = bottomSheetProps;
   const { animationFrame } = options;
 
-  const windowEventListener = new TabEventListener(
-    window as unknown as HTMLElement
-  );
+  const handleEventListener = new TabEventListener(bottomSheetHandle);
   const contentsWrapperEventListener = new TabEventListener(
     bottomSheetContentWrapper
   );
-
-  const handleEventListener = new TabEventListener(bottomSheetHandle);
   const gapFillerEventListener = new TabEventListener(
     bottomSheetContainerGapFiller
   );
   const draggingTriggerEventListeners = dragTriggers.map(
     (el) => new TabEventListener(el)
+  );
+
+  const windowEventListener = new TabEventListener(
+    window as unknown as HTMLElement
   );
 
   const onDragStart: EventCallback = handleDragStart(
@@ -168,7 +169,6 @@ function initializeEvents({
     gapFillerEventListener.addEventListeners({
       onStart: handleDragTriggerClick,
     });
-
     draggingTriggerEventListeners.forEach((listener) =>
       listener.addEventListeners({
         onStart: handleDragTriggerClick,
@@ -195,7 +195,6 @@ function initializeEvents({
     gapFillerEventListener.removeEventListeners({
       onStart: handleDragTriggerClick,
     });
-
     draggingTriggerEventListeners.forEach((listener) =>
       listener.removeEventListeners({
         onStart: handleDragTriggerClick,

@@ -1,5 +1,8 @@
-import { BottomSheet } from "./bottom-sheet.type";
+import { BottomSheet } from "../types/bottom-sheet.type";
 
+/**
+ * @returns A fallback BottomSheet instance to provide non-null BottomSheet methods to library users.
+ */
 export function createPlaceholderBottomSheet(): BottomSheet {
   function warnNotMountedBug() {
     console.warn("BottomSheet is not mounted yet.");
@@ -18,7 +21,7 @@ export function createPlaceholderBottomSheet(): BottomSheet {
     close: () => {
       warnNotMountedBug();
     },
-    isMounted: () => {
+    getIsMounted: () => {
       return false;
     },
   };

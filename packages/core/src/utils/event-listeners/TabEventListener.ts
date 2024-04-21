@@ -1,13 +1,27 @@
 import { EventPhase, eventPhaseToEnum } from "./EventPhase";
 
+export interface AddEventListenersParams {
+  onStart?: EventCallback;
+  onStartOptions?: EventCallbackOptions;
+  onMove?: EventCallback;
+  onEnd?: EventCallback;
+}
+interface AddMouseEventListenersParams extends AddEventListenersParams {
+  onStartOptions: EventCallbackOptions;
+}
+interface AddTouchEventListenersParams extends AddEventListenersParams {
+  onStartOptions: EventCallbackOptions;
+}
+
 export type TabEvent = MouseEvent | TouchEvent;
+
 export type EventCallback = (event: TabEvent) => void;
 
-interface EventCallbackOptions {
+export interface EventCallbackOptions {
   eventPhase: EventPhase;
 }
 
-const defaultEventOptions = {
+export const defaultEventOptions = {
   eventPhase: EventPhase.All,
 } as const;
 
@@ -23,14 +37,19 @@ export class TabEventListener {
     onStartOptions = defaultEventOptions,
     onMove,
     onEnd,
-  }: {
-    onStart?: EventCallback;
-    onStartOptions?: EventCallbackOptions;
-    onMove?: EventCallback;
-    onEnd?: EventCallback;
-  }): void {
-    // Touch events
-    onStart &&
+  }: AddEventListenersParams): void {
+    this.addTouchEventListeners({ onStart, onStartOptions, onMove, onEnd });
+
+    this.addMouseEventListeners({ onStart, onStartOptions, onMove, onEnd });
+  }
+
+  private addTouchEventListeners({
+    onStart,
+    onStartOptions,
+    onMove,
+    onEnd,
+  }: AddTouchEventListenersParams) {
+    if (onStart) {
       this.currentTarget.addEventListener(
         "touchstart",
         (event) => {
@@ -49,11 +68,24 @@ export class TabEventListener {
           passive: true,
         }
       );
-    onMove && this.currentTarget.addEventListener("touchmove", onMove);
-    onEnd && this.currentTarget.addEventListener("touchend", onEnd);
+    }
 
-    // Mouse events
-    onStart &&
+    if (onMove) {
+      this.currentTarget.addEventListener("touchmove", onMove);
+    }
+
+    if (onEnd) {
+      this.currentTarget.addEventListener("touchend", onEnd);
+    }
+  }
+
+  private addMouseEventListeners({
+    onStart,
+    onStartOptions,
+    onMove,
+    onEnd,
+  }: AddMouseEventListenersParams) {
+    if (onStart) {
       this.currentTarget.addEventListener(
         "mousedown",
         (event) => {
@@ -72,11 +104,17 @@ export class TabEventListener {
           passive: true,
         }
       );
-    onMove && this.currentTarget.addEventListener("mousemove", onMove);
-    onEnd &&
+    }
+
+    if (onMove) {
+      this.currentTarget.addEventListener("mousemove", onMove);
+    }
+
+    if (onEnd) {
       this.currentTarget.addEventListener("mouseup", (event) => {
         onEnd(event);
       });
+    }
   }
 
   public removeEventListeners({
@@ -91,6 +129,7 @@ export class TabEventListener {
     onStart && this.currentTarget.removeEventListener("touchstart", onStart);
     onEnd && this.currentTarget.removeEventListener("touchend", onEnd);
     onMove && this.currentTarget.removeEventListener("touchmove", onMove);
+
     onStart && this.currentTarget.removeEventListener("mousedown", onStart);
     onMove && this.currentTarget.removeEventListener("mousemove", onMove);
     onEnd && this.currentTarget.removeEventListener("mouseup", onEnd);

@@ -2,14 +2,8 @@ export type TransformValue = {
   type: string;
   values: string[];
 };
-export function getTransformValues(element: HTMLElement) {
-  const currentTransform = element.style.transform;
-  const currentTransformValues = extractTransforms(currentTransform);
 
-  return { currentTransform, currentTransformValues };
-}
-
-export function extractTransforms(transformString: string): TransformValue[] {
+export function stringToTransforms(transformString: string): TransformValue[] {
   const regex = /(\w+)\(([^)]+)\)/g;
   const transforms: TransformValue[] = [];
   let match;
@@ -21,6 +15,13 @@ export function extractTransforms(transformString: string): TransformValue[] {
   }
 
   return transforms;
+}
+
+export function getTransformValues(element: HTMLElement) {
+  const transform = element.style.transform;
+  const transformValues = stringToTransforms(transform);
+
+  return { transform, transformValues };
 }
 
 export function pickTransformValue(

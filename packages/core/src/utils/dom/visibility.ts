@@ -11,6 +11,7 @@ export function setVisibility(
   if (Array.isArray(element)) {
     element.forEach((el) => {
       shouldOpen ? addClassName(el, OPEN) : removeClassName(el, OPEN);
+
       el.setAttribute("aria-hidden", shouldOpen ? "false" : "true");
     });
 
@@ -18,5 +19,6 @@ export function setVisibility(
   }
 
   shouldOpen ? addClassName(element, OPEN) : removeClassName(element, OPEN);
+
   element.setAttribute("aria-hidden", shouldOpen ? "false" : "true");
 }
