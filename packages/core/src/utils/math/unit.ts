@@ -2,7 +2,7 @@ export function pxToNumber(px: string) {
   return Number(px.replace("px", ""));
 }
 
-export function toFixedInNumber(
+export function toFixedNumber(
   value: number,
   ...toFixedParams: Parameters<typeof Number.prototype.toFixed>
 ) {

@@ -3,7 +3,7 @@ import {
   BottomSheet,
   createPlaceholderBottomSheet,
 } from "plain-bottom-sheet-core";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { BottomSheetReact } from "../../src/BottomSheetReact";
 import { ExampleForm } from "../../src/examples/ExampleForm";
 
@@ -90,10 +90,17 @@ export const WithForm: Story = {
 export const WithImage: Story = {
   render: function Render(args) {
     const bottomSheetRef = useRef<BottomSheet>(createPlaceholderBottomSheet());
+    const [result, setResult] = useState("");
 
     return (
       <section>
-        <header>
+        <header
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr",
+            gap: "10px",
+          }}
+        >
           <button
             onClick={() => {
               bottomSheetRef.current.open();
@@ -101,6 +108,7 @@ export const WithImage: Story = {
           >
             Open
           </button>
+
           <button
             onClick={() => {
               bottomSheetRef.current.close();
@@ -108,7 +116,66 @@ export const WithImage: Story = {
           >
             Close
           </button>
+
+          <button
+            onClick={() => {
+              bottomSheetRef.current.move(200);
+            }}
+          >
+            Move to y 200
+          </button>
+
+          <button
+            onClick={() => {
+              bottomSheetRef.current.snap(0.4);
+            }}
+          >
+            Snap to 40%
+          </button>
+
+          <button
+            onClick={() => {
+              setResult(String(bottomSheetRef.current.getIsMounted()));
+            }}
+          >
+            getIsMounted
+          </button>
+
+          <button
+            onClick={() => {
+              setResult(String(bottomSheetRef.current.getIsOpen()));
+            }}
+          >
+            getIsOpen
+          </button>
+
+          <button
+            onClick={() => {
+              setResult(String(bottomSheetRef.current.getIsClosed()));
+            }}
+          >
+            getIsClosed
+          </button>
+
+          <button
+            onClick={() => {
+              setResult(bottomSheetRef.current.getPosition());
+            }}
+          >
+            getPosition
+          </button>
+
+          <button
+            onClick={() => {
+              setResult(bottomSheetRef.current.getHeight());
+            }}
+          >
+            getHeight
+          </button>
         </header>
+
+        <article>Result: {result}</article>
+
         <BottomSheetReact ref={bottomSheetRef}>
           {args.children} <br />
           <img src={miles} alt="" />

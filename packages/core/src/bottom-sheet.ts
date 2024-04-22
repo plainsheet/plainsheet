@@ -12,9 +12,14 @@ import { AnimationFrame } from "./utils/animation/AnimationFrame";
 import { convertDefaultPositionToYCoordinate } from "./calculator/position-calculator";
 import { translateContainer } from "./animation/animation";
 import { BottomSheetState } from "./types/bottom-sheet-state.type";
-import { BottomSheetProps } from "./types/bottom-sheet-props.type";
+import {
+  BOTTOM_SHEET_POSITION,
+  BottomSheetProps,
+} from "./types/bottom-sheet-props.type";
 import { DEFAULT_OPTIONS } from "./initializer/bottom-sheet-defaults";
 import { BottomSheet } from "./types/bottom-sheet.type";
+import { isPercent } from "./utils/types/isPercent";
+import { toFixedNumber } from "./utils/math/unit";
 
 export function createBottomSheet(props: BottomSheetProps): BottomSheet {
   // TODO: Set default props only when the prop is not provided.
@@ -109,9 +114,66 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
   function getIsMounted() {
     return bottomSheetState.isMounted;
   }
+
   function getIsOpen() {
-    const startContainerY = getTranslate(bottomSheetContainer).y;
-    return startContainerY < bottomSheetContainer.clientHeight;
+    const containerY = getTranslate(bottomSheetContainer).y;
+    return containerY < bottomSheetContainer.clientHeight;
+  }
+  function getIsClosed() {
+    return !getIsOpen();
+  }
+
+  function getPosition() {
+    const containerY = getTranslate(bottomSheetContainer).y;
+
+    const containerHeight = bottomSheetContainer.clientHeight;
+    const viewportHeight = window.innerHeight;
+
+    if (containerY <= 5 && containerY >= -5) {
+      // NOTE: Although it should be 0, the animation timing function might have caused incorrect end position.
+      // So we use a rough assumption that the end position is around zero.
+      // TODO: We should check if containerY is exactly zero, when the animation timing function is fixed.
+      return BOTTOM_SHEET_POSITION.CONTENT_HEIGHT;
+    }
+
+    const visibleHeight = containerHeight - containerY;
+    if (visibleHeight === viewportHeight / 2) {
+      return BOTTOM_SHEET_POSITION.MIDDLE;
+    }
+
+    const visibleHeightAtTop = viewportHeight - marginTop;
+    const animationErrorCompensation = 10;
+
+    if (
+      visibleHeight <= visibleHeightAtTop + animationErrorCompensation &&
+      visibleHeight >= visibleHeightAtTop - animationErrorCompensation
+    ) {
+      return BOTTOM_SHEET_POSITION.TOP;
+    }
+
+    return BOTTOM_SHEET_POSITION.CLOSED;
+  }
+
+  function getHeight() {
+    return bottomSheetContainer.clientHeight;
+  }
+
+  function moveTo(endY: number) {
+    const startY = getTranslate(bottomSheetContainer).y;
+
+    translateContainer(startY, endY, animationFrame, bottomSheetContainer);
+  }
+
+  function snapTo(percent: number) {
+    const viewportHeight = window.innerHeight;
+
+    if (!isPercent(percent)) {
+      return false;
+    }
+
+    const endY = toFixedNumber(viewportHeight * percent, 2);
+
+    moveTo(endY);
   }
 
   return {
@@ -120,5 +182,11 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
     open,
     close,
     getIsMounted,
+    getIsOpen,
+    getIsClosed,
+    getPosition,
+    getHeight,
+    moveTo,
+    snapTo,
   };
 }

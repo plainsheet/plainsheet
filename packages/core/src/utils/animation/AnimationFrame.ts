@@ -1,4 +1,4 @@
-import { toFixedInNumber } from "../math/unit";
+import { toFixedNumber } from "../math/unit";
 import { isNumber } from "../types/isNumber";
 
 export class AnimationFrame {
@@ -36,7 +36,7 @@ export class AnimationFrame {
       const shouldEndImmediately = duration === 0;
       const progressPercent = shouldEndImmediately
         ? 1
-        : toFixedInNumber(timePassed / duration, 2);
+        : toFixedNumber(timePassed / duration, 2);
       const isAnimationOver = progressPercent >= 1 && !shouldRunForever;
 
       renderFrame(progressPercent);

@@ -19,6 +19,7 @@ export const BOTTOM_SHEET_POSITION = {
   TOP: "top",
   MIDDLE: "middle",
   CONTENT_HEIGHT: "content-height",
+  CLOSED: "closed",
 } as const;
 
 export type BottomSheetPosition =
