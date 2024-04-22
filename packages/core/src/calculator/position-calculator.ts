@@ -52,3 +52,18 @@ export function calcDiffOfHeight(leftHeight: number, rightHeight: number) {
 
   return diff;
 }
+
+export function calcDirectionWithHeight(
+  leftHeight: number,
+  rightHeight: number
+) {
+  const isUp = leftHeight < rightHeight;
+  const isDown = leftHeight > rightHeight;
+  const stayedSame = leftHeight === rightHeight;
+
+  return {
+    isUp,
+    isDown,
+    stayedSame,
+  };
+}

@@ -9,7 +9,13 @@ import { initializeBottomSheetElements } from "./initializer/bottom-sheet-initia
 import { getTranslate, setTranslate } from "./utils/dom/translate";
 import { AnimationFrame } from "./utils/animation/AnimationFrame";
 
-import { convertDefaultPositionToYCoordinate } from "./calculator/position-calculator";
+import {
+  calcDiffOfHeight,
+  calcDirectionWithHeight,
+  calcDraggingDirection,
+  calcOffset,
+  convertDefaultPositionToYCoordinate,
+} from "./calculator/position-calculator";
 import { translateContainer } from "./animation/animation";
 import { BottomSheetState } from "./types/bottom-sheet-state.type";
 import {
@@ -159,9 +165,20 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
   }
 
   function moveTo(endY: number) {
-    const startY = getTranslate(bottomSheetContainer).y;
+    const containerY = getTranslate(bottomSheetContainer).y;
+    const containerHeight = bottomSheetContainer.clientHeight;
 
-    translateContainer(startY, endY, animationFrame, bottomSheetContainer);
+    const visibleHeight = containerHeight - containerY;
+    const visibleEndHeight = window.innerHeight - endY;
+    const direction = calcDirectionWithHeight(visibleHeight, visibleEndHeight);
+    const heightOffset = calcDiffOfHeight(visibleHeight, visibleEndHeight);
+
+    translateContainer(
+      containerY,
+      containerY + (direction.isUp ? -heightOffset : heightOffset),
+      animationFrame,
+      bottomSheetContainer
+    );
   }
 
   function snapTo(percent: number) {

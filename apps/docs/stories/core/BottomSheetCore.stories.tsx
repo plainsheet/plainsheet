@@ -119,7 +119,7 @@ export const WithImage: Story = {
 
           <button
             onClick={() => {
-              bottomSheetRef.current.move(200);
+              bottomSheetRef.current.moveTo(200);
             }}
           >
             Move to y 200
@@ -127,7 +127,7 @@ export const WithImage: Story = {
 
           <button
             onClick={() => {
-              bottomSheetRef.current.snap(0.4);
+              bottomSheetRef.current.snapTo(0.4);
             }}
           >
             Snap to 40%
