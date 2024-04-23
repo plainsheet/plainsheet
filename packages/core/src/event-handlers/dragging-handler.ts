@@ -12,7 +12,10 @@ import {
   TabEvent,
   TabEventListener,
 } from "src/utils/event-listeners/TabEventListener";
-import { SnapPoints } from "src/types/bottom-sheet-props.type";
+import {
+  BottomSheetProps,
+  SnapPoints,
+} from "src/types/bottom-sheet-props.type";
 
 interface DraggingState {
   /** @description Used to know how far the cursor moved. */
@@ -38,16 +41,22 @@ export const handleDragTriggerClick = () => {
 };
 
 export const handleDragStart =
-  (mouseEventListener: TabEventListener, bottomSheetContainer: HTMLElement) =>
+  (
+    mouseEventListener: TabEventListener,
+    bottomSheetContainer: HTMLElement,
+    bottomSheetProps: Required<BottomSheetProps>
+  ) =>
   (event: TabEvent) => {
     draggingState.startY = mouseEventListener.getCoordinates(event).y;
     draggingState.containerStartTranslate = getTranslate(bottomSheetContainer);
+    bottomSheetProps.onDragStart();
   };
 
 export const handleDragMove =
   (
     mouseEventListener: TabEventListener,
     bottomSheetContainer: HTMLElement,
+    bottomSheetProps: Required<BottomSheetProps>,
     animationFrame: AnimationFrame,
     marginTop: number
   ) =>
@@ -55,6 +64,7 @@ export const handleDragMove =
     moveSheetToPointer(
       event,
       mouseEventListener,
+      bottomSheetProps,
       animationFrame,
       bottomSheetContainer,
       marginTop
@@ -64,6 +74,7 @@ export const handleDragMove =
 function moveSheetToPointer(
   event: TabEvent,
   mouseEventListener: TabEventListener,
+  bottomSheetProps: Required<BottomSheetProps>,
   animationFrame: AnimationFrame,
   bottomSheetContainer: HTMLElement,
   marginTop: number
@@ -94,14 +105,27 @@ function moveSheetToPointer(
     });
   }, 0);
 
-  // TODO: calculate the total draggable distance and the current dragged distance based on the direction of dragging, which can be derived from
-  // where was the cursor when dragging started and where is the cursor now.
+  // TODO: calculate the total draggable distance and the current dragged distance based on the direction of dragging,
+  // which can be derived by comparing where the container was when dragging started
+  // and where the container is now.
+  // const direction = calcDraggingDirection(draggingState.startY, endY)
+
+  // - Top Current: viewportHeight - visibleContainerHeight, now
+  // - Top Total: viewportHeight - visibleContainerHeight, when started dragging
+  // -> Top Progress = Top Current / Top Total
+
+  // - Bottom Current: visibleContainerHeight, now
+  // - Bottom Total:  visibleContainerHeight, when started dragging
+  // -> Bottom Progress = Bottom Current / Bottom Total
+
+  bottomSheetProps.onDragMove();
 }
 
 export const handleDragEnd =
   (
     eventListener: TabEventListener,
     bottomSheetContainer: HTMLElement,
+    bottomSheetProps: Required<BottomSheetProps>,
     animationFrame: AnimationFrame,
     snapPoints: SnapPoints,
     marginTop: number,
@@ -116,6 +140,8 @@ export const handleDragEnd =
     if (!isNumber(draggingState.startY)) {
       return;
     }
+
+    bottomSheetProps.onDragEnd();
 
     const startY = draggingState.startY;
     const endY = eventListener.getCoordinates(event).y;

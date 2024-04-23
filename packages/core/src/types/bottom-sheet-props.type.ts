@@ -13,6 +13,13 @@ export interface BottomSheetProps {
    * By default, the background is draggable unless it is covered by the content.
    */
   dragTriggers?: HTMLElement[];
+  beforeOpen: () => void;
+  afterOpen: () => void;
+  beforeClose: () => void;
+  afterClose: () => void;
+  onDragStart: () => void;
+  onDragMove: () => void;
+  onDragEnd: () => void;
 }
 
 export const BOTTOM_SHEET_POSITION = {

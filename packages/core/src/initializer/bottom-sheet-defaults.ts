@@ -6,4 +6,11 @@ export const DEFAULT_OPTIONS = {
   snapPoints: [0.5],
   width: "100%",
   dragTriggers: [],
+  beforeOpen: () => {},
+  afterOpen: () => {},
+  beforeClose: () => {},
+  afterClose: () => {},
+  onDragStart: () => {},
+  onDragMove: () => {},
+  onDragEnd: () => {},
 };

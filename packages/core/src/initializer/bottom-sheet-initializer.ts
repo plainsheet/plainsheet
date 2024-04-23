@@ -137,12 +137,14 @@ function initializeEvents({
 
   const onDragStart: EventCallback = handleDragStart(
     windowEventListener,
-    bottomSheetContainer
+    bottomSheetContainer,
+    bottomSheetProps
   );
 
   const onDragMove: EventCallback = handleDragMove(
     windowEventListener,
     bottomSheetContainer,
+    bottomSheetProps,
     animationFrame,
     marginTop
   );
@@ -150,6 +152,7 @@ function initializeEvents({
   const onDragEnd: EventCallback = handleDragEnd(
     windowEventListener,
     bottomSheetContainer,
+    bottomSheetProps,
     animationFrame,
     snapPoints,
     bottomSheetProps.marginTop,

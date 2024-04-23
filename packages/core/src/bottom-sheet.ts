@@ -12,8 +12,6 @@ import { AnimationFrame } from "./utils/animation/AnimationFrame";
 import {
   calcDiffOfHeight,
   calcDirectionWithHeight,
-  calcDraggingDirection,
-  calcOffset,
   convertDefaultPositionToYCoordinate,
 } from "./calculator/position-calculator";
 import { translateContainer } from "./animation/animation";
@@ -38,7 +36,7 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
     marginTop = DEFAULT_OPTIONS.marginTop,
   } = propsWithDefaults;
 
-  // Make it a BottomSheetState.
+  // TODO: Make it a BottomSheetState.
   const animationFrame = new AnimationFrame();
   const initializerOptions = { animationFrame, onClose: close };
   const bottomSheetState: BottomSheetState = {
@@ -76,6 +74,8 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
   };
 
   const open = (): void => {
+    props.beforeOpen?.();
+
     setVisibility([bottomSheetBackdrop, bottomSheetContainer], true);
 
     const startContainerY = getTranslate(bottomSheetContainer).y;
@@ -104,17 +104,26 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
       startContainerY,
       endY,
       animationFrame,
-      bottomSheetContainer
+      bottomSheetContainer,
+      props.afterOpen
     );
   };
 
   function close() {
+    props.beforeClose?.();
+
     setVisibility([bottomSheetBackdrop, bottomSheetContainer], false);
 
     const startY = getTranslate(bottomSheetContainer).y;
     const endY = bottomSheetContainer.clientHeight;
 
-    translateContainer(startY, endY, animationFrame, bottomSheetContainer);
+    translateContainer(
+      startY,
+      endY,
+      animationFrame,
+      bottomSheetContainer,
+      props.afterClose
+    );
   }
 
   function getIsMounted() {

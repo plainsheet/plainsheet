@@ -7,7 +7,8 @@ export function translateContainer(
   startY: number,
   endY: number,
   animationFrame: AnimationFrame,
-  bottomSheetContainer: HTMLElement
+  bottomSheetContainer: HTMLElement,
+  onEnd?: () => void
 ) {
   const offset = calcOffset(startY, endY);
 
@@ -17,5 +18,9 @@ export function translateContainer(
     setTranslate(bottomSheetContainer, {
       y: startY + offset * spring(progressPercent),
     });
+
+    if (progressPercent === 1) {
+      onEnd?.();
+    }
   }, 200);
 }
