@@ -16,6 +16,8 @@ import {
   BottomSheetProps,
   SnapPoints,
 } from "src/types/bottom-sheet-props.type";
+import { toFixedNumber } from "../utils/math/unit";
+import { boundNumber } from "../utils/math/min-max";
 
 interface DraggingState {
   /** @description Used to know how far the cursor moved. */
@@ -105,20 +107,38 @@ function moveSheetToPointer(
     });
   }, 0);
 
-  // TODO: calculate the total draggable distance and the current dragged distance based on the direction of dragging,
-  // which can be derived by comparing where the container was when dragging started
-  // and where the container is now.
-  // const direction = calcDraggingDirection(draggingState.startY, endY)
+  const direction = calcDraggingDirection(draggingState.startY, endY);
+  const draggableViewportHeight = viewportHeight - marginTop;
+  const visibleContainerHeightWhenStarted =
+    containerHeight - draggingState.containerStartTranslate.y;
 
-  // - Top Current: viewportHeight - visibleContainerHeight, now
-  // - Top Total: viewportHeight - visibleContainerHeight, when started dragging
-  // -> Top Progress = Top Current / Top Total
+  if (direction.isUp) {
+    const totalTopGapLeft =
+      draggableViewportHeight - visibleContainerHeightWhenStarted;
+    const currentTopGapLeft = draggableViewportHeight - visibleContainerHeight;
+    const draggingToTopProgress = boundNumber(
+      1 - toFixedNumber(currentTopGapLeft / totalTopGapLeft, 2),
+      {
+        min: 0,
+        max: 1,
+      }
+    );
 
-  // - Bottom Current: visibleContainerHeight, now
-  // - Bottom Total:  visibleContainerHeight, when started dragging
-  // -> Bottom Progress = Bottom Current / Bottom Total
+    bottomSheetProps.onDragMove(direction, draggingToTopProgress);
+  } else if (direction.isDown) {
+    const draggingToBottomProgress = boundNumber(
+      toFixedNumber(
+        1 - visibleContainerHeight / visibleContainerHeightWhenStarted,
+        2
+      ),
+      {
+        min: 0,
+        max: 1,
+      }
+    );
 
-  bottomSheetProps.onDragMove();
+    bottomSheetProps.onDragMove(direction, draggingToBottomProgress);
+  }
 }
 
 export const handleDragEnd =

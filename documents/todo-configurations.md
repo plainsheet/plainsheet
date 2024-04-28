@@ -1,9 +1,5 @@
 - Configurations
 
-  - Lifecycle callbacks
-
-    - `onDragMove(direction, progress)`
-
   - Behaviors
 
     - `expandable`: Can you drag it up above the content-height?

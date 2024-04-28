@@ -3,3 +3,5 @@ export * from "./initializer/bottom-sheet-placeholder";
 
 export * from "./class-names/class-names";
 export * from "./class-names/selectors";
+
+export * from "./calculator/position-calculator.type";

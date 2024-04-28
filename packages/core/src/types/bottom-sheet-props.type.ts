@@ -1,3 +1,5 @@
+import { DraggingDirection } from "src/calculator/position-calculator.type";
+
 export interface BottomSheetProps {
   content: string;
   width?: string;
@@ -18,7 +20,11 @@ export interface BottomSheetProps {
   beforeClose: () => void;
   afterClose: () => void;
   onDragStart: () => void;
-  onDragMove: () => void;
+  /**
+   *
+   * @param progress Rational number ranging from 0 to 1, inclusive.
+   */
+  onDragMove: (direction: DraggingDirection, progress: number) => void;
   onDragEnd: () => void;
 }
 

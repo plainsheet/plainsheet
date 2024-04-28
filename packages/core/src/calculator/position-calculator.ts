@@ -1,4 +1,5 @@
 import { BottomSheetPosition } from "../types/bottom-sheet-props.type";
+import { DraggingDirection } from "./position-calculator.type";
 
 /** @description It expects the bottom sheet to be open. */
 export function convertDefaultPositionToYCoordinate(
@@ -19,7 +20,10 @@ export function convertDefaultPositionToYCoordinate(
   }
 }
 
-export function calcDraggingDirection(startY: number, endY: number) {
+export function calcDraggingDirection(
+  startY: number,
+  endY: number
+): DraggingDirection {
   const isUp = endY < startY;
   const isDown = endY > startY;
   const stayedSame = endY === startY;
