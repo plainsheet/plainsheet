@@ -11,6 +11,9 @@
   z-index: 1;
   transition: background-color 0.2s ease-out;
 }
+.pbs-backdrop.hidden {
+  display: none;
+}
 
 .pbs-backdrop.open {
   background-color: rgba(105, 105, 105, 0.7);

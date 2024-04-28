@@ -100,9 +100,17 @@ function createElements(bottomSheetProps: Required<BottomSheetProps>) {
       bottomSheetProps.contentWrapperClass,
     ])
   );
+
+  console.log({
+    "bottomSheetProps.shouldShowBackdrop": bottomSheetProps.shouldShowBackdrop,
+  });
   const bottomSheetBackdrop = createElement(
     "div",
-    mergeClassNames([ClassNames.Backdrop, bottomSheetProps.backdropClass])
+    mergeClassNames([
+      ClassNames.Backdrop,
+      bottomSheetProps.backdropClass,
+      bottomSheetProps.shouldShowBackdrop ? null : UtilClassNames.Hidden,
+    ])
   );
   if (bottomSheetProps.backdropColor) {
     bottomSheetBackdrop.style.backgroundColor = bottomSheetProps.backdropColor;

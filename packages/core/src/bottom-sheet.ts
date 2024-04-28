@@ -35,6 +35,7 @@ import {
   spring,
 } from "./utils/animation/common-animations";
 import { cubicBezier } from "./utils/animation/cubic-bezier";
+import { exists } from "./utils/types/exists";
 
 function overwriteDefaultProps(props: BottomSheetProps) {
   const propsWithDefaults: RequiredBottomSheetProps = {
@@ -44,7 +45,7 @@ function overwriteDefaultProps(props: BottomSheetProps) {
   const providedProps = Object.entries(props).reduce(
     (acc, curr) => {
       const [propKey, propValue] = curr;
-      if (Boolean(propValue)) {
+      if (exists(propValue)) {
         acc[propKey] = propValue;
       }
 

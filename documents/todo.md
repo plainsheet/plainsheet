@@ -3,6 +3,7 @@
 - Publish the core to CDNs, and NPM.
 - Make the HTML example app
 - Make the source code public.
+- Add a `draggable` prop
 - Publish the storybook.
 
 ## Key Features

@@ -32,6 +32,6 @@ export const BOTTOM_SHEET_DEFAULT_PROPS: RequiredBottomSheetProps = {
   handleClass: null,
   contentWrapperClass: null,
   backdropClass: null,
-  draggingAnimationTimings: null,
+  draggingAnimationTimings: "ease-in-out",
   draggingAnimationDuration: 200,
 };
