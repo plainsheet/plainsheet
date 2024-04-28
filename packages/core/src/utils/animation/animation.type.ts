@@ -15,6 +15,7 @@ export type AnimationTimingFunction = (x: number) => number;
 export type CommonAnimationKeys = typeof COMMON_ANIMATION_KEYS;
 export type CommonAnimationKey = keyof CommonAnimationKeys;
 export type CommonAnimation = CommonAnimationKeys[CommonAnimationKey];
+
 export const COMMON_ANIMATION_KEYS = {
   EASE_IN: "ease-in",
   EASE_OUT: "ease-out",

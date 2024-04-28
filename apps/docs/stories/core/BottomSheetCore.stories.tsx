@@ -167,7 +167,7 @@ export const WithImage: Story = {
 
           <button
             onClick={() => {
-              setResult(bottomSheetRef.current.getHeight());
+              setResult(String(bottomSheetRef.current.getHeight()));
             }}
           >
             getHeight
