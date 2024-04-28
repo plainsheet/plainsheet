@@ -1,3 +1,4 @@
+- [] Test all props
 - [] Fix the animation timing functions
 - [] Add SSR, CSR test apps
 

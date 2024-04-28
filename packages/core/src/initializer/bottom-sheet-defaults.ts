@@ -1,9 +1,11 @@
 import {
   BOTTOM_SHEET_POSITION,
-  BottomSheetProps,
+  RequiredBottomSheetProps,
 } from "../types/bottom-sheet-props.type";
 
-export const BOTTOM_SHEET_DEFAULT_PROPS: Required<BottomSheetProps> = {
+export type BottomSheetDefaultPropKeys = keyof RequiredBottomSheetProps;
+
+export const BOTTOM_SHEET_DEFAULT_PROPS: RequiredBottomSheetProps = {
   content: "",
   defaultPosition: BOTTOM_SHEET_POSITION.CONTENT_HEIGHT,
   marginTop: 20,
@@ -30,7 +32,6 @@ export const BOTTOM_SHEET_DEFAULT_PROPS: Required<BottomSheetProps> = {
   handleClass: null,
   contentWrapperClass: null,
   backdropClass: null,
-  openAnim: null,
-  closeAnim: null,
-  snapAnim: null,
+  draggingAnimationTimings: null,
+  draggingAnimationDuration: 200,
 };

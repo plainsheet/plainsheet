@@ -7,7 +7,7 @@ import { AnimationFrame } from "../utils/animation/AnimationFrame";
 import { getTranslate, setTranslate } from "../utils/dom/translate";
 import { isNumber } from "../utils/types/isNumber";
 import { Coordinates, Position } from "src/animation/animation.type";
-import { translateContainer } from "../animation/animation";
+import { TranslateContainer } from "../animation/animation";
 import {
   TabEvent,
   TabEventListener,
@@ -157,7 +157,8 @@ export const handleDragEnd =
     animationFrame: AnimationFrame,
     snapPoints: SnapPoints,
     marginTop: number,
-    onClose: () => void
+    onClose: () => void,
+    translateContainer: TranslateContainer
   ) =>
   (event: TabEvent) => {
     if (!draggingState.isDragging) {
@@ -206,12 +207,12 @@ export const handleDragEnd =
             snapPointHeight
           );
 
-          translateContainer(
-            containerEndY,
-            containerEndY - visibleContainerAndSnapPointHeightOffset,
+          translateContainer({
+            startY: containerEndY,
+            endY: containerEndY - visibleContainerAndSnapPointHeightOffset,
             animationFrame,
-            bottomSheetContainer
-          );
+            bottomSheetContainer,
+          });
 
           return;
         }
@@ -219,12 +220,12 @@ export const handleDragEnd =
 
       // NOTE: Translate to the fully open position when it moves past all snap points.
       const topPointYLimit = -(viewportHeight - containerHeight) + marginTop;
-      translateContainer(
-        containerEndY,
-        topPointYLimit,
+      translateContainer({
+        startY: containerEndY,
+        endY: topPointYLimit,
         animationFrame,
-        bottomSheetContainer
-      );
+        bottomSheetContainer,
+      });
     } else if (direction.isDown) {
       const snapPointsInDesc = [...snapPoints].sort(
         (left, right) => right - left
@@ -242,12 +243,12 @@ export const handleDragEnd =
             snapPointHeight
           );
 
-          translateContainer(
-            containerEndY,
-            containerEndY + visibleContainerAndSnapPointHeightOffset,
+          translateContainer({
+            startY: containerEndY,
+            endY: containerEndY + visibleContainerAndSnapPointHeightOffset,
             animationFrame,
-            bottomSheetContainer
-          );
+            bottomSheetContainer,
+          });
 
           return;
         }

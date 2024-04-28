@@ -1,26 +1,58 @@
-import { spring } from "src/utils/animation/common-animations";
 import { calcOffset } from "../calculator/position-calculator";
 import { AnimationFrame } from "../utils/animation/AnimationFrame";
 import { setTranslate } from "../utils/dom/translate";
+import { AnimationTimingFunction } from "src/utils/animation/animation.type";
 
-export function translateContainer(
-  startY: number,
-  endY: number,
-  animationFrame: AnimationFrame,
-  bottomSheetContainer: HTMLElement,
-  onEnd?: () => void
-) {
+export type TranslateContainerParams = {
+  startY: number;
+  endY: number;
+  animationFrame: AnimationFrame;
+  bottomSheetContainer: HTMLElement;
+  onEnd?: () => void;
+  animationTimingFunction: AnimationTimingFunction;
+  /**
+   * @description In Milliseconds.
+   */
+  animationDuration: number;
+};
+export type TranslateContainerParamsExceptAnimation = Omit<
+  TranslateContainerParams,
+  "animationTimingFunction" | "animationDuration"
+>;
+
+export type TranslateContainer = ReturnType<typeof translateContainerWithAnim>;
+
+export function translateContainer(params: TranslateContainerParams) {
+  const {
+    startY,
+    endY,
+    bottomSheetContainer,
+    animationFrame,
+    onEnd,
+    animationTimingFunction,
+    animationDuration,
+  } = params;
   const offset = calcOffset(startY, endY);
 
   animationFrame.stop();
 
   animationFrame.start((progressPercent) => {
     setTranslate(bottomSheetContainer, {
-      y: startY + offset * spring(progressPercent),
+      y: startY + offset * animationTimingFunction(progressPercent),
     });
 
     if (progressPercent === 1) {
       onEnd?.();
     }
-  }, 200);
+  }, animationDuration);
 }
+
+export const translateContainerWithAnim =
+  (animTimingFunction: AnimationTimingFunction, animDuration: number) =>
+  (params: TranslateContainerParamsExceptAnimation) => {
+    return translateContainer({
+      ...params,
+      animationTimingFunction: animTimingFunction,
+      animationDuration: animDuration,
+    });
+  };

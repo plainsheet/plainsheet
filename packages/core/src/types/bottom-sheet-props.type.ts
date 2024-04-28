@@ -1,10 +1,11 @@
 import { DraggingDirection } from "src/calculator/position-calculator.type";
 import {
   AnimationTimingPoints,
-  CommonAnimations,
+  CommonAnimation,
 } from "src/utils/animation/animation.type";
 import { CSSColor, CSSUnit } from "src/utils/types/css-attribute";
 
+export type RequiredBottomSheetProps = Required<BottomSheetProps>;
 export interface BottomSheetProps {
   content: string;
   width?: string;
@@ -45,24 +46,23 @@ export interface BottomSheetProps {
   onDragMove: (direction: DraggingDirection, progress: number) => void;
   onDragEnd: () => void;
 
-  // NOTE: Appearance settings
+  // NOTE: Appearance settings.
   shouldShowHandle?: boolean;
   shouldShowBackdrop?: boolean;
   containerBorderRadius?: CSSUnit | null;
   backdropColor?: CSSColor | string | null;
   backDropTransition?: string | null;
 
-  // NOTE: Custom CSS classes
+  // NOTE: Custom CSS classes.
   rootClass?: string | null;
   containerClass?: string | null;
   handleClass?: string | null;
   contentWrapperClass?: string | null;
   backdropClass?: string | null;
 
-  // NOTE: Animation timing settings
-  openAnim?: CommonAnimations | AnimationTimingPoints | null;
-  closeAnim?: CommonAnimations | AnimationTimingPoints | null;
-  snapAnim?: CommonAnimations | AnimationTimingPoints | null;
+  // NOTE: Animation settings.
+  draggingAnimationTimings?: CommonAnimation | AnimationTimingPoints | null;
+  draggingAnimationDuration?: number;
 }
 
 export const BOTTOM_SHEET_POSITION = {

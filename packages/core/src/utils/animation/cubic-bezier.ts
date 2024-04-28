@@ -1,11 +1,13 @@
-type EasingFunction = (x: number) => number;
+import { AnimationTimingFunction } from "./animation.type";
+
+export type CubicBezierReturnType = ReturnType<typeof cubicBezier>;
 
 export function cubicBezier(
   p1x: number,
   p1y: number,
   p2x: number,
   p2y: number
-): EasingFunction {
+): AnimationTimingFunction {
   // Precision of the solution
   const precision: number = 0.00001;
 

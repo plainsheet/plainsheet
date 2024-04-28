@@ -14,31 +14,87 @@ import {
   calcDirectionWithHeight,
   convertDefaultPositionToYCoordinate,
 } from "./calculator/position-calculator";
-import { translateContainer } from "./animation/animation";
+import { translateContainerWithAnim } from "./animation/animation";
 import { BottomSheetState } from "./types/bottom-sheet-state.type";
 import {
   BOTTOM_SHEET_POSITION,
   BottomSheetProps,
+  RequiredBottomSheetProps,
 } from "./types/bottom-sheet-props.type";
 import { BOTTOM_SHEET_DEFAULT_PROPS } from "./initializer/bottom-sheet-defaults";
 import { BottomSheet } from "./types/bottom-sheet.type";
 import { isPercent } from "./utils/types/isPercent";
 import { toFixedNumber } from "./utils/math/unit";
+import {
+  AnimationTimingFunction,
+  isAnimationTimingPoints,
+  isCommonAnimationTimingsKey,
+} from "./utils/animation/animation.type";
+import {
+  commonAnimationTimingsNameToFunction,
+  spring,
+} from "./utils/animation/common-animations";
+import { cubicBezier } from "./utils/animation/cubic-bezier";
 
-export function createBottomSheet(props: BottomSheetProps): BottomSheet {
-  // TODO: Set default props only when the prop is not provided.
-  const propsWithDefaults = {
-    ...props,
+function overwriteDefaultProps(props: BottomSheetProps) {
+  const propsWithDefaults: RequiredBottomSheetProps = {
     ...BOTTOM_SHEET_DEFAULT_PROPS,
   };
-  const {
-    defaultPosition = BOTTOM_SHEET_DEFAULT_PROPS.defaultPosition,
-    marginTop = BOTTOM_SHEET_DEFAULT_PROPS.marginTop,
-  } = propsWithDefaults;
+
+  const providedProps = Object.entries(props).reduce(
+    (acc, curr) => {
+      const [propKey, propValue] = curr;
+      if (Boolean(propValue)) {
+        acc[propKey] = propValue;
+      }
+
+      return acc;
+    },
+    {} as Record<string, unknown>
+  );
+
+  const validProps = {
+    ...propsWithDefaults,
+    providedProps,
+  };
+
+  return validProps;
+}
+
+function interpretAnimationTimingsProp(
+  draggingAnimationTimings: BottomSheetProps["draggingAnimationTimings"]
+): AnimationTimingFunction {
+  if (isAnimationTimingPoints(draggingAnimationTimings)) {
+    const { p1x, p1y, p2x, p2y } = draggingAnimationTimings;
+    return cubicBezier(p1x, p1y, p2x, p2y);
+  }
+
+  if (isCommonAnimationTimingsKey(draggingAnimationTimings)) {
+    return commonAnimationTimingsNameToFunction(draggingAnimationTimings);
+  }
+
+  return spring;
+}
+
+export function createBottomSheet(props: BottomSheetProps): BottomSheet {
+  const propsWithDefaults = overwriteDefaultProps(props);
+
+  const validDraggingAnimationTimings = interpretAnimationTimingsProp(
+    props.draggingAnimationTimings
+  );
+
+  const translateContainer = translateContainerWithAnim(
+    validDraggingAnimationTimings,
+    propsWithDefaults.draggingAnimationDuration
+  );
 
   // TODO: Make it a BottomSheetState.
   const animationFrame = new AnimationFrame();
-  const initializerOptions = { animationFrame, onClose: close };
+  const initializerOptions = {
+    animationFrame,
+    onClose: close,
+    translateContainer,
+  };
   const bottomSheetState: BottomSheetState = {
     isMounted: false,
   };
@@ -96,17 +152,17 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
     const endY = convertDefaultPositionToYCoordinate(
       viewportHeight,
       bottomSheetContainer.clientHeight,
-      marginTop,
-      defaultPosition
+      propsWithDefaults.marginTop,
+      propsWithDefaults.defaultPosition
     );
 
-    translateContainer(
-      startContainerY,
-      endY,
+    translateContainer({
+      startY: startContainerY,
+      endY: endY,
       animationFrame,
       bottomSheetContainer,
-      props.afterOpen
-    );
+      onEnd: props.afterOpen,
+    });
   };
 
   function close() {
@@ -121,13 +177,13 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
     const startY = getTranslate(bottomSheetContainer).y;
     const endY = bottomSheetContainer.clientHeight;
 
-    translateContainer(
-      startY,
-      endY,
+    translateContainer({
+      startY: startY,
+      endY: endY,
       animationFrame,
       bottomSheetContainer,
-      props.afterClose
-    );
+      onEnd: props.afterOpen,
+    });
   }
 
   function getIsMounted() {
@@ -160,7 +216,7 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
       return BOTTOM_SHEET_POSITION.MIDDLE;
     }
 
-    const visibleHeightAtTop = viewportHeight - marginTop;
+    const visibleHeightAtTop = viewportHeight - propsWithDefaults.marginTop;
     const animationErrorCompensation = 10;
 
     if (
@@ -186,12 +242,12 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
     const direction = calcDirectionWithHeight(visibleHeight, visibleEndHeight);
     const heightOffset = calcDiffOfHeight(visibleHeight, visibleEndHeight);
 
-    translateContainer(
-      containerY,
-      containerY + (direction.isUp ? -heightOffset : heightOffset),
+    translateContainer({
+      startY: containerY,
+      endY: containerY + (direction.isUp ? -heightOffset : heightOffset),
       animationFrame,
-      bottomSheetContainer
-    );
+      bottomSheetContainer,
+    });
   }
 
   function snapTo(percent: number) {

@@ -18,9 +18,11 @@ import {
 } from "../utils/event-listeners/TabEventListener";
 import { EventPhase } from "../utils/event-listeners/EventPhase";
 import { BottomSheetProps } from "../types/bottom-sheet-props.type";
+import { TranslateContainer } from "src/animation/animation";
 
 export type InitializerOptions = {
   animationFrame: AnimationFrame;
+  translateContainer: TranslateContainer;
   onClose: () => void;
 };
 
@@ -195,7 +197,8 @@ function initializeEvents({
     animationFrame,
     snapPoints,
     bottomSheetProps.marginTop,
-    options.onClose
+    options.onClose,
+    options.translateContainer
   );
 
   function handleWindowClick(e: MouseEvent) {
