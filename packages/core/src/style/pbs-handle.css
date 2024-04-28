@@ -8,6 +8,9 @@
   height: 25px;
   cursor: pointer;
 }
+.pbs-handle.hidden {
+  display: none;
+}
 
 .pbs-button-reset {
   background-color: transparent;
@@ -24,4 +27,7 @@
   height: 7px;
 
   border-radius: 12px;
+}
+.pbs-handle-bar.hidden {
+  display: none;
 }

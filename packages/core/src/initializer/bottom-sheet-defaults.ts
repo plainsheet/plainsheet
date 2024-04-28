@@ -20,4 +20,9 @@ export const BOTTOM_SHEET_DEFAULT_PROPS: Required<BottomSheetProps> = {
   expandable: true,
   backgroundDraggable: true,
   shouldCloseOnOutsideClick: true,
+  shouldShowBackdrop: true,
+  shouldShowHandle: true,
+  backDropTransition: null,
+  backdropColor: null,
+  containerBorderRadius: null,
 };

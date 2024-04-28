@@ -41,3 +41,7 @@ export enum ResetClassNames {
   Button = "pbs-button-reset",
   Dialog = "pbs-dialog-reset",
 }
+
+export enum UtilClassNames {
+  Hidden = "hidden",
+}

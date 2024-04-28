@@ -1,14 +1,19 @@
 import { DraggingDirection } from "src/calculator/position-calculator.type";
+import { CSSColor, CSSUnit } from "src/utils/types/css-attribute";
 
 export interface BottomSheetProps {
   content: string;
   width?: string;
-  defaultPosition?: BottomSheetPosition;
+
+  // NOTE: Position settings
   /**
    * Space between the top of the bottom sheet and the viewport's top.
    * @default 20
    */
   marginTop?: number;
+  defaultPosition?: BottomSheetPosition;
+
+  // NOTE: Behavior settings
   shouldCloseOnOutsideClick?: boolean;
   snapPoints?: SnapPoints;
   /**
@@ -21,6 +26,8 @@ export interface BottomSheetProps {
    * By default, the background is draggable unless it is covered by the content.
    */
   dragTriggers?: HTMLElement[];
+
+  // NOTE: Life-cycle callbacks.
   beforeOpen: () => void;
   afterOpen: () => void;
   beforeClose: () => void;
@@ -33,6 +40,13 @@ export interface BottomSheetProps {
    */
   onDragMove: (direction: DraggingDirection, progress: number) => void;
   onDragEnd: () => void;
+
+  // NOTE: Appearance settings
+  shouldShowHandle?: boolean;
+  shouldShowBackdrop?: boolean;
+  containerBorderRadius?: CSSUnit | null;
+  backdropColor?: CSSColor | string | null;
+  backDropTransition?: string | null;
 }
 
 export const BOTTOM_SHEET_POSITION = {

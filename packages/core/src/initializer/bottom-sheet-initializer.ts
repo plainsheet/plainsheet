@@ -1,4 +1,8 @@
-import { ClassNames, ResetClassNames } from "../class-names/class-names";
+import {
+  ClassNames,
+  ResetClassNames,
+  UtilClassNames,
+} from "../class-names/class-names";
 import { createElement } from "../utils/dom/element";
 import { mergeClassNames } from "../utils/dom/classNames";
 import {
@@ -24,7 +28,7 @@ export function initializeBottomSheetElements(
   props: Required<BottomSheetProps>,
   options: InitializerOptions
 ) {
-  const elements = createElements();
+  const elements = createElements(props);
   combineElements(elements);
 
   // NOTE: Mounts the user-provided content to the content wrapper.
@@ -44,13 +48,17 @@ export function initializeBottomSheetElements(
 
 type BottomSheetElements = ReturnType<typeof createElements>;
 
-function createElements() {
+function createElements(bottomSheetProps: Required<BottomSheetProps>) {
   const bottomSheetRoot = createElement(
     "dialog",
     mergeClassNames([ClassNames.Root, ResetClassNames.Dialog])
   );
 
   const bottomSheetContainer = createElement("section", ClassNames.Container);
+  if (bottomSheetProps.containerBorderRadius) {
+    bottomSheetContainer.style.borderRadius =
+      bottomSheetProps.containerBorderRadius;
+  }
 
   const bottomSheetContainerGapFiller = createElement(
     "div",
@@ -59,17 +67,33 @@ function createElements() {
 
   const bottomSheetHandle = createElement(
     "button",
-    mergeClassNames([ClassNames.Handle, ResetClassNames.Button])
+    mergeClassNames([
+      ClassNames.Handle,
+      ResetClassNames.Button,
+      bottomSheetProps.shouldShowHandle ? null : UtilClassNames.Hidden,
+    ])
   );
   bottomSheetHandle.setAttribute("type", "button");
 
-  const bottomSheetHandleBar = createElement("span", ClassNames.HandleBar);
+  const bottomSheetHandleBar = createElement(
+    "span",
+    mergeClassNames([
+      ClassNames.HandleBar,
+      bottomSheetProps.shouldShowHandle ? null : UtilClassNames.Hidden,
+    ])
+  );
 
   const bottomSheetContentWrapper = createElement(
     "article",
     ClassNames.ContentWrapper
   );
   const bottomSheetBackdrop = createElement("div", ClassNames.Backdrop);
+  if (bottomSheetProps.backdropColor) {
+    bottomSheetBackdrop.style.backgroundColor = bottomSheetProps.backdropColor;
+  }
+  if (bottomSheetProps.backDropTransition) {
+    bottomSheetBackdrop.style.transition = bottomSheetProps.backDropTransition;
+  }
 
   return {
     bottomSheetRoot,
