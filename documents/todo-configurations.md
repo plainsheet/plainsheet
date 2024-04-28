@@ -1,11 +1,5 @@
 - Configurations
 
-  - Behaviors
-
-    - `expandable`: Can you drag it up above the content-height?
-    - `closeOnOutsideClick`: Add an event listener to the backdrop, and close the bottom sheet when it is clicked.
-    - `backgroundDraggable`: short-circuit the background's click event handler when enabled.
-
   - Styling
 
     - `hideHandle`: Add a 'hidden' CSS class to the handle.

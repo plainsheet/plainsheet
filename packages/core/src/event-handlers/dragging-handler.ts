@@ -100,6 +100,15 @@ function moveSheetToPointer(
   if (visibleContainerHeight >= viewportHeight - marginTop) {
     return;
   }
+  const direction = calcDraggingDirection(draggingState.startY, endY);
+
+  if (
+    direction.isUp &&
+    !bottomSheetProps.expandable &&
+    visibleContainerHeight >= containerHeight
+  ) {
+    return;
+  }
 
   animationFrame.start(() => {
     setTranslate(bottomSheetContainer, {
@@ -107,7 +116,6 @@ function moveSheetToPointer(
     });
   }, 0);
 
-  const direction = calcDraggingDirection(draggingState.startY, endY);
   const draggableViewportHeight = viewportHeight - marginTop;
   const visibleContainerHeightWhenStarted =
     containerHeight - draggingState.containerStartTranslate.y;
@@ -178,11 +186,18 @@ export const handleDragEnd =
         (left, right) => left - right
       );
 
+      const containerVisibleHeight = containerHeight + -containerEndY;
+      if (
+        !bottomSheetProps.expandable &&
+        containerVisibleHeight >= containerHeight
+      ) {
+        return;
+      }
+
       for (let snapPoint of snapPointsInAsc) {
         // The diff between endY and startY can not be used because
         // the contents can be dragged.
         const snapPointHeight = snapPoint * window.innerHeight;
-        const containerVisibleHeight = containerHeight + -containerEndY;
 
         if (containerVisibleHeight <= snapPointHeight) {
           // snapPointHeight - containerVisibleHeight

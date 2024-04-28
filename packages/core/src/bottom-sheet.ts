@@ -20,7 +20,7 @@ import {
   BOTTOM_SHEET_POSITION,
   BottomSheetProps,
 } from "./types/bottom-sheet-props.type";
-import { DEFAULT_OPTIONS } from "./initializer/bottom-sheet-defaults";
+import { BOTTOM_SHEET_DEFAULT_PROPS } from "./initializer/bottom-sheet-defaults";
 import { BottomSheet } from "./types/bottom-sheet.type";
 import { isPercent } from "./utils/types/isPercent";
 import { toFixedNumber } from "./utils/math/unit";
@@ -29,11 +29,11 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
   // TODO: Set default props only when the prop is not provided.
   const propsWithDefaults = {
     ...props,
-    ...DEFAULT_OPTIONS,
+    ...BOTTOM_SHEET_DEFAULT_PROPS,
   };
   const {
-    defaultPosition = DEFAULT_OPTIONS.defaultPosition,
-    marginTop = DEFAULT_OPTIONS.marginTop,
+    defaultPosition = BOTTOM_SHEET_DEFAULT_PROPS.defaultPosition,
+    marginTop = BOTTOM_SHEET_DEFAULT_PROPS.marginTop,
   } = propsWithDefaults;
 
   // TODO: Make it a BottomSheetState.
@@ -110,6 +110,10 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
   };
 
   function close() {
+    if (getIsClosed()) {
+      return;
+    }
+
     props.beforeClose?.();
 
     setVisibility([bottomSheetBackdrop, bottomSheetContainer], false);

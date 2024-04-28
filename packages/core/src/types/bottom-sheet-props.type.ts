@@ -9,7 +9,13 @@ export interface BottomSheetProps {
    * @default 20
    */
   marginTop?: number;
+  shouldCloseOnOutsideClick?: boolean;
   snapPoints?: SnapPoints;
+  /**
+   * @description If it is true, the bottom sheet can be dragged up above its content height.
+   */
+  expandable?: boolean;
+  backgroundDraggable?: boolean;
   /**
    * @description Elements that will trigger dragging of the bottom sheet.
    * By default, the background is draggable unless it is covered by the content.
@@ -21,8 +27,9 @@ export interface BottomSheetProps {
   afterClose: () => void;
   onDragStart: () => void;
   /**
-   *
+   * @param direction Current direction based on where the pointer was when started dragging.
    * @param progress Rational number ranging from 0 to 1, inclusive.
+   * It represents how far the Bottom Sheet is dragged.
    */
   onDragMove: (direction: DraggingDirection, progress: number) => void;
   onDragEnd: () => void;
