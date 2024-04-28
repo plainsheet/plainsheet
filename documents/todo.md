@@ -1,12 +1,9 @@
-- [] Make it configurable.
-  - Read todo-configurations.md
-  - Add interfaces
-  - Implement interfaces
 - [] Fix the animation timing functions
+- [] Add SSR, CSR test apps
 
 - [] Publish the core to CDNs, and NPM.
-
-- [] Write tests
-- [] Performance optimization
+- [] Make the readme better.
+- [] Make the source code public.
 
 - [] Accessibility support
+- [] Tests.

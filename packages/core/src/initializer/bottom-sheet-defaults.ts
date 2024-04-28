@@ -25,4 +25,12 @@ export const BOTTOM_SHEET_DEFAULT_PROPS: Required<BottomSheetProps> = {
   backDropTransition: null,
   backdropColor: null,
   containerBorderRadius: null,
+  rootClass: null,
+  containerClass: null,
+  handleClass: null,
+  contentWrapperClass: null,
+  backdropClass: null,
+  openAnim: null,
+  closeAnim: null,
+  snapAnim: null,
 };
