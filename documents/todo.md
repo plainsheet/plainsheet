@@ -1,14 +1,15 @@
 # TODO
 
-- Publish the core to CDNs, and NPM.
 - Make the HTML example app
 - Make the source code public.
+- Publish the core to CDNs, and NPM.
+  - https://www.jsdelivr.com/
 - Add a `draggable` prop
-- Publish the storybook.
+- Publish the storybook as a GitHub pages
 
 ## Key Features
 
-- React support
+- React support.
 - Accessibility support.
 - Document all props.
 - Fully tested.
