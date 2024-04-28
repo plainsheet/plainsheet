@@ -3,6 +3,7 @@ import {
   createBottomSheet,
   createPlaceholderBottomSheet,
   BOTTOM_SHEET_SELECTORS,
+  BottomSheetProps,
 } from "plain-bottom-sheet-core";
 import {
   forwardRef,
@@ -17,6 +18,7 @@ import { createPortal } from "react-dom";
 interface BottomSheetReactProps {
   children: ReactNode;
   mountingPoint?: Element | null;
+  options?: BottomSheetProps;
 }
 
 const placeholderBottomSheet = createPlaceholderBottomSheet();
@@ -37,42 +39,45 @@ export const BottomSheetReact = forwardRef<BottomSheet, BottomSheetReactProps>(
       [props, bottomSheet]
     );
 
-    useEffect(function initiateBottomSheet() {
-      const mountingPoint =
-        props.mountingPoint === undefined || props.mountingPoint === null
-          ? window.document.body
-          : props.mountingPoint;
-      if (!mountingPoint) {
-        return;
-      }
-      if (bottomSheet.getIsMounted()) {
-        if (!bottomSheetContentsWrapperRef.current) {
+    useEffect(
+      function initiateBottomSheet() {
+        const mountingPoint =
+          props.mountingPoint === undefined || props.mountingPoint === null
+            ? window.document.body
+            : props.mountingPoint;
+        if (!mountingPoint) {
+          return;
+        }
+        if (bottomSheet.getIsMounted()) {
+          if (!bottomSheetContentsWrapperRef.current) {
+            return;
+          }
+
+          // TODO: Efficiently avoid rerendering/recreating of the bottom sheet
+          // while updating the user-provided content
+          // createPortal(props.children, bottomSheetContentsWrapperRef.current);
           return;
         }
 
-        // TODO: Efficiently avoid rerendering/recreating of the bottom sheet
-        // while updating the user-provided content
-        // createPortal(props.children, bottomSheetContentsWrapperRef.current);
-        return;
-      }
+        // TODO: Initiate with user-provided props
+        const bottomSheetInstance = createBottomSheet({
+          content: props.options?.content ?? "",
+          ...props.options,
+        });
+        bottomSheetInstance.mount(mountingPoint);
 
-      // TODO: Initiate with user-provided props
-      const bottomSheetInstance = createBottomSheet({
-        content: "",
-        snapPoints: [0.5],
-      });
-      bottomSheetInstance.mount(mountingPoint);
+        setBottomSheet(bottomSheetInstance);
 
-      setBottomSheet(bottomSheetInstance);
+        bottomSheetContentsWrapperRef.current = document.querySelector(
+          BOTTOM_SHEET_SELECTORS.CONTENTS_WRAPPER
+        );
 
-      bottomSheetContentsWrapperRef.current = document.querySelector(
-        BOTTOM_SHEET_SELECTORS.CONTENTS_WRAPPER
-      );
-
-      return () => {
-        bottomSheet.unmount();
-      };
-    }, []);
+        return () => {
+          bottomSheet.unmount();
+        };
+      },
+      [props.mountingPoint, props.options, props.options?.content]
+    );
 
     return (
       <>

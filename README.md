@@ -4,13 +4,17 @@ The minimalistic, configurable bottom-sheet for the Web.
 
 ## Why would you use it?
 
-- 🫙 Zero dependencies, pure JavaScript(though written in TypeScript),
-- 🪶 Super Lightweight(Only 30 Kb, compressed),
-- 📱 Mobile-friendly, works just like native bottom sheets.
-- 🎛 Highly configurable. You can style it however you want, change its behavior, and hook into life-cycle events.
+- 🫙 It has zero dependencies, so your app does not depend on any other libraries that you don't need.
+- 🪶 Super Lightweight(Only 30 Kb, compressed), so you don't have to compromise loading speed of your app.
+- 📱 Mobile-friendly, works just like the native bottom sheet.
+- 🎛 Highly configurable, so you don't have to build another Bottom Sheet again.
+  - Style it anyway you want.
+  - Change its behaviors.
+  - Hook into life-cycle events, and states.
+- 🍰 Works out of the box without any configs.
+- 🦾 Fully-typed, and every prop is documented.
 - ⚡️ Performant by default.
-- 🦾 Fully-typed.
 
-## Key Features
+## Examples
 
-TODO: introduce key features
+- Client Side Rendering: HTML

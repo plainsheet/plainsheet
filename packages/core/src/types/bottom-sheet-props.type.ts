@@ -33,18 +33,18 @@ export interface BottomSheetProps {
   dragTriggers?: HTMLElement[];
 
   // NOTE: Life-cycle callbacks.
-  beforeOpen: () => void;
-  afterOpen: () => void;
-  beforeClose: () => void;
-  afterClose: () => void;
-  onDragStart: () => void;
+  beforeOpen?: () => void;
+  afterOpen?: () => void;
+  beforeClose?: () => void;
+  afterClose?: () => void;
+  onDragStart?: () => void;
   /**
    * @param direction Current direction based on where the pointer was when started dragging.
    * @param progress Rational number ranging from 0 to 1, inclusive.
    * It represents how far the Bottom Sheet is dragged.
    */
-  onDragMove: (direction: DraggingDirection, progress: number) => void;
-  onDragEnd: () => void;
+  onDragMove?: (direction: DraggingDirection, progress: number) => void;
+  onDragEnd?: () => void;
 
   // NOTE: Appearance settings.
   shouldShowHandle?: boolean;

@@ -1,10 +1,20 @@
-- [] Test all props
-- [] Fix the animation timing functions
-- [] Add SSR, CSR test apps
+# TODO
 
-- [] Publish the core to CDNs, and NPM.
-- [] Make the readme better.
-- [] Make the source code public.
+- Publish the core to CDNs, and NPM.
+- Make the HTML example app
+- Make the source code public.
+- Publish the storybook.
 
-- [] Accessibility support
-- [] Tests.
+## Key Features
+
+- React support
+- Accessibility support.
+- Document all props.
+- Fully tested.
+
+## Examples
+
+- Client Side Rendering: HTML
+- Client Side Rendering: Vite
+- Server Side Rendering: Next.js App Directories
+- Server Side Rendering: Next.js 13 Pages Directories

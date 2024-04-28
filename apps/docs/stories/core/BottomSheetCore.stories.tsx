@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import {
+  BOTTOM_SHEET_DEFAULT_PROPS,
   BottomSheet,
   createPlaceholderBottomSheet,
 } from "plain-bottom-sheet-core";
@@ -47,6 +48,7 @@ export const Basic: Story = {
   name: "Basic",
   args: {
     children: "Hello",
+    options: BOTTOM_SHEET_DEFAULT_PROPS,
   },
 };
 
@@ -54,6 +56,8 @@ export const WithForm: Story = {
   render: function Render(args) {
     // Make this a custom hook and export from the React adapter.
     const bottomSheetRef = useRef<BottomSheet>(createPlaceholderBottomSheet());
+
+    const { children } = args;
 
     return (
       <section>
@@ -74,8 +78,8 @@ export const WithForm: Story = {
           </button>
         </header>
 
-        <BottomSheetReact ref={bottomSheetRef}>
-          {args.children}
+        <BottomSheetReact ref={bottomSheetRef} options={args.options}>
+          {children}
           <ExampleForm />
         </BottomSheetReact>
       </section>
@@ -84,6 +88,7 @@ export const WithForm: Story = {
   name: "WithForm",
   args: {
     children: "Args content: Edit here via args.children",
+    options: BOTTOM_SHEET_DEFAULT_PROPS,
   },
 };
 
@@ -176,7 +181,11 @@ export const WithImage: Story = {
 
         <article>Result: {result}</article>
 
-        <BottomSheetReact ref={bottomSheetRef}>
+        <BottomSheetReact
+          ref={bottomSheetRef}
+          mountingPoint={args.mountingPoint}
+          options={args.options}
+        >
           {args.children} <br />
           <img src={miles} alt="" />
         </BottomSheetReact>
@@ -186,6 +195,7 @@ export const WithImage: Story = {
   name: "WithImage",
   args: {
     children: "Hello, Miles",
+    options: BOTTOM_SHEET_DEFAULT_PROPS,
   },
 };
 
@@ -262,5 +272,6 @@ export const WithTitleAndFixedButtons: Story = {
   name: "WithTitleAndFixedButtons",
   args: {
     children: "Fried chicken🍗: $19.5",
+    options: BOTTOM_SHEET_DEFAULT_PROPS,
   },
 };

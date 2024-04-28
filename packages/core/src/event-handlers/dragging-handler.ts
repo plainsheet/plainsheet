@@ -6,16 +6,13 @@ import {
 import { AnimationFrame } from "../utils/animation/AnimationFrame";
 import { getTranslate, setTranslate } from "../utils/dom/translate";
 import { isNumber } from "../utils/types/isNumber";
-import { Coordinates, Position } from "src/animation/animation.type";
+import { Coordinates, Position } from "../animation/animation.type";
 import { TranslateContainer } from "../animation/animation";
 import {
   TabEvent,
   TabEventListener,
-} from "src/utils/event-listeners/TabEventListener";
-import {
-  BottomSheetProps,
-  SnapPoints,
-} from "src/types/bottom-sheet-props.type";
+} from "../utils/event-listeners/TabEventListener";
+import { BottomSheetProps, SnapPoints } from "../types/bottom-sheet-props.type";
 import { toFixedNumber } from "../utils/math/unit";
 import { boundNumber } from "../utils/math/min-max";
 
