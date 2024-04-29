@@ -216,11 +216,20 @@ function initializeEvents({
   }
 
   function attachEventListeners() {
-    handleEventListener.addEventListeners({
-      onStart: handleDragTriggerClick,
-    });
-
-    if (bottomSheetProps.backgroundDraggable) {
+    if (bottomSheetProps.draggable) {
+      handleEventListener.addEventListeners({
+        onStart: handleDragTriggerClick,
+      });
+      draggingTriggerEventListeners.forEach((listener) =>
+        listener.addEventListeners({
+          onStart: handleDragTriggerClick,
+          onStartOptions: {
+            eventPhase: EventPhase.Target,
+          },
+        })
+      );
+    }
+    if (bottomSheetProps.draggable && bottomSheetProps.backgroundDraggable) {
       contentsWrapperEventListener.addEventListeners({
         onStart: handleDragTriggerClick,
         onStartOptions: {
@@ -231,20 +240,14 @@ function initializeEvents({
         onStart: handleDragTriggerClick,
       });
     }
-    draggingTriggerEventListeners.forEach((listener) =>
-      listener.addEventListeners({
-        onStart: handleDragTriggerClick,
-        onStartOptions: {
-          eventPhase: EventPhase.Target,
-        },
-      })
-    );
 
-    windowEventListener.addEventListeners({
-      onStart: onDragStart,
-      onMove: onDragMove,
-      onEnd: onDragEnd,
-    });
+    if (bottomSheetProps.draggable) {
+      windowEventListener.addEventListeners({
+        onStart: onDragStart,
+        onMove: onDragMove,
+        onEnd: onDragEnd,
+      });
+    }
 
     if (bottomSheetProps.shouldCloseOnOutsideClick) {
       window.addEventListener("click", handleWindowClick);
@@ -273,9 +276,7 @@ function initializeEvents({
       onEnd: onDragEnd,
     });
 
-    if (bottomSheetProps.shouldCloseOnOutsideClick) {
-      window.removeEventListener("click", handleWindowClick);
-    }
+    window.removeEventListener("click", handleWindowClick);
   }
 
   return {

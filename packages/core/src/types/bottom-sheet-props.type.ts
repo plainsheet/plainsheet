@@ -23,8 +23,18 @@ export interface BottomSheetProps {
   snapPoints?: SnapPoints;
   /**
    * @description If it is true, the bottom sheet can be dragged up above its content height.
+   * @default true
    */
   expandable?: boolean;
+  /**
+   * @description If it is true, the bottom sheet can be dragged. Set false to use the bottom sheet as a blocking dialog.
+   * @default true
+   */
+  draggable?: boolean;
+  /**
+   * @description If it is true, the content's background can be dragged.
+   * @default true
+   */
   backgroundDraggable?: boolean;
   /**
    * @description Elements that will trigger dragging of the bottom sheet.
@@ -61,7 +71,14 @@ export interface BottomSheetProps {
   backdropClass?: string | null;
 
   // NOTE: Animation settings.
+  /**
+   * @description Common animation timing functions such as "ease-in-out", or
+   * four points(p1x, p1y, p2x, p2y) that express the timing of animations as a Bezier curve.
+   */
   draggingAnimationTimings?: CommonAnimation | AnimationTimingPoints | null;
+  /**
+   * @description In milliseconds.
+   */
   draggingAnimationDuration?: number;
 }
 
