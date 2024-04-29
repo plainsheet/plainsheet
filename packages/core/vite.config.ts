@@ -12,7 +12,7 @@ export default defineConfig({
     lib: {
       entry: path.resolve(__dirname, "src/index.ts"),
       name: "PlainBottomSheetCore",
-      formats: ["es", "cjs"],
+      formats: ["es", "cjs", "umd"],
       fileName: (format) => `plain-bottom-sheet-core.${format}.js`,
     },
     cssMinify: true,

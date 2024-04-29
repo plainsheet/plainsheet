@@ -101,9 +101,6 @@ function createElements(bottomSheetProps: Required<BottomSheetProps>) {
     ])
   );
 
-  console.log({
-    "bottomSheetProps.shouldShowBackdrop": bottomSheetProps.shouldShowBackdrop,
-  });
   const bottomSheetBackdrop = createElement(
     "div",
     mergeClassNames([

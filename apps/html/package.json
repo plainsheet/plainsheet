@@ -1,0 +1,20 @@
+{
+  "name": "html",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "plain-bottom-sheet-core": "workspace:*"
+  },
+  "devDependencies": {
+    "@internal/eslint-config": "workspace:*",
+    "@internal/typescript-config": "workspace:*",
+    "typescript": "^5.2.2",
+    "vite": "^5.2.0"
+  }
+}

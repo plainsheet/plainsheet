@@ -20,7 +20,6 @@ export function toggleClassName(el: Element, className: string) {
 
 export function cleanClassName(className: string | undefined | null) {
   if (!isString(className)) {
-    console.warn(`${className} is not a valid class name.`);
     return "";
   }
 

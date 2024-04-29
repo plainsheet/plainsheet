@@ -56,7 +56,7 @@ function overwriteDefaultProps(props: BottomSheetProps) {
 
   const validProps = {
     ...propsWithDefaults,
-    providedProps,
+    ...providedProps,
   };
 
   return validProps;
@@ -131,6 +131,11 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
   };
 
   const open = (): void => {
+    if (!getIsMounted()) {
+      console.error(
+        'Bottom Sheet is not mounted yet. call the "mount" method first.'
+      );
+    }
     props.beforeOpen?.();
 
     setVisibility([bottomSheetBackdrop, bottomSheetContainer], true);
