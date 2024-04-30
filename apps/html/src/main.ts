@@ -1,6 +1,6 @@
 import "./style.css";
 import { setupButton } from "./button.ts";
-import { createBottomSheet } from "plain-bottom-sheet-core";
+import { setupBlockingBottomSheet } from "./features/blocking-bottom-sheet.ts";
 
 document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
   <div>
@@ -12,7 +12,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
     
     <h2> Try Them Out! ⬇️</h2>
     <div class="card">
-      <button id="button-open" type="button">Blocking Bottom Sheet</button>
+      <button id="blocking-bottom-sheet-open-button" type="button">Blocking Bottom Sheet</button>
 
       <button id="button-close" type="button">Dragging Detection</button>
 
@@ -23,15 +23,15 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
   </div>
 `;
 
-const bottomSheet = createBottomSheet({
-  content: `<p> Hi! </p>`,
-});
-
-bottomSheet.mount();
-
-setupButton(document.querySelector<HTMLButtonElement>("#button-open")!, () => {
-  bottomSheet.open();
-});
-setupButton(document.querySelector<HTMLButtonElement>("#button-close")!, () => {
-  bottomSheet.close();
-});
+const { blockingBottomSheet } = setupBlockingBottomSheet();
+setupButton(
+  document.querySelector<HTMLButtonElement>(
+    "#blocking-bottom-sheet-open-button"
+  )!,
+  () => {
+    blockingBottomSheet.open();
+  }
+);
+// setupButton(document.querySelector<HTMLButtonElement>("#button-close")!, () => {
+//   bottomSheet.close();
+// });

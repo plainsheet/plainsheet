@@ -81,3 +81,19 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+.pbs-root {
+  h1,
+  h2,
+  h3 {
+    color: #213547;
+  }
+}
+
+.blocking-bottom-sheet {
+  padding: 0px 16px 16px 16px;
+
+  button {
+    width: 100%;
+  }
+}
