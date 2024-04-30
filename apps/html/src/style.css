@@ -82,7 +82,8 @@ button:focus-visible {
   h1,
   h2,
   h3,
-  p {
+  p,
+  label {
     color: #213547;
   }
 }
@@ -90,5 +91,19 @@ button:focus-visible {
 .blocking-bottom-sheet {
   button {
     width: 100%;
+  }
+}
+
+.dragging-detection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  div {
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
   }
 }
