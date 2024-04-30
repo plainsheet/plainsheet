@@ -1,6 +1,7 @@
 import "./style.css";
 import { setupButton } from "./button.ts";
 import { setupBlockingBottomSheet } from "./features/blocking-bottom-sheet.ts";
+import { setupDraggingDetection } from "./features/dragging-detction.ts";
 
 document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
   <div>
@@ -14,7 +15,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
     <div class="card">
       <button id="blocking-bottom-sheet-open-button" type="button">Blocking Bottom Sheet</button>
 
-      <button id="button-close" type="button">Dragging Detection</button>
+      <button id="dragging-detection-open-button" type="button">Dragging Detection</button>
 
       <button id="button-close" type="button">Life-cycle Events</button>
 
@@ -32,6 +33,11 @@ setupButton(
     blockingBottomSheet.open();
   }
 );
-// setupButton(document.querySelector<HTMLButtonElement>("#button-close")!, () => {
-//   bottomSheet.close();
-// });
+
+// const { draggingDetectionBottomSheet } = setupDraggingDetection();
+// setupButton(
+//   document.querySelector<HTMLButtonElement>("#dragging-detection-open-button")!,
+//   () => {
+//     draggingDetectionBottomSheet.open();
+//   }
+// );

@@ -1,6 +1,7 @@
 # TODO
 
 - Make the HTML example as solid and realistic as possible.
+  - multiple bottom-sheet can't be used on the same page. fix it.
 - Make a minimalistic banner using bold black and white, and a cute seal.
 - Make the source code public.
 - Publish the core to CDNs, and NPM.

@@ -10,6 +10,7 @@ export function setupBlockingBottomSheet() {
         </div>`,
     draggable: false,
     shouldCloseOnOutsideClick: false,
+    shouldShowHandle: false,
   });
 
   bottomSheet.mount();

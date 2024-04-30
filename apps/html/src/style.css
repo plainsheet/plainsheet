@@ -28,6 +28,11 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+
+  color: rgba(255, 255, 255, 0.87);
+  background-color: hsl(0 0% 14% / 1);
+
+  transition: background-color 0.1s ease-out;
 }
 
 h1 {
@@ -69,30 +74,20 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-}
-
 .pbs-root {
+  .pbs-container {
+    padding: 0px 16px 16px 16px;
+  }
+
   h1,
   h2,
-  h3 {
+  h3,
+  p {
     color: #213547;
   }
 }
 
 .blocking-bottom-sheet {
-  padding: 0px 16px 16px 16px;
-
   button {
     width: 100%;
   }
