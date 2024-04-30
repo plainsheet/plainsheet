@@ -3,13 +3,18 @@
 - Multiple bottom-sheets can't be used on the same page. fix it.
 
 - Make the HTML example as solid and realistic as possible.
+
   - test the features and make them beautiful.
-- Deploy the HTML example to Vercel
-
+  - Deploy the HTML example to Vercel
   - Add the link to the README
+  - Make the state reactive
 
-- Publish the core to CDNs, and NPM.
+- Publish the core to NPM, and then the CDN.
   - https://www.jsdelivr.com/
+
+# First release
+
+---
 
 ## Key Features
 
