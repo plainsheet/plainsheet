@@ -2,6 +2,8 @@ import "./style.css";
 import { setupButton } from "./button.ts";
 import { setupBlockingBottomSheet } from "./features/blocking-bottom-sheet.ts";
 import { setupDraggingDetection } from "./features/dragging-detction.ts";
+import { setupLifeCycleEvents } from "./features/life-cycle-events.ts";
+import { setupSnapPoints } from "./features/snap-points.ts";
 
 document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
   <div>
@@ -17,22 +19,22 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
 
       <button id="dragging-detection-open-button" type="button">Dragging Detection</button>
 
-      <button id="button-close" type="button">Life-cycle Events</button>
+      <button id="life-cycle-event-open-button" type="button">Life-cycle Events</button>
 
-      <button id="button-close" type="button">Snap Points</button>
+      <button id="snap-points-open-button" type="button">Snap Points</button>
     </div>
   </div>
 `;
 
-const { blockingBottomSheet } = setupBlockingBottomSheet();
-setupButton(
-  document.querySelector<HTMLButtonElement>(
-    "#blocking-bottom-sheet-open-button"
-  )!,
-  () => {
-    blockingBottomSheet.open();
-  }
-);
+// const { blockingBottomSheet } = setupBlockingBottomSheet();
+// setupButton(
+//   document.querySelector<HTMLButtonElement>(
+//     "#blocking-bottom-sheet-open-button"
+//   )!,
+//   () => {
+//     blockingBottomSheet.open();
+//   }
+// );
 
 // const { draggingDetectionBottomSheet } = setupDraggingDetection();
 // setupButton(
@@ -41,3 +43,21 @@ setupButton(
 //     draggingDetectionBottomSheet.open();
 //   }
 // );
+
+// const { firstBottomSheet } = setupLifeCycleEvents();
+
+// setupButton(
+//   document.querySelector<HTMLButtonElement>("#life-cycle-event-open-button")!,
+//   () => {
+//     firstBottomSheet.open();
+//   }
+// );
+
+const { snapPointsBottomSheet } = setupSnapPoints();
+
+setupButton(
+  document.querySelector<HTMLButtonElement>("#snap-points-open-button")!,
+  () => {
+    snapPointsBottomSheet.open();
+  }
+);
