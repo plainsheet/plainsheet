@@ -1,5 +1,5 @@
-import { BottomSheetPosition } from "../types/bottom-sheet-props.type";
-import { DraggingDirection } from "./position-calculator.type";
+import type { BottomSheetPosition } from "../types/bottom-sheet-props.type";
+import type { DraggingDirection } from "./position-calculator.type";
 
 /** @description It expects the bottom sheet to be open. */
 export function convertDefaultPositionToYCoordinate(
@@ -36,18 +36,21 @@ export function calcDraggingDirection(
 }
 
 /**
- * @param startY Point Y where the dragging started.
- * @param endY Point Y where the dragging ended.
+ * @param startY- Point Y where the dragging started.
+ * @param endY- Point Y where the dragging ended.
  * @returns ±number, which is the distance between startY and endY .
  */
-export function calcOffset(startY: number, endY: number) {
+export function calcOffset(startY: number, endY: number): number {
   const isUp = endY < startY;
   const offset = isUp ? -(startY - endY) : endY - startY;
 
   return offset;
 }
 
-export function calcDiffOfHeight(leftHeight: number, rightHeight: number) {
+export function calcDiffOfHeight(
+  leftHeight: number,
+  rightHeight: number
+): number {
   const isLeftLarger = leftHeight > rightHeight;
 
   const diff = isLeftLarger
@@ -60,7 +63,11 @@ export function calcDiffOfHeight(leftHeight: number, rightHeight: number) {
 export function calcDirectionWithHeight(
   leftHeight: number,
   rightHeight: number
-) {
+): {
+  isUp: boolean;
+  isDown: boolean;
+  stayedSame: boolean;
+} {
   const isUp = leftHeight < rightHeight;
   const isDown = leftHeight > rightHeight;
   const stayedSame = leftHeight === rightHeight;

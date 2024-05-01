@@ -1,23 +1,15 @@
 import { BOTTOM_SHEET_POSITION } from "../types";
-import { BottomSheet } from "../types/bottom-sheet.type";
+import type { BottomSheet } from "../types/bottom-sheet.type";
 
 /**
  * @returns A fallback BottomSheet instance to provide non-null BottomSheet methods to library users.
  */
 export function createPlaceholderBottomSheet(): BottomSheet {
   return {
-    mount: () => {
-      return;
-    },
-    unmount: () => {
-      return;
-    },
-    open: () => {
-      return;
-    },
-    close: () => {
-      return;
-    },
+    mount: () => {},
+    unmount: () => {},
+    open: () => {},
+    close: () => {},
     getIsMounted: () => {
       return false;
     },
@@ -33,11 +25,7 @@ export function createPlaceholderBottomSheet(): BottomSheet {
     getPosition: () => {
       return BOTTOM_SHEET_POSITION.CLOSED;
     },
-    moveTo: () => {
-      return;
-    },
-    snapTo: () => {
-      return;
-    },
+    moveTo: () => {},
+    snapTo: () => {},
   };
 }

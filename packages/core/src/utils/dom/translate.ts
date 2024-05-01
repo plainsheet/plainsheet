@@ -1,9 +1,9 @@
 import { pxToNumber } from "../math/unit";
+import type { TransformValue } from "./transform";
 import {
   stringToTransforms,
   getTransformValues,
   pickTransformValue,
-  TransformValue,
 } from "./transform";
 
 const TRANSLATE = "translate";
@@ -77,8 +77,8 @@ export function getCoordinatesFromTranslateValue(
     );
   }
 
-  const currentTranslateX = transformValue.values?.[0];
-  const currentTranslateY = transformValue.values?.[1];
+  const currentTranslateX = transformValue.values[0];
+  const currentTranslateY = transformValue.values[1];
 
   return {
     x: pxToNumber(currentTranslateX) ?? 0,

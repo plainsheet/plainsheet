@@ -1,20 +1,23 @@
+import type { DraggingState } from "src/types";
 import {
   calcDiffOfHeight,
   calcDraggingDirection,
   calcOffset,
 } from "../calculator/position-calculator";
-import { AnimationFrame } from "../utils/animation/AnimationFrame";
+import type { AnimationFrame } from "../utils/animation/animation-frame";
 import { getTranslate, setTranslate } from "../utils/dom/translate";
 import { isNumber } from "../utils/types/isNumber";
-import { TranslateContainer } from "../animation/animation";
-import {
+import type { TranslateContainer } from "../animation/animation";
+import type {
   TabEvent,
   TabEventListener,
 } from "../utils/event-listeners/TabEventListener";
-import { BottomSheetProps, SnapPoints } from "../types/bottom-sheet-props.type";
+import type {
+  BottomSheetProps,
+  SnapPoints,
+} from "../types/bottom-sheet-props.type";
 import { toFixedNumber } from "../utils/math/unit";
 import { boundNumber } from "../utils/math/min-max";
-import { DraggingState } from "src/types";
 
 export const handleDragTriggerClick = (draggingState: DraggingState) => {
   draggingState.isDragging = true;
@@ -178,7 +181,7 @@ export const handleDragEnd =
         return;
       }
 
-      for (let snapPoint of snapPointsInAsc) {
+      for (const snapPoint of snapPointsInAsc) {
         // The diff between endY and startY can not be used because
         // the contents can be dragged.
         const snapPointHeight = snapPoint * window.innerHeight;
@@ -214,7 +217,7 @@ export const handleDragEnd =
         (left, right) => right - left
       );
 
-      for (let snapPoint of snapPointsInDesc) {
+      for (const snapPoint of snapPointsInDesc) {
         const snapPointHeight = snapPoint * window.innerHeight;
 
         const containerVisibleHeight = containerHeight + -containerEndY;

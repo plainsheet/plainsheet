@@ -1,4 +1,4 @@
-import { AnimationTimingFunction } from "./animation.type";
+import type { AnimationTimingFunction } from "./animation.type";
 
 export type CubicBezierReturnType = ReturnType<typeof cubicBezier>;
 
@@ -9,15 +9,15 @@ export function cubicBezier(
   p2y: number
 ): AnimationTimingFunction {
   // Precision of the solution
-  const precision: number = 0.00001;
+  const precision = 0.00001;
 
   return function (x: number): number {
     return sampleCurveY(solveCurveX(x));
   };
 
   function solveCurveX(x: number): number {
-    let t0: number = 0;
-    let t1: number = 1;
+    let t0 = 0;
+    let t1 = 1;
     let t2: number = x;
     let x2: number;
 

@@ -3,12 +3,12 @@ import { isNumber } from "../types/isNumber";
 /**
  * @description Points that express the timing of animations as a Bezier curve.
  */
-export type AnimationTimingPoints = {
+export interface AnimationTimingPoints {
   p1x: number;
   p1y: number;
   p2x: number;
   p2y: number;
-};
+}
 
 export type AnimationTimingFunction = (x: number) => number;
 

@@ -1,9 +1,9 @@
+import type { AnimationTimingFunction } from "src/utils/animation/animation.type";
 import { calcOffset } from "../calculator/position-calculator";
-import { AnimationFrame } from "../utils/animation/AnimationFrame";
+import type { AnimationFrame } from "../utils/animation/animation-frame";
 import { setTranslate } from "../utils/dom/translate";
-import { AnimationTimingFunction } from "src/utils/animation/animation.type";
 
-export type TranslateContainerParams = {
+export interface TranslateContainerParams {
   startY: number;
   endY: number;
   animationFrame: AnimationFrame;
@@ -14,7 +14,7 @@ export type TranslateContainerParams = {
    * @description In Milliseconds.
    */
   animationDuration: number;
-};
+}
 export type TranslateContainerParamsExceptAnimation = Omit<
   TranslateContainerParams,
   "animationTimingFunction" | "animationDuration"
@@ -52,7 +52,7 @@ export function translateContainer(params: TranslateContainerParams) {
 export const translateContainerWithAnim =
   (animTimingFunction: AnimationTimingFunction, animDuration: number) =>
   (params: TranslateContainerParamsExceptAnimation) => {
-    return translateContainer({
+    translateContainer({
       ...params,
       animationTimingFunction: animTimingFunction,
       animationDuration: animDuration,

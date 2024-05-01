@@ -6,7 +6,7 @@ export function setVisibility(
   element: Element | Element[],
   visibility: boolean
 ) {
-  const shouldOpen = visibility === true;
+  const shouldOpen = visibility;
 
   if (Array.isArray(element)) {
     element.forEach((el) => {

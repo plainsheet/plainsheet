@@ -1,8 +1,8 @@
-import { Coordinates, Position } from "src/animation/animation.type";
+import type { Coordinates, Position } from "src/animation/animation.type";
 
-export type BottomSheetState = {
+export interface BottomSheetState {
   isMounted: boolean;
-};
+}
 
 export interface DraggingState {
   /** @description Used to know how far the cursor moved. */

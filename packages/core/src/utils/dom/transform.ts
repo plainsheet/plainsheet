@@ -1,7 +1,7 @@
-export type TransformValue = {
+export interface TransformValue {
   type: string;
   values: string[];
-};
+}
 
 export function stringToTransforms(transformString: string): TransformValue[] {
   const regex = /(\w+)\(([^)]+)\)/g;

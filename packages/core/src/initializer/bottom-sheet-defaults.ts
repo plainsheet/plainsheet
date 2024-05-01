@@ -1,7 +1,5 @@
-import {
-  BOTTOM_SHEET_POSITION,
-  RequiredBottomSheetProps,
-} from "../types/bottom-sheet-props.type";
+import type { RequiredBottomSheetProps } from "../types/bottom-sheet-props.type";
+import { BOTTOM_SHEET_POSITION } from "../types/bottom-sheet-props.type";
 
 export type BottomSheetDefaultPropKeys = keyof RequiredBottomSheetProps;
 

@@ -1,6 +1,6 @@
 export type Position = number;
 
-export type Coordinates = {
+export interface Coordinates {
   x: Position;
   y: Position;
-};
+}

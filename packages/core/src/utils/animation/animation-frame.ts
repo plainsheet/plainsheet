@@ -14,18 +14,18 @@ export class AnimationFrame {
 
   /**
    *
-   * @param renderFrame Function to render screen using the animation progress percentage.
-   * @param duration Duration of the animation, in MS.
+   * @param renderFrame- Function to render screen using the animation progress percentage.
+   * @param duration- Duration of the animation, in MS.
    */
   public start(
     renderFrame: RenderFrame,
     duration: number,
-    shouldRunForever: boolean = false
-  ) {
+    shouldRunForever = false
+  ): void {
     this.isInProgress = true;
     const animationFrame = this;
 
-    function animate(timestamp: number) {
+    function animate(timestamp: number): void {
       if (!animationFrame.startedAt) {
         animationFrame.startedAt = timestamp;
       }
@@ -43,7 +43,6 @@ export class AnimationFrame {
 
       if (isAnimationOver) {
         animationFrame.stop();
-        return;
       } else {
         animationFrame.animationId = requestAnimationFrame(animate);
       }
@@ -52,7 +51,7 @@ export class AnimationFrame {
     this.animationId = requestAnimationFrame(animate);
   }
 
-  public stop() {
+  public stop(): void {
     this.isInProgress = false;
     this.startedAt = null;
 
@@ -63,6 +62,6 @@ export class AnimationFrame {
 }
 
 /**
- * @param progressPercent Progress of the animation in percentage, from 0 ~ 1
+ * @param progressPercent- Progress of the animation in percentage, from 0 ~ 1
  */
 export type RenderFrame = (progressPercent: number) => void;

@@ -7,7 +7,7 @@ import { setupSnapPoints } from "./features/snap-points.ts";
 
 document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
   <div>
-    <h1>Good old HTML Website Example</h1>
+    <h1>Good Old HTML Website Example</h1>
     <p>
       See how Plain Bottom Sheet can be used on a classic HTML website.
     </p>

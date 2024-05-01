@@ -47,7 +47,7 @@ const bottomSheet = createBottomSheet({
         </div>`,
 });
 
-bottomSheet.mount(); // Mounts the bottom sheet to DOM.
+bottomSheet.mount(); // Mounts the bottom sheet to the DOM.
 
 bottomSheet.open();
 ```
@@ -178,3 +178,56 @@ Optional. Specifies the animation timings using a common preset or custom Bezier
 ### `draggingAnimationDuration?: number`
 
 Optional. Duration of the dragging animation in milliseconds.
+
+## `BottomSheet` Properties
+
+`BottomSheet` is the result of the function `createBottomSheet`.
+You can interact with the bottom sheet using the `BottomSheet` object.
+
+### `props: BottomSheetProps`
+
+This property holds mutable properties that can be used to adjust the behavior of the Bottom Sheet.
+
+### `mount(mountingPoint?: Element): void`
+
+Mounts the bottom sheet to the DOM or to a provided mounting point. If no mounting point is specified, it defaults to appending to the body.
+
+### `unmount(): void`
+
+Removes the bottom sheet from the DOM, effectively cleaning up all associated elements and event listeners.
+
+### `open(): void`
+
+Opens (shows) the bottom sheet, making it visible on the screen.
+
+### `close(): void`
+
+Closes (hides) the bottom sheet, making it invisible on the screen.
+
+### `getIsMounted(): BottomSheetState["isMounted"]`
+
+Returns a boolean indicating whether the bottom sheet is currently mounted in the DOM.
+
+### `getIsOpen(): boolean`
+
+Returns a boolean indicating whether the bottom sheet is currently open.
+
+### `getIsClosed(): boolean`
+
+Returns a boolean indicating whether the bottom sheet is currently closed.
+
+### `getPosition(): BottomSheetPosition`
+
+Returns the current position of the bottom sheet within the viewport.
+
+### `getHeight(): number`
+
+Returns the current height of the bottom sheet.
+
+### `moveTo(endY: number): void`
+
+Moves the bottom sheet to a specified vertical position within the viewport. The top of the viewport is 0, increasing towards the bottom.
+
+### `snapTo(percent: number): void`
+
+Moves the bottom sheet to a relative position within the viewport based on percentage. For example, `0.1` would position the bottom sheet 10% below the top of the viewport.

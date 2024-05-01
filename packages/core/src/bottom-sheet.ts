@@ -7,29 +7,29 @@ import "./style/pbs-content.css";
 import { setVisibility } from "./utils/dom/visibility";
 import { initializeBottomSheetElements } from "./initializer/bottom-sheet-initializer";
 import { getTranslate, setTranslate } from "./utils/dom/translate";
-import { AnimationFrame } from "./utils/animation/AnimationFrame";
-
+import { AnimationFrame } from "./utils/animation/animation-frame";
 import {
   calcDiffOfHeight,
   calcDirectionWithHeight,
   convertDefaultPositionToYCoordinate,
 } from "./calculator/position-calculator";
 import { translateContainerWithAnim } from "./animation/animation";
-import {
+import type {
   BottomSheetState,
   DraggingState,
 } from "./types/bottom-sheet-state.type";
-import {
-  BOTTOM_SHEET_POSITION,
+import type {
+  BottomSheetPosition,
   BottomSheetProps,
   RequiredBottomSheetProps,
 } from "./types/bottom-sheet-props.type";
+import { BOTTOM_SHEET_POSITION } from "./types/bottom-sheet-props.type";
 import { BOTTOM_SHEET_DEFAULT_PROPS } from "./initializer/bottom-sheet-defaults";
-import { BottomSheet } from "./types/bottom-sheet.type";
+import type { BottomSheet } from "./types/bottom-sheet.type";
 import { isPercent } from "./utils/types/isPercent";
 import { toFixedNumber } from "./utils/math/unit";
+import type { AnimationTimingFunction } from "./utils/animation/animation.type";
 import {
-  AnimationTimingFunction,
   isAnimationTimingPoints,
   isCommonAnimationTimingsKey,
 } from "./utils/animation/animation.type";
@@ -40,12 +40,14 @@ import {
 import { cubicBezier } from "./utils/animation/cubic-bezier";
 import { exists } from "./utils/types/exists";
 
-function overwriteDefaultProps(props: BottomSheetProps) {
+function overwriteDefaultProps(
+  props: BottomSheetProps
+): RequiredBottomSheetProps {
   const propsWithDefaults: RequiredBottomSheetProps = {
     ...BOTTOM_SHEET_DEFAULT_PROPS,
   };
 
-  const providedProps = Object.entries(props).reduce(
+  const providedProps = Object.entries(props).reduce<Record<string, unknown>>(
     (acc, curr) => {
       const [propKey, propValue] = curr;
       if (exists(propValue)) {
@@ -54,7 +56,7 @@ function overwriteDefaultProps(props: BottomSheetProps) {
 
       return acc;
     },
-    {} as Record<string, unknown>
+    {}
   );
 
   const validProps = {
@@ -137,7 +139,9 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
   const unmount = (): void => {
     eventHandlers.clearEventListeners();
 
-    Object.values(elements).forEach((el) => el.remove());
+    Object.values(elements).forEach((el) => {
+      el.remove();
+    });
 
     bottomSheetState.isMounted = false;
   };
@@ -176,14 +180,14 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
 
     translateContainer({
       startY: startContainerY,
-      endY: endY,
+      endY,
       animationFrame,
       bottomSheetContainer,
       onEnd: props.afterOpen,
     });
   };
 
-  function close() {
+  function close(): void {
     if (getIsClosed()) {
       return;
     }
@@ -194,8 +198,8 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
     const endY = bottomSheetContainer.clientHeight;
 
     translateContainer({
-      startY: startY,
-      endY: endY,
+      startY,
+      endY,
       animationFrame,
       bottomSheetContainer,
       onEnd: () => {
@@ -205,28 +209,27 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
     });
   }
 
-  function getIsMounted() {
+  function getIsMounted(): boolean {
     return bottomSheetState.isMounted;
   }
 
-  function getIsOpen() {
+  function getIsOpen(): boolean {
     const containerY = getTranslate(bottomSheetContainer).y;
     return containerY < bottomSheetContainer.clientHeight;
   }
-  function getIsClosed() {
+  function getIsClosed(): boolean {
     return !getIsOpen();
   }
 
-  function getPosition() {
+  function getPosition(): BottomSheetPosition {
     const containerY = getTranslate(bottomSheetContainer).y;
 
     const containerHeight = bottomSheetContainer.clientHeight;
     const viewportHeight = window.innerHeight;
 
     if (containerY <= 5 && containerY >= -5) {
-      // NOTE: Although it should be 0, the animation timing function might have caused incorrect end position.
-      // So we use a rough assumption that the end position is around zero.
-      // TODO: We should check if containerY is exactly zero, when the animation timing function is fixed.
+      // NOTE: The animation timing function might produce end position that is not zero.
+      // So we use a rough assumption that the end position is ±5.
       return BOTTOM_SHEET_POSITION.CONTENT_HEIGHT;
     }
 
@@ -248,11 +251,11 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
     return BOTTOM_SHEET_POSITION.CLOSED;
   }
 
-  function getHeight() {
+  function getHeight(): number {
     return bottomSheetContainer.clientHeight;
   }
 
-  function moveTo(endY: number) {
+  function moveTo(endY: number): void {
     const containerY = getTranslate(bottomSheetContainer).y;
     const containerHeight = bottomSheetContainer.clientHeight;
 
@@ -269,11 +272,11 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
     });
   }
 
-  function snapTo(percent: number) {
+  function snapTo(percent: number): void {
     const viewportHeight = window.innerHeight;
 
     if (!isPercent(percent)) {
-      return false;
+      return;
     }
 
     const endY = toFixedNumber(viewportHeight * percent, 2);
@@ -282,6 +285,7 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
   }
 
   return {
+    props: propsWithDefaults,
     mount,
     unmount,
     open,

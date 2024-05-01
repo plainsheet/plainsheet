@@ -1,9 +1,9 @@
-import { DraggingDirection } from "src/calculator/position-calculator.type";
-import {
+import type { DraggingDirection } from "src/calculator/position-calculator.type";
+import type {
   AnimationTimingPoints,
   CommonAnimation,
 } from "src/utils/animation/animation.type";
-import { CSSColor, CSSUnit } from "src/utils/types/css-attribute";
+import type { CSSColor, CSSUnit } from "src/utils/types/css-attribute";
 
 export type RequiredBottomSheetProps = Required<BottomSheetProps>;
 export interface BottomSheetProps {
@@ -49,8 +49,8 @@ export interface BottomSheetProps {
   afterClose?: () => void;
   onDragStart?: () => void;
   /**
-   * @param direction Current direction based on where the pointer was when started dragging.
-   * @param progress Rational number ranging from 0 to 1, inclusive.
+   * @param direction- Current direction based on where the pointer was when started dragging.
+   * @param progress- Rational number ranging from 0 to 1, inclusive.
    * It represents how far the Bottom Sheet is dragged.
    */
   onDragMove?: (direction: DraggingDirection, progress: number) => void;
@@ -60,7 +60,7 @@ export interface BottomSheetProps {
   shouldShowHandle?: boolean;
   shouldShowBackdrop?: boolean;
   containerBorderRadius?: CSSUnit | null;
-  backdropColor?: CSSColor | string | null;
+  backdropColor?: CSSColor | null;
   backDropTransition?: string | null;
 
   // NOTE: Custom CSS classes.

@@ -1,3 +1,5 @@
+import type { TranslateContainer } from "src/animation/animation";
+import type { DraggingState } from "src/types";
 import {
   ClassNames,
   ResetClassNames,
@@ -11,22 +13,18 @@ import {
   handleDragStart,
   handleDragTriggerClick,
 } from "../event-handlers/dragging-handler";
-import { AnimationFrame } from "../utils/animation/AnimationFrame";
-import {
-  EventCallback,
-  TabEventListener,
-} from "../utils/event-listeners/TabEventListener";
+import type { AnimationFrame } from "../utils/animation/animation-frame";
+import type { EventCallback } from "../utils/event-listeners/TabEventListener";
+import { TabEventListener } from "../utils/event-listeners/TabEventListener";
 import { EventPhase } from "../utils/event-listeners/EventPhase";
-import { BottomSheetProps } from "../types/bottom-sheet-props.type";
-import { TranslateContainer } from "src/animation/animation";
-import { DraggingState } from "src/types";
+import type { BottomSheetProps } from "../types/bottom-sheet-props.type";
 
-export type InitializerOptions = {
+export interface InitializerOptions {
   animationFrame: AnimationFrame;
   translateContainer: TranslateContainer;
   onClose: () => void;
   draggingState: DraggingState;
-};
+}
 
 export function initializeBottomSheetElements(
   props: Required<BottomSheetProps>,
@@ -146,12 +144,12 @@ function combineElements({
   bottomSheetContainer.appendChild(bottomSheetContainerGapFiller);
 }
 
-export type InitializeEventsParams = {
+export interface InitializeEventsParams {
   bottomSheetElements: BottomSheetElements;
   bottomSheetProps: Required<BottomSheetProps>;
   // TODO: Change this to "bottom sheet state"
   options: InitializerOptions;
-};
+}
 
 function initializeEvents({
   bottomSheetElements,
@@ -226,14 +224,14 @@ function initializeEvents({
       handleEventListener.addEventListeners({
         onStart: handleDragTriggerClickWithDragState,
       });
-      draggingTriggerEventListeners.forEach((listener) =>
+      draggingTriggerEventListeners.forEach((listener) => {
         listener.addEventListeners({
           onStart: handleDragTriggerClickWithDragState,
           onStartOptions: {
             eventPhase: EventPhase.Target,
           },
-        })
-      );
+        });
+      });
     }
     if (bottomSheetProps.draggable && bottomSheetProps.backgroundDraggable) {
       contentsWrapperEventListener.addEventListeners({
@@ -270,11 +268,11 @@ function initializeEvents({
     gapFillerEventListener.removeEventListeners({
       onStart: handleDragTriggerClickWithDragState,
     });
-    draggingTriggerEventListeners.forEach((listener) =>
+    draggingTriggerEventListeners.forEach((listener) => {
       listener.removeEventListeners({
         onStart: handleDragTriggerClickWithDragState,
-      })
-    );
+      });
+    });
 
     windowEventListener.removeEventListeners({
       onStart: onDragStart,
