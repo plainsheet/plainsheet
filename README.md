@@ -47,6 +47,7 @@ npm install plain-bottom-sheet-core
 ## Using NPM
 
 ```ts
+// Create the bottom sheet
 const bottomSheet = createBottomSheet({
   content: `<div> 
         Your content
@@ -54,7 +55,11 @@ const bottomSheet = createBottomSheet({
 });
 bottomSheet.mount();
 
+// Open the bottom sheet.
 bottomSheet.open();
+
+// Change the content.
+bottomSheet.props.content = `<div> New Content</div>`;
 ```
 
 ## Using CDN

@@ -39,6 +39,7 @@ import {
 } from "./utils/animation/common-animations";
 import { cubicBezier } from "./utils/animation/cubic-bezier";
 import { exists } from "./utils/types/exists";
+import { observe } from "./utils/proxy/observe";
 
 function overwriteDefaultProps(
   props: BottomSheetProps
@@ -83,7 +84,18 @@ function interpretAnimationTimingsProp(
 }
 
 export function createBottomSheet(props: BottomSheetProps): BottomSheet {
-  const propsWithDefaults = overwriteDefaultProps(props);
+  function handlePropSet(property: string | symbol, value: unknown): void {
+    if (property === "content") {
+      if (typeof value === "string") {
+        // TODO: sanitize it.
+        bottomSheetContentWrapper.innerHTML = value;
+      }
+    }
+  }
+  const propsWithDefaults = observe(
+    overwriteDefaultProps(props),
+    handlePropSet
+  );
 
   const validDraggingAnimationTimings = interpretAnimationTimingsProp(
     props.draggingAnimationTimings
@@ -118,8 +130,12 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
     propsWithDefaults,
     initializerOptions
   );
-  const { bottomSheetBackdrop, bottomSheetRoot, bottomSheetContainer } =
-    elements;
+  const {
+    bottomSheetBackdrop,
+    bottomSheetRoot,
+    bottomSheetContainer,
+    bottomSheetContentWrapper,
+  } = elements;
 
   const mount = (mountingPoint?: Element): void => {
     const mountingPointOrFallback = mountingPoint ?? window.document.body;
