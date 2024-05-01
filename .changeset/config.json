@@ -6,5 +6,5 @@
   "linked": [],
   "access": "public",
   "updateInternalDependencies": "patch",
-  "ignore": ["storybook-docs", "next-pages", "next-apps", "html"]
+  "ignore": ["storybook-docs", "next-pages", "next-app", "html"]
 }
