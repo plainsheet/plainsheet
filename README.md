@@ -36,16 +36,13 @@ npm install plain-bottom-sheet-core
 ### Using CDN
 
 ```
-<script src="https://cdn.jsdelivr.net/npm/plain-bottom-sheet-core@0.0.1/dist/plain-bottom-sheet-core.umd.js">
+<script src="https://cdn.jsdelivr.net/npm/plain-bottom-sheet-core@0.0.3/dist/plain-bottom-sheet-core.umd.js">
 </script>
 
 // Or, using unpkg
-<script src="https://unpkg.com/plain-bottom-sheet-core@0.0.1/dist/plain-bottom-sheet-core.umd.js">
+<script src="https://unpkg.com/plain-bottom-sheet-core@0.0.3/dist/plain-bottom-sheet-core.umd.js">
 </script>
 ```
-
-If none of the above links are available, self host the below file:
-https://registry.npmjs.org/plain-bottom-sheet-core/-/plain-bottom-sheet-core-0.0.2.tgz
 
 # Getting Started
 
