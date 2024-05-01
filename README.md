@@ -19,9 +19,7 @@ The minimalistic, configurable bottom-sheet for the Web.
 
 # Examples
 
-TODO: Add the link to the example.
-
-- HTML website example
+- [Classic HTML website](https://plain-bottom-sheet-html-w3r5.vercel.app/)
 
 # Installation
 
