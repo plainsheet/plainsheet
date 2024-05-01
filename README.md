@@ -35,16 +35,16 @@ npm install plain-bottom-sheet-core
 
 ### Using CDN
 
-```
-<script src="https://cdn.jsdelivr.net/npm/plain-bottom-sheet-core@latest/dist/plain-bottom-sheet-core.umd.js">
-</script>
+```html
+<script src="https://cdn.jsdelivr.net/npm/plain-bottom-sheet-core@latest/dist/plain-bottom-sheet-core.umd.js"></script>
 
 // Or, using unpkg
-<script src="https://unpkg.com/plain-bottom-sheet-core@latest/dist/plain-bottom-sheet-core.umd.js">
-</script>
+<script src="https://unpkg.com/plain-bottom-sheet-core@latest/dist/plain-bottom-sheet-core.umd.js"></script>
 ```
 
 # Getting Started
+
+## Using NPM
 
 ```ts
 const bottomSheet = createBottomSheet({
@@ -52,10 +52,17 @@ const bottomSheet = createBottomSheet({
         Your content
         </div>`,
 });
-
-bottomSheet.mount(); // Mounts the bottom sheet to the DOM.
+bottomSheet.mount();
 
 bottomSheet.open();
+```
+
+## Using CDN
+
+```ts
+const bottomSheet = window.PlainBottomSheetCore.createBottomSheet({
+  content: ``,
+});
 ```
 
 # API References
