@@ -15,7 +15,10 @@ import {
   convertDefaultPositionToYCoordinate,
 } from "./calculator/position-calculator";
 import { translateContainerWithAnim } from "./animation/animation";
-import { BottomSheetState } from "./types/bottom-sheet-state.type";
+import {
+  BottomSheetState,
+  DraggingState,
+} from "./types/bottom-sheet-state.type";
 import {
   BOTTOM_SHEET_POSITION,
   BottomSheetProps,
@@ -91,13 +94,22 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
 
   // TODO: Make it a BottomSheetState.
   const animationFrame = new AnimationFrame();
+  const bottomSheetState: BottomSheetState = {
+    isMounted: false,
+  };
+  const draggingState: DraggingState = {
+    startY: null,
+    containerStartTranslate: {
+      x: 0,
+      y: 0,
+    },
+    isDragging: false,
+  } as const;
   const initializerOptions = {
     animationFrame,
     onClose: close,
     translateContainer,
-  };
-  const bottomSheetState: BottomSheetState = {
-    isMounted: false,
+    draggingState,
   };
 
   const { elements, eventHandlers } = initializeBottomSheetElements(
@@ -188,7 +200,7 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
       endY: endY,
       animationFrame,
       bottomSheetContainer,
-      onEnd: props.afterOpen,
+      onEnd: props.afterClose,
     });
   }
 

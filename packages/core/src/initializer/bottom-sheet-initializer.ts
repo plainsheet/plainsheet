@@ -19,11 +19,13 @@ import {
 import { EventPhase } from "../utils/event-listeners/EventPhase";
 import { BottomSheetProps } from "../types/bottom-sheet-props.type";
 import { TranslateContainer } from "src/animation/animation";
+import { DraggingState } from "src/types";
 
 export type InitializerOptions = {
   animationFrame: AnimationFrame;
   translateContainer: TranslateContainer;
   onClose: () => void;
+  draggingState: DraggingState;
 };
 
 export function initializeBottomSheetElements(
@@ -184,13 +186,15 @@ function initializeEvents({
   const onDragStart: EventCallback = handleDragStart(
     windowEventListener,
     bottomSheetContainer,
-    bottomSheetProps
+    bottomSheetProps,
+    options.draggingState
   );
 
   const onDragMove: EventCallback = handleDragMove(
     windowEventListener,
     bottomSheetContainer,
     bottomSheetProps,
+    options.draggingState,
     animationFrame,
     marginTop
   );
@@ -199,6 +203,7 @@ function initializeEvents({
     windowEventListener,
     bottomSheetContainer,
     bottomSheetProps,
+    options.draggingState,
     animationFrame,
     snapPoints,
     bottomSheetProps.marginTop,
@@ -212,14 +217,18 @@ function initializeEvents({
     }
   }
 
+  function handleDragTriggerClickWithDragState() {
+    handleDragTriggerClick(options.draggingState);
+  }
+
   function attachEventListeners() {
     if (bottomSheetProps.draggable) {
       handleEventListener.addEventListeners({
-        onStart: handleDragTriggerClick,
+        onStart: handleDragTriggerClickWithDragState,
       });
       draggingTriggerEventListeners.forEach((listener) =>
         listener.addEventListeners({
-          onStart: handleDragTriggerClick,
+          onStart: handleDragTriggerClickWithDragState,
           onStartOptions: {
             eventPhase: EventPhase.Target,
           },
@@ -228,13 +237,13 @@ function initializeEvents({
     }
     if (bottomSheetProps.draggable && bottomSheetProps.backgroundDraggable) {
       contentsWrapperEventListener.addEventListeners({
-        onStart: handleDragTriggerClick,
+        onStart: handleDragTriggerClickWithDragState,
         onStartOptions: {
           eventPhase: EventPhase.Target,
         },
       });
       gapFillerEventListener.addEventListeners({
-        onStart: handleDragTriggerClick,
+        onStart: handleDragTriggerClickWithDragState,
       });
     }
 
@@ -253,17 +262,17 @@ function initializeEvents({
 
   function clearEventListeners() {
     handleEventListener.removeEventListeners({
-      onStart: handleDragTriggerClick,
+      onStart: handleDragTriggerClickWithDragState,
     });
     contentsWrapperEventListener.removeEventListeners({
-      onStart: handleDragTriggerClick,
+      onStart: handleDragTriggerClickWithDragState,
     });
     gapFillerEventListener.removeEventListeners({
-      onStart: handleDragTriggerClick,
+      onStart: handleDragTriggerClickWithDragState,
     });
     draggingTriggerEventListeners.forEach((listener) =>
       listener.removeEventListeners({
-        onStart: handleDragTriggerClick,
+        onStart: handleDragTriggerClickWithDragState,
       })
     );
 

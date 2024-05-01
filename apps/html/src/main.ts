@@ -26,32 +26,32 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
   </div>
 `;
 
-// const { blockingBottomSheet } = setupBlockingBottomSheet();
-// setupButton(
-//   document.querySelector<HTMLButtonElement>(
-//     "#blocking-bottom-sheet-open-button"
-//   )!,
-//   () => {
-//     blockingBottomSheet.open();
-//   }
-// );
+const { blockingBottomSheet } = setupBlockingBottomSheet();
+setupButton(
+  document.querySelector<HTMLButtonElement>(
+    "#blocking-bottom-sheet-open-button"
+  )!,
+  () => {
+    blockingBottomSheet.open();
+  }
+);
 
-// const { draggingDetectionBottomSheet } = setupDraggingDetection();
-// setupButton(
-//   document.querySelector<HTMLButtonElement>("#dragging-detection-open-button")!,
-//   () => {
-//     draggingDetectionBottomSheet.open();
-//   }
-// );
+const { draggingDetectionBottomSheet } = setupDraggingDetection();
+setupButton(
+  document.querySelector<HTMLButtonElement>("#dragging-detection-open-button")!,
+  () => {
+    draggingDetectionBottomSheet.open();
+  }
+);
 
-// const { firstBottomSheet } = setupLifeCycleEvents();
+const { firstBottomSheet } = setupLifeCycleEvents();
 
-// setupButton(
-//   document.querySelector<HTMLButtonElement>("#life-cycle-event-open-button")!,
-//   () => {
-//     firstBottomSheet.open();
-//   }
-// );
+setupButton(
+  document.querySelector<HTMLButtonElement>("#life-cycle-event-open-button")!,
+  () => {
+    firstBottomSheet.open();
+  }
+);
 
 const { snapPointsBottomSheet } = setupSnapPoints();
 

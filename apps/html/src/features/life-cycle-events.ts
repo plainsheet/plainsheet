@@ -9,12 +9,13 @@ export function setupLifeCycleEvents() {
                 <p>And see what happens. 👀</p>
             </div>`,
     beforeOpen: () => {
-      alert("Opening the first bottom sheet!");
+      console.info("Opening the first bottom sheet!");
     },
     afterOpen: () => {
-      alert("Opened the first bottom sheet!");
+      console.info("Opened the first bottom sheet!");
     },
     afterClose: () => {
+      console.info("Closed the first bottom sheet!");
       secondBottomSheet.open();
     },
   });
@@ -22,13 +23,13 @@ export function setupLifeCycleEvents() {
   const secondBottomSheet = createBottomSheet({
     content: `<div class="life-cycle-event-two"> 
             <h2>Close It 2️⃣</h2> 
-            <p>And see what happens. 👀</p>
+            <p>Check the console output. 👀</p>
         </div>`,
     beforeClose: () => {
-      alert("Closing the second bottom sheet!");
+      console.info("Closing the second bottom sheet!");
     },
     afterClose: () => {
-      alert("Closed the second bottom sheet!");
+      console.info("Closed the second bottom sheet!");
     },
   });
 

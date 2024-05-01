@@ -1,4 +1,6 @@
-![banner](./documents/assets/header.png)
+<p align="center">
+  <img src="./documents/assets/header.png">
+</p>
 
 The minimalistic, configurable bottom-sheet for the Web.
 

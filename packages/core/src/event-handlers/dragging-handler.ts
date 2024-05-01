@@ -6,7 +6,6 @@ import {
 import { AnimationFrame } from "../utils/animation/AnimationFrame";
 import { getTranslate, setTranslate } from "../utils/dom/translate";
 import { isNumber } from "../utils/types/isNumber";
-import { Coordinates, Position } from "../animation/animation.type";
 import { TranslateContainer } from "../animation/animation";
 import {
   TabEvent,
@@ -15,27 +14,9 @@ import {
 import { BottomSheetProps, SnapPoints } from "../types/bottom-sheet-props.type";
 import { toFixedNumber } from "../utils/math/unit";
 import { boundNumber } from "../utils/math/min-max";
+import { DraggingState } from "src/types";
 
-interface DraggingState {
-  /** @description Used to know how far the cursor moved. */
-  startY: Position | null;
-
-  /** @description Used to know where was the bottom sheet before dragging. */
-  containerStartTranslate: Coordinates;
-
-  isDragging: boolean;
-}
-
-const draggingState: DraggingState = {
-  startY: null,
-  containerStartTranslate: {
-    x: 0,
-    y: 0,
-  },
-  isDragging: false,
-} as const;
-
-export const handleDragTriggerClick = () => {
+export const handleDragTriggerClick = (draggingState: DraggingState) => {
   draggingState.isDragging = true;
 };
 
@@ -43,7 +24,8 @@ export const handleDragStart =
   (
     mouseEventListener: TabEventListener,
     bottomSheetContainer: HTMLElement,
-    bottomSheetProps: Required<BottomSheetProps>
+    bottomSheetProps: Required<BottomSheetProps>,
+    draggingState: DraggingState
   ) =>
   (event: TabEvent) => {
     draggingState.startY = mouseEventListener.getCoordinates(event).y;
@@ -56,6 +38,7 @@ export const handleDragMove =
     mouseEventListener: TabEventListener,
     bottomSheetContainer: HTMLElement,
     bottomSheetProps: Required<BottomSheetProps>,
+    draggingState: DraggingState,
     animationFrame: AnimationFrame,
     marginTop: number
   ) =>
@@ -64,6 +47,7 @@ export const handleDragMove =
       event,
       mouseEventListener,
       bottomSheetProps,
+      draggingState,
       animationFrame,
       bottomSheetContainer,
       marginTop
@@ -74,6 +58,7 @@ function moveSheetToPointer(
   event: TabEvent,
   mouseEventListener: TabEventListener,
   bottomSheetProps: Required<BottomSheetProps>,
+  draggingState: DraggingState,
   animationFrame: AnimationFrame,
   bottomSheetContainer: HTMLElement,
   marginTop: number
@@ -151,6 +136,7 @@ export const handleDragEnd =
     eventListener: TabEventListener,
     bottomSheetContainer: HTMLElement,
     bottomSheetProps: Required<BottomSheetProps>,
+    draggingState: DraggingState,
     animationFrame: AnimationFrame,
     snapPoints: SnapPoints,
     marginTop: number,
