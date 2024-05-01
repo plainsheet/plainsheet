@@ -2,6 +2,12 @@
   "name": "plain-bottom-sheet-core",
   "version": "0.0.1",
   "description": "The minimalistic, configurable bottom-sheet for the Web.",
+  "keywords": [
+    "ui",
+    "component",
+    "typescript",
+    "bottom sheet"
+  ],
   "private": false,
   "sideEffects": false,
   "license": "MIT",
