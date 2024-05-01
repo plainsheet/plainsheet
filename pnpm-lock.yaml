@@ -48,6 +48,9 @@ importers:
       next:
         specifier: 14.0.3
         version: 14.0.3(react-dom@18.2.0)(react@18.2.0)
+      plain-bottom-sheet-core:
+        specifier: workspace:^
+        version: link:../../packages/core
       react:
         specifier: ^18
         version: 18.2.0
