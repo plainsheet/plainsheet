@@ -24,6 +24,7 @@ a:hover {
 
 html {
   overflow-y: hidden;
+  overscroll-behavior: none;
 }
 body {
   margin: 0;

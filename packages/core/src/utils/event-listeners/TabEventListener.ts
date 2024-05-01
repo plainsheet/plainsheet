@@ -12,8 +12,9 @@ interface AddMouseEventListenersParams extends AddEventListenersParams {
 interface AddTouchEventListenersParams extends AddEventListenersParams {
   onStartOptions: EventCallbackOptions;
 }
+export type AppTouchEvent = TouchEvent;
 
-export type TabEvent = MouseEvent | TouchEvent;
+export type TabEvent = MouseEvent | AppTouchEvent;
 
 export type EventCallback = (event: TabEvent) => void;
 
@@ -137,7 +138,7 @@ export class TabEventListener {
 
   public getCoordinates(event: TabEvent) {
     if (event.type === "touchstart" || event.type === "mousedown") {
-      if (event instanceof TouchEvent) {
+      if ("touches" in event) {
         return {
           x: event.touches[0].clientX,
           y: event.touches[0].clientY,
@@ -156,7 +157,7 @@ export class TabEventListener {
       event.type === "mousemove" ||
       event.type === "touchmove"
     ) {
-      if (event instanceof TouchEvent) {
+      if ("touches" in event) {
         return {
           x: event.changedTouches[0].clientX,
           y: event.changedTouches[0].clientY,
