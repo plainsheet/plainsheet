@@ -17,6 +17,10 @@ The minimalistic, configurable bottom-sheet for the Web.
 - 🦾 <strong>Fully-typed</strong>, and every prop is documented.
 - ⚡️ <strong>Performant</strong> by default.
 
+# Motivation
+
+Every website deserves a bottom sheet, no matter which framework they are using.
+
 # Examples
 
 - [Classic HTML website](https://plain-bottom-sheet-html.vercel.app/)
@@ -31,8 +35,14 @@ npm install plain-bottom-sheet-core
 
 ### Using CDN
 
+If none of the below links are available, self host it.
+
 ```
-<script src="https://unpkg.com/plain-bottom-sheet-core@0.0.1">
+<script src="https://cdn.jsdelivr.net/npm/plain-bottom-sheet-core@0.0.1/dist/plain-bottom-sheet-core.umd.js">
+</script>
+
+// Or, using unpkg
+<script src="https://unpkg.com/plain-bottom-sheet-core@0.0.1/dist/plain-bottom-sheet-core.umd.js">
 </script>
 ```
 
