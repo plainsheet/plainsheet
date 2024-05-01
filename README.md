@@ -19,7 +19,7 @@ The minimalistic, configurable bottom-sheet for the Web.
 
 # Examples
 
-- [Classic HTML website](https://plain-bottom-sheet-html-w3r5.vercel.app/)
+- [Classic HTML website](https://plain-bottom-sheet-html.vercel.app/)
 
 # Installation
 
