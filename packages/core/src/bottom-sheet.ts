@@ -190,8 +190,6 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
 
     props.beforeClose?.();
 
-    setVisibility([bottomSheetBackdrop, bottomSheetContainer], false);
-
     const startY = getTranslate(bottomSheetContainer).y;
     const endY = bottomSheetContainer.clientHeight;
 
@@ -200,7 +198,10 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
       endY: endY,
       animationFrame,
       bottomSheetContainer,
-      onEnd: props.afterClose,
+      onEnd: () => {
+        props.afterClose?.();
+        setVisibility([bottomSheetBackdrop, bottomSheetContainer], false);
+      },
     });
   }
 

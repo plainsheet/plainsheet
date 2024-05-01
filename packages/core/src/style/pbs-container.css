@@ -3,7 +3,7 @@
 
   position: relative;
 
-  display: flex;
+  display: none;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
@@ -13,6 +13,9 @@
   max-height: 100vh;
 
   border-radius: 10px 10px 0px 0px;
+}
+.pbs-container.open {
+  display: flex;
 }
 
 .pbs-container .pbs-gap-filler {

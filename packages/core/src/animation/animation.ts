@@ -36,13 +36,15 @@ export function translateContainer(params: TranslateContainerParams) {
 
   animationFrame.stop();
 
+  let haveOnEndBeenCalled = false;
   animationFrame.start((progressPercent) => {
     setTranslate(bottomSheetContainer, {
       y: startY + offset * animationTimingFunction(progressPercent),
     });
 
-    if (progressPercent === 1) {
+    if (!haveOnEndBeenCalled && progressPercent >= 1) {
       onEnd?.();
+      haveOnEndBeenCalled = true;
     }
   }, animationDuration);
 }

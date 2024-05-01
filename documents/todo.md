@@ -5,7 +5,7 @@
   - Test the features and make them beautiful. : 2H
   - Deploy the HTML example to Vercel : 30 Min
     - Add the link to the README
-  - Make the state reactive: 1H
+  - Refactor and make the state reactive: 1H
 
 - Publish the core to NPM, and then the CDN. : 1H
   - https://www.jsdelivr.com/
