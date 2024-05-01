@@ -37,10 +37,10 @@ export interface BottomSheetProps {
    */
   backgroundDraggable?: boolean;
   /**
-   * @description Elements that will trigger dragging of the bottom sheet.
+   * @description Element selectors that will trigger dragging of the bottom sheet.
    * By default, the background is draggable unless it is covered by the content.
    */
-  dragTriggers?: HTMLElement[];
+  dragTriggers?: string[];
 
   // NOTE: Life-cycle callbacks.
   beforeOpen?: () => void;

@@ -27,5 +27,8 @@ export function createPlaceholderBottomSheet(): BottomSheet {
     },
     moveTo: () => {},
     snapTo: () => {},
+    props: {
+      content: "",
+    },
   };
 }

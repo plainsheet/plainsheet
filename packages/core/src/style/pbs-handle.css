@@ -19,6 +19,9 @@
   outline: none;
   border: none;
 }
+button:focus.pbs-button-reset {
+  outline: none;
+}
 
 .pbs-handle-bar {
   background-color: rgba(168, 168, 168, 1);

@@ -10,6 +10,11 @@ export function setupDraggingDetection() {
       const hue = Math.floor(progress * 360);
       document.body.style.backgroundColor = `hsl(${hue}deg 30% 60%)`;
     },
+    dragTriggers: [
+      ".dragging-detection",
+      ".dragging-detection > h2",
+      ".dragging-detection > p",
+    ],
   });
 
   bottomSheet.mount();

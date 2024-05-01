@@ -173,9 +173,17 @@ function initializeEvents({
   const gapFillerEventListener = new TabEventListener(
     bottomSheetContainerGapFiller
   );
-  const draggingTriggerEventListeners = dragTriggers.map(
-    (el) => new TabEventListener(el)
-  );
+  const draggingTriggerEventListeners: TabEventListener[] = dragTriggers
+    .map((selector) => {
+      const element = bottomSheetRoot.querySelector(selector);
+      if (element instanceof HTMLElement) {
+        return new TabEventListener(element);
+      }
+      return null;
+    })
+    .filter((listener): listener is TabEventListener => {
+      return Boolean(listener);
+    });
 
   const windowEventListener = new TabEventListener(
     window as unknown as HTMLElement
