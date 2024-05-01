@@ -7,30 +7,30 @@ let state = {
 
 export function setupSnapPoints() {
   const bottomSheet = createBottomSheet({
-    content: `<div class="dragging-detection"> 
+    content: `<div class="snap-points"> 
             <h2>Focus on the inputs 🎯</h2> 
-            <div>
+            <div class="input-wrapper">
               <label for="input-step-0">First Input</label>
               <input 
                 id="input-step-0"
               />
             </div>
 
-            <div>
+            <div class="input-wrapper">
               <label for="input-step-1">Second Input</label>
               <input 
               id="input-step-1"
               />
             </div>
 
-            <div>
+            <div class="input-wrapper">
               <label for="input-step-2">Third Input</label>
               <input 
                   id="input-step-2"
               />
             </div>
 
-            <div>
+            <div class="input-wrapper">
               <label for="input-step-3">Last Input</label>
               <input 
               id="input-step-3"
