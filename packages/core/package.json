@@ -22,7 +22,7 @@
   },
   "scripts": {
     "dev": "vite build --watch",
-    "build": "tsc --no-emit && vite build",
+    "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
     "lint": "eslint . --max-warnings 0",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
