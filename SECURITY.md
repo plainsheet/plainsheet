@@ -1,10 +1,13 @@
 # Security Policy
 
-According to the MIT license, the maintainer of this software is not liable for any damages or other liabilities. 
+According to the MIT license, the maintainer of this software is not liable for any damages or other liabilities.
+
 However, we are committed to actively addressing security issues as part of our community involvement.
 
 # Reporting a Vulnerability
-If you encounter a security issue, please contact me at peter.byun.dev@gmail.com. 
-I will respond promptly and ensure that the issue is addressed by the appropriate individual or organization.
+
+If you encounter a security issue, please contact us at peter.byun.dev@gmail.com.
+
+We will respond promptly and ensure that the issue is addressed by the appropriate individual or organization.
 
 Thank you for your attention to the security of our software.

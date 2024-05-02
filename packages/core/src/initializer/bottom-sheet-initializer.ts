@@ -26,10 +26,15 @@ export interface InitializerOptions {
   draggingState: DraggingState;
 }
 
+interface InitializeBottomSheetElementsReturnType {
+  elements: BottomSheetElements;
+  eventHandlers: InitializeEventsReturnType;
+}
+
 export function initializeBottomSheetElements(
   props: Required<BottomSheetProps>,
   options: InitializerOptions
-) {
+): InitializeBottomSheetElementsReturnType {
   const elements = createElements(props);
   combineElements(elements);
 
@@ -48,9 +53,19 @@ export function initializeBottomSheetElements(
   return { elements, eventHandlers };
 }
 
-type BottomSheetElements = ReturnType<typeof createElements>;
+interface BottomSheetElements {
+  bottomSheetRoot: HTMLElement;
+  bottomSheetBackdrop: HTMLElement;
+  bottomSheetContainer: HTMLElement;
+  bottomSheetHandle: HTMLElement;
+  bottomSheetHandleBar: HTMLElement;
+  bottomSheetContentWrapper: HTMLElement;
+  bottomSheetContainerGapFiller: HTMLElement;
+}
 
-function createElements(bottomSheetProps: Required<BottomSheetProps>) {
+function createElements(
+  bottomSheetProps: Required<BottomSheetProps>
+): BottomSheetElements {
   const bottomSheetRoot = createElement(
     "dialog",
     mergeClassNames([
@@ -134,7 +149,7 @@ function combineElements({
   bottomSheetHandleBar,
   bottomSheetContentWrapper,
   bottomSheetContainerGapFiller,
-}: BottomSheetElements) {
+}: BottomSheetElements): void {
   bottomSheetRoot.appendChild(bottomSheetContainer);
 
   bottomSheetHandle.appendChild(bottomSheetHandleBar);
@@ -151,11 +166,15 @@ export interface InitializeEventsParams {
   options: InitializerOptions;
 }
 
+interface InitializeEventsReturnType {
+  attachEventListeners: () => void;
+  clearEventListeners: () => void;
+}
 function initializeEvents({
   bottomSheetElements,
   bottomSheetProps,
   options,
-}: InitializeEventsParams) {
+}: InitializeEventsParams): InitializeEventsReturnType {
   const {
     bottomSheetRoot,
     bottomSheetContainer,
@@ -217,17 +236,17 @@ function initializeEvents({
     options.translateContainer
   );
 
-  function handleWindowClick(e: MouseEvent) {
+  function handleWindowClick(e: MouseEvent): void {
     if (e.target instanceof Element && !bottomSheetRoot.contains(e.target)) {
       options.onClose();
     }
   }
 
-  function handleDragTriggerClickWithDragState() {
+  function handleDragTriggerClickWithDragState(): void {
     handleDragTriggerClick(options.draggingState);
   }
 
-  function attachEventListeners() {
+  function attachEventListeners(): void {
     if (bottomSheetProps.draggable) {
       handleEventListener.addEventListeners({
         onStart: handleDragTriggerClickWithDragState,
@@ -266,7 +285,7 @@ function initializeEvents({
     }
   }
 
-  function clearEventListeners() {
+  function clearEventListeners(): void {
     handleEventListener.removeEventListeners({
       onStart: handleDragTriggerClickWithDragState,
     });
