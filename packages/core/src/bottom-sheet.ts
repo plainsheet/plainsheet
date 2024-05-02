@@ -85,11 +85,20 @@ function interpretAnimationTimingsProp(
 
 export function createBottomSheet(props: BottomSheetProps): BottomSheet {
   function handlePropSet(property: string | symbol, value: unknown): void {
-    if (property === "content") {
-      if (typeof value === "string") {
-        // TODO: sanitize it.
-        bottomSheetContentWrapper.innerHTML = value;
-      }
+    switch (property) {
+      case "content":
+        if (typeof value === "string") {
+          // TODO: sanitize it.
+          bottomSheetContentWrapper.innerHTML = value;
+        }
+        break;
+      case "width":
+        if (typeof value === "string") {
+          elements.bottomSheetContainer.style.width = value;
+        }
+        break;
+      default:
+        break;
     }
   }
   const propsWithDefaults = observe(
@@ -155,7 +164,7 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
   const unmount = (): void => {
     eventHandlers.clearEventListeners();
 
-    Object.values(elements).forEach((el) => {
+    Object.values(elements).forEach((el: HTMLElement) => {
       el.remove();
     });
 

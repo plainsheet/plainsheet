@@ -12,10 +12,7 @@ import type {
   TabEvent,
   TabEventListener,
 } from "../utils/event-listeners/TabEventListener";
-import type {
-  BottomSheetProps,
-  SnapPoints,
-} from "../types/bottom-sheet-props.type";
+import type { BottomSheetProps } from "../types/bottom-sheet-props.type";
 import { toFixedNumber } from "../utils/math/unit";
 import { boundNumber } from "../utils/math/min-max";
 
@@ -42,8 +39,7 @@ export const handleDragMove =
     bottomSheetContainer: HTMLElement,
     bottomSheetProps: Required<BottomSheetProps>,
     draggingState: DraggingState,
-    animationFrame: AnimationFrame,
-    marginTop: number
+    animationFrame: AnimationFrame
   ) =>
   (event: TabEvent) => {
     moveSheetToPointer(
@@ -53,7 +49,7 @@ export const handleDragMove =
       draggingState,
       animationFrame,
       bottomSheetContainer,
-      marginTop
+      bottomSheetProps.marginTop
     );
   };
 
@@ -141,8 +137,6 @@ export const handleDragEnd =
     bottomSheetProps: Required<BottomSheetProps>,
     draggingState: DraggingState,
     animationFrame: AnimationFrame,
-    snapPoints: SnapPoints,
-    marginTop: number,
     onClose: () => void,
     translateContainer: TranslateContainer
   ) =>
@@ -169,7 +163,7 @@ export const handleDragEnd =
     const containerHeight = bottomSheetContainer.clientHeight;
 
     if (direction.isUp) {
-      const snapPointsInAsc = [...snapPoints].sort(
+      const snapPointsInAsc = [...bottomSheetProps.snapPoints].sort(
         (left, right) => left - right
       );
 
@@ -205,7 +199,8 @@ export const handleDragEnd =
       }
 
       // NOTE: Translate to the fully open position when it moves past all snap points.
-      const topPointYLimit = -(viewportHeight - containerHeight) + marginTop;
+      const topPointYLimit =
+        -(viewportHeight - containerHeight) + bottomSheetProps.marginTop;
       translateContainer({
         startY: containerEndY,
         endY: topPointYLimit,
@@ -213,7 +208,7 @@ export const handleDragEnd =
         bottomSheetContainer,
       });
     } else if (direction.isDown) {
-      const snapPointsInDesc = [...snapPoints].sort(
+      const snapPointsInDesc = [...bottomSheetProps.snapPoints].sort(
         (left, right) => right - left
       );
 
