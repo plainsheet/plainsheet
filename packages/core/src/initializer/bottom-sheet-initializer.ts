@@ -262,7 +262,7 @@ function initializeEvents({
     }
 
     if (bottomSheetProps.shouldCloseOnOutsideClick) {
-      window.addEventListener("click", handleWindowClick);
+      window.document.addEventListener("click", handleWindowClick);
     }
   }
 
