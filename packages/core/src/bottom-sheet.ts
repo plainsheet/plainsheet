@@ -97,6 +97,31 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
           elements.bottomSheetContainer.style.width = value;
         }
         break;
+      case "shouldShowHandle":
+        break;
+      case "shouldShowBackdrop":
+        break;
+      case "containerBorderRadius":
+        break;
+      case "backdropColor":
+        break;
+      case "backDropTransition":
+        break;
+      // TODO: Delete the previous custom classes
+      case "rootClass":
+        break;
+      case "containerClass":
+        break;
+      case "handleClass":
+        break;
+      case "contentWrapperClass":
+        break;
+      case "backdropClass":
+        break;
+      case "draggingAnimationTimings":
+        break;
+      case "draggingAnimationDuration":
+        break;
       default:
         break;
     }
