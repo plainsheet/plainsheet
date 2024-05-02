@@ -8,7 +8,7 @@ export function setupDraggingDetection() {
         </div>`,
     onDragMove: (_, progress) => {
       const hue = Math.floor(progress * 360);
-      const degree = Math.floor(progress * 360);
+      const degree = hue;
       document.body.style.background = `linear-gradient(${degree}deg, hsl(${hue}deg 30% 60%), hsl(${hue / 2}deg 30% 60%))`;
     },
     dragTriggers: [
