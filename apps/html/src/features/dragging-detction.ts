@@ -8,13 +8,15 @@ export function setupDraggingDetection() {
         </div>`,
     onDragMove: (_, progress) => {
       const hue = Math.floor(progress * 360);
-      document.body.style.backgroundColor = `hsl(${hue}deg 30% 60%)`;
+      const degree = Math.floor(progress * 360);
+      document.body.style.background = `linear-gradient(${degree}deg, hsl(${hue}deg 30% 60%), hsl(${hue / 2}deg 30% 60%))`;
     },
     dragTriggers: [
       ".dragging-detection",
       ".dragging-detection > h2",
       ".dragging-detection > p",
     ],
+    shouldShowBackdrop: false,
   });
 
   bottomSheet.mount();
