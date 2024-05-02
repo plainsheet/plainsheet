@@ -6,7 +6,7 @@ import {
 } from "../calculator/position-calculator";
 import type { AnimationFrame } from "../utils/animation/animation-frame";
 import { getTranslate, setTranslate } from "../utils/dom/translate";
-import { isNumber } from "../utils/types/isNumber";
+import { isNumber } from "../utils/types/is-number";
 import type { TranslateContainer } from "../animation/animation";
 import type {
   TabEvent,

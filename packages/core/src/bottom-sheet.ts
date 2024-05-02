@@ -4,7 +4,7 @@ import "./style/pbs-container.css";
 import "./style/pbs-handle.css";
 import "./style/pbs-content.css";
 
-import { setVisibility } from "./utils/dom/visibility";
+import { setHiddenClass, setVisibility } from "./utils/dom/visibility";
 import { initializeBottomSheetElements } from "./initializer/bottom-sheet-initializer";
 import { getTranslate, setTranslate } from "./utils/dom/translate";
 import { AnimationFrame } from "./utils/animation/animation-frame";
@@ -26,7 +26,7 @@ import type {
 import { BOTTOM_SHEET_POSITION } from "./types/bottom-sheet-props.type";
 import { BOTTOM_SHEET_DEFAULT_PROPS } from "./initializer/bottom-sheet-defaults";
 import type { BottomSheet } from "./types/bottom-sheet.type";
-import { isPercent } from "./utils/types/isPercent";
+import { isPercent } from "./utils/types/is-percent";
 import { toFixedNumber } from "./utils/math/unit";
 import type { AnimationTimingFunction } from "./utils/animation/animation.type";
 import {
@@ -40,6 +40,10 @@ import {
 import { cubicBezier } from "./utils/animation/cubic-bezier";
 import { exists } from "./utils/types/exists";
 import { observe } from "./utils/proxy/observe";
+import { addClassName } from "./utils/dom/classNames";
+import { UtilClassNames } from "./class-names";
+import { isString } from "./utils/types/is-string";
+import { isBoolean } from "./utils/types/is-boolean";
 
 function overwriteDefaultProps(
   props: BottomSheetProps
@@ -84,30 +88,49 @@ function interpretAnimationTimingsProp(
 }
 
 export function createBottomSheet(props: BottomSheetProps): BottomSheet {
+  // TODO: Move it a dedicated file
   function handlePropSet(property: string | symbol, value: unknown): void {
     switch (property) {
       case "content":
-        if (typeof value === "string") {
+        if (isString(value)) {
           // TODO: sanitize it.
           bottomSheetContentWrapper.innerHTML = value;
         }
         break;
       case "width":
-        if (typeof value === "string") {
+        if (isString(value)) {
           elements.bottomSheetContainer.style.width = value;
         }
         break;
       case "shouldShowHandle":
+        if (isBoolean(value)) {
+          setHiddenClass(elements.bottomSheetHandle, value);
+        }
         break;
       case "shouldShowBackdrop":
+        if (isBoolean(value)) {
+          setHiddenClass(elements.bottomSheetBackdrop, value);
+        }
         break;
       case "containerBorderRadius":
+        if (isString(value)) {
+          elements.bottomSheetContainer.style.borderRadius = value;
+        }
         break;
       case "backdropColor":
+        if (isString(value)) {
+          elements.bottomSheetBackdrop.style.backgroundColor = value;
+        }
         break;
       case "backDropTransition":
+        if (isString(value)) {
+          elements.bottomSheetBackdrop.style.transition = value;
+        }
         break;
+
       // TODO: Delete the previous custom classes
+      // In order to do so, the initial class names should be
+      // defined as an array, and each element should have one.
       case "rootClass":
         break;
       case "containerClass":
@@ -119,6 +142,9 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
       case "backdropClass":
         break;
       case "draggingAnimationTimings":
+        // Store the `translateContainer` function in a state
+        // and re-assign that when either draggingAnimationTimings or draggingAnimationDuration
+        // is changed.
         break;
       case "draggingAnimationDuration":
         break;

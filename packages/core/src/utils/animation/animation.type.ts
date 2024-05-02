@@ -1,4 +1,4 @@
-import { isNumber } from "../types/isNumber";
+import { isNumber } from "../types/is-number";
 
 /**
  * @description Points that express the timing of animations as a Bezier curve.

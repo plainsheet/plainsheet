@@ -1,4 +1,4 @@
-import { isString } from "../types/isString";
+import { isString } from "../types/is-string";
 
 export function addClassName(el: Element, className: string) {
   el.classList.add(cleanClassName(className));
