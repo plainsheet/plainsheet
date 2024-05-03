@@ -9,7 +9,7 @@ export function boundNumber(
     min?: number;
     max?: number;
   }
-) {
+): number {
   if (exists(max) && value >= max) {
     return max;
   }

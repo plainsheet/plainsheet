@@ -1,12 +1,11 @@
-import type { TranslateContainer } from "src/animation/animation";
-import type { DraggingState } from "src/types";
+import type { BottomSheetState, DraggingState } from "src/types";
 import {
   ClassNames,
   ResetClassNames,
   UtilClassNames,
 } from "../class-names/class-names";
 import { createElement } from "../utils/dom/element";
-import { mergeClassNames } from "../utils/dom/classNames";
+import { mergeClassNames } from "../utils/dom/class-names";
 import {
   handleDragEnd,
   handleDragMove,
@@ -21,7 +20,7 @@ import type { BottomSheetProps } from "../types/bottom-sheet-props.type";
 
 export interface InitializerOptions {
   animationFrame: AnimationFrame;
-  translateContainer: TranslateContainer;
+  bottomSheetState: BottomSheetState;
   onClose: () => void;
   draggingState: DraggingState;
 }
@@ -38,6 +37,7 @@ export function initializeBottomSheetElements(
   const elements = createElements(props);
   combineElements(elements);
 
+  elements.bottomSheetContainer.style.width = props.width;
   // NOTE: Mounts the user-provided content to the content wrapper.
   const contentElement = document.createElement("div");
   // TODO: Sanitize the content
@@ -53,7 +53,7 @@ export function initializeBottomSheetElements(
   return { elements, eventHandlers };
 }
 
-interface BottomSheetElements {
+export interface BottomSheetElements {
   bottomSheetRoot: HTMLElement;
   bottomSheetBackdrop: HTMLElement;
   bottomSheetContainer: HTMLElement;
@@ -182,7 +182,6 @@ function initializeEvents({
     bottomSheetContainerGapFiller,
     bottomSheetContentWrapper,
   } = bottomSheetElements;
-  const { snapPoints, dragTriggers, marginTop } = bottomSheetProps;
   const { animationFrame } = options;
 
   const handleEventListener = new TabEventListener(bottomSheetHandle);
@@ -192,17 +191,18 @@ function initializeEvents({
   const gapFillerEventListener = new TabEventListener(
     bottomSheetContainerGapFiller
   );
-  const draggingTriggerEventListeners: TabEventListener[] = dragTriggers
-    .map((selector) => {
-      const element = bottomSheetRoot.querySelector(selector);
-      if (element instanceof HTMLElement) {
-        return new TabEventListener(element);
-      }
-      return null;
-    })
-    .filter((listener): listener is TabEventListener => {
-      return Boolean(listener);
-    });
+  const draggingTriggerEventListeners: TabEventListener[] =
+    bottomSheetProps.dragTriggers
+      .map((selector) => {
+        const element = bottomSheetRoot.querySelector(selector);
+        if (element instanceof HTMLElement) {
+          return new TabEventListener(element);
+        }
+        return null;
+      })
+      .filter((listener): listener is TabEventListener => {
+        return Boolean(listener);
+      });
 
   const windowEventListener = new TabEventListener(
     window as unknown as HTMLElement
@@ -220,8 +220,7 @@ function initializeEvents({
     bottomSheetContainer,
     bottomSheetProps,
     options.draggingState,
-    animationFrame,
-    marginTop
+    animationFrame
   );
 
   const onDragEnd: EventCallback = handleDragEnd(
@@ -230,10 +229,8 @@ function initializeEvents({
     bottomSheetProps,
     options.draggingState,
     animationFrame,
-    snapPoints,
-    bottomSheetProps.marginTop,
     options.onClose,
-    options.translateContainer
+    options.bottomSheetState
   );
 
   function handleWindowClick(e: MouseEvent): void {

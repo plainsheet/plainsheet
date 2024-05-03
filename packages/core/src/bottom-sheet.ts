@@ -21,95 +21,33 @@ import type {
 import type {
   BottomSheetPosition,
   BottomSheetProps,
-  RequiredBottomSheetProps,
 } from "./types/bottom-sheet-props.type";
 import { BOTTOM_SHEET_POSITION } from "./types/bottom-sheet-props.type";
-import { BOTTOM_SHEET_DEFAULT_PROPS } from "./initializer/bottom-sheet-defaults";
 import type { BottomSheet } from "./types/bottom-sheet.type";
-import { isPercent } from "./utils/types/isPercent";
+import { isPercent } from "./utils/types/is-percent";
 import { toFixedNumber } from "./utils/math/unit";
-import type { AnimationTimingFunction } from "./utils/animation/animation.type";
-import {
-  isAnimationTimingPoints,
-  isCommonAnimationTimingsKey,
-} from "./utils/animation/animation.type";
-import {
-  commonAnimationTimingsNameToFunction,
-  spring,
-} from "./utils/animation/common-animations";
-import { cubicBezier } from "./utils/animation/cubic-bezier";
-import { exists } from "./utils/types/exists";
 import { observe } from "./utils/proxy/observe";
-
-function overwriteDefaultProps(
-  props: BottomSheetProps
-): RequiredBottomSheetProps {
-  const propsWithDefaults: RequiredBottomSheetProps = {
-    ...BOTTOM_SHEET_DEFAULT_PROPS,
-  };
-
-  const providedProps = Object.entries(props).reduce<Record<string, unknown>>(
-    (acc, curr) => {
-      const [propKey, propValue] = curr;
-      if (exists(propValue)) {
-        acc[propKey] = propValue;
-      }
-
-      return acc;
-    },
-    {}
-  );
-
-  const validProps = {
-    ...propsWithDefaults,
-    ...providedProps,
-  };
-
-  return validProps;
-}
-
-function interpretAnimationTimingsProp(
-  draggingAnimationTimings: BottomSheetProps["draggingAnimationTimings"]
-): AnimationTimingFunction {
-  if (isAnimationTimingPoints(draggingAnimationTimings)) {
-    const { p1x, p1y, p2x, p2y } = draggingAnimationTimings;
-    return cubicBezier(p1x, p1y, p2x, p2y);
-  }
-
-  if (isCommonAnimationTimingsKey(draggingAnimationTimings)) {
-    return commonAnimationTimingsNameToFunction(draggingAnimationTimings);
-  }
-
-  return spring;
-}
+import { logError } from "./utils/log/log";
+import {
+  createPropSetHandler,
+  interpretAnimationTimingsProp,
+  overwriteDefaultProps,
+} from "./initializer/bottom-sheet-props-initializer";
 
 export function createBottomSheet(props: BottomSheetProps): BottomSheet {
-  function handlePropSet(property: string | symbol, value: unknown): void {
-    if (property === "content") {
-      if (typeof value === "string") {
-        // TODO: sanitize it.
-        bottomSheetContentWrapper.innerHTML = value;
-      }
-    }
-  }
-  const propsWithDefaults = observe(
-    overwriteDefaultProps(props),
-    handlePropSet
-  );
+  const propsWithDefaults = overwriteDefaultProps(props);
 
   const validDraggingAnimationTimings = interpretAnimationTimingsProp(
     props.draggingAnimationTimings
   );
-
   const translateContainer = translateContainerWithAnim(
     validDraggingAnimationTimings,
     propsWithDefaults.draggingAnimationDuration
   );
 
-  // TODO: Make it a BottomSheetState.
-  const animationFrame = new AnimationFrame();
   const bottomSheetState: BottomSheetState = {
     isMounted: false,
+    translateContainer,
   };
   const draggingState: DraggingState = {
     startY: null,
@@ -119,10 +57,12 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
     },
     isDragging: false,
   } as const;
+  const animationFrame = new AnimationFrame();
+
   const initializerOptions = {
     animationFrame,
     onClose: close,
-    translateContainer,
+    bottomSheetState,
     draggingState,
   };
 
@@ -130,12 +70,14 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
     propsWithDefaults,
     initializerOptions
   );
-  const {
-    bottomSheetBackdrop,
-    bottomSheetRoot,
-    bottomSheetContainer,
-    bottomSheetContentWrapper,
-  } = elements;
+
+  const observedProps = observe(
+    propsWithDefaults,
+    createPropSetHandler(elements, bottomSheetState, propsWithDefaults)
+  );
+
+  const { bottomSheetBackdrop, bottomSheetRoot, bottomSheetContainer } =
+    elements;
 
   const mount = (mountingPoint?: Element): void => {
     const mountingPointOrFallback = mountingPoint ?? window.document.body;
@@ -155,7 +97,7 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
   const unmount = (): void => {
     eventHandlers.clearEventListeners();
 
-    Object.values(elements).forEach((el) => {
+    Object.values(elements).forEach((el: HTMLElement) => {
       el.remove();
     });
 
@@ -164,7 +106,7 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
 
   const open = (): void => {
     if (!getIsMounted()) {
-      console.error(
+      logError(
         'Bottom Sheet is not mounted yet. call the "mount" method first.'
       );
     }
@@ -190,11 +132,11 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
     const endY = convertDefaultPositionToYCoordinate(
       viewportHeight,
       bottomSheetContainer.clientHeight,
-      propsWithDefaults.marginTop,
-      propsWithDefaults.defaultPosition
+      observedProps.marginTop,
+      observedProps.defaultPosition
     );
 
-    translateContainer({
+    bottomSheetState.translateContainer({
       startY: startContainerY,
       endY,
       animationFrame,
@@ -213,7 +155,7 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
     const startY = getTranslate(bottomSheetContainer).y;
     const endY = bottomSheetContainer.clientHeight;
 
-    translateContainer({
+    bottomSheetState.translateContainer({
       startY,
       endY,
       animationFrame,
@@ -254,7 +196,7 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
       return BOTTOM_SHEET_POSITION.MIDDLE;
     }
 
-    const visibleHeightAtTop = viewportHeight - propsWithDefaults.marginTop;
+    const visibleHeightAtTop = viewportHeight - observedProps.marginTop;
     const animationErrorCompensation = 10;
 
     if (
@@ -280,7 +222,7 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
     const direction = calcDirectionWithHeight(visibleHeight, visibleEndHeight);
     const heightOffset = calcDiffOfHeight(visibleHeight, visibleEndHeight);
 
-    translateContainer({
+    bottomSheetState.translateContainer({
       startY: containerY,
       endY: containerY + (direction.isUp ? -heightOffset : heightOffset),
       animationFrame,
@@ -301,7 +243,7 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
   }
 
   return {
-    props: propsWithDefaults,
+    props: observedProps,
     mount,
     unmount,
     open,

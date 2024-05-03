@@ -4,7 +4,10 @@ export interface TransformValue {
 }
 
 export function stringToTransforms(transformString: string): TransformValue[] {
-  const regex = /(\w+)\(([^)]+)\)/g;
+  // NOTE: The regex catches this format: propertyName(valueOne, valueTwo)
+  // - First group: propertyName
+  // - Second group: (valueOne, valueTwo)
+  const regex = /(?<type>\w+)\((?<values>[^)]+)\)/g;
   const transforms: TransformValue[] = [];
   let match;
 
@@ -17,7 +20,10 @@ export function stringToTransforms(transformString: string): TransformValue[] {
   return transforms;
 }
 
-export function getTransformValues(element: HTMLElement) {
+export function getTransformValues(element: HTMLElement): {
+  transform: string;
+  transformValues: TransformValue[];
+} {
   const transform = element.style.transform;
   const transformValues = stringToTransforms(transform);
 
@@ -27,7 +33,7 @@ export function getTransformValues(element: HTMLElement) {
 export function pickTransformValue(
   currentTransformValues: TransformValue[],
   valueName: string
-) {
+): TransformValue | null {
   const currentTranslate = currentTransformValues.find((transformValue) =>
     transformValue.type.startsWith(valueName)
   );

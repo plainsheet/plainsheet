@@ -1,3 +1,4 @@
+import type { Coordinates } from "src/animation/animation.type";
 import { pxToNumber } from "../math/unit";
 import type { TransformValue } from "./transform";
 import {
@@ -8,7 +9,7 @@ import {
 
 const TRANSLATE = "translate";
 
-export function getTranslate(element: HTMLElement) {
+export function getTranslate(element: HTMLElement): Coordinates {
   const currentTransform = element.style.transform;
   const currentTransformValues = stringToTransforms(currentTransform);
 
@@ -27,14 +28,8 @@ export function getTranslate(element: HTMLElement) {
 
 export function setTranslate(
   element: HTMLElement,
-  {
-    x,
-    y,
-  }: {
-    x?: number;
-    y?: number;
-  }
-) {
+  { x, y }: Partial<Coordinates>
+): void {
   const {
     transform: currentTransform,
     transformValues: currentTransformValues,
@@ -70,7 +65,7 @@ export function setTranslate(
 
 export function getCoordinatesFromTranslateValue(
   transformValue: TransformValue
-) {
+): Coordinates {
   if (transformValue.type !== "translate") {
     throw new Error(
       `Could not get coordinates from ${transformValue.type}, since is not translate.`

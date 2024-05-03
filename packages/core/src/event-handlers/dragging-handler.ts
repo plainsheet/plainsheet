@@ -1,4 +1,4 @@
-import type { DraggingState } from "src/types";
+import type { BottomSheetState, DraggingState } from "src/types";
 import {
   calcDiffOfHeight,
   calcDraggingDirection,
@@ -6,20 +6,16 @@ import {
 } from "../calculator/position-calculator";
 import type { AnimationFrame } from "../utils/animation/animation-frame";
 import { getTranslate, setTranslate } from "../utils/dom/translate";
-import { isNumber } from "../utils/types/isNumber";
-import type { TranslateContainer } from "../animation/animation";
+import { isNumber } from "../utils/types/is-number";
 import type {
   TabEvent,
   TabEventListener,
 } from "../utils/event-listeners/TabEventListener";
-import type {
-  BottomSheetProps,
-  SnapPoints,
-} from "../types/bottom-sheet-props.type";
+import type { BottomSheetProps } from "../types/bottom-sheet-props.type";
 import { toFixedNumber } from "../utils/math/unit";
 import { boundNumber } from "../utils/math/min-max";
 
-export const handleDragTriggerClick = (draggingState: DraggingState) => {
+export const handleDragTriggerClick = (draggingState: DraggingState): void => {
   draggingState.isDragging = true;
 };
 
@@ -42,8 +38,7 @@ export const handleDragMove =
     bottomSheetContainer: HTMLElement,
     bottomSheetProps: Required<BottomSheetProps>,
     draggingState: DraggingState,
-    animationFrame: AnimationFrame,
-    marginTop: number
+    animationFrame: AnimationFrame
   ) =>
   (event: TabEvent) => {
     moveSheetToPointer(
@@ -53,7 +48,7 @@ export const handleDragMove =
       draggingState,
       animationFrame,
       bottomSheetContainer,
-      marginTop
+      bottomSheetProps.marginTop
     );
   };
 
@@ -65,7 +60,7 @@ function moveSheetToPointer(
   animationFrame: AnimationFrame,
   bottomSheetContainer: HTMLElement,
   marginTop: number
-) {
+): void {
   if (!draggingState.isDragging) {
     return;
   }
@@ -141,10 +136,8 @@ export const handleDragEnd =
     bottomSheetProps: Required<BottomSheetProps>,
     draggingState: DraggingState,
     animationFrame: AnimationFrame,
-    snapPoints: SnapPoints,
-    marginTop: number,
     onClose: () => void,
-    translateContainer: TranslateContainer
+    bottomSheetState: BottomSheetState
   ) =>
   (event: TabEvent) => {
     if (!draggingState.isDragging) {
@@ -169,7 +162,7 @@ export const handleDragEnd =
     const containerHeight = bottomSheetContainer.clientHeight;
 
     if (direction.isUp) {
-      const snapPointsInAsc = [...snapPoints].sort(
+      const snapPointsInAsc = [...bottomSheetProps.snapPoints].sort(
         (left, right) => left - right
       );
 
@@ -193,7 +186,7 @@ export const handleDragEnd =
             snapPointHeight
           );
 
-          translateContainer({
+          bottomSheetState.translateContainer({
             startY: containerEndY,
             endY: containerEndY - visibleContainerAndSnapPointHeightOffset,
             animationFrame,
@@ -205,15 +198,16 @@ export const handleDragEnd =
       }
 
       // NOTE: Translate to the fully open position when it moves past all snap points.
-      const topPointYLimit = -(viewportHeight - containerHeight) + marginTop;
-      translateContainer({
+      const topPointYLimit =
+        -(viewportHeight - containerHeight) + bottomSheetProps.marginTop;
+      bottomSheetState.translateContainer({
         startY: containerEndY,
         endY: topPointYLimit,
         animationFrame,
         bottomSheetContainer,
       });
     } else if (direction.isDown) {
-      const snapPointsInDesc = [...snapPoints].sort(
+      const snapPointsInDesc = [...bottomSheetProps.snapPoints].sort(
         (left, right) => right - left
       );
 
@@ -229,7 +223,7 @@ export const handleDragEnd =
             snapPointHeight
           );
 
-          translateContainer({
+          bottomSheetState.translateContainer({
             startY: containerEndY,
             endY: containerEndY + visibleContainerAndSnapPointHeightOffset,
             animationFrame,

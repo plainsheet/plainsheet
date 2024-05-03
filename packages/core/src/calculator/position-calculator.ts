@@ -7,7 +7,7 @@ export function convertDefaultPositionToYCoordinate(
   containerHeight: number,
   marginTop: number,
   position: BottomSheetPosition
-) {
+): number {
   switch (position) {
     case "content-height":
       return 0;

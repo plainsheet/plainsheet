@@ -1,5 +1,5 @@
 import { toFixedNumber } from "../math/unit";
-import { isNumber } from "../types/isNumber";
+import { isNumber } from "../types/is-number";
 
 export class AnimationFrame {
   public animationId: number | null;

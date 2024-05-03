@@ -6,7 +6,7 @@ export enum EventPhase {
   Bubble = 3,
 }
 
-export function eventPhaseToEnum(eventPhase: number) {
+export function eventPhaseToEnum(eventPhase: number): EventPhase {
   switch (eventPhase) {
     case 0:
       return EventPhase.None;

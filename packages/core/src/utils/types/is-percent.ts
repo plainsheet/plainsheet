@@ -1,4 +1,4 @@
-import { isNumber } from "./isNumber";
+import { isNumber } from "./is-number";
 
 export function isPercent(value: unknown): value is number {
   if (!isNumber(value)) {

@@ -1,16 +1,16 @@
-import { addClassName, removeClassName } from "./classNames";
+import { addClassName, removeClassName } from "./class-names";
 
 const OPEN = "open";
 
 export function setVisibility(
   element: Element | Element[],
   visibility: boolean
-) {
+): void {
   const shouldOpen = visibility;
 
   if (Array.isArray(element)) {
     element.forEach((el) => {
-      shouldOpen ? addClassName(el, OPEN) : removeClassName(el, OPEN);
+      setHiddenClass(el, shouldOpen);
 
       el.setAttribute("aria-hidden", shouldOpen ? "false" : "true");
     });
@@ -18,7 +18,11 @@ export function setVisibility(
     return;
   }
 
-  shouldOpen ? addClassName(element, OPEN) : removeClassName(element, OPEN);
+  setHiddenClass(element, shouldOpen);
 
   element.setAttribute("aria-hidden", shouldOpen ? "false" : "true");
+}
+
+export function setHiddenClass(element: Element, hidden: boolean): void {
+  hidden ? addClassName(element, OPEN) : removeClassName(element, OPEN);
 }

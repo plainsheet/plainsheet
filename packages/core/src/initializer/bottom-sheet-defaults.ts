@@ -1,3 +1,7 @@
+/* 
+  eslint-disable @typescript-eslint/no-empty-function 
+  -- Default functions should be empty.
+*/
 import type { RequiredBottomSheetProps } from "../types/bottom-sheet-props.type";
 import { BOTTOM_SHEET_POSITION } from "../types/bottom-sheet-props.type";
 
@@ -7,8 +11,8 @@ export const BOTTOM_SHEET_DEFAULT_PROPS: RequiredBottomSheetProps = {
   content: "",
   defaultPosition: BOTTOM_SHEET_POSITION.CONTENT_HEIGHT,
   marginTop: 20,
-  snapPoints: [0.5],
-  width: "100%",
+  snapPoints: [],
+  width: "80%",
   dragTriggers: [],
   beforeOpen: () => {},
   afterOpen: () => {},

@@ -8,6 +8,10 @@ import type { CSSColor, CSSUnit } from "src/utils/types/css-attribute";
 export type RequiredBottomSheetProps = Required<BottomSheetProps>;
 export interface BottomSheetProps {
   content: string;
+
+  /**
+   * @default 80%
+   */
   width?: string;
 
   // NOTE: Position settings

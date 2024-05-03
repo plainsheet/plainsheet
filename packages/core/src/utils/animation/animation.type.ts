@@ -1,4 +1,4 @@
-import { isNumber } from "../types/isNumber";
+import { isNumber } from "../types/is-number";
 
 /**
  * @description Points that express the timing of animations as a Bezier curve.
@@ -17,6 +17,7 @@ export type CommonAnimationKey = keyof CommonAnimationKeys;
 export type CommonAnimation = CommonAnimationKeys[CommonAnimationKey];
 
 export const COMMON_ANIMATION_KEYS = {
+  EASE: "ease",
   EASE_IN: "ease-in",
   EASE_OUT: "ease-out",
   EASE_IN_OUT: "ease-in-out",
