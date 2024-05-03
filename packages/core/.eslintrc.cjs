@@ -2,4 +2,7 @@
 module.exports = {
   extends: ["@internal/eslint-config/library.js"],
   ignorePatterns: ["./vite.config.ts"],
+  parserOptions: {
+    project: ["./tsconfig.json", "./tsconfig.node.json"],
+  },
 };
