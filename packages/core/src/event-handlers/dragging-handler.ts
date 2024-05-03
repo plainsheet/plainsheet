@@ -30,7 +30,7 @@ export const handleDragStart =
     draggingState.startY = mouseEventListener.getCoordinates(event).y;
     draggingState.containerStartTranslate = getTranslate(bottomSheetContainer);
 
-    draggingState.originalDocumentOverFlowY = document.body.style.overflowY;
+    draggingState.originalDocumentOverflowY = document.body.style.overflowY;
     document.body.style.overflowY = "hidden";
 
     bottomSheetProps.onDragStart();
@@ -148,7 +148,7 @@ export const handleDragEnd =
       return;
     }
     draggingState.isDragging = false;
-    document.body.style.overflowY = draggingState.originalDocumentOverFlowY;
+    document.body.style.overflowY = draggingState.originalDocumentOverflowY;
 
     if (!isNumber(draggingState.startY)) {
       return;

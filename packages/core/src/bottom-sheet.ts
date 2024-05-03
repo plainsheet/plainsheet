@@ -56,7 +56,7 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
       y: 0,
     },
     isDragging: false,
-    originalDocumentOverFlowY: document.body.style.overflowY,
+    originalDocumentOverflowY: document.body.style.overflowY,
   } as const;
   const animationFrame = new AnimationFrame();
 
