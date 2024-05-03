@@ -3,13 +3,11 @@ import type {
   BottomSheetState,
   RequiredBottomSheetProps,
 } from "src/types";
-import { exists } from "src/utils/types/exists";
 import type { AnimationTimingFunction } from "src/utils";
 import {
   isAnimationTimingPoints,
   isCommonAnimationTimingsKey,
 } from "src/utils";
-import { cubicBezier } from "src/utils/animation/cubic-bezier";
 import {
   commonAnimationTimingsNameToFunction,
   spring,
@@ -21,6 +19,8 @@ import { translateContainerWithAnim } from "src/animation/animation";
 import { isNumber } from "src/utils/types/is-number";
 import { setHiddenClass } from "src/utils/dom/visibility";
 import type { ObserverSetHandler } from "src/utils/proxy/observe";
+import { cubicBezier } from "../utils/animation/cubic-bezier";
+import { exists } from "../utils/types/exists";
 import { BOTTOM_SHEET_DEFAULT_PROPS } from "./bottom-sheet-defaults";
 import type { BottomSheetElements } from "./bottom-sheet-initializer";
 

@@ -22,5 +22,11 @@ export default defineConfig({
     cssMinify: true,
     cssCodeSplit: true,
   },
+
+  resolve: {
+    alias: {
+      src: path.resolve(__dirname, "./src"),
+    },
+  },
   plugins: [dts(), cssInjectedByJsPlugin()],
 });
