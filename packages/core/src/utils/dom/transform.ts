@@ -4,7 +4,10 @@ export interface TransformValue {
 }
 
 export function stringToTransforms(transformString: string): TransformValue[] {
-  const regex = /(\w+)\(([^)]+)\)/g;
+  // NOTE: The regex catches this format: propertyName(valueOne, valueTwo)
+  // - First group: propertyName
+  // - Second group: (valueOne, valueTwo)
+  const regex = /(?<type>\w+)\((?<values>[^)]+)\)/g;
   const transforms: TransformValue[] = [];
   let match;
 
