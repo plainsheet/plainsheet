@@ -14,4 +14,6 @@ export interface DraggingState {
   containerStartTranslate: Coordinates;
 
   isDragging: boolean;
+
+  originalDocumentOverFlowY: string;
 }
