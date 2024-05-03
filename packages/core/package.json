@@ -6,7 +6,7 @@
     "ui",
     "component",
     "typescript",
-    "bottom sheet"
+    "bottom-sheet"
   ],
   "private": false,
   "sideEffects": false,

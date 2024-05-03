@@ -12,7 +12,7 @@ export const BOTTOM_SHEET_DEFAULT_PROPS: RequiredBottomSheetProps = {
   defaultPosition: BOTTOM_SHEET_POSITION.CONTENT_HEIGHT,
   marginTop: 20,
   snapPoints: [],
-  width: "80%",
+  width: "92%",
   dragTriggers: [],
   beforeOpen: () => {},
   afterOpen: () => {},

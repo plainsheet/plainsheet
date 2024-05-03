@@ -9,9 +9,6 @@ export type RequiredBottomSheetProps = Required<BottomSheetProps>;
 export interface BottomSheetProps {
   content: string;
 
-  /**
-   * @default 80%
-   */
   width?: string;
 
   // NOTE: Position settings
