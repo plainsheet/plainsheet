@@ -1,4 +1,4 @@
-import type { DraggingState } from "src/types";
+import type { BottomSheetState, DraggingState } from "src/types";
 import {
   calcDiffOfHeight,
   calcDraggingDirection,
@@ -7,7 +7,6 @@ import {
 import type { AnimationFrame } from "../utils/animation/animation-frame";
 import { getTranslate, setTranslate } from "../utils/dom/translate";
 import { isNumber } from "../utils/types/is-number";
-import type { TranslateContainer } from "../animation/animation";
 import type {
   TabEvent,
   TabEventListener,
@@ -138,7 +137,7 @@ export const handleDragEnd =
     draggingState: DraggingState,
     animationFrame: AnimationFrame,
     onClose: () => void,
-    translateContainer: TranslateContainer
+    bottomSheetState: BottomSheetState
   ) =>
   (event: TabEvent) => {
     if (!draggingState.isDragging) {
@@ -187,7 +186,7 @@ export const handleDragEnd =
             snapPointHeight
           );
 
-          translateContainer({
+          bottomSheetState.translateContainer({
             startY: containerEndY,
             endY: containerEndY - visibleContainerAndSnapPointHeightOffset,
             animationFrame,
@@ -201,7 +200,7 @@ export const handleDragEnd =
       // NOTE: Translate to the fully open position when it moves past all snap points.
       const topPointYLimit =
         -(viewportHeight - containerHeight) + bottomSheetProps.marginTop;
-      translateContainer({
+      bottomSheetState.translateContainer({
         startY: containerEndY,
         endY: topPointYLimit,
         animationFrame,
@@ -224,7 +223,7 @@ export const handleDragEnd =
             snapPointHeight
           );
 
-          translateContainer({
+          bottomSheetState.translateContainer({
             startY: containerEndY,
             endY: containerEndY + visibleContainerAndSnapPointHeightOffset,
             animationFrame,

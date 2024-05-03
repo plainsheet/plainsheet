@@ -1,6 +1,11 @@
+export type ObserverSetHandler = (
+  property: string | symbol,
+  value: unknown
+) => void;
+
 export function observe<T extends object>(
   obj: T,
-  onSet: (property: string | symbol, value: unknown) => void
+  onSet: ObserverSetHandler
 ): T {
   const handler: ProxyHandler<T> = {
     set(target, property, value, receiver) {

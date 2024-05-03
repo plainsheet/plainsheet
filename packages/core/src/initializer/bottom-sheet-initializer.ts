@@ -1,5 +1,4 @@
-import type { TranslateContainer } from "src/animation/animation";
-import type { DraggingState } from "src/types";
+import type { BottomSheetState, DraggingState } from "src/types";
 import {
   ClassNames,
   ResetClassNames,
@@ -21,7 +20,7 @@ import type { BottomSheetProps } from "../types/bottom-sheet-props.type";
 
 export interface InitializerOptions {
   animationFrame: AnimationFrame;
-  translateContainer: TranslateContainer;
+  bottomSheetState: BottomSheetState;
   onClose: () => void;
   draggingState: DraggingState;
 }
@@ -54,7 +53,7 @@ export function initializeBottomSheetElements(
   return { elements, eventHandlers };
 }
 
-interface BottomSheetElements {
+export interface BottomSheetElements {
   bottomSheetRoot: HTMLElement;
   bottomSheetBackdrop: HTMLElement;
   bottomSheetContainer: HTMLElement;
@@ -231,7 +230,7 @@ function initializeEvents({
     options.draggingState,
     animationFrame,
     options.onClose,
-    options.translateContainer
+    options.bottomSheetState
   );
 
   function handleWindowClick(e: MouseEvent): void {
