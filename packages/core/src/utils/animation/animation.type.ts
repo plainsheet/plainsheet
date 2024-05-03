@@ -17,6 +17,7 @@ export type CommonAnimationKey = keyof CommonAnimationKeys;
 export type CommonAnimation = CommonAnimationKeys[CommonAnimationKey];
 
 export const COMMON_ANIMATION_KEYS = {
+  EASE: "ease",
   EASE_IN: "ease-in",
   EASE_OUT: "ease-out",
   EASE_IN_OUT: "ease-in-out",

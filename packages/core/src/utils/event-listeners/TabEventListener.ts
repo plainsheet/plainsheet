@@ -1,3 +1,4 @@
+import type { Coordinates } from "src/animation/animation.type";
 import { EventPhase, eventPhaseToEnum } from "./EventPhase";
 
 export interface AddEventListenersParams {
@@ -49,7 +50,7 @@ export class TabEventListener {
     onStartOptions,
     onMove,
     onEnd,
-  }: AddTouchEventListenersParams) {
+  }: AddTouchEventListenersParams): void {
     if (onStart) {
       this.currentTarget.addEventListener(
         "touchstart",
@@ -85,7 +86,7 @@ export class TabEventListener {
     onStartOptions,
     onMove,
     onEnd,
-  }: AddMouseEventListenersParams) {
+  }: AddMouseEventListenersParams): void {
     if (onStart) {
       this.currentTarget.addEventListener(
         "mousedown",
@@ -136,7 +137,7 @@ export class TabEventListener {
     onEnd && this.currentTarget.removeEventListener("mouseup", onEnd);
   }
 
-  public getCoordinates(event: TabEvent) {
+  public getCoordinates(event: TabEvent): Coordinates {
     if (event.type === "touchstart" || event.type === "mousedown") {
       if ("touches" in event) {
         return {

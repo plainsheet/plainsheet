@@ -40,10 +40,10 @@ import {
 import { cubicBezier } from "./utils/animation/cubic-bezier";
 import { exists } from "./utils/types/exists";
 import { observe } from "./utils/proxy/observe";
-import { addClassName } from "./utils/dom/classNames";
-import { UtilClassNames } from "./class-names";
+import { replaceClassName } from "./utils/dom/class-names";
 import { isString } from "./utils/types/is-string";
 import { isBoolean } from "./utils/types/is-boolean";
+import { logError } from "./utils/log/log";
 
 function overwriteDefaultProps(
   props: BottomSheetProps
@@ -127,19 +127,47 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
           elements.bottomSheetBackdrop.style.transition = value;
         }
         break;
-
-      // TODO: Delete the previous custom classes
-      // In order to do so, the initial class names should be
-      // defined as an array, and each element should have one.
       case "rootClass":
+        if (!isString(value)) {
+          return;
+        }
+        replaceClassName(elements.bottomSheetRoot, props.rootClass, value);
         break;
       case "containerClass":
+        if (!isString(value)) {
+          return;
+        }
+        replaceClassName(
+          elements.bottomSheetContainer,
+          props.containerClass,
+          value
+        );
         break;
       case "handleClass":
+        if (!isString(value)) {
+          return;
+        }
+        replaceClassName(elements.bottomSheetHandle, props.handleClass, value);
         break;
       case "contentWrapperClass":
+        if (!isString(value)) {
+          return;
+        }
+        replaceClassName(
+          elements.bottomSheetContentWrapper,
+          props.contentWrapperClass,
+          value
+        );
         break;
       case "backdropClass":
+        if (!isString(value)) {
+          return;
+        }
+        replaceClassName(
+          elements.bottomSheetBackdrop,
+          props.backdropClass,
+          value
+        );
         break;
       case "draggingAnimationTimings":
         // Store the `translateContainer` function in a state
@@ -224,7 +252,7 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
 
   const open = (): void => {
     if (!getIsMounted()) {
-      console.error(
+      logError(
         'Bottom Sheet is not mounted yet. call the "mount" method first.'
       );
     }

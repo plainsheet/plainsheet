@@ -1,3 +1,8 @@
+/* 
+  eslint-disable @typescript-eslint/no-empty-function 
+  -- Default functions should be empty.
+*/
+
 import { BOTTOM_SHEET_POSITION } from "../types";
 import type { BottomSheet } from "../types/bottom-sheet.type";
 

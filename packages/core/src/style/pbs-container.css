@@ -1,5 +1,7 @@
 .pbs-container {
-  background-color: rgb(240, 240, 240);
+  --pbs-container-background-color: rgb(240, 240, 240);
+
+  background-color: var(--pbs-container-background-color);
 
   position: relative;
 
@@ -23,8 +25,7 @@
   bottom: calc(-100vh + 0.5px);
   left: 0;
 
-  /* TODO: The background color should be same as the container's color */
-  background-color: rgb(240, 240, 240);
+  background-color: var(--pbs-container-background-color);
   content: "";
 
   width: 100%;

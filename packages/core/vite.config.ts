@@ -2,11 +2,15 @@ import path from "node:path";
 import { defineConfig } from "vite";
 import dts from "vite-plugin-dts";
 /**
- * TODO: Replace it with a built-in feature when it is merged
- * @see https://github.com/vitejs/vite/pull/13565
+  TODO: Replace it with a built-in feature when it is merged
+  @see https://github.com/vitejs/vite/pull/13565
  */
 import cssInjectedByJsPlugin from "vite-plugin-css-injected-by-js";
 
+/* 
+  eslint-disable-next-line import/no-default-export 
+  -- Vite config does not accept named exports.
+*/
 export default defineConfig({
   build: {
     lib: {

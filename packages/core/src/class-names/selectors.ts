@@ -1,4 +1,4 @@
-import { classesToSelector } from "../utils/dom/classNames";
+import { classesToSelector } from "../utils/dom/class-names";
 import { ClassNames } from "./class-names";
 
 export const BOTTOM_SHEET_SELECTORS = {

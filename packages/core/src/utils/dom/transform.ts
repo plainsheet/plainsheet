@@ -17,7 +17,10 @@ export function stringToTransforms(transformString: string): TransformValue[] {
   return transforms;
 }
 
-export function getTransformValues(element: HTMLElement) {
+export function getTransformValues(element: HTMLElement): {
+  transform: string;
+  transformValues: TransformValue[];
+} {
   const transform = element.style.transform;
   const transformValues = stringToTransforms(transform);
 
@@ -27,7 +30,7 @@ export function getTransformValues(element: HTMLElement) {
 export function pickTransformValue(
   currentTransformValues: TransformValue[],
   valueName: string
-) {
+): TransformValue | null {
   const currentTranslate = currentTransformValues.find((transformValue) =>
     transformValue.type.startsWith(valueName)
   );

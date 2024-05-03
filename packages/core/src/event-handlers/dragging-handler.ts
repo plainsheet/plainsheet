@@ -16,7 +16,7 @@ import type { BottomSheetProps } from "../types/bottom-sheet-props.type";
 import { toFixedNumber } from "../utils/math/unit";
 import { boundNumber } from "../utils/math/min-max";
 
-export const handleDragTriggerClick = (draggingState: DraggingState) => {
+export const handleDragTriggerClick = (draggingState: DraggingState): void => {
   draggingState.isDragging = true;
 };
 
@@ -61,7 +61,7 @@ function moveSheetToPointer(
   animationFrame: AnimationFrame,
   bottomSheetContainer: HTMLElement,
   marginTop: number
-) {
+): void {
   if (!draggingState.isDragging) {
     return;
   }

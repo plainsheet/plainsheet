@@ -6,7 +6,7 @@ import {
   UtilClassNames,
 } from "../class-names/class-names";
 import { createElement } from "../utils/dom/element";
-import { mergeClassNames } from "../utils/dom/classNames";
+import { mergeClassNames } from "../utils/dom/class-names";
 import {
   handleDragEnd,
   handleDragMove,

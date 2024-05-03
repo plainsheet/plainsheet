@@ -22,7 +22,7 @@ export type TranslateContainerParamsExceptAnimation = Omit<
 
 export type TranslateContainer = ReturnType<typeof translateContainerWithAnim>;
 
-export function translateContainer(params: TranslateContainerParams) {
+export function translateContainer(params: TranslateContainerParams): void {
   const {
     startY,
     endY,
