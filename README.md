@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./documents/assets/header.png">
+  <img src="./documents/assets/header.png" width="328" height="167">
 </p>
 
 The minimalistic, configurable bottom-sheet for the Web.
