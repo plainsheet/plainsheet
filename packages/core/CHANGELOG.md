@@ -1,5 +1,11 @@
 # plain-bottom-sheet-core
 
+## 0.1.2
+
+### Patch Changes
+
+- 6c1b8b8: changed the default width to fit the width of the screen
+
 ## 0.1.1
 
 ### Patch Changes
