@@ -1,5 +1,6 @@
 import { expect, test } from "vitest";
 import { createBottomSheet } from "src";
+import { prepareOpenBottomSheet } from "__tests__/setup/prepare-bottom-sheet";
 
 test("Every prop should be initialized with default value when the value is not provided", () => {
   const bottomSheet = createBottomSheet({
@@ -32,13 +33,9 @@ test("Bottom sheet should be mounted", () => {
 });
 
 test("Bottom sheet should be open", () => {
-  const bottomSheet = createBottomSheet({
+  const bottomSheet = prepareOpenBottomSheet({
     content: "content",
   });
-
-  bottomSheet.mount();
-
-  bottomSheet.open();
 
   setTimeout(() => {
     expect(bottomSheet.getIsOpen()).toBe(true);

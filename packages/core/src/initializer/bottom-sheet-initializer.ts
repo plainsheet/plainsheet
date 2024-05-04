@@ -73,12 +73,14 @@ function createElements(
       ClassNames.Root,
       ResetClassNames.Dialog,
       bottomSheetProps.rootClass,
-    ])
+    ]),
+    ClassNames.Root
   );
 
   const bottomSheetContainer = createElement(
     "section",
-    mergeClassNames([ClassNames.Container, bottomSheetProps.containerClass])
+    mergeClassNames([ClassNames.Container, bottomSheetProps.containerClass]),
+    ClassNames.Container
   );
   if (bottomSheetProps.containerBorderRadius) {
     bottomSheetContainer.style.borderRadius =
@@ -87,6 +89,7 @@ function createElements(
 
   const bottomSheetContainerGapFiller = createElement(
     "div",
+    ClassNames.GapFiller,
     ClassNames.GapFiller
   );
 
@@ -97,7 +100,8 @@ function createElements(
       ResetClassNames.Button,
       bottomSheetProps.shouldShowHandle ? null : UtilClassNames.Hidden,
       bottomSheetProps.handleClass,
-    ])
+    ]),
+    ClassNames.Handle
   );
   bottomSheetHandle.setAttribute("type", "button");
 
@@ -106,7 +110,8 @@ function createElements(
     mergeClassNames([
       ClassNames.HandleBar,
       bottomSheetProps.shouldShowHandle ? null : UtilClassNames.Hidden,
-    ])
+    ]),
+    ClassNames.HandleBar
   );
 
   const bottomSheetContentWrapper = createElement(
@@ -114,7 +119,8 @@ function createElements(
     mergeClassNames([
       ClassNames.ContentWrapper,
       bottomSheetProps.contentWrapperClass,
-    ])
+    ]),
+    ClassNames.ContentWrapper
   );
 
   const bottomSheetBackdrop = createElement(
@@ -123,7 +129,8 @@ function createElements(
       ClassNames.Backdrop,
       bottomSheetProps.backdropClass,
       bottomSheetProps.shouldShowBackdrop ? null : UtilClassNames.Hidden,
-    ])
+    ]),
+    ClassNames.Backdrop
   );
   if (bottomSheetProps.backdropColor) {
     bottomSheetBackdrop.style.backgroundColor = bottomSheetProps.backdropColor;

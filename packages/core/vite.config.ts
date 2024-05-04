@@ -1,6 +1,6 @@
 /* 
-    eslint-disable import/no-default-export 
-    -- Vitest requires the default export
+  eslint-disable import/no-default-export 
+  -- Default functions should be empty.
 */
 import path from "node:path";
 import { defineConfig } from "vitest/config";
@@ -25,6 +25,7 @@ export default defineConfig({
   resolve: {
     alias: {
       src: path.resolve(__dirname, "./src"),
+      __tests__: path.resolve(__dirname, "./__tests__"),
     },
   },
   plugins: [dts(), cssInjectedByJsPlugin()],

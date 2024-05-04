@@ -1,8 +1,10 @@
+import { isString } from "../types/is-string";
 import { addClassName } from "./class-names";
 
 export function createElement(
   tagName: keyof HTMLElementTagNameMap,
-  className: string
+  className: string,
+  testId?: string
 ): ReturnType<typeof document.createElement> {
   const element = document.createElement(tagName);
 
@@ -10,6 +12,10 @@ export function createElement(
   classNames.forEach((cls) => {
     addClassName(element, cls);
   });
+
+  if (isString(testId)) {
+    element.setAttribute("data-testid", testId);
+  }
 
   return element;
 }

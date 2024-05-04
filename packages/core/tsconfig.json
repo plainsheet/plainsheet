@@ -12,5 +12,5 @@
     "resolveJsonModule": true,
     "isolatedModules": true
   },
-  "include": ["src", "./__tests__"]
+  "include": ["src/**/*.ts", "./__tests__/**/*.ts", "./vite.config.ts"]
 }
