@@ -1,3 +1,4 @@
+import { KeyObject } from "node:crypto";
 import type { BottomSheetState, DraggingState } from "src/types";
 import {
   ClassNames,
@@ -162,7 +163,6 @@ function combineElements({
 export interface InitializeEventsParams {
   bottomSheetElements: BottomSheetElements;
   bottomSheetProps: Required<BottomSheetProps>;
-  // TODO: Change this to "bottom sheet state"
   options: InitializerOptions;
 }
 
@@ -274,6 +274,13 @@ function initializeEvents({
         onStart: onDragStart,
         onMove: onDragMove,
         onEnd: onDragEnd,
+      });
+    }
+    if (bottomSheetProps.draggable) {
+      window.document.addEventListener("keyup", (e) => {
+        if (e.key === "Escape") {
+          options.onClose();
+        }
       });
     }
 
