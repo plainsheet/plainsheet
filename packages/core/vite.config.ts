@@ -1,5 +1,9 @@
+/* 
+    eslint-disable import/no-default-export 
+    -- Vitest requires the default export
+*/
 import path from "node:path";
-import { defineConfig } from "vite";
+import { defineConfig } from "vitest/config";
 import dts from "vite-plugin-dts";
 /**
   TODO: Replace it with a built-in feature when it is merged
@@ -7,10 +11,6 @@ import dts from "vite-plugin-dts";
  */
 import cssInjectedByJsPlugin from "vite-plugin-css-injected-by-js";
 
-/* 
-  eslint-disable-next-line import/no-default-export 
-  -- Vite config does not accept named exports.
-*/
 export default defineConfig({
   build: {
     lib: {
@@ -22,11 +22,13 @@ export default defineConfig({
     cssMinify: true,
     cssCodeSplit: true,
   },
-
   resolve: {
     alias: {
       src: path.resolve(__dirname, "./src"),
     },
   },
   plugins: [dts(), cssInjectedByJsPlugin()],
+  test: {
+    environment: "jsdom",
+  },
 });

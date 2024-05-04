@@ -245,6 +245,7 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
 
   return {
     props: observedProps,
+    elements,
     mount,
     unmount,
     open,

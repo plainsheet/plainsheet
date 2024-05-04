@@ -8,6 +8,10 @@
     "lint": {
       "dependsOn": ["^lint"]
     },
+    "test": {},
+    "test:watch": {
+      "persistent": true
+    },
     "dev": {
       "cache": false,
       "persistent": true

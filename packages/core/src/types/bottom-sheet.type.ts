@@ -1,3 +1,4 @@
+import type { BottomSheetElements } from "src/initializer/bottom-sheet-initializer";
 import type {
   BottomSheetPosition,
   BottomSheetProps,
@@ -9,6 +10,10 @@ export interface BottomSheet {
    * @description Mutable props to change the behavior of the Bottom Sheet.
    */
   props: BottomSheetProps;
+  /**
+   * @description Elements comprise the bottom sheet.
+   */
+  elements: BottomSheetElements;
   /**
    * @description Mounts the bottom sheet to the dom, or a provided mounting point.
    */
