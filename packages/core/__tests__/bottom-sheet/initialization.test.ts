@@ -1,6 +1,6 @@
 import { expect, test } from "vitest";
-import { createBottomSheet } from "src";
 import { prepareOpenBottomSheet } from "__tests__/setup/prepare-bottom-sheet";
+import { createBottomSheet } from "src";
 
 test("Every prop should be initialized with default value when the value is not provided", () => {
   const bottomSheet = createBottomSheet({
