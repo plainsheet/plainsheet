@@ -10,7 +10,18 @@ import type { BottomSheet } from "../types/bottom-sheet.type";
  * @returns A fallback BottomSheet instance to provide non-null BottomSheet methods to library users.
  */
 export function createPlaceholderBottomSheet(): BottomSheet {
+  const placeholderEl = document.createElement("div");
+
   return {
+    elements: {
+      bottomSheetRoot: placeholderEl,
+      bottomSheetBackdrop: placeholderEl,
+      bottomSheetContainer: placeholderEl,
+      bottomSheetHandle: placeholderEl,
+      bottomSheetHandleBar: placeholderEl,
+      bottomSheetContentWrapper: placeholderEl,
+      bottomSheetContainerGapFiller: placeholderEl,
+    },
     mount: () => {},
     unmount: () => {},
     open: () => {},
