@@ -98,9 +98,9 @@ Optional. The initial position where the bottom sheet should appear.
 
 Optional. Determines if the bottom sheet should close when clicking outside of it.
 
-### `snapPoints?: SnapPoints`
+### `snapPoints?: number[]`
 
-Optional. Defines preset stopping points for draggable states of the bottom sheet.
+Optional. [0.3, 0.8] will make the bottom sheet stop at 30% and 80% of the screen height, from the top.
 
 ### `expandable?: boolean`
 
