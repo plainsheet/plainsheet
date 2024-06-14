@@ -1,8 +1,12 @@
-import { expect, test } from "vitest";
-import { getByTestId, getByText } from "@testing-library/dom";
+import { afterEach, expect, test } from "vitest";
+import { getByText, screen } from "@testing-library/dom";
+import { ClassNames, createBottomSheet } from "src";
 import { prepareOpenBottomSheet } from "__tests__/setup/prepare-bottom-sheet";
 import { sleep } from "__tests__/utils/timer";
-import { ClassNames, createBottomSheet } from "src";
+
+afterEach(() => {
+  document.body.innerHTML = "";
+});
 
 test("Content should be reactive", async () => {
   const bottomSheet = prepareOpenBottomSheet({
@@ -14,9 +18,9 @@ test("Content should be reactive", async () => {
   const nextContent = "nextContent";
   bottomSheet.props.content = nextContent;
 
-  expect(getByText(bottomSheet.elements.bottomSheetRoot, nextContent)).toBe(
-    true
-  );
+  expect(
+    getByText(bottomSheet.elements.bottomSheetRoot, nextContent)
+  ).toBeTruthy();
 });
 
 test("width should be reactive", async () => {
@@ -55,26 +59,21 @@ test("class names should be reactive", () => {
   bottomSheet.props.containerClass = nextClassNamesObject.Container;
   bottomSheet.props.contentWrapperClass = nextClassNamesObject.ContentWrapper;
 
-  getByTestId(
-    bottomSheet.elements.bottomSheetRoot,
-    ClassNames.Root
-  ).classList.contains(nextClassNamesObject.Root);
-  getByTestId(
-    bottomSheet.elements.bottomSheetBackdrop,
-    ClassNames.Backdrop
-  ).classList.contains(nextClassNamesObject.Backdrop);
-  getByTestId(
-    bottomSheet.elements.bottomSheetHandle,
-    ClassNames.Handle
-  ).classList.contains(nextClassNamesObject.Handle);
-  getByTestId(
-    bottomSheet.elements.bottomSheetContainer,
-    ClassNames.Container
-  ).classList.contains(nextClassNamesObject.Container);
-  getByTestId(
-    bottomSheet.elements.bottomSheetContentWrapper,
-    ClassNames.ContentWrapper
-  ).classList.contains(nextClassNamesObject.ContentWrapper);
+  screen
+    .getByTestId(ClassNames.Root)
+    .classList.contains(nextClassNamesObject.Root);
+  screen
+    .getByTestId(ClassNames.Backdrop)
+    .classList.contains(nextClassNamesObject.Backdrop);
+  screen
+    .getByTestId(ClassNames.Handle)
+    .classList.contains(nextClassNamesObject.Handle);
+  screen
+    .getByTestId(ClassNames.Container)
+    .classList.contains(nextClassNamesObject.Container);
+  screen
+    .getByTestId(ClassNames.ContentWrapper)
+    .classList.contains(nextClassNamesObject.ContentWrapper);
 });
 
 test("dragging options should be reactive", () => {

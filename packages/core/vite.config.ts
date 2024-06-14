@@ -28,7 +28,12 @@ export default defineConfig({
       __tests__: path.resolve(__dirname, "./__tests__"),
     },
   },
-  plugins: [dts(), cssInjectedByJsPlugin()],
+  plugins: [
+    dts({
+      tsconfigPath: "./tsconfig.json",
+    }),
+    cssInjectedByJsPlugin(),
+  ],
   test: {
     environment: "jsdom",
   },
