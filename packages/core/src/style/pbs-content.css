@@ -2,4 +2,6 @@
   position: relative;
   width: 100%;
   height: fit-content;
+  max-height: 100vh;
+  overflow: scroll;
 }
