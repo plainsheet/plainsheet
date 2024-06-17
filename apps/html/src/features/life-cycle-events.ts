@@ -1,5 +1,3 @@
-// - Showing another bottom sheet after closing the current one.
-
 import { createBottomSheet } from "plain-bottom-sheet-core";
 
 export function setupLifeCycleEvents() {

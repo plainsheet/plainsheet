@@ -4,6 +4,7 @@ import { setupBlockingBottomSheet } from "./features/blocking-bottom-sheet.ts";
 import { setupDraggingDetection } from "./features/dragging-detction.ts";
 import { setupLifeCycleEvents } from "./features/life-cycle-events.ts";
 import { setupSnapPoints } from "./features/snap-points.ts";
+import { setupLargeContents } from "./features/large-contents.ts";
 
 document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
   <div>
@@ -22,6 +23,8 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
       <button id="life-cycle-event-open-button" type="button">Life-cycle Events</button>
 
       <button id="snap-points-open-button" type="button">Snap Points</button>
+
+      <button id="large-contents-open-button" type="button">Large Contents</button>
     </div>
   </div>
 `;
@@ -59,5 +62,14 @@ setupButton(
   document.querySelector<HTMLButtonElement>("#snap-points-open-button")!,
   () => {
     snapPointsBottomSheet.open();
+  }
+);
+
+const { largeBottomSheet } = setupLargeContents();
+
+setupButton(
+  document.querySelector<HTMLButtonElement>("#large-contents-open-button")!,
+  () => {
+    largeBottomSheet.open();
   }
 );
