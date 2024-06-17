@@ -114,9 +114,9 @@ Optional. If true, the bottom sheet can be dragged. Default is `true`.
 
 Optional. If true, the content's background can be dragged. Default is `true`.
 
-### `dragTriggers?: HTMLElement[]`
+### `dragTriggers?: string[]`
 
-Optional. Elements that will trigger dragging of the bottom sheet.
+Optional. Element selectors that will trigger dragging of the bottom sheet.
 
 ### `beforeOpen?: () => void`
 
