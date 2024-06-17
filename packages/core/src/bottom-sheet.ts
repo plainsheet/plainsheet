@@ -118,6 +118,7 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
     const startContainerY = getTranslate(bottomSheetContainer).y;
 
     const isOpen = getIsOpen();
+
     if (isOpen) {
       return;
     }
@@ -174,7 +175,14 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
 
   function getIsOpen(): boolean {
     const containerY = getTranslate(bottomSheetContainer).y;
-    return containerY < bottomSheetContainer.clientHeight;
+
+    const viewportHeight = window.innerHeight;
+    const containerHeight =
+      bottomSheetContainer.clientHeight >= viewportHeight
+        ? viewportHeight
+        : bottomSheetContainer.clientHeight;
+
+    return containerY < containerHeight;
   }
   function getIsClosed(): boolean {
     return !getIsOpen();

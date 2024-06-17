@@ -10,6 +10,10 @@ export function convertDefaultPositionToYCoordinate(
 ): number {
   switch (position) {
     case "content-height":
+      if (containerHeight >= viewportHeight) {
+        return marginTop;
+      }
+
       return 0;
     case "middle":
       return -(viewportHeight / 2 - containerHeight);
