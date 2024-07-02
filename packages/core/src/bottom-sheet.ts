@@ -113,15 +113,13 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
     }
     props.beforeOpen?.();
 
-    setVisibility([bottomSheetBackdrop, bottomSheetContainer], true);
-
-    const startContainerY = getTranslate(bottomSheetContainer).y;
-
     const isOpen = getIsOpen();
-
     if (isOpen) {
       return;
     }
+
+    setVisibility([bottomSheetBackdrop, bottomSheetContainer], true);
+    const startContainerY = getTranslate(bottomSheetContainer).y;
 
     // NOTE: Resets the position to the bottom of the viewport
     // Because it was pushed 100vh down below the viewport when it is mounted,
