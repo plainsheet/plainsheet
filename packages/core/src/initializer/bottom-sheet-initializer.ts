@@ -13,7 +13,10 @@ import {
   handleDragTriggerClick,
 } from "../event-handlers/dragging-handler";
 import type { AnimationFrame } from "../utils/animation/animation-frame";
-import type { EventCallback } from "../utils/event-listeners/TabEventListener";
+import type {
+  EventCallback,
+  TabEvent,
+} from "../utils/event-listeners/TabEventListener";
 import { TabEventListener } from "../utils/event-listeners/TabEventListener";
 import { EventPhase } from "../utils/event-listeners/EventPhase";
 import type { BottomSheetProps } from "../types/bottom-sheet-props.type";
@@ -257,8 +260,12 @@ function initializeEvents({
     }
   }
 
-  function handleDragTriggerClickWithDragState(): void {
-    handleDragTriggerClick(options.draggingState);
+  function handleDragTriggerClickWithDragState(tabEvent: TabEvent): void {
+    handleDragTriggerClick(
+      options.draggingState,
+      tabEvent.target,
+      bottomSheetElements.bottomSheetContentWrapper
+    );
   }
 
   function attachEventListeners(): void {
