@@ -1,7 +1,7 @@
 ### Commands
 
 - `pnpm dev`
-- `pnpm dev --filter plain-bottom-sheet-core --filter plain-bottom-sheet-docs`
+- `pnpm dev --filter plain-bottom-sheet-core --filter html`
 - `pnpm clean`
 - `pnpm lint`
 - `pnpm build`
