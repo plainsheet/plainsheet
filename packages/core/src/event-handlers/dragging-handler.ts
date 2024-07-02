@@ -97,7 +97,7 @@ function moveSheetToPointer(
   const visibleContainerHeight =
     containerHeight - (draggingState.containerStartTranslate.y + offset);
 
-  if (visibleContainerHeight >= viewportHeight - marginTop) {
+  if (visibleContainerHeight >= viewportHeight) {
     return;
   }
   const direction = calcDraggingDirection(draggingState.startY, endY);

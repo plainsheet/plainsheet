@@ -45,6 +45,8 @@ export function initializeBottomSheetElements(
   const contentElement = document.createElement("div");
   // TODO: Sanitize the content
   contentElement.innerHTML = props.content ?? "";
+
+  elements.bottomSheetContentWrapper.style.maxHeight = `calc(100vh - ${props.marginTop}px)`;
   elements.bottomSheetContentWrapper.appendChild(contentElement);
 
   const eventHandlers = initializeEvents({
