@@ -1,4 +1,6 @@
 import type { BottomSheetState, DraggingState } from "src/types";
+import { ClassNames } from "src/class-names";
+import { hasClassName } from "src/utils/dom/class-names";
 import {
   calcDiffOfHeight,
   calcDraggingDirection,
@@ -15,7 +17,21 @@ import type { BottomSheetProps } from "../types/bottom-sheet-props.type";
 import { toFixedNumber } from "../utils/math/unit";
 import { boundNumber } from "../utils/math/min-max";
 
-export const handleDragTriggerClick = (draggingState: DraggingState): void => {
+export const handleDragTriggerClick = (
+  draggingState: DraggingState,
+  eventTrigger: EventTarget | null,
+  contentWrapper: HTMLElement
+): void => {
+  if (
+    eventTrigger instanceof HTMLElement &&
+    !hasClassName(eventTrigger, ClassNames.Handle)
+  ) {
+    // Bottom sheet can't be dragged by its content when the content is scrolled.
+    if (contentWrapper.scrollTop >= 1) {
+      return;
+    }
+  }
+
   draggingState.isDragging = true;
 };
 
@@ -81,7 +97,7 @@ function moveSheetToPointer(
   const visibleContainerHeight =
     containerHeight - (draggingState.containerStartTranslate.y + offset);
 
-  if (visibleContainerHeight >= viewportHeight - marginTop) {
+  if (visibleContainerHeight >= viewportHeight) {
     return;
   }
   const direction = calcDraggingDirection(draggingState.startY, endY);

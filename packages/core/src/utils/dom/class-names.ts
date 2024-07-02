@@ -1,5 +1,9 @@
 import { isString } from "../types/is-string";
 
+export function hasClassName(el: Element, className: string): boolean {
+  return el.classList.contains(cleanClassName(className));
+}
+
 export function addClassName(el: Element, className: string): void {
   el.classList.add(cleanClassName(className));
 }

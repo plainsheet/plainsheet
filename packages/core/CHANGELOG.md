@@ -1,5 +1,11 @@
 # plain-bottom-sheet-core
 
+## 0.2.0
+
+### Minor Changes
+
+- eef32f3: Make it closable with the esc key and add tests.
+
 ## 0.1.2
 
 ### Patch Changes

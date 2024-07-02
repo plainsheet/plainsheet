@@ -71,8 +71,6 @@ export function createPropSetHandler(
   bottomSheetState: BottomSheetState,
   propsWithDefaults: Required<BottomSheetProps>
 ): ObserverSetHandler {
-  return handlePropSet;
-
   function handlePropSet(property: string | symbol, value: unknown): void {
     switch (property) {
       case "content":
@@ -189,4 +187,6 @@ export function createPropSetHandler(
         break;
     }
   }
+
+  return handlePropSet;
 }
