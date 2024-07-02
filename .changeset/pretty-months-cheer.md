@@ -1,5 +1,4 @@
 ---
-"html": patch
 "plain-bottom-sheet-core": patch
 ---
 
