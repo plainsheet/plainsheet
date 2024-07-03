@@ -1,5 +1,17 @@
 # plain-bottom-sheet-core
 
+## 0.3.0
+
+### Minor Changes
+
+- 72a87b2: docs(core) readme
+
+## 0.2.1
+
+### Patch Changes
+
+- 0520f35: Large content scroll behavior improvement
+
 ## 0.2.0
 
 ### Minor Changes
