@@ -1,5 +1,11 @@
 # plain-bottom-sheet-core
 
+## 0.3.0
+
+### Minor Changes
+
+- 72a87b2: docs(core) readme
+
 ## 0.2.1
 
 ### Patch Changes
