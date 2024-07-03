@@ -216,11 +216,11 @@ Removes the bottom sheet from the DOM, effectively cleaning up all associated el
 
 ### `open(): void`
 
-Opens (shows) the bottom sheet, making it visible on the screen.
+Opens the bottom sheet, making it visible on the screen.
 
 ### `close(): void`
 
-Closes (hides) the bottom sheet, making it invisible on the screen.
+Closes the bottom sheet, making it invisible on the screen.
 
 ### `getIsMounted(): BottomSheetState["isMounted"]`
 
