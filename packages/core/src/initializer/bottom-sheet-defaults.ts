@@ -8,6 +8,7 @@ import { BOTTOM_SHEET_POSITION } from "../types/bottom-sheet-props.type";
 export type BottomSheetDefaultPropKeys = keyof RequiredBottomSheetProps;
 
 export const BOTTOM_SHEET_DEFAULT_PROPS: RequiredBottomSheetProps = {
+  ariaLabel: "Bottom sheet",
   content: "",
   defaultPosition: BOTTOM_SHEET_POSITION.CONTENT_HEIGHT,
   marginTop: 20,

@@ -65,6 +65,7 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
     onClose: close,
     bottomSheetState,
     draggingState,
+    snapTo,
   };
 
   const { elements, eventHandlers } = initializeBottomSheetElements(
@@ -143,6 +144,8 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
       bottomSheetContainer,
       onEnd: props.afterOpen,
     });
+
+    elements.bottomSheetHandle.focus();
   };
 
   function close(): void {
@@ -235,6 +238,19 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
       animationFrame,
       bottomSheetContainer,
     });
+  }
+
+  // TODO
+  function moveUp() {
+    // get the current snap point index
+    // move the bottom sheet up.
+    // observedProps.snapPoints[]
+  }
+  // TODO
+  function moveDown() {
+    // get the current snap point index
+    // move the bottom sheet down.
+    // observedProps.snapPoints[]
   }
 
   function snapTo(percent: number): void {

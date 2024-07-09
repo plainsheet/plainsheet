@@ -12,7 +12,7 @@ export function setVisibility(
     element.forEach((el) => {
       setHiddenClass(el, shouldOpen);
 
-      el.setAttribute("aria-hidden", shouldOpen ? "false" : "true");
+      el.setAttribute("aria-modal", shouldOpen ? "true" : "false");
     });
 
     return;
@@ -20,7 +20,7 @@ export function setVisibility(
 
   setHiddenClass(element, shouldOpen);
 
-  element.setAttribute("aria-hidden", shouldOpen ? "false" : "true");
+  element.setAttribute("aria-modal", shouldOpen ? "true" : "false");
 }
 
 export function setHiddenClass(element: Element, hidden: boolean): void {

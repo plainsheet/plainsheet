@@ -80,6 +80,7 @@ function createElements(
     ]),
     ClassNames.Root
   );
+  bottomSheetRoot.ariaLabel = bottomSheetProps.ariaLabel;
 
   const bottomSheetContainer = createElement(
     "section",
@@ -108,6 +109,7 @@ function createElements(
     ClassNames.Handle
   );
   bottomSheetHandle.setAttribute("type", "button");
+  bottomSheetHandle.ariaLabel = "bottom sheet close button";
 
   const bottomSheetHandleBar = createElement(
     "span",
@@ -314,6 +316,20 @@ function initializeEvents({
     if (bottomSheetProps.shouldCloseOnOutsideClick) {
       window.document.addEventListener("click", handleWindowClick);
     }
+
+    bottomSheetHandle.addEventListener("keyup", (e) => {
+      // TODO: Move the bottom sheet up and down.
+      if (e.key === "Up") {
+        return;
+      }
+      if (e.key === "Down") {
+        return;
+      }
+
+      // detect Shift + Tab and focus on the last element(last child of the content wrapper)
+      if (e.key === "Tab") {
+      }
+    });
   }
 
   function clearEventListeners(): void {
