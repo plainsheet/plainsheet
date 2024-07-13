@@ -245,6 +245,36 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
     // get the current snap point index
     // move the bottom sheet up.
     // observedProps.snapPoints[]
+    // const containerVisibleHeight = containerHeight + -containerEndY;
+    //   if (
+    //     !bottomSheetProps.expandable &&
+    //     containerVisibleHeight >= containerHeight
+    //   ) {
+    //     return;
+    //   }
+    //   let minOffset = null
+    //   let minOffsetSnapPointIdx = null
+    //   for (let snapPointIdx in snapPoints) {
+    //     const snapPoint = snapPoints[snapPointIdx]
+    //     const snapPointHeight = snapPoint * window.innerHeight;
+    //     const visibleContainerAndSnapPointHeightOffset = calcDiffOfHeight(
+    //       containerVisibleHeight,
+    //       snapPointHeight
+    //     );
+    //     if(minOffset === null || visibleContainerAndSnapPointHeightOffset < minOffset ) {
+    //       minOffset = visibleContainerAndSnapPointHeightOffset
+    //       minOffsetSnapPointIdx = visibleContainerAndSnapPointHeightOffset
+    //     }
+    //   }
+    //   bottomSheetState.translateContainer({
+    //     startY: containerEndY,
+    //     endY: containerEndY - minOffset,
+    //     animationFrame,
+    //     bottomSheetContainer,
+    //   });
+    //   // minOffsetSnapPointIdx
+    //   if(minOffsetSnapPointIdx === 0) {
+    //   }
   }
   // TODO
   function moveDown() {
