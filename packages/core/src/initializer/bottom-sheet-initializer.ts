@@ -26,6 +26,7 @@ export interface InitializerOptions {
   bottomSheetState: BottomSheetState;
   onClose: () => void;
   draggingState: DraggingState;
+  moveUp: () => void;
 }
 
 interface InitializeBottomSheetElementsReturnType {
@@ -319,10 +320,12 @@ function initializeEvents({
 
     bottomSheetHandle.addEventListener("keyup", (e) => {
       // TODO: Move the bottom sheet up and down.
-      if (e.key === "Up") {
+      if (e.key === "ArrowUp") {
+        console.log("move!");
+        options.moveUp();
         return;
       }
-      if (e.key === "Down") {
+      if (e.key === "ArrowDown") {
         return;
       }
 
