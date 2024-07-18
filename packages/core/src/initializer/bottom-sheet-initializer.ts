@@ -20,6 +20,8 @@ import type {
 import { TabEventListener } from "../utils/event-listeners/TabEventListener";
 import { EventPhase } from "../utils/event-listeners/EventPhase";
 import type { BottomSheetProps } from "../types/bottom-sheet-props.type";
+import { isElement } from "src/utils/types/is-element";
+import { focusOn, isFocusable } from "src/utils/dom/focus";
 
 export interface InitializerOptions {
   animationFrame: AnimationFrame;
@@ -328,11 +330,34 @@ function initializeEvents({
         options.moveDown();
         return;
       }
-
-      // TODO: detect Shift + Tab and focus on the last element(last child of the content wrapper)
-      if (e.key === "Tab") {
+      if (e.shiftKey && e.key === "Tab") {
+        const lastFocusableElement = findLastFocusableElement(
+          bottomSheetElements.bottomSheetContentWrapper
+        );
+        focusOn(lastFocusableElement);
       }
     });
+  }
+
+  function findLastFocusableElement(el: Element) {
+    let allChildNodes = [...Array.from(el.childNodes).reverse()];
+    // NOTE : DFS is used to completely search the last element first.
+    while (allChildNodes.length) {
+      const childNode = allChildNodes.shift();
+      if (isFocusable(childNode)) {
+        return childNode;
+      }
+      if (!childNode) {
+        continue;
+      }
+
+      allChildNodes = [
+        ...allChildNodes,
+        ...Array.from(childNode.childNodes).reverse(),
+      ];
+    }
+
+    return null;
   }
 
   function clearEventListeners(): void {

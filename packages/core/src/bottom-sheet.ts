@@ -34,7 +34,6 @@ import {
   interpretAnimationTimingsProp,
   overwriteDefaultProps,
 } from "./initializer/bottom-sheet-props-initializer";
-import { exists } from "./utils/types/exists";
 import { isNumber } from "./utils/types/is-number";
 
 export function createBottomSheet(props: BottomSheetProps): BottomSheet {
@@ -403,6 +402,7 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
     getPosition,
     getHeight,
     moveTo,
+
     snapTo,
   };
 }
