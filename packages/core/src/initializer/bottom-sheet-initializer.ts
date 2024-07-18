@@ -20,12 +20,16 @@ import type {
 import { TabEventListener } from "../utils/event-listeners/TabEventListener";
 import { EventPhase } from "../utils/event-listeners/EventPhase";
 import type { BottomSheetProps } from "../types/bottom-sheet-props.type";
+import { isElement } from "src/utils/types/is-element";
+import { focusOn, isFocusable } from "src/utils/dom/focus";
 
 export interface InitializerOptions {
   animationFrame: AnimationFrame;
   bottomSheetState: BottomSheetState;
   onClose: () => void;
   draggingState: DraggingState;
+  moveUp: () => void;
+  moveDown: () => void;
 }
 
 interface InitializeBottomSheetElementsReturnType {
@@ -80,6 +84,7 @@ function createElements(
     ]),
     ClassNames.Root
   );
+  bottomSheetRoot.ariaLabel = bottomSheetProps.ariaLabel;
 
   const bottomSheetContainer = createElement(
     "section",
@@ -108,6 +113,7 @@ function createElements(
     ClassNames.Handle
   );
   bottomSheetHandle.setAttribute("type", "button");
+  bottomSheetHandle.ariaLabel = "bottom sheet close button";
 
   const bottomSheetHandleBar = createElement(
     "span",
@@ -314,6 +320,44 @@ function initializeEvents({
     if (bottomSheetProps.shouldCloseOnOutsideClick) {
       window.document.addEventListener("click", handleWindowClick);
     }
+
+    bottomSheetHandle.addEventListener("keyup", (e) => {
+      if (e.key === "ArrowUp") {
+        options.moveUp();
+        return;
+      }
+      if (e.key === "ArrowDown") {
+        options.moveDown();
+        return;
+      }
+      if (e.shiftKey && e.key === "Tab") {
+        const lastFocusableElement = findLastFocusableElement(
+          bottomSheetElements.bottomSheetContentWrapper
+        );
+        focusOn(lastFocusableElement);
+      }
+    });
+  }
+
+  function findLastFocusableElement(el: Element) {
+    let allChildNodes = [...Array.from(el.childNodes).reverse()];
+    // NOTE : DFS is used to completely search the last element first.
+    while (allChildNodes.length) {
+      const childNode = allChildNodes.shift();
+      if (isFocusable(childNode)) {
+        return childNode;
+      }
+      if (!childNode) {
+        continue;
+      }
+
+      allChildNodes = [
+        ...allChildNodes,
+        ...Array.from(childNode.childNodes).reverse(),
+      ];
+    }
+
+    return null;
   }
 
   function clearEventListeners(): void {

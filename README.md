@@ -9,6 +9,7 @@ The minimalistic, configurable bottom-sheet for the Web.
 - 🫙 <strong>Has zero dependencies</strong>, so your app does not depend on any other libraries that you don't need.
 - 🪶 <strong>Super Lightweight(Only 30 Kb, compressed)</strong>, so you don't have to compromise loading speed.
 - 📱 <strong>Mobile-friendly</strong>, works just like the native bottom sheet.
+- 🦮 <strong>Accessibility Support</strong> out-of-box keyboard interactions and focus management.
 - 🎛 <strong>Highly configurable</strong>, so you don't have to build another Bottom Sheet again.
   - Style it anyway you want.
   - Change its behaviors.

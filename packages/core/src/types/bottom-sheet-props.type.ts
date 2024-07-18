@@ -7,6 +7,7 @@ import type { CSSColor, CSSUnit } from "src/utils/types/css-attribute";
 
 export type RequiredBottomSheetProps = Required<BottomSheetProps>;
 export interface BottomSheetProps {
+  ariaLabel?: string;
   content: string;
 
   width?: string;
