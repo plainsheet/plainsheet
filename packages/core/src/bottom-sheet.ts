@@ -242,6 +242,8 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
   }
 
   function moveUp() {
+    const snapPointsFromBottom = [...observedProps.snapPoints].reverse();
+
     const containerY = getTranslate(bottomSheetContainer).y;
     const containerHeight = bottomSheetContainer.clientHeight;
 
@@ -252,9 +254,17 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
 
     let minOffset = null;
     let minOffsetSnapPointIdx = null;
-    for (let snapPointIdx in observedProps.snapPoints) {
-      const snapPoint = observedProps.snapPoints[snapPointIdx];
-      const snapPointHeight = snapPoint * window.innerHeight;
+
+    const viewportHeight = window.innerHeight;
+
+    const snapPointsAboveBottomSheet = snapPointsFromBottom.filter((point) => {
+      const snapPointHeight = point * viewportHeight;
+      return visibleHeight < snapPointHeight;
+    });
+
+    for (let snapPointIdx in snapPointsAboveBottomSheet) {
+      const snapPoint = snapPointsFromBottom[snapPointIdx];
+      const snapPointHeight = snapPoint * viewportHeight;
       const visibleContainerAndSnapPointHeightOffset = calcDiffOfHeight(
         visibleHeight,
         snapPointHeight
@@ -268,21 +278,35 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
         minOffsetSnapPointIdx = visibleContainerAndSnapPointHeightOffset;
       }
     }
-    // TODO: if the min offset is zero, it means the bottom sheet is already snapped to a point.
-    // so we should move it do the next snap point, while maintaining the direction.
-    console.log({
-      minOffset,
-      snapPoints: observedProps.snapPoints,
-    });
 
-    if (minOffset) {
+    if (
+      minOffset === null &&
+      visibleHeight < viewportHeight - observedProps.marginTop
+    ) {
       bottomSheetState.translateContainer({
         startY: containerY,
-        endY: containerY - minOffset,
+        endY: convertDefaultPositionToYCoordinate(
+          viewportHeight,
+          containerHeight,
+          observedProps.marginTop,
+          "top"
+        ),
         animationFrame,
         bottomSheetContainer,
       });
+      return;
     }
+
+    if (minOffset === null) {
+      return;
+    }
+
+    bottomSheetState.translateContainer({
+      startY: containerY,
+      endY: containerY - minOffset,
+      animationFrame,
+      bottomSheetContainer,
+    });
   }
 
   // TODO
