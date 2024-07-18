@@ -21,6 +21,7 @@ import type {
 import type {
   BottomSheetPosition,
   BottomSheetProps,
+  SnapPoints,
 } from "./types/bottom-sheet-props.type";
 import { BOTTOM_SHEET_POSITION } from "./types/bottom-sheet-props.type";
 import type { BottomSheet } from "./types/bottom-sheet.type";
@@ -33,6 +34,8 @@ import {
   interpretAnimationTimingsProp,
   overwriteDefaultProps,
 } from "./initializer/bottom-sheet-props-initializer";
+import { exists } from "./utils/types/exists";
+import { isNumber } from "./utils/types/is-number";
 
 export function createBottomSheet(props: BottomSheetProps): BottomSheet {
   const propsWithDefaults = overwriteDefaultProps(props);
@@ -67,6 +70,7 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
     draggingState,
     snapTo,
     moveUp,
+    moveDown,
   };
 
   const { elements, eventHandlers } = initializeBottomSheetElements(
@@ -241,29 +245,38 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
     });
   }
 
-  function moveUp() {
-    const snapPointsFromBottom = [...observedProps.snapPoints].reverse();
+  // TODO: Move it to the calculator util.
+  function extractPoints(
+    where: "above" | "below",
+    container: {
+      viewportHeight: number;
+      visibleHeight: number;
+    },
+    points: SnapPoints
+  ) {
+    const shouldBeAbove = where === "above";
 
-    const containerY = getTranslate(bottomSheetContainer).y;
-    const containerHeight = bottomSheetContainer.clientHeight;
-
-    const visibleHeight = containerHeight - containerY;
-    if (!observedProps.expandable && visibleHeight >= containerHeight) {
-      return;
-    }
-
-    let minOffset = null;
-    let minOffsetSnapPointIdx = null;
-
-    const viewportHeight = window.innerHeight;
-
-    const snapPointsAboveBottomSheet = snapPointsFromBottom.filter((point) => {
-      const snapPointHeight = point * viewportHeight;
-      return visibleHeight < snapPointHeight;
+    return points.filter((point) => {
+      const snapPointHeight = point * container.viewportHeight;
+      return shouldBeAbove
+        ? container.visibleHeight < snapPointHeight
+        : container.visibleHeight > snapPointHeight;
     });
+  }
+  function getMinOffsetFromPoints(
+    points: SnapPoints,
+    {
+      viewportHeight,
+      visibleHeight,
+    }: {
+      viewportHeight: number;
+      visibleHeight: number;
+    }
+  ) {
+    let minOffset = null;
 
-    for (let snapPointIdx in snapPointsAboveBottomSheet) {
-      const snapPoint = snapPointsFromBottom[snapPointIdx];
+    for (let snapPointIdx in points) {
+      const snapPoint = points[snapPointIdx];
       const snapPointHeight = snapPoint * viewportHeight;
       const visibleContainerAndSnapPointHeightOffset = calcDiffOfHeight(
         visibleHeight,
@@ -275,9 +288,36 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
         visibleContainerAndSnapPointHeightOffset < minOffset
       ) {
         minOffset = visibleContainerAndSnapPointHeightOffset;
-        minOffsetSnapPointIdx = visibleContainerAndSnapPointHeightOffset;
       }
     }
+
+    return {
+      minOffset,
+    };
+  }
+
+  function moveUp() {
+    const snapPointsFromBottom = [...observedProps.snapPoints].reverse();
+
+    const containerY = getTranslate(bottomSheetContainer).y;
+    const containerHeight = bottomSheetContainer.clientHeight;
+    const visibleHeight = containerHeight - containerY;
+
+    if (!observedProps.expandable && visibleHeight >= containerHeight) {
+      return;
+    }
+
+    const viewportHeight = window.innerHeight;
+
+    const snapPointsAboveBottomSheet = extractPoints(
+      "above",
+      { visibleHeight, viewportHeight },
+      snapPointsFromBottom
+    );
+    const { minOffset } = getMinOffsetFromPoints(snapPointsAboveBottomSheet, {
+      visibleHeight,
+      viewportHeight,
+    });
 
     if (
       minOffset === null &&
@@ -297,23 +337,45 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
       return;
     }
 
-    if (minOffset === null) {
+    if (isNumber(minOffset)) {
+      bottomSheetState.translateContainer({
+        startY: containerY,
+        endY: containerY - minOffset,
+        animationFrame,
+        bottomSheetContainer,
+      });
+    }
+  }
+
+  function moveDown() {
+    const containerY = getTranslate(bottomSheetContainer).y;
+    const containerHeight = bottomSheetContainer.clientHeight;
+    const visibleHeight = containerHeight - containerY;
+
+    if (visibleHeight < 1) {
       return;
     }
 
-    bottomSheetState.translateContainer({
-      startY: containerY,
-      endY: containerY - minOffset,
-      animationFrame,
-      bottomSheetContainer,
-    });
-  }
+    const viewportHeight = window.innerHeight;
 
-  // TODO
-  function moveDown() {
-    // get the current snap point index
-    // move the bottom sheet down.
-    // observedProps.snapPoints[]
+    const snapPointsBelowBottomSheet = extractPoints(
+      "below",
+      { visibleHeight, viewportHeight },
+      observedProps.snapPoints
+    );
+    const { minOffset } = getMinOffsetFromPoints(snapPointsBelowBottomSheet, {
+      visibleHeight,
+      viewportHeight,
+    });
+
+    if (isNumber(minOffset)) {
+      bottomSheetState.translateContainer({
+        startY: containerY,
+        endY: containerY + minOffset,
+        animationFrame,
+        bottomSheetContainer,
+      });
+    }
   }
 
   function snapTo(percent: number): void {
