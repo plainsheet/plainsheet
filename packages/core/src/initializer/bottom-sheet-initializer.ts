@@ -27,6 +27,7 @@ export interface InitializerOptions {
   onClose: () => void;
   draggingState: DraggingState;
   moveUp: () => void;
+  moveDown: () => void;
 }
 
 interface InitializeBottomSheetElementsReturnType {
@@ -319,17 +320,16 @@ function initializeEvents({
     }
 
     bottomSheetHandle.addEventListener("keyup", (e) => {
-      // TODO: Move the bottom sheet up and down.
       if (e.key === "ArrowUp") {
-        console.log("move!");
         options.moveUp();
         return;
       }
       if (e.key === "ArrowDown") {
+        options.moveDown();
         return;
       }
 
-      // detect Shift + Tab and focus on the last element(last child of the content wrapper)
+      // TODO: detect Shift + Tab and focus on the last element(last child of the content wrapper)
       if (e.key === "Tab") {
       }
     });
