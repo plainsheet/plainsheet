@@ -7,27 +7,27 @@ import type { BottomSheetState } from "./bottom-sheet-state.type";
 
 export interface BottomSheet {
   /**
-   * @description Mutable props to change the behavior of the Bottom Sheet.
+   * Mutable props to change the behavior of the Bottom Sheet.
    */
   props: BottomSheetProps;
   /**
-   * @description Elements comprise the bottom sheet.
+   * Elements comprise the bottom sheet.
    */
   elements: BottomSheetElements;
   /**
-   * @description Mounts the bottom sheet to the dom, or a provided mounting point.
+   * Mounts the bottom sheet to the dom, or a provided mounting point.
    */
   mount: (mountingPoint?: Element) => void;
   /**
-   * @description Removes the bottom sheet element.
+   * Removes the bottom sheet element.
    */
   unmount: () => void;
   /**
-   * @description Shows the bottom sheet.
+   * Shows the bottom sheet.
    */
   open: () => void;
   /**
-   * @description Hides the bottom sheet.
+   * Hides the bottom sheet.
    */
   close: () => void;
   /**

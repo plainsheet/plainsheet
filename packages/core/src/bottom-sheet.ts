@@ -12,6 +12,7 @@ import {
   calcDiffOfHeight,
   calcDirectionWithHeight,
   convertDefaultPositionToYCoordinate,
+  extractPoints,
 } from "./calculator/position-calculator";
 import { translateContainerWithAnim } from "./animation/animation";
 import type {
@@ -123,16 +124,13 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
       return;
     }
 
-    setVisibility([bottomSheetBackdrop, bottomSheetContainer], true);
-    const startContainerY = getTranslate(bottomSheetContainer).y;
-
     // NOTE: Resets the position to the bottom of the viewport
     // Because it was pushed 100vh down below the viewport when it is mounted,
     // which will make the animation timing incorrect.
     setTranslate(bottomSheetContainer, {
       y: bottomSheetContainer.clientHeight,
     });
-
+    setVisibility([bottomSheetBackdrop, bottomSheetContainer], true);
     const viewportHeight = window.innerHeight;
     const endY = convertDefaultPositionToYCoordinate(
       viewportHeight,
@@ -141,6 +139,7 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
       observedProps.defaultPosition
     );
 
+    const startContainerY = getTranslate(bottomSheetContainer).y;
     bottomSheetState.translateContainer({
       startY: startContainerY,
       endY,
@@ -244,24 +243,6 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
     });
   }
 
-  // TODO: Move it to the calculator util.
-  function extractPoints(
-    where: "above" | "below",
-    container: {
-      viewportHeight: number;
-      visibleHeight: number;
-    },
-    points: SnapPoints
-  ) {
-    const shouldBeAbove = where === "above";
-
-    return points.filter((point) => {
-      const snapPointHeight = point * container.viewportHeight;
-      return shouldBeAbove
-        ? container.visibleHeight < snapPointHeight
-        : container.visibleHeight > snapPointHeight;
-    });
-  }
   function getMinOffsetFromPoints(
     points: SnapPoints,
     {
@@ -271,11 +252,12 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
       viewportHeight: number;
       visibleHeight: number;
     }
-  ) {
+  ): {
+    minOffset: number | null;
+  } {
     let minOffset = null;
 
-    for (let snapPointIdx in points) {
-      const snapPoint = points[snapPointIdx];
+    for (const snapPoint of points) {
       const snapPointHeight = snapPoint * viewportHeight;
       const visibleContainerAndSnapPointHeightOffset = calcDiffOfHeight(
         visibleHeight,
@@ -295,7 +277,7 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
     };
   }
 
-  function moveUp() {
+  function moveUp(): void {
     const snapPointsFromBottom = [...observedProps.snapPoints].reverse();
 
     const containerY = getTranslate(bottomSheetContainer).y;
@@ -346,7 +328,7 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
     }
   }
 
-  function moveDown() {
+  function moveDown(): void {
     const containerY = getTranslate(bottomSheetContainer).y;
     const containerHeight = bottomSheetContainer.clientHeight;
     const visibleHeight = containerHeight - containerY;
@@ -402,7 +384,6 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
     getPosition,
     getHeight,
     moveTo,
-
     snapTo,
   };
 }

@@ -11,7 +11,7 @@ export interface TranslateContainerParams {
   onEnd?: () => void;
   animationTimingFunction: AnimationTimingFunction;
   /**
-   * @description In Milliseconds.
+   * In Milliseconds.
    */
   animationDuration: number;
 }
@@ -36,15 +36,16 @@ export function translateContainer(params: TranslateContainerParams): void {
 
   animationFrame.stop();
 
-  let haveOnEndBeenCalled = false;
+  let hasOnEndBeenCalled = false;
+
   animationFrame.start((progressPercent) => {
     setTranslate(bottomSheetContainer, {
       y: startY + offset * animationTimingFunction(progressPercent),
     });
 
-    if (!haveOnEndBeenCalled && progressPercent >= 1) {
+    if (!hasOnEndBeenCalled && progressPercent >= 1) {
       onEnd?.();
-      haveOnEndBeenCalled = true;
+      hasOnEndBeenCalled = true;
     }
   }, animationDuration);
 }
