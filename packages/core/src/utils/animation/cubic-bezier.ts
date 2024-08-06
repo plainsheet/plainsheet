@@ -2,49 +2,55 @@ import type { AnimationTimingFunction } from "./animation.type";
 
 export type CubicBezierReturnType = ReturnType<typeof cubicBezier>;
 
+// Creates a ratio(0 ~ 1) that can be used to represent a smooth curve when multiplied by the value.
+// P0 is (0, 0) and P3 is (1,1), to represent th ratio.
+// So it only accepts P1 and P2, although it draws a cubic Bezier curve.
 export function cubicBezier(
   p1x: number,
   p1y: number,
   p2x: number,
   p2y: number
 ): AnimationTimingFunction {
-  // Precision of the solution
-  const precision = 0.00001;
+  // Limit the range of the change from the function.
+  const limit = 0.001;
 
-  return function (x: number): number {
-    return sampleCurveY(solveCurveX(x));
+  // t varies from 0 to 1.
+  return function (t: number): number {
+    return sampleCurveY(solveCurveX(t));
   };
 
-  function solveCurveX(x: number): number {
+  function solveCurveX(timing: number): number {
     let t0 = 0;
     let t1 = 1;
-    let t2: number = x;
+
+    let t2: number = timing;
     let x2: number;
 
-    if (x === 0 || x === 1) {
-      return x; // x is 0 or 1, return it directly (corner cases)
+    if (timing === 0 || timing === 1) {
+      return timing;
     }
 
-    // Perform binary search to find the correct t
+    // Binary search to find the output x within the limit
     while (t0 < t1) {
       x2 = sampleCurveX(t2);
-      if (Math.abs(x2 - x) < precision) {
+      if (Math.abs(x2 - timing) < limit) {
         return t2;
       }
-      if (x > x2) {
+      if (timing > x2) {
+        // Current x is less than the original(input x)
         t0 = t2;
       } else {
         t1 = t2;
       }
-      t2 = (t1 + t0) / 2; // update t2 to the midpoint
+      t2 = (t1 + t0) / 2;
     }
-
-    // Return the best t found
+    // return the found timing that matches the x coordinate with the given input t
+    // the newly found timing then can be used to find the corresponding y coordinate.
     return t2;
   }
 
-  // Sampling functions
   function sampleCurveX(t: number): number {
+    // Using the cubic Bezier curve formula, solve for x of all points.
     return (
       3 * p1x * t * Math.pow(1 - t, 2) +
       3 * p2x * Math.pow(t, 2) * (1 - t) +
@@ -52,6 +58,7 @@ export function cubicBezier(
     );
   }
   function sampleCurveY(t: number): number {
+    // Solve for y of all points.
     return (
       3 * p1y * t * Math.pow(1 - t, 2) +
       3 * p2y * Math.pow(t, 2) * (1 - t) +
