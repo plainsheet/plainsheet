@@ -1,7 +1,7 @@
 import { isNumber } from "../types/is-number";
 
 /**
- * @description Points that express the timing of animations as a Bezier curve.
+ * Points that express the timing of animations as a cubic Bezier curve.
  */
 export interface AnimationTimingPoints {
   p1x: number;

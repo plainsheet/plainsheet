@@ -10,7 +10,7 @@ import {
 } from "src/utils";
 import {
   commonAnimationTimingsNameToFunction,
-  spring,
+  easeOut,
 } from "src/utils/animation/common-animations";
 import { isString } from "src/utils/types/is-string";
 import { isBoolean } from "src/utils/types/is-boolean";
@@ -63,7 +63,7 @@ export function interpretAnimationTimingsProp(
     return commonAnimationTimingsNameToFunction(draggingAnimationTimings);
   }
 
-  return spring;
+  return easeOut;
 }
 
 export function createPropSetHandler(
