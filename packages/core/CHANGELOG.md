@@ -1,5 +1,11 @@
 # plain-bottom-sheet-core
 
+## 0.4.0
+
+### Minor Changes
+
+- default animation timing function works like ios
+
 ## 0.3.2
 
 ### Patch Changes
