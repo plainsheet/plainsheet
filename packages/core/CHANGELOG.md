@@ -1,5 +1,11 @@
 # plain-bottom-sheet-core
 
+## 0.3.2
+
+### Patch Changes
+
+- fixed the initiail translate Y on iOS Safari
+
 ## 0.3.1
 
 ### Patch Changes
