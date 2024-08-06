@@ -1,4 +1,5 @@
 import type { BottomSheetState, DraggingState } from "src/types";
+import { focusOn, isFocusable } from "src/utils/dom/focus";
 import {
   ClassNames,
   ResetClassNames,
@@ -20,8 +21,6 @@ import type {
 import { TabEventListener } from "../utils/event-listeners/TabEventListener";
 import { EventPhase } from "../utils/event-listeners/EventPhase";
 import type { BottomSheetProps } from "../types/bottom-sheet-props.type";
-import { isElement } from "src/utils/types/is-element";
-import { focusOn, isFocusable } from "src/utils/dom/focus";
 
 export interface InitializerOptions {
   animationFrame: AnimationFrame;
@@ -50,7 +49,9 @@ export function initializeBottomSheetElements(
   // TODO: Sanitize the content
   contentElement.innerHTML = props.content ?? "";
 
-  elements.bottomSheetContentWrapper.style.maxHeight = `calc(100vh - ${props.marginTop}px)`;
+  const viewportHeight = window.innerHeight;
+  elements.bottomSheetContainer.style.maxHeight = `${viewportHeight}px`;
+
   elements.bottomSheetContentWrapper.appendChild(contentElement);
 
   const eventHandlers = initializeEvents({

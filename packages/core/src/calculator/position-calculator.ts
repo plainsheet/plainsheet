@@ -1,7 +1,10 @@
-import type { BottomSheetPosition } from "../types/bottom-sheet-props.type";
+import type {
+  BottomSheetPosition,
+  SnapPoints,
+} from "../types/bottom-sheet-props.type";
 import type { DraggingDirection } from "./position-calculator.type";
 
-/** @description It expects the bottom sheet to be open. */
+/** It expects the bottom sheet to be open. */
 export function convertDefaultPositionToYCoordinate(
   viewportHeight: number,
   containerHeight: number,
@@ -11,7 +14,7 @@ export function convertDefaultPositionToYCoordinate(
   switch (position) {
     case "content-height":
       if (containerHeight >= viewportHeight) {
-        return marginTop;
+        return calcTopPointYLimit(viewportHeight, containerHeight, marginTop);
       }
 
       return 0;
@@ -81,4 +84,30 @@ export function calcDirectionWithHeight(
     isDown,
     stayedSame,
   };
+}
+
+export function extractPoints(
+  where: "above" | "below",
+  container: {
+    viewportHeight: number;
+    visibleHeight: number;
+  },
+  points: SnapPoints
+): SnapPoints {
+  const shouldBeAbove = where === "above";
+
+  return points.filter((point) => {
+    const snapPointHeight = point * container.viewportHeight;
+    return shouldBeAbove
+      ? container.visibleHeight < snapPointHeight
+      : container.visibleHeight > snapPointHeight;
+  });
+}
+
+export function calcTopPointYLimit(
+  viewportHeight: number,
+  containerHeight: number,
+  marginTop: number
+): number {
+  return -(viewportHeight - containerHeight) + marginTop;
 }

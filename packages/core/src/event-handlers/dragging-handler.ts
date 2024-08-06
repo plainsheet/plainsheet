@@ -5,6 +5,7 @@ import {
   calcDiffOfHeight,
   calcDraggingDirection,
   calcOffset,
+  calcTopPointYLimit,
 } from "../calculator/position-calculator";
 import type { AnimationFrame } from "../utils/animation/animation-frame";
 import { getTranslate, setTranslate } from "../utils/dom/translate";
@@ -219,8 +220,12 @@ export const handleDragEnd =
       }
 
       // NOTE: Translate to the fully open position when it moves past all snap points.
-      const topPointYLimit =
-        -(viewportHeight - containerHeight) + bottomSheetProps.marginTop;
+      const topPointYLimit = calcTopPointYLimit(
+        viewportHeight,
+        containerHeight,
+        bottomSheetProps.marginTop
+      );
+
       bottomSheetState.translateContainer({
         startY: containerEndY,
         endY: topPointYLimit,

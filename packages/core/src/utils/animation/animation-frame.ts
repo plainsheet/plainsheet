@@ -23,15 +23,14 @@ export class AnimationFrame {
     shouldRunForever = false
   ): void {
     this.isInProgress = true;
-    const animationFrame = this;
 
-    function animate(timestamp: number): void {
-      if (!animationFrame.startedAt) {
-        animationFrame.startedAt = timestamp;
+    const animate = (timestamp: number): void => {
+      if (!this.startedAt) {
+        this.startedAt = timestamp;
       }
 
-      /** @description In MS */
-      const timePassed = timestamp - animationFrame.startedAt;
+      /** In MS */
+      const timePassed = timestamp - this.startedAt;
 
       const shouldEndImmediately = duration === 0;
       const progressPercent = shouldEndImmediately
@@ -42,11 +41,11 @@ export class AnimationFrame {
       renderFrame(progressPercent);
 
       if (isAnimationOver) {
-        animationFrame.stop();
+        this.stop();
       } else {
-        animationFrame.animationId = requestAnimationFrame(animate);
+        this.animationId = requestAnimationFrame(animate);
       }
-    }
+    };
 
     this.animationId = requestAnimationFrame(animate);
   }

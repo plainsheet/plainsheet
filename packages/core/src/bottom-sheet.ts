@@ -124,13 +124,14 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
       return;
     }
 
+    setVisibility([bottomSheetBackdrop, bottomSheetContainer], true);
     // NOTE: Resets the position to the bottom of the viewport
     // Because it was pushed 100vh down below the viewport when it is mounted,
     // which will make the animation timing incorrect.
     setTranslate(bottomSheetContainer, {
       y: bottomSheetContainer.clientHeight,
     });
-    setVisibility([bottomSheetBackdrop, bottomSheetContainer], true);
+
     const viewportHeight = window.innerHeight;
     const endY = convertDefaultPositionToYCoordinate(
       viewportHeight,
