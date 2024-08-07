@@ -1,0 +1,44 @@
+# Quick Start Guide
+
+## Installation
+
+### Using NPM
+
+```
+npm install plain-bottom-sheet-core
+```
+
+### Using CDN
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/plain-bottom-sheet-core@latest/dist/plain-bottom-sheet-core.umd.js"></script>
+
+// Or, via unpkg
+<script src="https://unpkg.com/plain-bottom-sheet-core@latest/dist/plain-bottom-sheet-core.umd.js"></script>
+```
+
+## Getting Started
+
+## Using NPM
+
+```ts
+// Create the bottom sheet
+const bottomSheet = createBottomSheet({
+  content: `<div> 
+        Your content
+        </div>`,
+});
+bottomSheet.mount();
+// Open it
+bottomSheet.open();
+// Change the content
+bottomSheet.props.content = `<div>New Content</div>`;
+```
+
+## Using CDN
+
+```ts
+const bottomSheet = window.PlainBottomSheetCore.createBottomSheet({
+  content: ``,
+});
+```
