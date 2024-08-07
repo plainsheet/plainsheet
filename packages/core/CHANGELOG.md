@@ -1,5 +1,11 @@
 # plain-bottom-sheet-core
 
+## 0.4.1
+
+### Patch Changes
+
+- make the handle larger for better dragging experience
+
 ## 0.4.0
 
 ### Minor Changes
