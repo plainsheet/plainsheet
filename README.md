@@ -11,7 +11,7 @@
  <img src="https://codecov.io/gh/PeterByun/plain-bottom-sheet/graph/badge.svg?token=WFHGUAI3GC"/> 
 </a>
 
-**Plain Bottom Sheet** is The **minimalistic**, **configurable** bottom-sheet for the Web developers.
+**Plain Bottom Sheet** is The **minimalistic**, **configurable** bottom sheet for the Web developers.
 
 > ⚛️ React Plain Bottom Sheet is on the way!
 
