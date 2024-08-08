@@ -15,6 +15,3 @@ dist-ssr
 server/dist
 public/dist
 storybook-static/
-
-# Test Results
-cobertura-coverage.xml
