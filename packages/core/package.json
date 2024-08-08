@@ -40,6 +40,7 @@
     "@internal/typescript-config": "workspace:*",
     "@testing-library/dom": "^10.1.0",
     "@types/node": "^20.12.3",
+    "@vitest/coverage-v8": "1.6.0",
     "@vitest/ui": "^1.6.0",
     "eslint": "^8.57.0",
     "jsdom": "^24.0.0",
