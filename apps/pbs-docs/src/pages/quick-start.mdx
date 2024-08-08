@@ -19,26 +19,29 @@ npm install plain-bottom-sheet-core
 
 ## Getting Started
 
-## Using NPM
+### Using NPM
 
 ```ts
-// Create the bottom sheet
+import { createBottomSheet } from "plain-bottom-sheet-core";
+
 const bottomSheet = createBottomSheet({
   content: `<div> 
         Your content
         </div>`,
 });
+
 bottomSheet.mount();
-// Open it
 bottomSheet.open();
-// Change the content
+
+// Change the content, on the fly.
 bottomSheet.props.content = `<div>New Content</div>`;
 ```
 
-## Using CDN
+### Using CDN
 
 ```ts
 const bottomSheet = window.PlainBottomSheetCore.createBottomSheet({
   content: ``,
 });
+// Rest is the same as NPM
 ```
