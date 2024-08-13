@@ -1,16 +1,4 @@
 {
-  "index": {
-    "title": "Quick Start Guides",
-    "type": "menu",
-    "items": {
-      "react": {
-        "title": "React",
-        "type": "page"
-      },
-      "vanilla-js": {
-        "title": "Vanilla JavaScript",
-        "type": "page"
-      }
-    }
-  }
+  "react": "React",
+  "vanilla-js": "Vanilla JavaScript"
 }
