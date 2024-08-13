@@ -11,9 +11,7 @@
  <img src="https://codecov.io/gh/PeterByun/plain-bottom-sheet/graph/badge.svg?token=WFHGUAI3GC"/> 
 </a>
 
-The **minimalistic**, **configurable** bottom sheet for the web developers.
-
-> ⚛️ React Plain Bottom Sheet is on the way!
+The **minimalistic**, **configurable** bottom sheet for any web project.
 
 ### [Check out our website](https://plain-bottom-sheet-pbs-docs.vercel.app/), for a quick start guide, APIs, examples, and more!
 
@@ -21,7 +19,7 @@ The **minimalistic**, **configurable** bottom sheet for the web developers.
 
 ### 🧩 Framework-agnostic
 
-Works with vanilla JavaScript, or React.
+Works with vanilla JavaScript🍦, or React ⚛️.
 
 ### ⛓️‍💥 Zero Dependencies
 
