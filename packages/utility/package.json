@@ -1,34 +1,32 @@
 {
-  "name": "plain-bottom-sheet-core",
-  "version": "0.4.1",
-  "description": "The minimalistic, configurable bottom-sheet for the Web.",
+  "name": "pbs-utility",
+  "version": "0.0.1",
+  "description": "General utility modules for building UI components",
   "keywords": [
-    "ui",
-    "component",
     "javascript",
     "typescript",
-    "bottom-sheet"
+    "utility"
   ],
   "private": false,
   "sideEffects": false,
   "license": "MIT",
   "type": "module",
-  "main": "dist/plain-bottom-sheet-core.cjs.js",
-  "module": "dist/plain-bottom-sheet-core.es.js",
+  "main": "dist/pbs-utility.cjs.js",
+  "module": "dist/pbs-utility.es.js",
   "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
   "exports": {
     ".": {
-      "import": "./dist/plain-bottom-sheet-core.es.js",
-      "require": "./dist/plain-bottom-sheet-core.cjs.js",
+      "import": "./dist/pbs-utility.es.js",
+      "require": "./dist/pbs-utility.cjs.js",
       "types": "./dist/index.d.ts"
     },
     "./package.json": "./package.json"
   },
   "scripts": {
-    "dev": "vite build --watch --mode development",
+    "dev": "vite build --watch",
     "build": "tsc --noEmit && vite build",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
     "lint": "eslint . --max-warnings 0",

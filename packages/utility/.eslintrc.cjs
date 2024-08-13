@@ -1,10 +1,11 @@
 /** @type {import("eslint").Linter.Config} */
 module.exports = {
   extends: ["@internal/eslint-config/library.js"],
+  files: ["**/*.{ts,tsx}"],
+  ignores: ["vite.config.ts"],
   parserOptions: {
     project: ["./tsconfig.json"],
   },
-  ignores: ["vite.config.ts"],
   rules: {
     "import/no-extraneous-dependencies": [
       "error",

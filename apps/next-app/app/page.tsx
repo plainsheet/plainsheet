@@ -1,18 +1,42 @@
 "use client";
 
-import { useEffect } from "react";
-import styles from "./page.module.css";
-
-import { createBottomSheet } from "plain-bottom-sheet-core";
+import { Fragment, useState } from "react";
+import { ReactPlainBottomSheet } from "react-plain-bottom-sheet";
 
 export default function Home() {
-  useEffect(() => {
-    const bottomSheet = createBottomSheet({
-      content: "Hi",
-    });
+  const [isOpen, setIsOpen] = useState(false);
 
-    bottomSheet.mount();
-    bottomSheet.open();
-  }, []);
-  return <main className={styles.main}></main>;
+  const [contents, setContents] = useState<string[]>(
+    new Array(20).fill(0).map((_, i) => `Test content line ${i}`)
+  );
+
+  return (
+    <section>
+      <button
+        onClick={() => {
+          setIsOpen(true);
+        }}
+      >
+        Open
+      </button>
+      <button
+        onClick={() => {
+          setContents(
+            new Array(20).fill(0).map((_, i) => `🐱 Test content line ${i}`)
+          );
+        }}
+      >
+        Update Content
+      </button>
+
+      <ReactPlainBottomSheet isOpen={isOpen} setIsOpen={setIsOpen}>
+        {contents.map((text) => (
+          <Fragment key={text}>
+            <div>{text}</div>
+            <br />
+          </Fragment>
+        ))}
+      </ReactPlainBottomSheet>
+    </section>
+  );
 }
