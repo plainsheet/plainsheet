@@ -13,7 +13,7 @@ export interface BottomSheet {
   /**
    * Elements comprise the bottom sheet.
    */
-  elements: BottomSheetElements;
+  elements: Partial<BottomSheetElements>;
   /**
    * Mounts the bottom sheet to the dom, or a provided mounting point.
    */

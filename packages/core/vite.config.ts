@@ -1,7 +1,3 @@
-/* 
-  eslint-disable import/no-default-export 
-  -- Default functions should be empty.
-*/
 import path from "node:path";
 import { defineConfig } from "vitest/config";
 import dts from "vite-plugin-dts";

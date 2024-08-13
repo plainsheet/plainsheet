@@ -140,3 +140,14 @@ button:focus-visible {
     width: 30%;
   }
 }
+
+.large-bottom-sheet {
+  section {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+
+    overflow: hidden;
+  }
+}
