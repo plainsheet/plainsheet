@@ -1,0 +1,10 @@
+{
+  "index": {
+    "title": "Quick Start",
+    "type": "page"
+  },
+  "vanilla-js": {
+    "title": "Vanilla JavaScript",
+    "type": "page"
+  }
+}

@@ -1,0 +1,37 @@
+# Quick Start Guide
+
+## Installation
+
+### Using NPM
+
+```
+npm install @plainsheet/react-plain-bottom-sheet
+```
+
+## Getting Started
+
+### Using NPM
+
+```ts
+import { useState } from "react";
+import { ReactPlainBottomSheet } from "@plainsheet/react-plain-bottom-sheet";
+
+export default function Home() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <section>
+      <button
+        onClick={() => {
+          setIsOpen(true);
+        }}
+      >
+        Open
+      </button>
+      <ReactPlainBottomSheet isOpen={isOpen} setIsOpen={setIsOpen}>
+        Your content goes here
+      </ReactPlainBottomSheet>
+    </section>
+  );
+}
+```
