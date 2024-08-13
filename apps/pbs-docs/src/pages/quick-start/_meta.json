@@ -1,0 +1,18 @@
+{
+  "index": {
+    "title": "Quick Start",
+    "type": "menu",
+    "items": {
+      "react": {
+        "title": "React",
+        "href": "/react"
+      },
+      "contact": {
+        "title": "Vanilla JavaScript",
+        "href": "/vanilla-js"
+      }
+    }
+  },
+  "react": "React",
+  "vanilla-js": "Vanilla JavaScript"
+}
