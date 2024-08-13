@@ -1,5 +1,11 @@
 # plain-bottom-sheet-core
 
+## 0.5.0
+
+### Minor Changes
+
+- scope packages with the organization
+
 ## 0.4.1
 
 ### Patch Changes
