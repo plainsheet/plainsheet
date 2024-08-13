@@ -4,7 +4,7 @@ import {
   createPlaceholderBottomSheet,
   BOTTOM_SHEET_SELECTORS,
   BottomSheetProps,
-} from "plain-bottom-sheet-core";
+} from "@plainsheet/plain-bottom-sheet-core";
 import {
   forwardRef,
   ReactNode,

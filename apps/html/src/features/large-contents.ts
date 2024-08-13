@@ -1,4 +1,4 @@
-import { createBottomSheet } from "plain-bottom-sheet-core";
+import { createBottomSheet } from "@plainsheet/plain-bottom-sheet-core";
 import cat from "../../public/images/cat.avif";
 import clownFish from "../../public/images/clown-fish.avif";
 import iguana from "../../public/images/iguana.avif";

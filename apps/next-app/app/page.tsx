@@ -1,7 +1,7 @@
 "use client";
 
 import { Fragment, useState } from "react";
-import { ReactPlainBottomSheet } from "react-plain-bottom-sheet";
+import { ReactPlainBottomSheet } from "@plainsheet/react-plain-bottom-sheet";
 
 export default function Home() {
   const [isOpen, setIsOpen] = useState(false);

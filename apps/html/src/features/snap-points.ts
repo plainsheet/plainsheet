@@ -1,4 +1,4 @@
-import { createBottomSheet } from "plain-bottom-sheet-core";
+import { createBottomSheet } from "@plainsheet/plain-bottom-sheet-core";
 
 let state = {
   step: 0,

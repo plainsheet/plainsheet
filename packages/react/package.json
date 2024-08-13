@@ -39,7 +39,7 @@
     "access": "public"
   },
   "dependencies": {
-    "plain-bottom-sheet-core": "workspace:*",
+    "@plainsheet/plain-bottom-sheet-core": "workspace:*",
     "pbs-utility": "workspace:*"
   },
   "devDependencies": {
