@@ -35,6 +35,9 @@
     },
     "./package.json": "./package.json"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "plain-bottom-sheet-core": "workspace:*",
     "pbs-utility": "workspace:*"
