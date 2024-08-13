@@ -1,5 +1,5 @@
 {
-  "name": "plain-bottom-sheet-core",
+  "name": "@plainsheet/plain-bottom-sheet-core",
   "version": "0.4.1",
   "description": "The minimalistic, configurable bottom-sheet for the Web.",
   "keywords": [
