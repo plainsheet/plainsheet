@@ -1,6 +1,6 @@
 {
   "index": {
-    "title": "Quick Start",
+    "title": "Guides",
     "type": "menu",
     "items": {
       "react": {
@@ -12,7 +12,5 @@
         "href": "/vanilla-js"
       }
     }
-  },
-  "react": "React",
-  "vanilla-js": "Vanilla JavaScript"
+  }
 }
