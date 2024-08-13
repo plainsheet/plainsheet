@@ -19,6 +19,10 @@ The **minimalistic**, **configurable** bottom sheet for the web developers.
 
 ## Why?
 
+### 🧩 Framework-agnostic
+
+Works with vanilla JavaScript, or React.
+
 ### ⛓️‍💥 Zero Dependencies
 
 So your app does not depend on any other libraries that you don't need.
