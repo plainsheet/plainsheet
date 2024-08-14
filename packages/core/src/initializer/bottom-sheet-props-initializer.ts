@@ -85,13 +85,13 @@ export function createPropSetHandler(
         }
         break;
       case "shouldShowHandle":
-        if (isBoolean(value)) {
-          setHiddenClass(elements.bottomSheetHandle, value);
+        if (!isBoolean(value)) {
+          setHiddenClass(elements.bottomSheetHandle, false);
         }
         break;
       case "shouldShowBackdrop":
-        if (isBoolean(value)) {
-          setHiddenClass(elements.bottomSheetBackdrop, value);
+        if (!isBoolean(value)) {
+          setHiddenClass(elements.bottomSheetBackdrop, false);
         }
         break;
       case "containerBorderRadius":

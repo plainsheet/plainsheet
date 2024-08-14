@@ -124,7 +124,10 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheet {
       return;
     }
 
-    setVisibility([bottomSheetBackdrop, bottomSheetContainer], true);
+    if (observedProps.shouldShowBackdrop) {
+      setVisibility(bottomSheetBackdrop, true);
+    }
+    setVisibility([bottomSheetContainer], true);
     // NOTE: Resets the position to the bottom of the viewport
     // Because it was pushed 100vh down below the viewport when it is mounted,
     // which will make the animation timing incorrect.

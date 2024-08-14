@@ -62,7 +62,7 @@ export interface BottomSheetProps {
   shouldShowHandle?: boolean;
   shouldShowBackdrop?: boolean;
   containerBorderRadius?: CSSUnit | null;
-  backdropColor?: CSSColor | null;
+  backdropColor?: CSSColor | string | null;
   backDropTransition?: string | null;
 
   // NOTE: Custom CSS classes.

@@ -1,5 +1,11 @@
 # plain-bottom-sheet-core
 
+## 0.4.2
+
+### Patch Changes
+
+- improve reactivity of props
+
 ## 0.4.1
 
 ### Patch Changes
