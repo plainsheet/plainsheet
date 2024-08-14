@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://plain-bottom-sheet-pbs-docs.vercel.app/">
-    <img src="./documents/assets/header.png" width="328" height="167">
+    <img src="  https://github.com/plainsheet/plain-bottom-sheet/raw/main/documents/assets/header.png" width="328" height="167">
   </a>
 </p>
 
