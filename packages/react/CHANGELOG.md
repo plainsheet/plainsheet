@@ -1,5 +1,11 @@
 # @plainsheet/react-plain-bottom-sheet
 
+## 0.0.4
+
+### Patch Changes
+
+- readme image
+
 ## 0.0.3
 
 ### Patch Changes
