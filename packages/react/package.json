@@ -12,14 +12,6 @@
     "component",
     "bottom-sheet"
   ],
-  "scripts": {
-    "dev": "vite build --watch --mode development",
-    "build": "tsc --noEmit && vite build",
-    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
-    "lint": "eslint . --max-warnings 0",
-    "test": "vitest run",
-    "test:watch": "vitest --ui"
-  },
   "type": "module",
   "main": "dist/react-plain-bottom-sheet.cjs.js",
   "module": "dist/react-plain-bottom-sheet.es.js",
@@ -37,6 +29,14 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "scripts": {
+    "dev": "vite build --watch --mode development",
+    "build": "tsc --noEmit && vite build",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
+    "lint": "eslint . --max-warnings 0",
+    "test": "vitest run",
+    "test:watch": "vitest --ui"
   },
   "dependencies": {
     "@plainsheet/plain-bottom-sheet-core": "workspace:*",

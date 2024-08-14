@@ -1,6 +1,8 @@
 {
   "name": "@plainsheet/plain-bottom-sheet-core",
   "version": "0.4.2",
+  "private": false,
+  "sideEffects": false,
   "description": "The minimalistic, configurable bottom-sheet for the Web.",
   "keywords": [
     "ui",
@@ -9,8 +11,6 @@
     "typescript",
     "bottom-sheet"
   ],
-  "private": false,
-  "sideEffects": false,
   "license": "MIT",
   "type": "module",
   "main": "dist/plain-bottom-sheet-core.cjs.js",
@@ -26,6 +26,9 @@
       "types": "./dist/index.d.ts"
     },
     "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "scripts": {
     "dev": "vite build --watch --mode development",
@@ -49,8 +52,5 @@
     "vite-plugin-css-injected-by-js": "^3.5.0",
     "vite-plugin-dts": "^3.8.1",
     "vitest": "^1.6.0"
-  },
-  "publishConfig": {
-    "access": "public"
   }
 }

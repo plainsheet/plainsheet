@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://plain-bottom-sheet-pbs-docs.vercel.app/">
-    <img src="../../documents/assets/header.png" width="328" height="167">
+    <img src="./documents/assets/header.png" width="328" height="167">
   </a>
 </p>
 
@@ -12,8 +12,8 @@
   <img alt="" src="https://deno.bundlejs.com/badge?q=plain-bottom-sheet-core@0.4.1&badge=detailed" />
 </a>
 
-<a href="https://bundlejs.com/?q=@plainsheet/react-plain-bottom-sheet@0.0.1" target="\_parent">
-  <img alt="" src="https://deno.bundlejs.com/badge?q=@plainsheet/react-plain-bottom-sheet@0.0.1" />
+<a href="https://bundlejs.com/?q=@plainsheet/react-plain-bottom-sheet@0.0.2" target="\_parent">
+  <img alt="" src="https://deno.bundlejs.com/badge?q=@plainsheet/react-plain-bottom-sheet@0.0.2" />
 </a>
 
 The **minimalistic**, **configurable** bottom sheet for any web project.
