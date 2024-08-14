@@ -1,6 +1,7 @@
 import { addClassName, removeClassName } from "./class-names";
 
 const OPEN = "open";
+const HIDDEN = "hidden";
 
 export function setVisibility(
   element: Element | Element[],
@@ -23,6 +24,12 @@ export function setVisibility(
   element.setAttribute("aria-modal", shouldOpen ? "true" : "false");
 }
 
-export function setHiddenClass(element: Element, hidden: boolean): void {
-  hidden ? addClassName(element, OPEN) : removeClassName(element, OPEN);
+export function setHiddenClass(element: Element, shouldOpen: boolean): void {
+  if (shouldOpen) {
+    addClassName(element, OPEN);
+    removeClassName(element, HIDDEN);
+  } else {
+    addClassName(element, HIDDEN);
+    removeClassName(element, OPEN);
+  }
 }

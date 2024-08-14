@@ -41,8 +41,9 @@ export const ReactPlainBottomSheet = forwardRef<
     ...coreProps
   } = props;
 
+  const bottomSheetRef = useRef<BottomSheet>(placeholderBottomSheet);
   const [bottomSheet, setBottomSheet] = useState<BottomSheet>(
-    placeholderBottomSheet
+    bottomSheetRef.current
   );
   useImperativeHandle(
     refToExpose,
@@ -74,12 +75,6 @@ export const ReactPlainBottomSheet = forwardRef<
         return;
       }
       if (bottomSheet.getIsMounted()) {
-        if (!bottomSheetContentsWrapperRef.current) {
-          return;
-        }
-        // TODO: Efficiently avoid rerendering/recreating of the bottom sheet
-        // while updating the user-provided content
-        // createPortal(props.children, bottomSheetContentsWrapperRef.current);
         return;
       }
 
@@ -93,6 +88,7 @@ export const ReactPlainBottomSheet = forwardRef<
       bottomSheetContentsWrapperRef.current =
         bottomSheetInstance.elements.bottomSheetContentWrapper ?? null;
 
+      bottomSheetRef.current = bottomSheetInstance;
       setBottomSheet(bottomSheetInstance);
 
       return () => {
@@ -102,8 +98,18 @@ export const ReactPlainBottomSheet = forwardRef<
     [props.mountingPoint, coreProps, handleAfterClose]
   );
 
+  useEffect(
+    function passPropsToCore() {
+      Object.assign(bottomSheetRef.current.props, {
+        ...coreProps,
+      });
+      setBottomSheet(bottomSheetRef.current);
+    },
+    [coreProps]
+  );
+
   if (bottomSheetContentsWrapperRef.current) {
-    // NOTE: Attach the user-provided content to the bottom sheet
+    // Attach the user-provided content to the bottom sheet
     return createPortal(props.children, bottomSheetContentsWrapperRef.current);
   }
   return null;

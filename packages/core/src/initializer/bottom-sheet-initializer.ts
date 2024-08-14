@@ -139,7 +139,7 @@ function createElements(
     mergeClassNames([
       ClassNames.Backdrop,
       bottomSheetProps.backdropClass,
-      bottomSheetProps.shouldShowBackdrop ? null : UtilClassNames.Hidden,
+      UtilClassNames.Hidden,
     ]),
     ClassNames.Backdrop
   );
