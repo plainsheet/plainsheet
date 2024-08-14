@@ -1,5 +1,13 @@
 # @plainsheet/react-plain-bottom-sheet
 
+## 0.0.3
+
+### Patch Changes
+
+- update readme files
+- Updated dependencies
+  - @plainsheet/plain-bottom-sheet-core@0.4.3
+
 ## 0.0.2
 
 ### Patch Changes
