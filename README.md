@@ -50,3 +50,8 @@ Without any configs.
 ### 🦾 Fully-typed
 
 ### ⚡️ Performant By Default
+
+## Philosophy
+
+As the name suggests, we strive to make the plain bottom sheet minimalistic yet feature-rich and highly configurable.  
+We try our best to write concise, well-tested, and maintainable code to achieve this goal.

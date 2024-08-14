@@ -1,50 +1,54 @@
-# React + TypeScript + Vite
+<p align="center">
+  <a href="https://plain-bottom-sheet-pbs-docs.vercel.app/">
+    <img src="../../documents/assets/header.png" width="328" height="167">
+  </a>
+</p>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<a href="https://codecov.io/gh/PeterByun/plain-bottom-sheet" > 
+ <img src="https://codecov.io/gh/PeterByun/plain-bottom-sheet/graph/badge.svg?token=WFHGUAI3GC"/> 
+</a>
 
-Currently, two official plugins are available:
+The **minimalistic**, **configurable** bottom sheet for any web project.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### [Check out our website](https://plain-bottom-sheet-pbs-docs.vercel.app/), for a quick start guide, APIs, examples, and more!
 
-## Expanding the ESLint configuration
+## Why?
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### 🧩 Framework-agnostic
 
-- Configure the top-level `parserOptions` property like this:
+Works with vanilla JavaScript🍦, or React ⚛️.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+### ⛓️‍💥 Zero Dependencies
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+So your app does not depend on any other libraries that you don't need.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+### ☁️ Super Lightweight(Only 7 kB, compressed)
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+So you don't have to compromise loading speed.
+
+### 📱 Mobile-friendly
+
+Works just like the native bottom sheet.
+
+### 🎛 Highly Configurable
+
+- Style it anyway you want, using CSS.
+- Change its behaviors, on the fly.
+- Hook into life-cycle events, and states.
+
+### 🦮 Accessibility Support
+
+Keyboard interactions and focus management works out-of-box.
+
+### 🍰 Works Out of The Box
+
+Without any configs.
+
+### 🦾 Fully-typed
+
+### ⚡️ Performant By Default
+
+## Philosophy
+
+As the name suggests, we strive to make the plain bottom sheet minimalistic yet feature-rich and highly configurable.  
+We try our best to write concise, well-tested, and maintainable code to achieve this goal.
