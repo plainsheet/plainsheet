@@ -60,3 +60,11 @@ Without any configs.
 
 As the name suggests, we strive to make the plain bottom sheet minimalistic yet feature-rich and highly configurable.  
 We try our best to write concise, well-tested, and maintainable code to achieve this goal.
+
+## Support the project 🤍
+
+We very much appreciate all your support.
+
+- If you find it useful or interesting, please [star the repository](https://github.com/plainsheet/plain-bottom-sheet/stargazers),
+- [Share this repository](https://github.com/plainsheet/plain-bottom-sheet?tab=readme-ov-file) with others, if you would like to.
+- If you find any issues, feel free to [open an issue](https://github.com/plainsheet/plain-bottom-sheet/issues). We appreciate every opinion.
