@@ -14,7 +14,8 @@ From there, you can start to develop the feature, and make a PR to the main bran
 
 1. Please install [NVM](https://github.com/nvm-sh/nvm?tab=readme-ov-file#installing-and-updating), if you haven't yet.
 2. Run `pnpm install`
-3. Run `pnpm run dev --filter {workspace that you develop}`
+3. Run `pnpm run dev --filter {workspace that you develop}`  
+   3-1. A workspace name can be found in each `package.json`
 4. You should see the dev server running on the console. Happy coding!
 
 ### Frequently Used Commands
