@@ -7,7 +7,7 @@ import dts from "vite-plugin-dts";
 export default defineConfig({
   build: {
     lib: {
-      entry: path.resolve(__dirname, "src/index.tsx"),
+      entry: path.resolve(__dirname, "src/index.ts"),
       name: "ReactPlainBottomSheet",
       formats: ["es", "cjs", "umd"],
       fileName: (format) => `react-plain-bottom-sheet.${format}.js`,
@@ -22,8 +22,6 @@ export default defineConfig({
         },
       },
     },
-    cssMinify: true,
-    cssCodeSplit: true,
   },
   plugins: [
     react(),

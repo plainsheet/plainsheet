@@ -8,6 +8,14 @@
  <img src="https://codecov.io/gh/PeterByun/plain-bottom-sheet/graph/badge.svg?token=WFHGUAI3GC"/> 
 </a>
 
+<a href="https://bundlejs.com/?q=plain-bottom-sheet-core@0.4.1" target="\_parent">
+  <img alt="" src="https://deno.bundlejs.com/badge?q=plain-bottom-sheet-core@0.4.1&badge=detailed" />
+</a>
+
+<a href="https://bundlejs.com/?q=@plainsheet/react-plain-bottom-sheet@0.0.1" target="\_parent">
+  <img alt="" src="https://deno.bundlejs.com/badge?q=@plainsheet/react-plain-bottom-sheet@0.0.1" />
+</a>
+
 The **minimalistic**, **configurable** bottom sheet for any web project.
 
 ### [Check out our website](https://plain-bottom-sheet-pbs-docs.vercel.app/), for a quick start guide, APIs, examples, and more!
