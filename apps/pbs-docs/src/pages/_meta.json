@@ -7,12 +7,12 @@
     "title": "Quick Start",
     "type": "page"
   },
-  "docs": {
-    "title": "Docs",
-    "type": "page"
-  },
   "examples": {
     "title": "Examples",
+    "type": "page"
+  },
+  "apis": {
+    "title": "API",
     "type": "page"
   }
 }
