@@ -15,7 +15,7 @@ import {
 } from "react";
 import { createPortal } from "react-dom";
 
-interface BottomSheetReactProps {
+interface PlainBottomSheetProps {
   children: ReactNode;
   mountingPoint?: Element | null;
   options?: BottomSheetProps;
@@ -24,7 +24,7 @@ interface BottomSheetReactProps {
 const placeholderBottomSheet = createPlaceholderBottomSheet();
 
 // TODO: Make it a React component library.
-export const BottomSheetReact = forwardRef<BottomSheet, BottomSheetReactProps>(
+export const BottomSheetReact = forwardRef<BottomSheet, PlainBottomSheetProps>(
   function InnerBottomSheet(props, refToExpose) {
     const [bottomSheet, setBottomSheet] = useState<BottomSheet>(
       placeholderBottomSheet

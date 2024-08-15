@@ -18,7 +18,7 @@ import {
 } from "react";
 import { createPortal } from "react-dom";
 
-export type BottomSheetReactProps = {
+export type PlainBottomSheetProps = {
   children: ReactNode;
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
@@ -30,7 +30,7 @@ const placeholderBottomSheet = createPlaceholderBottomSheet();
 
 export const ReactPlainBottomSheet = forwardRef<
   BottomSheet,
-  BottomSheetReactProps
+  PlainBottomSheetProps
 >(function InnerBottomSheet(props, refToExpose) {
   const {
     children,

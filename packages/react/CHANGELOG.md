@@ -1,5 +1,11 @@
 # @plainsheet/react-plain-bottom-sheet
 
+## 0.1.0
+
+### Minor Changes
+
+- change the prop's type name
+
 ## 0.0.4
 
 ### Patch Changes
