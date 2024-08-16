@@ -1,5 +1,11 @@
 # plain-bottom-sheet-core
 
+## 0.5.1
+
+### Patch Changes
+
+- readme updates
+
 ## 0.5.0
 
 ### Minor Changes
