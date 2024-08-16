@@ -18,7 +18,7 @@
 
 The **minimalistic**, **configurable** bottom sheet for any web project.
 
-### [Check out our website](https://plain-bottom-sheet-pbs-docs.vercel.app/), for a quick start guide, APIs, examples, and more!
+### [Check out our website](https://www.plainsheet.org//), for a quick start guide, APIs, examples, and more!
 
 ## Why?
 
