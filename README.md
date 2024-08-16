@@ -1,15 +1,15 @@
 <p align="center">
   <a href="https://plain-bottom-sheet-pbs-docs.vercel.app/">
-    <img src="./documents/assets/header.png" width="328" height="167">
+    <img src="https://github.com/plainsheet/plainsheet/raw/main/documents/assets/header.png" width="328" height="167">
   </a>
 </p>
 
-<a href="https://bundlejs.com/?q=core@latest" target="\_parent">
-  <img alt="" src="https://deno.bundlejs.com/badge?q=core@latest&badge=detailed" />
+<a href="https://bundlejs.com/?q=@plainsheet/core@latest" target="\_parent">
+  <img alt="" src="https://deno.bundlejs.com/badge?q=@plainsheet/core@latest&badge=detailed" />
 </a>
 
-<a href="https://bundlejs.com/?q=@plainsheet/react@latest" target="\_parent">
-  <img alt="" src="https://deno.bundlejs.com/badge?q=@plainsheet/react@latest" />
+<a href="https://bundlejs.com/?q=@plainsheet/react@latest&badge=detailed" target="\_parent">
+  <img alt="" src="https://deno.bundlejs.com/badge?q=@plainsheet/react@latest&badge=detailed" />
 </a>
 
 <a href="https://codecov.io/gh/PeterByun/plain-bottom-sheet" > 
