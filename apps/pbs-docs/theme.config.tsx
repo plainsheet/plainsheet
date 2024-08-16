@@ -12,6 +12,11 @@ const config: DocsThemeConfig = {
   },
   docsRepositoryBase:
     "https://github.com/plainsheet/plainsheet/tree/main/apps/pbs-docs",
+  head: (
+    <>
+      <link rel="icon" type="image/x-icon" href="/favicon.png" />
+    </>
+  ),
 };
 
 export default config;
