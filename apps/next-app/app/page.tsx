@@ -5,7 +5,7 @@ import {
   BottomSheet,
   createPlaceholderBottomSheet,
   ReactPlainBottomSheet,
-} from "@plainsheet/react-plain-bottom-sheet";
+} from "@plainsheet/react";
 
 const placeHolderSheet = createPlaceholderBottomSheet();
 

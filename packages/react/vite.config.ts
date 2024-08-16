@@ -10,7 +10,7 @@ export default defineConfig({
       entry: path.resolve(__dirname, "src/index.ts"),
       name: "ReactPlainBottomSheet",
       formats: ["es", "cjs", "umd"],
-      fileName: (format) => `react-plain-bottom-sheet.${format}.js`,
+      fileName: (format) => `plainsheet-core.${format}.js`,
     },
     rollupOptions: {
       external: ["react", "react/jsx-runtime", "react-dom"],

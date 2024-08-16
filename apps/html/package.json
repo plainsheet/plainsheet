@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@plainsheet/plain-bottom-sheet-core": "workspace:*"
+    "@plainsheet/core": "workspace:*"
   },
   "devDependencies": {
     "@internal/eslint-config": "workspace:*",

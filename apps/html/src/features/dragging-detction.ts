@@ -1,4 +1,4 @@
-import { createBottomSheet } from "@plainsheet/plain-bottom-sheet-core";
+import { createBottomSheet } from "@plainsheet/core";
 
 export function setupDraggingDetection() {
   const bottomSheet = createBottomSheet({

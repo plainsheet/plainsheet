@@ -21,7 +21,8 @@ From there, you can start to develop the feature, and make a PR to the main bran
 ### Frequently Used Commands
 
 - `pnpm dev`
-- `pnpm dev --filter plain-bottom-sheet-core --filter html`
+- Run the core dev server: `pnpm dev --filter core --filter html`
+- Run the React dev server: `pnpm dev --filter react --filter next-app`
 - `pnpm clean`
 - `pnpm lint`
 - `pnpm build`

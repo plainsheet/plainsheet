@@ -3,7 +3,7 @@ import {
   BOTTOM_SHEET_DEFAULT_PROPS,
   BottomSheet,
   createPlaceholderBottomSheet,
-} from "@plainsheet/plain-bottom-sheet-core";
+} from "@plainsheet/core";
 import { useRef, useState } from "react";
 import { BottomSheetReact } from "../../src/BottomSheetReact";
 import { ExampleForm } from "../../src/examples/ExampleForm";

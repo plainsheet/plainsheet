@@ -1,5 +1,19 @@
-# Example Websites
+import { Callout } from "nextra/components";
 
-> 🚂 More examples are on the way.
+# Examples
+
+<Callout emoji="🚂">More examples are on the way!</Callout>
 
 - [Classic HTML, Vanilla JavaScript based Website](https://plain-bottom-sheet-html.vercel.app/)
+
+export function HTMLExample() {
+  return (
+    <iframe
+      width="100%"
+      height="50%"
+      src="https://plain-bottom-sheet-html.vercel.app"
+    />
+  );
+}
+
+<HTMLExample />

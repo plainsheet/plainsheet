@@ -1,5 +1,5 @@
 import "./app.css";
 
-export default function MyApp({ Component, pageProps }) {
+export default function PBSDocs({ Component, pageProps }) {
   return <Component {...pageProps} />;
 }

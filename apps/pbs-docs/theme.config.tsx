@@ -11,7 +11,7 @@ const config: DocsThemeConfig = {
     link: "https://github.com/PeterByun/plain-bottom-sheet",
   },
   docsRepositoryBase:
-    "https://github.com/plainsheet/plain-bottom-sheet/tree/main/apps/pbs-docs",
+    "https://github.com/plainsheet/plainsheet/tree/main/apps/pbs-docs",
 };
 
 export default config;

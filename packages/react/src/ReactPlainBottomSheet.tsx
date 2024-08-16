@@ -4,9 +4,9 @@ import {
   createBottomSheet,
   createPlaceholderBottomSheet,
   BottomSheetProps,
-} from "@plainsheet/plain-bottom-sheet-core";
-export { createPlaceholderBottomSheet } from "@plainsheet/plain-bottom-sheet-core";
-export type { BottomSheet } from "@plainsheet/plain-bottom-sheet-core";
+} from "@plainsheet/core";
+export { createPlaceholderBottomSheet } from "@plainsheet/core";
+export type { BottomSheet } from "@plainsheet/core";
 import {
   forwardRef,
   ReactNode,

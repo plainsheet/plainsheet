@@ -9,7 +9,7 @@ createBottomSheet: (props: BottomSheetProps) => BottomSheet;
 ### Example
 
 ```js /createBottomSheet/ copy
-import { createBottomSheet } from "@plainsheet/plain-bottom-sheet-core";
+import { createBottomSheet } from "@plainsheet/core";
 
 const bottomSheet = createBottomSheet({
   content: `<article> 
@@ -132,7 +132,7 @@ bottomSheet.open();
 `bottomSheet` is the return value of the function `createBottomSheet`. You can interact with the bottom sheet using the `BottomSheet` object.
 
 ```js /bottomSheet/ copy
-import { createBottomSheet } from "@plainsheet/plain-bottom-sheet-core";
+import { createBottomSheet } from "@plainsheet/core";
 
 const bottomSheet = createBottomSheet({
   content: `<article> Contents </article>`,

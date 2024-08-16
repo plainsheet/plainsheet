@@ -20,7 +20,7 @@ importers:
 
   apps/html:
     dependencies:
-      '@plainsheet/plain-bottom-sheet-core':
+      '@plainsheet/core':
         specifier: workspace:*
         version: link:../../packages/core
     devDependencies:
@@ -45,7 +45,7 @@ importers:
       '@emotion/styled':
         specifier: ^11.11.0
         version: 11.11.5(@emotion/react@11.11.4)(@types/react@18.2.74)(react@18.2.0)
-      '@plainsheet/react-plain-bottom-sheet':
+      '@plainsheet/react':
         specifier: workspace:*
         version: link:../../packages/react
       next:
@@ -153,7 +153,7 @@ importers:
 
   apps/storybook:
     dependencies:
-      '@plainsheet/plain-bottom-sheet-core':
+      '@plainsheet/core':
         specifier: workspace:*
         version: link:../../packages/core
       react:
@@ -274,7 +274,7 @@ importers:
 
   packages/react:
     dependencies:
-      '@plainsheet/plain-bottom-sheet-core':
+      '@plainsheet/core':
         specifier: workspace:*
         version: link:../core
       pbs-utility:
