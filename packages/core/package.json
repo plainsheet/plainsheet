@@ -1,9 +1,9 @@
 {
-  "name": "@plainsheet/plain-bottom-sheet-core",
+  "name": "@plainsheet/core",
   "version": "0.4.3",
   "private": false,
   "sideEffects": false,
-  "description": "The minimalistic, configurable bottom-sheet for the Web.",
+  "description": "The minimalistic, configurable React bottom-sheet for the Web developers",
   "keywords": [
     "ui",
     "component",
@@ -13,16 +13,16 @@
   ],
   "license": "MIT",
   "type": "module",
-  "main": "dist/plain-bottom-sheet-core.cjs.js",
-  "module": "dist/plain-bottom-sheet-core.es.js",
+  "main": "dist/plainsheet-core.cjs.js",
+  "module": "dist/plainsheet-core.es.js",
   "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
   "exports": {
     ".": {
-      "import": "./dist/plain-bottom-sheet-core.es.js",
-      "require": "./dist/plain-bottom-sheet-core.cjs.js",
+      "import": "./dist/plainsheet-core.es.js",
+      "require": "./dist/plainsheet-core.cjs.js",
       "types": "./dist/index.d.ts"
     },
     "./package.json": "./package.json"
@@ -36,7 +36,8 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
     "lint": "eslint . --max-warnings 0",
     "test": "vitest run",
-    "test:watch": "vitest --ui"
+    "test:watch": "vitest --ui",
+    "prepack": "sh ../../scripts/copy-root-readme.sh"
   },
   "devDependencies": {
     "@internal/eslint-config": "workspace:*",

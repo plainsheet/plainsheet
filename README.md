@@ -4,12 +4,12 @@
   </a>
 </p>
 
-<a href="https://bundlejs.com/?q=plain-bottom-sheet-core@0.4.1" target="\_parent">
-  <img alt="" src="https://deno.bundlejs.com/badge?q=plain-bottom-sheet-core@0.4.1&badge=detailed" />
+<a href="https://bundlejs.com/?q=core@latest" target="\_parent">
+  <img alt="" src="https://deno.bundlejs.com/badge?q=core@latest&badge=detailed" />
 </a>
 
-<a href="https://bundlejs.com/?q=@plainsheet/react-plain-bottom-sheet@0.0.1" target="\_parent">
-  <img alt="" src="https://deno.bundlejs.com/badge?q=@plainsheet/react-plain-bottom-sheet@0.0.1" />
+<a href="https://bundlejs.com/?q=@plainsheet/react@latest" target="\_parent">
+  <img alt="" src="https://deno.bundlejs.com/badge?q=@plainsheet/react@latest" />
 </a>
 
 <a href="https://codecov.io/gh/PeterByun/plain-bottom-sheet" > 
@@ -65,6 +65,6 @@ We try our best to write concise, well-tested, and maintainable code to achieve 
 
 We very much appreciate all your support.
 
-- If you find it useful or interesting, please [star the repository](https://github.com/plainsheet/plain-bottom-sheet/stargazers),
-- [Share this repository](https://github.com/plainsheet/plain-bottom-sheet?tab=readme-ov-file) with others, if you would like to.
-- If you find any issues, feel free to [open an issue](https://github.com/plainsheet/plain-bottom-sheet/issues). We appreciate every opinion.
+- If you find it useful or interesting, please [star the repository](https://github.com/plainsheet/plainsheet/stargazers),
+- [Share this repository](https://github.com/plainsheet/plainsheet?tab=readme-ov-file) with others, if you would like to.
+- If you find any issues, feel free to [open an issue](https://github.com/plainsheet/plainsheet/issues). We appreciate every opinion.
