@@ -8,7 +8,7 @@ const config: DocsThemeConfig = {
   },
   logo: <span>Plain Bottom Sheet</span>,
   project: {
-    link: "https://github.com/PeterByun/plain-bottom-sheet",
+    link: "https://github.com/plainsheet/plainsheet",
   },
   docsRepositoryBase:
     "https://github.com/plainsheet/plainsheet/tree/main/apps/pbs-docs",

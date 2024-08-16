@@ -6,7 +6,7 @@ However, we are committed to actively addressing security issues as part of our 
 
 # Reporting a Vulnerability
 
-If you encounter a security issue, please contact us at [the security advisories page](https://github.com/PeterByun/plain-bottom-sheet/security/advisories).
+If you encounter a security issue, please contact us at [the security advisories page](https://github.com/plainsheet/plainsheet/security/advisories).
 
 We will respond promptly and ensure that the issue is addressed by the appropriate individual or organization.
 
