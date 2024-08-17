@@ -108,7 +108,7 @@ export const WithImage: Story = {
 
           <button
             onClick={() => {
-              props.ref.current.moveTo(200);
+              instance.moveTo(200);
             }}
           >
             Move to y 200

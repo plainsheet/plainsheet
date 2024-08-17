@@ -233,6 +233,10 @@ export function createBottomSheet(
   }
 
   function moveTo(endY: number): void {
+    if (!getIsOpen()) {
+      return;
+    }
+
     const containerY = getTranslate(bottomSheetContainer).y;
     const containerHeight = bottomSheetContainer.clientHeight;
 
