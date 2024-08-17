@@ -25,7 +25,7 @@ import type {
   SnapPoints,
 } from "./types/bottom-sheet-props.type";
 import { BOTTOM_SHEET_POSITION } from "./types/bottom-sheet-props.type";
-import type { BottomSheet } from "./types/bottom-sheet.type";
+import type { BottomSheetCore } from "./types/bottom-sheet.type";
 import { isPercent } from "./utils/types/is-percent";
 import { toFixedNumber } from "./utils/math/unit";
 import { observe } from "./utils/proxy/observe";
@@ -37,7 +37,7 @@ import {
 } from "./initializer/bottom-sheet-props-initializer";
 import { isNumber } from "./utils/types/is-number";
 
-export function createBottomSheet(props: BottomSheetProps): BottomSheet {
+export function createBottomSheet(props: BottomSheetProps): BottomSheetCore {
   const propsWithDefaults = overwriteDefaultProps(props);
 
   const validDraggingAnimationTimings = interpretAnimationTimingsProp(

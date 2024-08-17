@@ -1,1 +1,1 @@
-export * from "./ReactPlainBottomSheet";
+export * from "./BottomSheet";

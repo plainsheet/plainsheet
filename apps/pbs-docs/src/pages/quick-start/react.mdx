@@ -14,7 +14,7 @@ npm install @plainsheet/react
 
 ```ts copy
 import { useState } from "react";
-import { ReactPlainBottomSheet } from "@plainsheet/react";
+import { BottomSheet } from "@plainsheet/react";
 
 export default function Home() {
   const [isOpen, setIsOpen] = useState(false);
@@ -28,9 +28,9 @@ export default function Home() {
       >
         Open
       </button>
-      <ReactPlainBottomSheet isOpen={isOpen} setIsOpen={setIsOpen}>
+      <BottomSheet isOpen={isOpen} setIsOpen={setIsOpen}>
         Your content goes here
-      </ReactPlainBottomSheet>
+      </BottomSheet>
     </section>
   );
 }

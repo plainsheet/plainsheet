@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import {
   BOTTOM_SHEET_DEFAULT_PROPS,
-  BottomSheet,
+  BottomSheetCore,
   createPlaceholderBottomSheet,
 } from "@plainsheet/core";
 import { useRef, useState } from "react";
@@ -19,7 +19,9 @@ type Story = StoryObj<typeof BottomSheetReact>;
 
 export const Basic: Story = {
   render: function Render(args) {
-    const bottomSheetRef = useRef<BottomSheet>(createPlaceholderBottomSheet());
+    const bottomSheetRef = useRef<BottomSheetCore>(
+      createPlaceholderBottomSheet()
+    );
 
     return (
       <section>
@@ -55,7 +57,9 @@ export const Basic: Story = {
 export const WithForm: Story = {
   render: function Render(args) {
     // Make this a custom hook and export from the React adapter.
-    const bottomSheetRef = useRef<BottomSheet>(createPlaceholderBottomSheet());
+    const bottomSheetRef = useRef<BottomSheetCore>(
+      createPlaceholderBottomSheet()
+    );
 
     const { children } = args;
 
@@ -94,7 +98,9 @@ export const WithForm: Story = {
 
 export const WithImage: Story = {
   render: function Render(args) {
-    const bottomSheetRef = useRef<BottomSheet>(createPlaceholderBottomSheet());
+    const bottomSheetRef = useRef<BottomSheetCore>(
+      createPlaceholderBottomSheet()
+    );
     const [result, setResult] = useState("");
 
     return (
@@ -201,7 +207,9 @@ export const WithImage: Story = {
 
 export const WithTitleAndFixedButtons: Story = {
   render: function Render(args) {
-    const bottomSheetRef = useRef<BottomSheet>(createPlaceholderBottomSheet());
+    const bottomSheetRef = useRef<BottomSheetCore>(
+      createPlaceholderBottomSheet()
+    );
 
     return (
       <section>

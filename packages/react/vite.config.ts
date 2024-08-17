@@ -8,9 +8,9 @@ export default defineConfig({
   build: {
     lib: {
       entry: path.resolve(__dirname, "src/index.ts"),
-      name: "ReactPlainBottomSheet",
+      name: "BottomSheet",
       formats: ["es", "cjs", "umd"],
-      fileName: (format) => `plainsheet-core.${format}.js`,
+      fileName: (format) => `plainsheet-react.${format}.js`,
     },
     rollupOptions: {
       external: ["react", "react/jsx-runtime", "react-dom"],

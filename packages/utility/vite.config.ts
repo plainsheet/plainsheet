@@ -6,9 +6,9 @@ export default defineConfig({
   build: {
     lib: {
       entry: path.resolve(__dirname, "src/index.ts"),
-      name: "pbs-utility",
+      name: "plainsheet-utility",
       formats: ["es", "cjs", "umd"],
-      fileName: (format) => `pbs-utility.${format}.js`,
+      fileName: (format) => `plainsheet-utility.${format}.js`,
     },
   },
   resolve: {
