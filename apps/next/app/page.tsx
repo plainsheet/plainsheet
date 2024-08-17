@@ -1,3 +1,5 @@
+"use client";
+
 import { Header } from "@/components/header";
 import { Reviews } from "@/components/reviews";
 import { RelatedProducts } from "@/components/related-products";
@@ -13,11 +15,11 @@ import { ProductHeading } from "@/components/product-heading";
 import { Promo } from "@/components/promo";
 import { TopBanner } from "@/components/top-banner";
 
-export default async function Example({
-  params,
-}: {
-  params: { code: string };
-}) {
+import { BottomSheet, useBottomSheet } from "@plainsheet/react";
+
+export default function Example() {
+  const bottomSheet = useBottomSheet();
+
   return (
     <div className="bg-white">
       <TopBanner />
@@ -34,18 +36,13 @@ export default async function Example({
           <ImageGallery />
 
           <div className="mt-8 lg:col-span-5">
-            <form>
-              <ColorPicker />
-
-              <SizePicker />
-
-              <button
-                type="submit"
-                className="mt-8 flex w-full items-center justify-center rounded-md border border-transparent bg-slate-600 px-8 py-3 text-base font-medium text-white hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2"
-              >
-                Add to cart
-              </button>
-            </form>
+            <button
+              type="submit"
+              className="mt-8 flex w-full items-center justify-center rounded-md border border-transparent bg-slate-600 px-8 py-3 text-base font-medium text-white hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2"
+              onClick={() => bottomSheet.instance.open()}
+            >
+              Pick options
+            </button>
 
             <ProductDetails />
             <Materials />
@@ -55,6 +52,32 @@ export default async function Example({
 
         <Reviews />
         <RelatedProducts />
+
+        <BottomSheet {...bottomSheet.props}>
+          <form
+            className="p-8"
+            onSubmit={(e) => {
+              e.preventDefault();
+            }}
+          >
+            <h3>Customize your T-shirt</h3>
+
+            <ColorPicker />
+
+            <SizePicker />
+
+            <button
+              type="submit"
+              className="mt-8 flex w-full items-center justify-center rounded-md border border-transparent bg-slate-600 px-8 py-3 text-base font-medium text-white hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2"
+              onClick={() => {
+                alert("Added to the cart!");
+                bottomSheet.instance.close();
+              }}
+            >
+              Submit
+            </button>
+          </form>
+        </BottomSheet>
       </main>
 
       <Footer />

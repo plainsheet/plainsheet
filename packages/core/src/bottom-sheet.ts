@@ -61,8 +61,16 @@ export function createBottomSheet(
       y: 0,
     },
     isDragging: false,
-    originalDocumentOverflowY: document.body.style.overflowY,
+    originalDocumentOverflowY: null,
   } as const;
+  function recoverDocumentOverflowY() {
+    if (
+      draggingState.originalDocumentOverflowY &&
+      draggingState.originalDocumentOverflowY !== "hidden"
+    ) {
+      document.body.style.overflowY = draggingState.originalDocumentOverflowY;
+    }
+  }
   const animationFrame = new AnimationFrame();
 
   const initializerOptions = {
@@ -110,6 +118,7 @@ export function createBottomSheet(
       el.remove();
     });
 
+    recoverDocumentOverflowY();
     bottomSheetState.isMounted = false;
   };
 
@@ -155,6 +164,11 @@ export function createBottomSheet(
     });
 
     elements.bottomSheetHandle.focus();
+
+    const originalOverflowY = document.body.style.overflowY;
+    draggingState.originalDocumentOverflowY = originalOverflowY || "initial";
+
+    document.body.style.overflowY = "hidden";
   };
 
   function close(): void {
@@ -177,6 +191,8 @@ export function createBottomSheet(
         setVisibility([bottomSheetBackdrop, bottomSheetContainer], false);
       },
     });
+
+    recoverDocumentOverflowY();
   }
 
   function getIsMounted(): boolean {

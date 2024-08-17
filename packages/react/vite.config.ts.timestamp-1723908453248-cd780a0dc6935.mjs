@@ -1,8 +1,8 @@
 // vite.config.ts
 import path from "node:path";
-import { defineConfig } from "file:///Users/peter/repos/plainsheet/node_modules/.pnpm/vite@5.4.0_@types+node@20.12.3/node_modules/vite/dist/node/index.js";
-import react from "file:///Users/peter/repos/plainsheet/node_modules/.pnpm/@vitejs+plugin-react-swc@3.7.0_vite@5.4.0/node_modules/@vitejs/plugin-react-swc/index.mjs";
-import dts from "file:///Users/peter/repos/plainsheet/node_modules/.pnpm/vite-plugin-dts@3.8.1_@types+node@20.12.3_typescript@5.5.4_vite@5.4.0/node_modules/vite-plugin-dts/dist/index.mjs";
+import { defineConfig } from "file:///Users/peter/repos/plainsheet/node_modules/.pnpm/vite@5.4.0_@types+node@20.14.12/node_modules/vite/dist/node/index.js";
+import react from "file:///Users/peter/repos/plainsheet/node_modules/.pnpm/@vitejs+plugin-react-swc@3.7.0_@swc+helpers@0.5.12_vite@5.4.0_@types+node@20.14.12_/node_modules/@vitejs/plugin-react-swc/index.mjs";
+import dts from "file:///Users/peter/repos/plainsheet/node_modules/.pnpm/vite-plugin-dts@3.8.1_@types+node@20.14.12_rollup@4.14.0_typescript@5.5.4_vite@5.4.0_@types+node@20.14.12_/node_modules/vite-plugin-dts/dist/index.mjs";
 var __vite_injected_original_dirname = "/Users/peter/repos/plainsheet/packages/react";
 var vite_config_default = defineConfig({
   build: {
