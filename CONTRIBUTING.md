@@ -24,13 +24,13 @@ From there, you can start to develop the feature, and make a PR to the main bran
 #### Run the core dev server
 
 ```shell
-pnpm dev --filter core --filter html
+pnpm dev --filter @plainsheet/core --filter html
 ```
 
 #### Run the React dev server
 
 ```shell
-pnpm dev --filter react --filter core --filter nextjs
+pnpm dev --filter @plainsheet/react --filter @plainsheet/core --filter nextjs
 ```
 
 #### Managing Packages

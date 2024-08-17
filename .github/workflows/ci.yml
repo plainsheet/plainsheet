@@ -21,7 +21,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install
       - name: Run tests and collect coverage
-        run: pnpm run test --filter="core" -- --coverage
+        run: pnpm run test --filter="@plainsheet/core" -- --coverage
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4
         env:
