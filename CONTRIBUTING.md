@@ -21,12 +21,26 @@ From there, you can start to develop the feature, and make a PR to the main bran
 
 ### Frequently Used Commands
 
+#### Run the core dev server
+
+```shell
+pnpm dev --filter core --filter html
+```
+
+#### Run the React dev server
+
+```shell
+pnpm dev --filter react --filter next-app
+```
+
+#### Managing Packages
+
+- `pnpm add --filter {workspace}`
+- `pnpm add --filter {workspace} --save-dev`
+
+#### ETC
+
 - `pnpm dev`
-- Run the core dev server: `pnpm dev --filter core --filter html`
-- Run the React dev server: `pnpm dev --filter react --filter next-app`
 - `pnpm clean`
 - `pnpm lint`
 - `pnpm build`
-- `pnpm changeset`
-- `pnpm add --filter {workspace}`
-- `pnpm add --filter {workspace} --save-dev`
