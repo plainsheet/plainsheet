@@ -1,106 +1,84 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import {
-  BOTTOM_SHEET_DEFAULT_PROPS,
-  BottomSheetCore,
-  createPlaceholderBottomSheet,
-} from "@plainsheet/core";
-import { useRef, useState } from "react";
-import { BottomSheetReact } from "../../src/BottomSheetReact";
+import { useState } from "react";
 import { ExampleForm } from "../../src/examples/ExampleForm";
 
 import miles from "../../assets/images/miles.jpg";
+import { BottomSheet, useBottomSheet } from "@plainsheet/react";
 
-const meta: Meta<typeof BottomSheetReact> = {
+const meta: Meta<typeof BottomSheet> = {
   argTypes: {},
   title: "BottomSheet",
 };
 export default meta;
-type Story = StoryObj<typeof BottomSheetReact>;
+type Story = StoryObj<typeof BottomSheet>;
 
 export const Basic: Story = {
   render: function Render(args) {
-    const bottomSheetRef = useRef<BottomSheetCore>(
-      createPlaceholderBottomSheet()
-    );
-
+    const { instance, props } = useBottomSheet();
     return (
       <section>
         <header>
           <button
             onClick={() => {
-              bottomSheetRef.current.open();
+              instance.open();
             }}
           >
             Open
           </button>
           <button
             onClick={() => {
-              bottomSheetRef.current.close();
+              instance.close();
             }}
           >
             Close
           </button>
         </header>
-        <BottomSheetReact ref={bottomSheetRef}>
-          {args.children}
-        </BottomSheetReact>
+        <BottomSheet {...props}>{args.children}</BottomSheet>
       </section>
     );
   },
-  name: "Basic",
   args: {
     children: "Hello",
-    options: BOTTOM_SHEET_DEFAULT_PROPS,
   },
 };
 
 export const WithForm: Story = {
   render: function Render(args) {
-    // Make this a custom hook and export from the React adapter.
-    const bottomSheetRef = useRef<BottomSheetCore>(
-      createPlaceholderBottomSheet()
-    );
-
-    const { children } = args;
-
+    const { instance, props } = useBottomSheet();
     return (
       <section>
         <header>
           <button
             onClick={() => {
-              bottomSheetRef.current.open();
+              instance.open();
             }}
           >
             Open
           </button>
           <button
             onClick={() => {
-              bottomSheetRef.current?.close();
+              instance?.close();
             }}
           >
             Close
           </button>
         </header>
 
-        <BottomSheetReact ref={bottomSheetRef} options={args.options}>
-          {children}
+        <BottomSheet {...props}>
+          {args.children}
           <ExampleForm />
-        </BottomSheetReact>
+        </BottomSheet>
       </section>
     );
   },
-  name: "WithForm",
   args: {
     children: "Args content: Edit here via args.children",
-    options: BOTTOM_SHEET_DEFAULT_PROPS,
   },
 };
 
 export const WithImage: Story = {
   render: function Render(args) {
-    const bottomSheetRef = useRef<BottomSheetCore>(
-      createPlaceholderBottomSheet()
-    );
+    const { instance, props } = useBottomSheet();
     const [result, setResult] = useState("");
 
     return (
@@ -114,7 +92,7 @@ export const WithImage: Story = {
         >
           <button
             onClick={() => {
-              bottomSheetRef.current.open();
+              instance.open();
             }}
           >
             Open
@@ -122,7 +100,7 @@ export const WithImage: Story = {
 
           <button
             onClick={() => {
-              bottomSheetRef.current.close();
+              instance.close();
             }}
           >
             Close
@@ -130,7 +108,7 @@ export const WithImage: Story = {
 
           <button
             onClick={() => {
-              bottomSheetRef.current.moveTo(200);
+              instance.moveTo(200);
             }}
           >
             Move to y 200
@@ -138,7 +116,7 @@ export const WithImage: Story = {
 
           <button
             onClick={() => {
-              bottomSheetRef.current.snapTo(0.4);
+              instance.snapTo(0.4);
             }}
           >
             Snap to 40%
@@ -146,7 +124,7 @@ export const WithImage: Story = {
 
           <button
             onClick={() => {
-              setResult(String(bottomSheetRef.current.getIsMounted()));
+              setResult(String(instance.getIsMounted()));
             }}
           >
             getIsMounted
@@ -154,7 +132,7 @@ export const WithImage: Story = {
 
           <button
             onClick={() => {
-              setResult(String(bottomSheetRef.current.getIsOpen()));
+              setResult(String(instance.getIsOpen()));
             }}
           >
             getIsOpen
@@ -162,7 +140,7 @@ export const WithImage: Story = {
 
           <button
             onClick={() => {
-              setResult(String(bottomSheetRef.current.getIsClosed()));
+              setResult(String(instance.getIsClosed()));
             }}
           >
             getIsClosed
@@ -170,7 +148,7 @@ export const WithImage: Story = {
 
           <button
             onClick={() => {
-              setResult(bottomSheetRef.current.getPosition());
+              setResult(instance.getPosition());
             }}
           >
             getPosition
@@ -178,7 +156,7 @@ export const WithImage: Story = {
 
           <button
             onClick={() => {
-              setResult(String(bottomSheetRef.current.getHeight()));
+              setResult(String(instance.getHeight()));
             }}
           >
             getHeight
@@ -187,49 +165,42 @@ export const WithImage: Story = {
 
         <article>Result: {result}</article>
 
-        <BottomSheetReact
-          ref={bottomSheetRef}
-          mountingPoint={args.mountingPoint}
-          options={args.options}
-        >
+        <BottomSheet {...props} mountingPoint={args.mountingPoint}>
           {args.children} <br />
           <img src={miles} alt="" />
-        </BottomSheetReact>
+        </BottomSheet>
       </section>
     );
   },
   name: "WithImage",
   args: {
     children: "Hello, Miles",
-    options: BOTTOM_SHEET_DEFAULT_PROPS,
   },
 };
 
 export const WithTitleAndFixedButtons: Story = {
   render: function Render(args) {
-    const bottomSheetRef = useRef<BottomSheetCore>(
-      createPlaceholderBottomSheet()
-    );
+    const { instance, props } = useBottomSheet();
 
     return (
       <section>
         <header>
           <button
             onClick={() => {
-              bottomSheetRef.current.open();
+              instance.open();
             }}
           >
             Open
           </button>
           <button
             onClick={() => {
-              bottomSheetRef.current.close();
+              instance.close();
             }}
           >
             Close
           </button>
         </header>
-        <BottomSheetReact ref={bottomSheetRef}>
+        <BottomSheet {...props}>
           <h3
             style={{
               padding: "0 16px",
@@ -260,26 +231,25 @@ export const WithTitleAndFixedButtons: Story = {
           >
             <button
               onClick={() => {
-                bottomSheetRef.current.close();
+                instance.close();
               }}
             >
               Cancel
             </button>
             <button
               onClick={() => {
-                bottomSheetRef.current.close();
+                instance.close();
               }}
             >
               Proceed To Checkout
             </button>
           </div>
-        </BottomSheetReact>
+        </BottomSheet>
       </section>
     );
   },
   name: "WithTitleAndFixedButtons",
   args: {
     children: "Fried chicken🍗: $19.5",
-    options: BOTTOM_SHEET_DEFAULT_PROPS,
   },
 };

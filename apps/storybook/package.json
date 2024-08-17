@@ -1,5 +1,5 @@
 {
-  "name": "storybook-docs",
+  "name": "storybook",
   "version": "0.0.0",
   "type": "module",
   "private": true,
@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@plainsheet/core": "workspace:*",
+    "@plainsheet/react": "workspace:*",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
