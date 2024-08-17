@@ -1,5 +1,11 @@
 # plain-bottom-sheet-core
 
+## 0.6.0
+
+### Minor Changes
+
+- rename interfaces for better consistency
+
 ## 0.5.1
 
 ### Patch Changes

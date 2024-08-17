@@ -5,8 +5,8 @@ import type {
 } from "src/utils/animation/animation.type";
 import type { CSSColor, CSSUnit } from "src/utils/types/css-attribute";
 
-export type RequiredBottomSheetProps = Required<BottomSheetProps>;
-export interface BottomSheetProps {
+export type RequiredBottomSheetProps = Required<BottomSheetCoreProps>;
+export interface BottomSheetCoreProps {
   ariaLabel?: string;
   content: string;
 

@@ -20,7 +20,7 @@ import type {
 } from "../utils/event-listeners/TabEventListener";
 import { TabEventListener } from "../utils/event-listeners/TabEventListener";
 import { EventPhase } from "../utils/event-listeners/EventPhase";
-import type { BottomSheetProps } from "../types/bottom-sheet-props.type";
+import type { BottomSheetCoreProps } from "../types/bottom-sheet-props.type";
 
 export interface InitializerOptions {
   animationFrame: AnimationFrame;
@@ -37,7 +37,7 @@ interface InitializeBottomSheetElementsReturnType {
 }
 
 export function initializeBottomSheetElements(
-  props: Required<BottomSheetProps>,
+  props: Required<BottomSheetCoreProps>,
   options: InitializerOptions
 ): InitializeBottomSheetElementsReturnType {
   const elements = createElements(props);
@@ -74,7 +74,7 @@ export interface BottomSheetElements {
 }
 
 function createElements(
-  bottomSheetProps: Required<BottomSheetProps>
+  bottomSheetProps: Required<BottomSheetCoreProps>
 ): BottomSheetElements {
   const bottomSheetRoot = createElement(
     "dialog",
@@ -180,7 +180,7 @@ function combineElements({
 
 export interface InitializeEventsParams {
   bottomSheetElements: BottomSheetElements;
-  bottomSheetProps: Required<BottomSheetProps>;
+  bottomSheetProps: Required<BottomSheetCoreProps>;
   options: InitializerOptions;
 }
 

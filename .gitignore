@@ -7,7 +7,7 @@ node_modules
 .env
 .cache
 *.local
-.vscode
+vite.config.ts.timestamp.*
 
 # Build results
 dist

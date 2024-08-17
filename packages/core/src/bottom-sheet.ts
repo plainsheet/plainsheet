@@ -21,7 +21,7 @@ import type {
 } from "./types/bottom-sheet-state.type";
 import type {
   BottomSheetPosition,
-  BottomSheetProps,
+  BottomSheetCoreProps,
   SnapPoints,
 } from "./types/bottom-sheet-props.type";
 import { BOTTOM_SHEET_POSITION } from "./types/bottom-sheet-props.type";
@@ -37,7 +37,9 @@ import {
 } from "./initializer/bottom-sheet-props-initializer";
 import { isNumber } from "./utils/types/is-number";
 
-export function createBottomSheet(props: BottomSheetProps): BottomSheetCore {
+export function createBottomSheet(
+  props: BottomSheetCoreProps
+): BottomSheetCore {
   const propsWithDefaults = overwriteDefaultProps(props);
 
   const validDraggingAnimationTimings = interpretAnimationTimingsProp(
@@ -59,8 +61,16 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheetCore {
       y: 0,
     },
     isDragging: false,
-    originalDocumentOverflowY: document.body.style.overflowY,
+    originalDocumentOverflowY: null,
   } as const;
+  function recoverDocumentOverflowY() {
+    if (
+      draggingState.originalDocumentOverflowY &&
+      draggingState.originalDocumentOverflowY !== "hidden"
+    ) {
+      document.body.style.overflowY = draggingState.originalDocumentOverflowY;
+    }
+  }
   const animationFrame = new AnimationFrame();
 
   const initializerOptions = {
@@ -108,6 +118,7 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheetCore {
       el.remove();
     });
 
+    recoverDocumentOverflowY();
     bottomSheetState.isMounted = false;
   };
 
@@ -153,6 +164,11 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheetCore {
     });
 
     elements.bottomSheetHandle.focus();
+
+    const originalOverflowY = document.body.style.overflowY;
+    draggingState.originalDocumentOverflowY = originalOverflowY || "initial";
+
+    document.body.style.overflowY = "hidden";
   };
 
   function close(): void {
@@ -175,6 +191,8 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheetCore {
         setVisibility([bottomSheetBackdrop, bottomSheetContainer], false);
       },
     });
+
+    recoverDocumentOverflowY();
   }
 
   function getIsMounted(): boolean {
@@ -231,6 +249,10 @@ export function createBottomSheet(props: BottomSheetProps): BottomSheetCore {
   }
 
   function moveTo(endY: number): void {
+    if (!getIsOpen()) {
+      return;
+    }
+
     const containerY = getTranslate(bottomSheetContainer).y;
     const containerHeight = bottomSheetContainer.clientHeight;
 

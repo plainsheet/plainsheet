@@ -14,7 +14,7 @@ import type {
   TabEvent,
   TabEventListener,
 } from "../utils/event-listeners/TabEventListener";
-import type { BottomSheetProps } from "../types/bottom-sheet-props.type";
+import type { BottomSheetCoreProps } from "../types/bottom-sheet-props.type";
 import { toFixedNumber } from "../utils/math/unit";
 import { boundNumber } from "../utils/math/min-max";
 
@@ -40,15 +40,12 @@ export const handleDragStart =
   (
     mouseEventListener: TabEventListener,
     bottomSheetContainer: HTMLElement,
-    bottomSheetProps: Required<BottomSheetProps>,
+    bottomSheetProps: Required<BottomSheetCoreProps>,
     draggingState: DraggingState
   ) =>
   (event: TabEvent) => {
     draggingState.startY = mouseEventListener.getCoordinates(event).y;
     draggingState.containerStartTranslate = getTranslate(bottomSheetContainer);
-
-    draggingState.originalDocumentOverflowY = document.body.style.overflowY;
-    document.body.style.overflowY = "hidden";
 
     bottomSheetProps.onDragStart();
   };
@@ -57,7 +54,7 @@ export const handleDragMove =
   (
     mouseEventListener: TabEventListener,
     bottomSheetContainer: HTMLElement,
-    bottomSheetProps: Required<BottomSheetProps>,
+    bottomSheetProps: Required<BottomSheetCoreProps>,
     draggingState: DraggingState,
     animationFrame: AnimationFrame
   ) =>
@@ -76,7 +73,7 @@ export const handleDragMove =
 function moveSheetToPointer(
   event: TabEvent,
   mouseEventListener: TabEventListener,
-  bottomSheetProps: Required<BottomSheetProps>,
+  bottomSheetProps: Required<BottomSheetCoreProps>,
   draggingState: DraggingState,
   animationFrame: AnimationFrame,
   bottomSheetContainer: HTMLElement,
@@ -154,7 +151,7 @@ export const handleDragEnd =
   (
     eventListener: TabEventListener,
     bottomSheetContainer: HTMLElement,
-    bottomSheetProps: Required<BottomSheetProps>,
+    bottomSheetProps: Required<BottomSheetCoreProps>,
     draggingState: DraggingState,
     animationFrame: AnimationFrame,
     onClose: () => void,
@@ -165,7 +162,6 @@ export const handleDragEnd =
       return;
     }
     draggingState.isDragging = false;
-    document.body.style.overflowY = draggingState.originalDocumentOverflowY;
 
     if (!isNumber(draggingState.startY)) {
       return;

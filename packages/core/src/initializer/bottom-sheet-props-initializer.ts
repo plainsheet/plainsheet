@@ -1,5 +1,5 @@
 import type {
-  BottomSheetProps,
+  BottomSheetCoreProps,
   BottomSheetState,
   RequiredBottomSheetProps,
 } from "src/types";
@@ -25,7 +25,7 @@ import { BOTTOM_SHEET_DEFAULT_PROPS } from "./bottom-sheet-defaults";
 import type { BottomSheetElements } from "./bottom-sheet-initializer";
 
 export function overwriteDefaultProps(
-  props: BottomSheetProps
+  props: BottomSheetCoreProps
 ): RequiredBottomSheetProps {
   const propsWithDefaults: RequiredBottomSheetProps = {
     ...BOTTOM_SHEET_DEFAULT_PROPS,
@@ -52,7 +52,7 @@ export function overwriteDefaultProps(
 }
 
 export function interpretAnimationTimingsProp(
-  draggingAnimationTimings: BottomSheetProps["draggingAnimationTimings"]
+  draggingAnimationTimings: BottomSheetCoreProps["draggingAnimationTimings"]
 ): AnimationTimingFunction {
   if (isAnimationTimingPoints(draggingAnimationTimings)) {
     const { p1x, p1y, p2x, p2y } = draggingAnimationTimings;
@@ -69,7 +69,7 @@ export function interpretAnimationTimingsProp(
 export function createPropSetHandler(
   elements: BottomSheetElements,
   bottomSheetState: BottomSheetState,
-  propsWithDefaults: Required<BottomSheetProps>
+  propsWithDefaults: Required<BottomSheetCoreProps>
 ): ObserverSetHandler {
   function handlePropSet(property: string | symbol, value: unknown): void {
     switch (property) {

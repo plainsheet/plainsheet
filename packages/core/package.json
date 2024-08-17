@@ -1,6 +1,6 @@
 {
   "name": "@plainsheet/core",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "private": false,
   "sideEffects": false,
   "description": "The minimalistic, configurable React bottom-sheet for the Web developers",
@@ -31,7 +31,7 @@
     "access": "public"
   },
   "scripts": {
-    "dev": "vite build --watch --mode development",
+    "dev": "vite build --watch --mode development --emptyOutDir=false",
     "build": "tsc --noEmit && vite build",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
     "lint": "eslint . --max-warnings 0",

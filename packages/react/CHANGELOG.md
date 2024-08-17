@@ -1,5 +1,16 @@
 # @plainsheet/react-plain-bottom-sheet
 
+## 0.3.0
+
+### Minor Changes
+
+- rename interfaces for better consistency
+
+### Patch Changes
+
+- Updated dependencies
+  - @plainsheet/core@0.6.0
+
 ## 0.2.1
 
 ### Patch Changes
