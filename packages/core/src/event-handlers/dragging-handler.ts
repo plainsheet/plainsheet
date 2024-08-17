@@ -14,7 +14,7 @@ import type {
   TabEvent,
   TabEventListener,
 } from "../utils/event-listeners/TabEventListener";
-import type { BottomSheetProps } from "../types/bottom-sheet-props.type";
+import type { BottomSheetCoreProps } from "../types/bottom-sheet-props.type";
 import { toFixedNumber } from "../utils/math/unit";
 import { boundNumber } from "../utils/math/min-max";
 
@@ -40,7 +40,7 @@ export const handleDragStart =
   (
     mouseEventListener: TabEventListener,
     bottomSheetContainer: HTMLElement,
-    bottomSheetProps: Required<BottomSheetProps>,
+    bottomSheetProps: Required<BottomSheetCoreProps>,
     draggingState: DraggingState
   ) =>
   (event: TabEvent) => {
@@ -57,7 +57,7 @@ export const handleDragMove =
   (
     mouseEventListener: TabEventListener,
     bottomSheetContainer: HTMLElement,
-    bottomSheetProps: Required<BottomSheetProps>,
+    bottomSheetProps: Required<BottomSheetCoreProps>,
     draggingState: DraggingState,
     animationFrame: AnimationFrame
   ) =>
@@ -76,7 +76,7 @@ export const handleDragMove =
 function moveSheetToPointer(
   event: TabEvent,
   mouseEventListener: TabEventListener,
-  bottomSheetProps: Required<BottomSheetProps>,
+  bottomSheetProps: Required<BottomSheetCoreProps>,
   draggingState: DraggingState,
   animationFrame: AnimationFrame,
   bottomSheetContainer: HTMLElement,
@@ -154,7 +154,7 @@ export const handleDragEnd =
   (
     eventListener: TabEventListener,
     bottomSheetContainer: HTMLElement,
-    bottomSheetProps: Required<BottomSheetProps>,
+    bottomSheetProps: Required<BottomSheetCoreProps>,
     draggingState: DraggingState,
     animationFrame: AnimationFrame,
     onClose: () => void,

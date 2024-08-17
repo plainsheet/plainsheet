@@ -1,7 +1,7 @@
 import type { BottomSheetElements } from "src/initializer/bottom-sheet-initializer";
 import type {
   BottomSheetPosition,
-  BottomSheetProps,
+  BottomSheetCoreProps,
 } from "./bottom-sheet-props.type";
 import type { BottomSheetState } from "./bottom-sheet-state.type";
 
@@ -9,7 +9,7 @@ export interface BottomSheetCore {
   /**
    * Mutable props to change the behavior of the Bottom Sheet.
    */
-  props: BottomSheetProps;
+  props: BottomSheetCoreProps;
   /**
    * Elements comprise the bottom sheet.
    */

@@ -3,7 +3,7 @@
 ### Interface
 
 ```ts
-BottomSheet: (props: PlainBottomSheetProps) => ReactNode;
+BottomSheet: (props: BottomSheetProps) => ReactNode;
 ```
 
 ### Example
@@ -30,9 +30,9 @@ export default function BottomSheet() {
 }
 ```
 
-## `PlainBottomSheetProps`
+## `BottomSheetProps`
 
-`PlainBottomSheetProps` is the props of `BottomSheet`, and it lets you customize the bottom sheet's style, and behavior.  
+`BottomSheetProps` is the extension of `BottomSheetCoreProps`, and it lets you customize the bottom sheet's style, and behavior.  
 You can also imperatively control the bottom sheet using its `ref` prop. We will explain more on that later on this page.
 
 ### Behavior
@@ -168,7 +168,7 @@ export default function Home() {
 
 ### Mutable Properties
 
-- **`props: PlainBottomSheetProps`**  
+- **`props: BottomSheetCoreProps`**  
   Mutable properties that can be used to adjust the behavior of the Bottom Sheet on the fly.
 
 ### Commands

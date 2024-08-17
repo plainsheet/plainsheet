@@ -21,7 +21,7 @@ import type {
 } from "./types/bottom-sheet-state.type";
 import type {
   BottomSheetPosition,
-  BottomSheetProps,
+  BottomSheetCoreProps,
   SnapPoints,
 } from "./types/bottom-sheet-props.type";
 import { BOTTOM_SHEET_POSITION } from "./types/bottom-sheet-props.type";
@@ -37,7 +37,9 @@ import {
 } from "./initializer/bottom-sheet-props-initializer";
 import { isNumber } from "./utils/types/is-number";
 
-export function createBottomSheet(props: BottomSheetProps): BottomSheetCore {
+export function createBottomSheet(
+  props: BottomSheetCoreProps
+): BottomSheetCore {
   const propsWithDefaults = overwriteDefaultProps(props);
 
   const validDraggingAnimationTimings = interpretAnimationTimingsProp(
