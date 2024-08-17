@@ -1,16 +1,16 @@
-## `ReactPlainBottomSheet`
+## `BottomSheet`
 
 ### Interface
 
 ```ts
-ReactPlainBottomSheet: (props: PlainBottomSheetProps) => ReactNode;
+BottomSheet: (props: PlainBottomSheetProps) => ReactNode;
 ```
 
 ### Example
 
-```jsx /ReactPlainBottomSheet/ copy
+```jsx /BottomSheet/ copy
 import { useState } from "react";
-import { ReactPlainBottomSheet } from "@plainsheet/react";
+import { BottomSheet } from "@plainsheet/react";
 
 export default function BottomSheet() {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,13 +18,13 @@ export default function BottomSheet() {
   return (
     <section>
       <button onClick={() => setIsOpen(true)}>Open</button>
-      <ReactPlainBottomSheet
+      <BottomSheet
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         // Other props
       >
         Your contents
-      </ReactPlainBottomSheet>
+      </BottomSheet>
     </section>
   );
 }
@@ -32,7 +32,7 @@ export default function BottomSheet() {
 
 ## `PlainBottomSheetProps`
 
-`PlainBottomSheetProps` is the props of `ReactPlainBottomSheet`, and it lets you customize the bottom sheet's style, and behavior.  
+`PlainBottomSheetProps` is the props of `BottomSheet`, and it lets you customize the bottom sheet's style, and behavior.  
 You can also imperatively control the bottom sheet using its `ref` prop. We will explain more on that later on this page.
 
 ### Behavior
@@ -130,7 +130,7 @@ You can also imperatively control the bottom sheet using its `ref` prop. We will
 - **`draggingAnimationDuration?: number`**  
   Optional. Duration of the dragging animation in milliseconds.
 
-## `ref(BottomSheet)` Properties
+## `ref(BottomSheetCore)` Properties
 
 The `ref` prop allows you to directly control the bottom sheet,
 and access its DOM elements, position, size, style, etc.
@@ -140,11 +140,13 @@ import { useRef, useState } from "react";
 import {
   BottomSheet,
   createPlaceholderBottomSheet,
-  ReactPlainBottomSheet,
+  BottomSheet,
 } from "@plainsheet/react";
 
 export default function Home() {
-  const bottomSheetRef = useRef<BottomSheet>(createPlaceholderBottomSheet());
+  const bottomSheetRef = useRef<BottomSheetCore>(
+    createPlaceholderBottomSheet()
+  );
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -156,13 +158,9 @@ export default function Home() {
         Move to center
       </button>
 
-      <ReactPlainBottomSheet
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        ref={bottomSheetRef}
-      >
+      <BottomSheet isOpen={isOpen} setIsOpen={setIsOpen} ref={bottomSheetRef}>
         Your contents
-      </ReactPlainBottomSheet>
+      </BottomSheet>
     </section>
   );
 }

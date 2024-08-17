@@ -277,7 +277,7 @@ importers:
       '@plainsheet/core':
         specifier: workspace:*
         version: link:../core
-      pbs-utility:
+      '@plainsheet/utility':
         specifier: workspace:*
         version: link:../utility
       react:

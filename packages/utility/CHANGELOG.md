@@ -1,4 +1,4 @@
-# pbs-utility
+# @plainsheet/utility
 
 ## 0.0.2
 

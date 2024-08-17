@@ -11,7 +11,7 @@ export default defineConfig({
   build: {
     lib: {
       entry: path.resolve(__dirname, "src/index.ts"),
-      name: "PlainBottomSheetCore",
+      name: "BottomSheet",
       formats: ["es", "cjs", "umd"],
       fileName: (format) => `plainsheet-core.${format}.js`,
     },
