@@ -6,6 +6,6 @@
   "linked": [],
   "access": "public",
   "updateInternalDependencies": "patch",
-  "ignore": ["next", "html", "website"],
+  "ignore": ["nextjs", "html", "website"],
   "baseBranch": "main"
 }

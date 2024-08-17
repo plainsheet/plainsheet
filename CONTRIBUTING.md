@@ -30,7 +30,7 @@ pnpm dev --filter core --filter html
 #### Run the React dev server
 
 ```shell
-pnpm dev --filter react --filter next-app
+pnpm dev --filter react --filter core --filter nextjs
 ```
 
 #### Managing Packages
