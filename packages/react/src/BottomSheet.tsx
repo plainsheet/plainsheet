@@ -3,7 +3,7 @@ import {
   BottomSheetCore,
   createBottomSheet,
   createPlaceholderBottomSheet,
-  BottomSheetProps,
+  BottomSheetCoreProps,
 } from "@plainsheet/core";
 export { createPlaceholderBottomSheet } from "@plainsheet/core";
 export type { BottomSheetCore } from "@plainsheet/core";
@@ -18,17 +18,17 @@ import {
 } from "react";
 import { createPortal } from "react-dom";
 
-export type PlainBottomSheetProps = {
+export type BottomSheetProps = {
   children: ReactNode;
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
   mountingPoint?: Element | null;
 } & CoreProps;
-type CoreProps = OmitKeyof<BottomSheetProps, "content", "safely">;
+type CoreProps = OmitKeyof<BottomSheetCoreProps, "content">;
 
 const placeholderBottomSheet = createPlaceholderBottomSheet();
 
-export const BottomSheet = forwardRef<BottomSheetCore, PlainBottomSheetProps>(
+export const BottomSheet = forwardRef<BottomSheetCore, BottomSheetProps>(
   function InnerBottomSheet(props, refToExpose) {
     const {
       children,
