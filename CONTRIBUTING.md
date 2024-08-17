@@ -42,5 +42,5 @@ pnpm dev --filter react --filter next-app
 
 - `pnpm dev`
 - `pnpm clean`
-- `pnpm lint`
 - `pnpm build`
+- `pnpm lint`
