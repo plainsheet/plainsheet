@@ -1,5 +1,5 @@
 {
-  "name": "pbs-utility",
+  "name": "@plainsheet/utility",
   "version": "0.0.2",
   "description": "General utility modules for building UI components",
   "keywords": [
@@ -11,16 +11,16 @@
   "sideEffects": false,
   "license": "MIT",
   "type": "module",
-  "main": "dist/pbs-utility.cjs.js",
-  "module": "dist/pbs-utility.es.js",
+  "main": "dist/plainsheet-utility.cjs.js",
+  "module": "dist/plainsheet-utility.es.js",
   "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
   "exports": {
     ".": {
-      "import": "./dist/pbs-utility.es.js",
-      "require": "./dist/pbs-utility.cjs.js",
+      "import": "./dist/plainsheet-utility.es.js",
+      "require": "./dist/plainsheet-utility.cjs.js",
       "types": "./dist/index.d.ts"
     },
     "./package.json": "./package.json"

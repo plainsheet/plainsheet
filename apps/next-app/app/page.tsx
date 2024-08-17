@@ -4,13 +4,13 @@ import { Fragment, useRef, useState } from "react";
 import {
   BottomSheet,
   createPlaceholderBottomSheet,
-  ReactPlainBottomSheet,
+  BottomSheetCore,
 } from "@plainsheet/react";
 
 const placeHolderSheet = createPlaceholderBottomSheet();
 
 export default function Home() {
-  const bottomSheetRef = useRef<BottomSheet>(placeHolderSheet);
+  const bottomSheetRef = useRef<BottomSheetCore>(placeHolderSheet);
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -47,7 +47,7 @@ export default function Home() {
         Update width
       </button>
 
-      <ReactPlainBottomSheet
+      <BottomSheet
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         width={width}
@@ -59,7 +59,7 @@ export default function Home() {
             <br />
           </Fragment>
         ))}
-      </ReactPlainBottomSheet>
+      </BottomSheet>
     </section>
   );
 }

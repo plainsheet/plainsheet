@@ -5,7 +5,7 @@ import type {
 } from "./bottom-sheet-props.type";
 import type { BottomSheetState } from "./bottom-sheet-state.type";
 
-export interface BottomSheet {
+export interface BottomSheetCore {
   /**
    * Mutable props to change the behavior of the Bottom Sheet.
    */

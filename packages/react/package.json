@@ -13,16 +13,16 @@
     "bottom-sheet"
   ],
   "type": "module",
-  "main": "dist/plainsheet-core.cjs.js",
-  "module": "dist/plainsheet-core.es.js",
+  "main": "dist/plainsheet-react.cjs.js",
+  "module": "dist/plainsheet-react.es.js",
   "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
   "exports": {
     ".": {
-      "import": "./dist/plainsheet-core.es.js",
-      "require": "./dist/plainsheet-core.cjs.js",
+      "import": "./dist/plainsheet-react.es.js",
+      "require": "./dist/plainsheet-react.cjs.js",
       "types": "./dist/index.d.ts"
     },
     "./package.json": "./package.json"
@@ -41,7 +41,7 @@
   },
   "dependencies": {
     "@plainsheet/core": "workspace:*",
-    "pbs-utility": "workspace:*"
+    "@plainsheet/utility": "workspace:*"
   },
   "devDependencies": {
     "@eslint/js": "^9.8.0",

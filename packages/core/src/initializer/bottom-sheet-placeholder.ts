@@ -4,12 +4,12 @@
 */
 
 import { BOTTOM_SHEET_POSITION } from "../types";
-import type { BottomSheet } from "../types/bottom-sheet.type";
+import type { BottomSheetCore } from "../types/bottom-sheet.type";
 
 /**
  * @returns A fallback BottomSheet instance to provide non-null BottomSheet methods to library users.
  */
-export function createPlaceholderBottomSheet(): BottomSheet {
+export function createPlaceholderBottomSheet(): BottomSheetCore {
   return {
     elements: {
       bottomSheetRoot: undefined,
