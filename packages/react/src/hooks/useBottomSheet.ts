@@ -2,7 +2,7 @@ import {
   BottomSheetCore,
   createPlaceholderBottomSheet,
 } from "@plainsheet/core";
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 const placeHolderSheet = createPlaceholderBottomSheet();
 
@@ -29,7 +29,10 @@ export function useBottomSheet(): UseBottomSheetReturn {
   const ref = useRef<BottomSheetCore>(placeHolderSheet);
   const [isOpen, setIsOpen] = useState(false);
 
-  const instance = useMemo(() => ref.current, [ref.current]);
+  const [instance, setInstance] = useState(ref.current);
+  useEffect(() => {
+    setInstance(ref.current);
+  }, [ref.current]);
 
   const props = useMemo(() => {
     return {
@@ -40,7 +43,7 @@ export function useBottomSheet(): UseBottomSheetReturn {
   }, [isOpen]);
 
   return {
-    instance,
     props,
+    instance,
   };
 }
