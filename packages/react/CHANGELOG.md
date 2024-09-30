@@ -1,5 +1,12 @@
 # @plainsheet/react-plain-bottom-sheet
 
+## 0.3.1
+
+### Patch Changes
+
+- Updated dependencies [dcdda0e]
+  - @plainsheet/utility@0.0.3
+
 ## 0.3.0
 
 ### Minor Changes
