@@ -7,7 +7,7 @@
     "typescript",
     "utility"
   ],
-  "private": true,
+  "private": false,
   "sideEffects": false,
   "license": "MIT",
   "type": "module",
