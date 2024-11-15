@@ -1,5 +1,11 @@
 # plain-bottom-sheet-core
 
+## 0.7.0
+
+### Minor Changes
+
+- prevent scrolling on ios devices when the bottom sheet is open
+
 ## 0.6.0
 
 ### Minor Changes

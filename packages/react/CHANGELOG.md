@@ -1,5 +1,16 @@
 # @plainsheet/react-plain-bottom-sheet
 
+## 0.4.0
+
+### Minor Changes
+
+- prevent scrolling on ios devices when the bottom sheet is open
+
+### Patch Changes
+
+- Updated dependencies
+  - @plainsheet/core@0.7.0
+
 ## 0.3.1
 
 ### Patch Changes

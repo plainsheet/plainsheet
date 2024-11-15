@@ -11,8 +11,7 @@
     "clean": "turbo run clean && rm -rf node_modules",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "changeset": "changeset",
-    "version-add": "changeset add",
-    "version-packages": "changeset version",
+    "version-packages": "changesedt version",
     "release": "turbo run build && changeset publish"
   },
   "devDependencies": {
