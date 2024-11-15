@@ -16,4 +16,5 @@ export interface DraggingState {
   isDragging: boolean;
 
   originalDocumentOverflowY: string | null;
+  originalDocumentOverscrollBehavior: string | null;
 }

@@ -62,6 +62,7 @@ export function createBottomSheet(
     },
     isDragging: false,
     originalDocumentOverflowY: null,
+    originalDocumentOverscrollBehavior: null,
   } as const;
   function recoverDocumentOverflowY() {
     if (
@@ -69,6 +70,10 @@ export function createBottomSheet(
       draggingState.originalDocumentOverflowY !== "hidden"
     ) {
       document.body.style.overflowY = draggingState.originalDocumentOverflowY;
+    }
+    if (draggingState.originalDocumentOverscrollBehavior) {
+      document.body.style.position =
+        draggingState.originalDocumentOverscrollBehavior;
     }
   }
   const animationFrame = new AnimationFrame();
@@ -168,7 +173,12 @@ export function createBottomSheet(
     const originalOverflowY = document.body.style.overflowY;
     draggingState.originalDocumentOverflowY = originalOverflowY || "initial";
 
-    document.body.style.overflowY = "hidden";
+    const originalOverscrollBehavior = document.body.style.overscrollBehavior;
+    draggingState.originalDocumentOverscrollBehavior =
+      originalOverscrollBehavior || "initial";
+
+    document.body.style.overflow = "hidden";
+    document.body.style.overscrollBehavior = "contain";
   };
 
   function close(): void {
