@@ -75,7 +75,8 @@ export interface BottomSheetCoreProps {
   // NOTE: Animation settings.
   /**
    * Common animation timing functions such as "ease-in-out", or
-   * four points(p1x, p1y, p2x, p2y) that express the timing of animations as a Bezier curve.
+   * an object {p1x: number, p1y: number, p2x: number, p2y: number} that describes the timing of animations as a Bezier curve.
+   * @see https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timing-function
    */
   draggingAnimationTimings?: CommonAnimation | AnimationTimingPoints | null;
   /**

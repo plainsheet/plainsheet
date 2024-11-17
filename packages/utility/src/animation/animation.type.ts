@@ -14,12 +14,16 @@ export type AnimationTimingFunction = (x: number) => number;
 
 export type CommonAnimationKeys = typeof COMMON_ANIMATION_KEYS;
 export type CommonAnimationKey = keyof CommonAnimationKeys;
+/**
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timing-function#values
+ */
 export type CommonAnimation = CommonAnimationKeys[CommonAnimationKey];
 
 export const COMMON_ANIMATION_KEYS = {
   EASE: "ease",
   EASE_IN: "ease-in",
   EASE_OUT: "ease-out",
+  EASE_IN_OUT: "ease-in-out",
   SPRING: "spring",
 } as const;
 

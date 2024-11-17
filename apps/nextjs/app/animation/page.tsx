@@ -4,7 +4,8 @@ import { ColorPicker } from "@/components/color-picker";
 import { SizePicker } from "@/components/size-picker";
 
 import { BottomSheet, useBottomSheet } from "@plainsheet/react";
-import { Button, VStack } from "@chakra-ui/react";
+import { Button, Heading, Input, VStack } from "@chakra-ui/react";
+import { useState } from "react";
 
 export default function Example() {
   const bottomSheetEase = useBottomSheet();
@@ -13,60 +14,112 @@ export default function Example() {
   const bottomSheetEaseInOut = useBottomSheet();
   const bottomSheetSpring = useBottomSheet();
 
+  const [customAnimationTiming, setCustomAnimationTiming] = useState("");
+  const [p1x, p1y, p2x, p2y] = customAnimationTiming
+    .split(",")
+    .map((timing) => Number(timing));
+
   return (
     <VStack height={"full"} justifyContent={"center"} gap="6">
-      <Button
-        onClick={() => bottomSheetEase.instance.open()}
-        backgroundColor={"blue.100"}
-        color={"blue.500"}
-      >
-        Common Animation Timing - Ease
-      </Button>
-      <BottomSheet {...bottomSheetEase.props} draggingAnimationTimings={"ease"}>
-        <BottomSheetContent onSubmit={bottomSheetEase.instance.open} />
-      </BottomSheet>
+      <Heading size={"lg"}>Common Animations</Heading>
+      <VStack justifyContent={"center"} gap="6">
+        <Button
+          onClick={() => bottomSheetEase.instance.open()}
+          backgroundColor={"blue.100"}
+          color={"blue.500"}
+        >
+          Common Animation Timing - Ease
+        </Button>
+        <BottomSheet
+          {...bottomSheetEase.props}
+          draggingAnimationTimings={"ease"}
+        >
+          <BottomSheetContent onSubmit={bottomSheetEase.instance.open} />
+        </BottomSheet>
 
-      <Button
-        onClick={() => bottomSheetEaseIn.instance.open()}
-        backgroundColor={"blue.100"}
-        color={"blue.500"}
-      >
-        Common Animation Timing - Ease In
-      </Button>
-      <BottomSheet
-        {...bottomSheetEaseIn.props}
-        draggingAnimationTimings={"ease-in"}
-      >
-        <BottomSheetContent onSubmit={bottomSheetEaseIn.instance.open} />
-      </BottomSheet>
+        <Button
+          onClick={() => bottomSheetEaseIn.instance.open()}
+          backgroundColor={"blue.100"}
+          color={"blue.500"}
+        >
+          Common Animation Timing - Ease In
+        </Button>
+        <BottomSheet
+          {...bottomSheetEaseIn.props}
+          draggingAnimationTimings={"ease-in"}
+        >
+          <BottomSheetContent onSubmit={bottomSheetEaseIn.instance.open} />
+        </BottomSheet>
 
-      <Button
-        onClick={() => bottomSheetEaseOut.instance.open()}
-        backgroundColor={"blue.100"}
-        color={"blue.500"}
-      >
-        Common Animation Timing - Ease Out
-      </Button>
-      <BottomSheet
-        {...bottomSheetEaseOut.props}
-        draggingAnimationTimings={"ease-out"}
-      >
-        <BottomSheetContent onSubmit={bottomSheetEaseOut.instance.open} />
-      </BottomSheet>
+        <Button
+          onClick={() => bottomSheetEaseOut.instance.open()}
+          backgroundColor={"blue.100"}
+          color={"blue.500"}
+        >
+          Common Animation Timing - Ease Out
+        </Button>
+        <BottomSheet
+          {...bottomSheetEaseOut.props}
+          draggingAnimationTimings={"ease-out"}
+        >
+          <BottomSheetContent onSubmit={bottomSheetEaseOut.instance.open} />
+        </BottomSheet>
 
-      <Button
-        onClick={() => bottomSheetSpring.instance.open()}
-        backgroundColor={"blue.100"}
-        color={"blue.500"}
-      >
-        Common Animation Timing - Spring
-      </Button>
-      <BottomSheet
-        {...bottomSheetSpring.props}
-        draggingAnimationTimings={"spring"}
-      >
-        <BottomSheetContent onSubmit={bottomSheetSpring.instance.open} />
-      </BottomSheet>
+        <Button
+          onClick={() => bottomSheetEaseInOut.instance.open()}
+          backgroundColor={"blue.100"}
+          color={"blue.500"}
+        >
+          Common Animation Timing - Ease In Out
+        </Button>
+        <BottomSheet
+          {...bottomSheetEaseInOut.props}
+          draggingAnimationTimings={"ease-in-out"}
+        >
+          <BottomSheetContent onSubmit={bottomSheetEaseInOut.instance.open} />
+        </BottomSheet>
+
+        <Button
+          onClick={() => bottomSheetSpring.instance.open()}
+          backgroundColor={"blue.100"}
+          color={"blue.500"}
+        >
+          Common Animation Timing - Spring
+        </Button>
+        <BottomSheet
+          {...bottomSheetSpring.props}
+          draggingAnimationTimings={"spring"}
+        >
+          <BottomSheetContent onSubmit={bottomSheetSpring.instance.open} />
+        </BottomSheet>
+      </VStack>
+
+      <VStack gap="6">
+        <Heading size={"lg"}>Customize Animation</Heading>
+        <Input
+          value={customAnimationTiming}
+          onChange={(e) => setCustomAnimationTiming(e.target.value)}
+          placeholder="ex) 0.45, 1.5, 0.55, 1.0"
+        />
+        <Button
+          onClick={() => bottomSheetSpring.instance.open()}
+          backgroundColor={"blue.100"}
+          color={"blue.500"}
+        >
+          Custom Animation Timing
+        </Button>
+        <BottomSheet
+          {...bottomSheetSpring.props}
+          draggingAnimationTimings={{
+            p1x,
+            p1y,
+            p2x,
+            p2y,
+          }}
+        >
+          <BottomSheetContent onSubmit={bottomSheetSpring.instance.open} />
+        </BottomSheet>
+      </VStack>
     </VStack>
   );
 }
