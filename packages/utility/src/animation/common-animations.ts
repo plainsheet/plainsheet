@@ -24,9 +24,6 @@ export function commonAnimationTimingsNameToFunction(
     case COMMON_ANIMATION_KEYS.EASE_OUT:
       return easeOut;
 
-    case COMMON_ANIMATION_KEYS.EASE_IN_OUT:
-      return easeInOut;
-
     case COMMON_ANIMATION_KEYS.SPRING:
       return spring;
 
