@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { VercelToolbar } from "@vercel/toolbar/next";
+import { Provider } from "@/components/ui/provider";
 
 import "./globals.css";
 
@@ -15,12 +16,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="icon" type="image/x-icon" href="/favicon.png" />
       </head>
       <body className="">
-        {children}
+        <Provider>{children}</Provider>
 
         <VercelToolbar />
       </body>

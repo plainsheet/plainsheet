@@ -31,6 +31,6 @@ export function commonAnimationTimingsNameToFunction(
       return spring;
 
     default:
-      return easeInOut;
+      return ease;
   }
 }
