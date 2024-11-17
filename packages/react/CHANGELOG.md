@@ -1,5 +1,12 @@
 # @plainsheet/react-plain-bottom-sheet
 
+## 0.4.1
+
+### Patch Changes
+
+- Updated dependencies [c0dd419]
+  - @plainsheet/core@0.7.1
+
 ## 0.4.0
 
 ### Minor Changes
