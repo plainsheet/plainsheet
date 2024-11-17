@@ -1,5 +1,11 @@
 # plain-bottom-sheet-core
 
+## 0.7.1
+
+### Patch Changes
+
+- c0dd419: Feat: Set the default animation timing function to ease, and add more examples
+
 ## 0.7.0
 
 ### Minor Changes
