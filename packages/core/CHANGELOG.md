@@ -1,5 +1,11 @@
 # plain-bottom-sheet-core
 
+## 0.7.2
+
+### Patch Changes
+
+- dd3122b: Fix: closeOnUutsideClick should close the bottom sheet only when it is open
+
 ## 0.7.1
 
 ### Patch Changes
