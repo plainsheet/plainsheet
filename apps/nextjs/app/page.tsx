@@ -1,6 +1,6 @@
 "use client";
 
-import { Heading, Highlight, LinkBox, Text, VStack } from "@chakra-ui/react";
+import { Heading, Highlight, VStack } from "@chakra-ui/react";
 import Link from "next/link";
 import { Link as ChakraLink } from "@chakra-ui/react";
 
@@ -16,24 +16,24 @@ export default function Example() {
         </Highlight>
       </Heading>
       <VStack justify={"center"} height={"fit-content"}>
-        <ChakraLink colorPalette="blue">
+        <ChakraLink colorPalette="blue" asChild>
           <Link href={"/animation"}>Animation</Link>
         </ChakraLink>
-        <ChakraLink colorPalette="blue">
-          <Link href={"/commands"}>Commands</Link>{" "}
+        <ChakraLink colorPalette="blue" asChild>
+          <Link href={"/commands"}>Commands</Link>
         </ChakraLink>
-        <ChakraLink colorPalette="blue">
-          <Link href={"/css"}>Css</Link>{" "}
+        {/* <ChakraLink colorPalette="blue" asChild>
+          <Link href={"/css"}>Style</Link>
+        </ChakraLink> */}
+        <ChakraLink colorPalette="blue" asChild>
+          <Link href={"/getters"}>Getters</Link>
         </ChakraLink>
-        <ChakraLink colorPalette="blue">
-          <Link href={"/getters"}>Getters</Link>{" "}
+        {/* <ChakraLink colorPalette="blue" asChild>
+          <Link href={"/life-cycle-callbacks"}>Life Cycle Callbacks</Link>
         </ChakraLink>
-        <ChakraLink colorPalette="blue">
-          <Link href={"/life-cycle-callbacks"}>Life Cycle Callbacks</Link>{" "}
-        </ChakraLink>
-        <ChakraLink colorPalette="blue">
-          <Link href={"/mutable-props"}>Mutable Props</Link>{" "}
-        </ChakraLink>
+        <ChakraLink colorPalette="blue" asChild>
+          <Link href={"/mutable-props"}>Mutable Props</Link>
+        </ChakraLink> */}
       </VStack>
     </VStack>
   );

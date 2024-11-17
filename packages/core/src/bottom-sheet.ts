@@ -218,7 +218,7 @@ export function createBottomSheet(
         ? viewportHeight
         : bottomSheetContainer.clientHeight;
 
-    return containerY < containerHeight;
+    return containerY <= containerHeight;
   }
   function getIsClosed(): boolean {
     return !getIsOpen();
