@@ -1,5 +1,4 @@
 ---
-"nextjs": patch
 "@plainsheet/core": patch
 ---
 
