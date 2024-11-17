@@ -1,10 +1,16 @@
 import {
   BottomSheetCore,
+  BottomSheetCoreProps,
   createPlaceholderBottomSheet,
 } from "@plainsheet/core";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 const placeHolderSheet = createPlaceholderBottomSheet();
+
+interface UseBottomSheetProps {
+  onAfterOpen?: BottomSheetCoreProps["afterOpen"];
+  onAfterClose?: BottomSheetCoreProps["afterClose"];
+}
 
 interface UseBottomSheetReturn {
   /**
@@ -15,6 +21,11 @@ interface UseBottomSheetReturn {
    * `BottomSheetCore` instance to control the bottom sheet.
    */
   instance: BottomSheetCore;
+  /**
+   * a React state tells whether the bottom sheet is open.
+   */
+  isOpen: boolean;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 interface HookProvidedProps {
   /**
@@ -23,27 +34,46 @@ interface HookProvidedProps {
   ref: React.MutableRefObject<BottomSheetCore>;
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  afterOpen: BottomSheetCoreProps["afterOpen"];
+  afterClose: BottomSheetCoreProps["afterClose"];
 }
 
-export function useBottomSheet(): UseBottomSheetReturn {
+export function useBottomSheet(
+  props: UseBottomSheetProps = {}
+): UseBottomSheetReturn {
   const ref = useRef<BottomSheetCore>(placeHolderSheet);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const [instance, setInstance] = useState(ref.current);
   useEffect(() => {
     setInstance(ref.current);
   }, [ref.current]);
 
-  const props = useMemo(() => {
+  const onAfterOpen = () => {
+    props.onAfterOpen?.();
+
+    setIsOpen(true);
+  };
+  const onAfterClose = () => {
+    props.onAfterClose?.();
+
+    setIsOpen(false);
+  };
+
+  const hookProvidedProps = useMemo<HookProvidedProps>(() => {
     return {
       ref,
       isOpen,
       setIsOpen,
+      afterOpen: onAfterOpen,
+      afterClose: onAfterClose,
     };
-  }, [isOpen]);
+  }, [ref.current, isOpen, setIsOpen, onAfterOpen, onAfterClose]);
 
   return {
-    props,
+    props: hookProvidedProps,
     instance,
+    isOpen,
+    setIsOpen,
   };
 }

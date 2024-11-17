@@ -168,8 +168,6 @@ export function createBottomSheet(
       onEnd: props.afterOpen,
     });
 
-    elements.bottomSheetHandle.focus();
-
     const originalOverflowY = document.body.style.overflowY;
     draggingState.originalDocumentOverflowY = originalOverflowY || "initial";
 
@@ -179,6 +177,10 @@ export function createBottomSheet(
 
     document.body.style.overflow = "hidden";
     document.body.style.overscrollBehavior = "contain";
+
+    elements.bottomSheetHandle.focus();
+
+    eventHandlers.attacheOnOpenEventListeners();
   };
 
   function close(): void {
@@ -199,6 +201,7 @@ export function createBottomSheet(
       onEnd: () => {
         props.afterClose?.();
         setVisibility([bottomSheetBackdrop, bottomSheetContainer], false);
+        eventHandlers.clearOnOpenEventListeners();
       },
     });
 
@@ -218,7 +221,7 @@ export function createBottomSheet(
         ? viewportHeight
         : bottomSheetContainer.clientHeight;
 
-    return containerY < containerHeight;
+    return containerY <= containerHeight;
   }
   function getIsClosed(): boolean {
     return !getIsOpen();

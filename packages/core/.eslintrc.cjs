@@ -4,7 +4,6 @@ module.exports = {
   parserOptions: {
     project: ["./tsconfig.json"],
   },
-  ignores: ["vite.config.ts"],
   rules: {
     "import/no-extraneous-dependencies": [
       "error",

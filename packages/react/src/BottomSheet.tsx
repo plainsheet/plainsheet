@@ -9,6 +9,7 @@ export { createPlaceholderBottomSheet } from "@plainsheet/core";
 export type { BottomSheetCore } from "@plainsheet/core";
 import {
   forwardRef,
+  MutableRefObject,
   ReactNode,
   useCallback,
   useEffect,
@@ -22,9 +23,10 @@ export type BottomSheetProps = {
   children: ReactNode;
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
-  mountingPoint?: Element | null;
+  mountingPointRef?: MutableRefObject<MountingPoint>;
 } & CoreProps;
 type CoreProps = OmitKeyof<BottomSheetCoreProps, "content">;
+type MountingPoint = undefined | HTMLElement;
 
 const placeholderBottomSheet = createPlaceholderBottomSheet();
 
@@ -35,7 +37,7 @@ export const BottomSheet = forwardRef<BottomSheetCore, BottomSheetProps>(
       isOpen,
       setIsOpen,
       afterClose,
-      mountingPoint,
+      mountingPointRef,
       ...coreProps
     } = props;
 
@@ -65,9 +67,14 @@ export const BottomSheet = forwardRef<BottomSheetCore, BottomSheetProps>(
 
     const bottomSheetContentsWrapperRef = useRef<HTMLElement | null>(null);
     useEffect(
-      function initiateBottomSheet() {
-        const mountingPoint = exists(props.mountingPoint)
-          ? props.mountingPoint
+      function initializeBottomSheet() {
+        if (mountingPointRef && !mountingPointRef.current) {
+          // if mountingPointRef is provided, wait for the element to be assigned to the ref.
+          return;
+        }
+
+        const mountingPoint = exists(props.mountingPointRef?.current)
+          ? props.mountingPointRef.current
           : window.document.body;
         if (!mountingPoint) {
           return;
@@ -93,7 +100,7 @@ export const BottomSheet = forwardRef<BottomSheetCore, BottomSheetProps>(
           bottomSheet.unmount();
         };
       },
-      [props.mountingPoint, coreProps, handleAfterClose]
+      [props.mountingPointRef, coreProps, handleAfterClose]
     );
 
     useEffect(
@@ -106,6 +113,12 @@ export const BottomSheet = forwardRef<BottomSheetCore, BottomSheetProps>(
       [coreProps]
     );
 
+    useEffect(function cleanUp() {
+      return () => {
+        bottomSheetRef.current.unmount();
+      };
+    }, []);
+
     if (bottomSheetContentsWrapperRef.current) {
       // Attach the user-provided content to the bottom sheet
       return createPortal(
@@ -113,6 +126,7 @@ export const BottomSheet = forwardRef<BottomSheetCore, BottomSheetProps>(
         bottomSheetContentsWrapperRef.current
       );
     }
+
     return null;
   }
 );

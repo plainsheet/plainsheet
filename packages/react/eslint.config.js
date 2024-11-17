@@ -11,7 +11,6 @@ export default tseslint.config({
     ...tseslint.configs.recommended,
   ],
   files: ["**/*.{ts,tsx}"],
-  ignores: ["dist", "./vite.config.ts"],
   languageOptions: {
     ecmaVersion: 2020,
     globals: globals.browser,
