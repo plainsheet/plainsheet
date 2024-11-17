@@ -187,6 +187,8 @@ export interface InitializeEventsParams {
 interface InitializeEventsReturnType {
   attachEventListeners: () => void;
   clearEventListeners: () => void;
+  attacheOnOpenEventListeners: () => void;
+  clearOnOpenEventListeners: () => void;
 }
 function initializeEvents({
   bottomSheetElements,
@@ -318,10 +320,6 @@ function initializeEvents({
       });
     }
 
-    if (bottomSheetProps.shouldCloseOnOutsideClick) {
-      window.document.addEventListener("click", handleWindowClick);
-    }
-
     bottomSheetHandle.addEventListener("keyup", (e) => {
       if (e.key === "ArrowUp") {
         options.moveUp();
@@ -340,7 +338,17 @@ function initializeEvents({
     });
   }
 
-  function findLastFocusableElement(el: Element) {
+  function attacheOnOpenEventListeners(): void {
+    if (bottomSheetProps.shouldCloseOnOutsideClick) {
+      window.document.addEventListener("click", handleWindowClick);
+    }
+  }
+
+  function clearOnOpenEventListeners(): void {
+    window.document.removeEventListener("click", handleWindowClick);
+  }
+
+  function findLastFocusableElement(el: Element): ChildNode | undefined | null {
     let allChildNodes = [...Array.from(el.childNodes).reverse()];
     // NOTE : DFS is used to completely search the last element first.
     while (allChildNodes.length) {
@@ -382,12 +390,12 @@ function initializeEvents({
       onMove: onDragMove,
       onEnd: onDragEnd,
     });
-
-    window.removeEventListener("click", handleWindowClick);
   }
 
   return {
     attachEventListeners,
     clearEventListeners,
+    attacheOnOpenEventListeners,
+    clearOnOpenEventListeners,
   };
 }

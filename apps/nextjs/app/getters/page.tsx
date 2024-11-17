@@ -32,6 +32,10 @@ export function GettersExample() {
       justifyContent={"center"}
       gap="6"
     >
+      <Heading size={"xl"}>
+        See how getters change in response to events
+      </Heading>
+      <Button onClick={() => bottomSheet.instance.open()}>Open it</Button>
       <Heading size={"md"}>
         isMounted: {BooleanIndicator(bottomSheet.instance.getIsMounted())}
       </Heading>
@@ -45,10 +49,7 @@ export function GettersExample() {
       <Heading size={"md"}>
         position: {bottomSheet.instance.getPosition()}
       </Heading>
-
-      <Button onClick={() => bottomSheet.instance.open()}>Open</Button>
-
-      <BottomSheet {...bottomSheet.props} shouldCloseOnOutsideClick={false}>
+      <BottomSheet {...bottomSheet.props}>
         <ProductOptionsForm />
       </BottomSheet>
     </VStack>

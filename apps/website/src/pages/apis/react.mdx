@@ -32,7 +32,7 @@ export default function BottomSheet() {
 ## `BottomSheetProps`
 
 `BottomSheetProps` is the extension of `BottomSheetCoreProps`, and it lets you customize the bottom sheet's style, and behavior.  
-You can also imperatively control the bottom sheet using its `ref` prop. We will explain more on that later on this page.
+You can also imperatively control the bottom sheet using its `instance`. We will explain more on that later on this page.
 
 ### Behavior
 
@@ -63,13 +63,15 @@ You can also imperatively control the bottom sheet using its `ref` prop. We will
   Optional. Function called before the bottom sheet opens.
 
 - **`afterOpen?: () => void`**  
-  Optional. Function called after the bottom sheet opens.
+  Optional. Function called after the bottom sheet opens.  
+  When using `useBottomSheet`, pass `afterOpen` to the hook instead of `BottomSheet` so the hook can manage `isOpen` state for you.
 
 - **`beforeClose?: () => void`**  
   Optional. Function called before the bottom sheet closes.
 
 - **`afterClose?: () => void`**  
-  Optional. Function called after the bottom sheet closes.
+  Optional. Function called after the bottom sheet closes.  
+  When using `useBottomSheet`, pass `afterClose` to the hook instead of `BottomSheet` so the hook can manage `isOpen` state for you.
 
 - **`onDragStart?: () => void`**  
   Optional. Function called when dragging starts.
@@ -124,7 +126,9 @@ You can also imperatively control the bottom sheet using its `ref` prop. We will
 ### Animation
 
 - **`draggingAnimationTimings?: CommonAnimation | AnimationTimingPoints | null`**  
-  Optional. Specifies the animation timings using a common preset or cubic Bezier curve points.
+  Optional. Specifies the animation timings using a common preset(ease, ease-in-out, spring, etc)  
+  or cubic Bezier curve points expressed as an object.  
+  It defaults to `ease`, which is the default iOS animation timing function.
 
 - **`draggingAnimationDuration?: number`**  
   Optional. Duration of the dragging animation in milliseconds.
