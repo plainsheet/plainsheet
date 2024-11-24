@@ -28,10 +28,10 @@ export default function Example() {
         <ChakraLink colorPalette="blue" asChild>
           <Link href={"/getters"}>Getters</Link>
         </ChakraLink>
-        {/* <ChakraLink colorPalette="blue" asChild>
+        <ChakraLink colorPalette="blue" asChild>
           <Link href={"/life-cycle-callbacks"}>Life Cycle Callbacks</Link>
         </ChakraLink>
-        <ChakraLink colorPalette="blue" asChild>
+        {/* <ChakraLink colorPalette="blue" asChild>
           <Link href={"/mutable-props"}>Mutable Props</Link>
         </ChakraLink> */}
       </VStack>

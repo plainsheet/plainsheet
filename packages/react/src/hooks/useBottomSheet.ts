@@ -2,14 +2,20 @@ import {
   BottomSheetCore,
   BottomSheetCoreProps,
   createPlaceholderBottomSheet,
+  DraggingDirection,
 } from "@plainsheet/core";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 const placeHolderSheet = createPlaceholderBottomSheet();
 
 interface UseBottomSheetProps {
+  onBeforeOpen?: BottomSheetCoreProps["beforeOpen"];
   onAfterOpen?: BottomSheetCoreProps["afterOpen"];
+  onBeforeClose?: BottomSheetCoreProps["beforeClose"];
   onAfterClose?: BottomSheetCoreProps["afterClose"];
+  onDragStart?: BottomSheetCoreProps["onDragStart"];
+  onDragMove?: BottomSheetCoreProps["onDragMove"];
+  onDragEnd?: BottomSheetCoreProps["onDragEnd"];
 }
 
 interface UseBottomSheetReturn {
@@ -27,15 +33,14 @@ interface UseBottomSheetReturn {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
-interface HookProvidedProps {
+
+interface HookProvidedProps extends Omit<BottomSheetCoreProps, "content"> {
   /**
    * `ref` of the BottomSheet component. Pass it to the component to use `instance`.
    */
   ref: React.MutableRefObject<BottomSheetCore>;
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  afterOpen: BottomSheetCoreProps["afterOpen"];
-  afterClose: BottomSheetCoreProps["afterClose"];
 }
 
 export function useBottomSheet(
@@ -49,15 +54,34 @@ export function useBottomSheet(
     setInstance(ref.current);
   }, [ref.current]);
 
+  const onBeforeOpen = () => {
+    props.onBeforeOpen?.();
+  };
+
   const onAfterOpen = () => {
     props.onAfterOpen?.();
-
     setIsOpen(true);
   };
+
+  const onBeforeClose = () => {
+    props.onBeforeClose?.();
+  };
+
   const onAfterClose = () => {
     props.onAfterClose?.();
-
     setIsOpen(false);
+  };
+
+  const onDragStart = () => {
+    props.onDragStart?.();
+  };
+
+  const onDragMove = (direction: DraggingDirection, progress: number) => {
+    props.onDragMove?.(direction, progress);
+  };
+
+  const onDragEnd = () => {
+    props.onDragEnd?.();
   };
 
   const hookProvidedProps = useMemo<HookProvidedProps>(() => {
@@ -65,10 +89,26 @@ export function useBottomSheet(
       ref,
       isOpen,
       setIsOpen,
+      beforeOpen: onBeforeOpen,
       afterOpen: onAfterOpen,
+      beforeClose: onBeforeClose,
       afterClose: onAfterClose,
+      onDragStart,
+      onDragMove,
+      onDragEnd,
     };
-  }, [ref.current, isOpen, setIsOpen, onAfterOpen, onAfterClose]);
+  }, [
+    ref.current,
+    isOpen,
+    setIsOpen,
+    onBeforeOpen,
+    onAfterOpen,
+    onBeforeClose,
+    onAfterClose,
+    onDragStart,
+    onDragMove,
+    onDragEnd,
+  ]);
 
   return {
     props: hookProvidedProps,
