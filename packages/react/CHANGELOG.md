@@ -1,5 +1,13 @@
 # @plainsheet/react-plain-bottom-sheet
 
+## 0.4.5
+
+### Patch Changes
+
+- 8b1af49: feat(core): make the draggable reactive
+- Updated dependencies [8b1af49]
+  - @plainsheet/core@0.7.5
+
 ## 0.4.4
 
 ### Patch Changes
