@@ -10,6 +10,9 @@ npm install @plainsheet/react
 
 ## Getting Started
 
+Call the `useBottomSheet` and pass the props to the `BottomSheet`.  
+It's that simple, and you have a full control over the bottom sheet via the `instance` and `props`.
+
 ### Using NPM
 
 ```ts copy
@@ -17,20 +20,19 @@ import { useState } from "react";
 import { BottomSheet } from "@plainsheet/react";
 
 export default function Home() {
-  const [isOpen, setIsOpen] = useState(false);
+  const bottomSheet = useBottomSheet();
 
   return (
     <section>
-      <button
-        onClick={() => {
-          setIsOpen(true);
-        }}
+      <BottomSheet
+        {...bottomSheet.props}
       >
-        Open
-      </button>
-      <BottomSheet isOpen={isOpen} setIsOpen={setIsOpen}>
         Your content goes here
       </BottomSheet>
+
+      <button onClick={bottomSheet.instance.open}>
+        Open
+      </button>
     </section>
   );
 }

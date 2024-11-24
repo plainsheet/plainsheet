@@ -59,7 +59,7 @@ Without any configs.
 ## Philosophy
 
 As the name suggests, we strive to make the plain bottom sheet minimalistic yet feature-rich and highly configurable.  
-We try our best to write concise, well-tested, and maintainable code to achieve this goal.
+To achieve this goal, we try our best to write concise, well-tested, and maintainable code.
 
 ## Support the project 🤍
 
