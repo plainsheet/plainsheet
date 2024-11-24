@@ -1,5 +1,11 @@
 # plain-bottom-sheet-core
 
+## 0.7.4
+
+### Patch Changes
+
+- 11657e8: Feat: Nextjs examples - Mutable props
+
 ## 0.7.3
 
 ### Patch Changes
