@@ -1,5 +1,13 @@
 # @plainsheet/react-plain-bottom-sheet
 
+## 0.4.2
+
+### Patch Changes
+
+- dd3122b: Fix: closeOnUutsideClick should close the bottom sheet only when it is open
+- Updated dependencies [dd3122b]
+  - @plainsheet/core@0.7.2
+
 ## 0.4.1
 
 ### Patch Changes
