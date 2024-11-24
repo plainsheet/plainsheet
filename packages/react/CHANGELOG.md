@@ -1,5 +1,13 @@
 # @plainsheet/react-plain-bottom-sheet
 
+## 0.4.4
+
+### Patch Changes
+
+- 11657e8: Feat: Nextjs examples - Mutable props
+- Updated dependencies [11657e8]
+  - @plainsheet/core@0.7.4
+
 ## 0.4.3
 
 ### Patch Changes
