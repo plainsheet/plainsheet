@@ -5,16 +5,19 @@
 
   width: 100%;
   height: 100%;
-  pointer-events: none;
+
   background-color: transparent;
 
   z-index: 1;
   transition: background-color 0.2s ease-out;
 }
 .pbs-backdrop.hidden {
-  display: none;
+  visibility: hidden;
 }
 
 .pbs-backdrop.open {
   background-color: #454545b3;
+}
+.pbs-backdrop.transparent {
+  background-color: transparent;
 }

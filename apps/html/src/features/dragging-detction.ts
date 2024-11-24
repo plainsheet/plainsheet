@@ -17,6 +17,7 @@ export function setupDraggingDetection() {
       ".dragging-detection > p",
     ],
     shouldShowBackdrop: false,
+    shouldCloseOnOutsideClick: true,
   });
 
   bottomSheet.mount();
