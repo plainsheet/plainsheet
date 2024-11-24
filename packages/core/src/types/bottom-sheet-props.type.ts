@@ -76,6 +76,13 @@ export interface BottomSheetCoreProps {
   contentWrapperClass?: string | null;
   backdropClass?: string | null;
 
+  // NOTE: Custom styles
+  rootStyle?: PartialCSSStyles;
+  containerStyle?: PartialCSSStyles;
+  handleStyle?: PartialCSSStyles;
+  contentWrapperStyle?: PartialCSSStyles;
+  backdropStyle?: PartialCSSStyles;
+
   // NOTE: Animation settings.
   /**
    * Common animation timing functions such as "ease-in-out", or
@@ -114,3 +121,5 @@ export type BottomSheetPosition =
  * defaults to [0.5]
  */
 export type SnapPoints = number[];
+
+export type PartialCSSStyles = Partial<CSSStyleDeclaration>;

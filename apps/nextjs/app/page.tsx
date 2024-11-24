@@ -22,9 +22,9 @@ export default function Example() {
         <ChakraLink colorPalette="blue" asChild>
           <Link href={"/mutable-props"}>Mutable Props</Link>
         </ChakraLink>
-        {/* <ChakraLink colorPalette="blue" asChild>
-          <Link href={"/css"}>Style</Link>
-        </ChakraLink> */}
+        <ChakraLink colorPalette="blue" asChild>
+          <Link href={"/style"}>Style</Link>
+        </ChakraLink>
         <ChakraLink colorPalette="blue" asChild>
           <Link href={"/animation"}>Animation</Link>
         </ChakraLink>

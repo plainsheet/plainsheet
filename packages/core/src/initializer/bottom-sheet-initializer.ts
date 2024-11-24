@@ -45,6 +45,7 @@ export function initializeBottomSheetElements(
   combineElements(elements);
 
   elements.bottomSheetContainer.style.width = props.width;
+
   // NOTE: Mounts the user-provided content to the content wrapper.
   const contentElement = document.createElement("div");
   // TODO: Sanitize the content
@@ -60,6 +61,26 @@ export function initializeBottomSheetElements(
     bottomSheetProps: props,
     options,
   });
+
+  // User-provided Styling
+  if (props.rootStyle) {
+    Object.assign(elements.bottomSheetRoot.style, props.rootStyle);
+  }
+  if (props.backdropStyle) {
+    Object.assign(elements.bottomSheetBackdrop.style, props.backdropStyle);
+  }
+  if (props.containerStyle) {
+    Object.assign(elements.bottomSheetContainer.style, props.containerStyle);
+  }
+  if (props.handleStyle) {
+    Object.assign(elements.bottomSheetHandleBar.style, props.handleStyle);
+  }
+  if (props.contentWrapperStyle) {
+    Object.assign(
+      elements.bottomSheetContentWrapper.style,
+      props.contentWrapperStyle
+    );
+  }
 
   return { elements, eventHandlers };
 }
