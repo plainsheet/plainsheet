@@ -201,6 +201,7 @@ function initializeEvents({
     bottomSheetHandle,
     bottomSheetContainerGapFiller,
     bottomSheetContentWrapper,
+    bottomSheetBackdrop,
   } = bottomSheetElements;
   const { animationFrame } = options;
 
@@ -340,12 +341,12 @@ function initializeEvents({
 
   function attacheOnOpenEventListeners(): void {
     if (bottomSheetProps.shouldCloseOnOutsideClick) {
-      window.document.addEventListener("click", handleWindowClick);
+      bottomSheetBackdrop.addEventListener("click", handleWindowClick);
     }
   }
 
   function clearOnOpenEventListeners(): void {
-    window.document.removeEventListener("click", handleWindowClick);
+    bottomSheetBackdrop.removeEventListener("click", handleWindowClick);
   }
 
   function findLastFocusableElement(el: Element): ChildNode | undefined | null {

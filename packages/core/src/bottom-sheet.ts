@@ -36,6 +36,8 @@ import {
   overwriteDefaultProps,
 } from "./initializer/bottom-sheet-props-initializer";
 import { isNumber } from "./utils/types/is-number";
+import { addClassName, mergeClassNames } from "./utils/dom/class-names";
+import { ClassNames } from "./class-names";
 
 export function createBottomSheet(
   props: BottomSheetCoreProps
@@ -140,9 +142,11 @@ export function createBottomSheet(
       return;
     }
 
-    if (observedProps.shouldShowBackdrop) {
-      setVisibility(bottomSheetBackdrop, true);
+    setVisibility(bottomSheetBackdrop, true);
+    if (!observedProps.shouldShowBackdrop) {
+      addClassName(bottomSheetBackdrop, "transparent");
     }
+
     setVisibility([bottomSheetContainer], true);
     // NOTE: Resets the position to the bottom of the viewport
     // Because it was pushed 100vh down below the viewport when it is mounted,
@@ -201,6 +205,7 @@ export function createBottomSheet(
       onEnd: () => {
         props.afterClose?.();
         setVisibility([bottomSheetBackdrop, bottomSheetContainer], false);
+
         eventHandlers.clearOnOpenEventListeners();
       },
     });
