@@ -23,6 +23,7 @@ import { cubicBezier } from "../utils/animation/cubic-bezier";
 import { exists } from "../utils/types/exists";
 import { BOTTOM_SHEET_DEFAULT_PROPS } from "./bottom-sheet-defaults";
 import type { BottomSheetElements } from "./bottom-sheet-initializer";
+import { initializeBorderRadius } from "./style/style-initializer";
 
 export function overwriteDefaultProps(
   props: BottomSheetCoreProps
@@ -96,7 +97,8 @@ export function createPropSetHandler(
         break;
       case "containerBorderRadius":
         if (isString(value)) {
-          elements.bottomSheetContainer.style.borderRadius = value;
+          elements.bottomSheetContainer.style.borderRadius =
+            initializeBorderRadius(value);
         }
         break;
       case "backdropColor":

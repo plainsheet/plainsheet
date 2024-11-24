@@ -19,7 +19,7 @@ export default function LifeCycleHooksExamplePage() {
   );
 }
 
-export function LifeCycleHooksExamples() {
+function LifeCycleHooksExamples() {
   const logsContainerRef = useRef<HTMLDivElement | null>(null);
 
   const [logs, setLogs] = useState<string[]>([]);
@@ -38,10 +38,10 @@ export function LifeCycleHooksExamples() {
   };
 
   const bottomSheet = useBottomSheet({
-    onBeforeOpen: () => logEvent("beforeOpen"),
-    onAfterOpen: () => logEvent("afterOpen"),
-    onBeforeClose: () => logEvent("beforeClose: Bottom sheet is"),
-    onAfterClose: () => logEvent("afterClose"),
+    beforeOpen: () => logEvent("beforeOpen"),
+    afterOpen: () => logEvent("afterOpen"),
+    beforeClose: () => logEvent("beforeClose: Bottom sheet is"),
+    afterClose: () => logEvent("afterClose"),
     onDragStart: () => logEvent("onDragStart"),
     onDragMove: (direction, progress) =>
       logEvent(

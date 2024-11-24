@@ -33,7 +33,7 @@ export default function CommandsExamplePage() {
   );
 }
 
-export function CustomMountingPointExample() {
+function CustomMountingPointExample() {
   const mountingPointRef = useRef();
   const customMountingPointBottomSheet = useBottomSheet();
 
@@ -86,7 +86,7 @@ export function CustomMountingPointExample() {
 }
 
 type Unit = "px" | "percent";
-export function MoveToExample() {
+function MoveToExample() {
   const bottomSheet = useBottomSheet();
   const [whereToMove, setWhereToMove] = useState("100");
   const [unit, setUnit] = useState<Unit>("px");

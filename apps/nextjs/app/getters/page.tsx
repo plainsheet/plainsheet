@@ -19,7 +19,7 @@ export default function GettersExamplePage() {
   );
 }
 
-export function GettersExample() {
+function GettersExample() {
   const bottomSheet = useBottomSheet();
 
   return (

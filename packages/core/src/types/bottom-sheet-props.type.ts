@@ -61,7 +61,11 @@ export interface BottomSheetCoreProps {
   // NOTE: Appearance settings.
   shouldShowHandle?: boolean;
   shouldShowBackdrop?: boolean;
-  containerBorderRadius?: CSSUnit | null;
+  /**
+   * Border radius will be applied to the upper vertices.
+   * ex) If it is 10px, border radius becomes `10px 10px 0px 0px`
+   */
+  containerBorderRadius?: CSSUnit | string | null;
   backdropColor?: CSSColor | string | null;
   backDropTransition?: string | null;
 
@@ -78,12 +82,17 @@ export interface BottomSheetCoreProps {
    * an object {p1x: number, p1y: number, p2x: number, p2y: number} that describes the timing of animations as a Bezier curve.
    * @see https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timing-function
    */
-  draggingAnimationTimings?: CommonAnimation | AnimationTimingPoints | null;
+  draggingAnimationTimings?: DraggingAnimationTimings;
+
   /**
    * In milliseconds.
    */
   draggingAnimationDuration?: number;
 }
+export type DraggingAnimationTimings =
+  | CommonAnimation
+  | AnimationTimingPoints
+  | null;
 
 export const BOTTOM_SHEET_POSITION = {
   TOP: "top",
@@ -92,6 +101,9 @@ export const BOTTOM_SHEET_POSITION = {
   CLOSED: "closed",
 } as const;
 
+/**
+ *  "top" | "middle" | "content-height" | "closed"
+ */
 export type BottomSheetPosition =
   (typeof BOTTOM_SHEET_POSITION)[keyof typeof BOTTOM_SHEET_POSITION];
 
