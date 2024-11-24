@@ -17,23 +17,23 @@ export default function Example() {
       </Heading>
       <VStack justify={"center"} height={"fit-content"}>
         <ChakraLink colorPalette="blue" asChild>
-          <Link href={"/animation"}>Animation</Link>
+          <Link href={"/commands"}>Commands</Link>
         </ChakraLink>
         <ChakraLink colorPalette="blue" asChild>
-          <Link href={"/commands"}>Commands</Link>
+          <Link href={"/mutable-props"}>Mutable Props</Link>
         </ChakraLink>
         {/* <ChakraLink colorPalette="blue" asChild>
           <Link href={"/css"}>Style</Link>
         </ChakraLink> */}
+        <ChakraLink colorPalette="blue" asChild>
+          <Link href={"/animation"}>Animation</Link>
+        </ChakraLink>
         <ChakraLink colorPalette="blue" asChild>
           <Link href={"/getters"}>Getters</Link>
         </ChakraLink>
         <ChakraLink colorPalette="blue" asChild>
           <Link href={"/life-cycle-callbacks"}>Life Cycle Callbacks</Link>
         </ChakraLink>
-        {/* <ChakraLink colorPalette="blue" asChild>
-          <Link href={"/mutable-props"}>Mutable Props</Link>
-        </ChakraLink> */}
       </VStack>
     </VStack>
   );

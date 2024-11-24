@@ -33,7 +33,7 @@ export default function CommandsExamplePage() {
   );
 }
 
-export function CustomMountingPointExample() {
+function CustomMountingPointExample() {
   const mountingPointRef = useRef();
   const customMountingPointBottomSheet = useBottomSheet();
 
