@@ -13,16 +13,15 @@ import { useState } from "react";
 import { BottomSheet } from "@plainsheet/react";
 
 export default function Home() {
-  const bottomSheet = useBottomSheet();
+  const bottomSheet = useBottomSheet({
+    props: {
+      // `BottomSheetCore` props
+    },
+  });
 
   return (
     <section>
-      <BottomSheet
-        {...bottomSheet.props}
-        // Other props
-      >
-        Your content goes here
-      </BottomSheet>
+      <BottomSheet {...bottomSheet.props}>Your content goes here</BottomSheet>
 
       <button onClick={bottomSheet.instance.open}>Open</button>
     </section>
@@ -169,7 +168,11 @@ import {
 } from "@plainsheet/react";
 
 export default function Home() {
-  const bottomSheet = useBottomSheet();
+  const bottomSheet = useBottomSheet({
+    props: {
+      // `BottomSheetCore` props
+    },
+  });
 
   return (
     <section>

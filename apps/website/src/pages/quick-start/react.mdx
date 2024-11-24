@@ -20,7 +20,11 @@ import { useState } from "react";
 import { BottomSheet } from "@plainsheet/react";
 
 export default function Home() {
-  const bottomSheet = useBottomSheet();
+  const bottomSheet = useBottomSheet({
+    props: {
+      // `BottomSheetCore` props
+    }
+  });
 
   return (
     <section>
