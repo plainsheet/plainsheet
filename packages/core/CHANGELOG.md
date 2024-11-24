@@ -1,5 +1,11 @@
 # plain-bottom-sheet-core
 
+## 0.7.3
+
+### Patch Changes
+
+- b32460b: Fix: shouldCloseOnOutside should not break the open method
+
 ## 0.7.2
 
 ### Patch Changes

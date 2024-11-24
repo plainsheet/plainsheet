@@ -1,5 +1,13 @@
 # @plainsheet/react-plain-bottom-sheet
 
+## 0.4.3
+
+### Patch Changes
+
+- b32460b: Fix: shouldCloseOnOutside should not break the open method
+- Updated dependencies [b32460b]
+  - @plainsheet/core@0.7.3
+
 ## 0.4.2
 
 ### Patch Changes
