@@ -197,6 +197,46 @@ export function createPropSetHandler(
           bottomSheetState.translateContainer = translateContainer;
         }
         break;
+      case "rootStyle":
+        if (propsWithDefaults.rootStyle) {
+          Object.assign(
+            elements.bottomSheetRoot.style,
+            propsWithDefaults.rootStyle
+          );
+        }
+        break;
+      case "backdropStyle":
+        if (propsWithDefaults.backdropStyle) {
+          Object.assign(
+            elements.bottomSheetBackdrop.style,
+            propsWithDefaults.backdropStyle
+          );
+        }
+        break;
+      case "containerStyle":
+        if (propsWithDefaults.containerStyle) {
+          Object.assign(
+            elements.bottomSheetContainer.style,
+            propsWithDefaults.containerStyle
+          );
+        }
+        break;
+      case "handleStyle":
+        if (propsWithDefaults.handleStyle) {
+          Object.assign(
+            elements.bottomSheetHandleBar.style,
+            propsWithDefaults.handleStyle
+          );
+        }
+        break;
+      case "contentWrapperStyle":
+        if (propsWithDefaults.contentWrapperStyle) {
+          Object.assign(
+            elements.bottomSheetContentWrapper.style,
+            propsWithDefaults.contentWrapperStyle
+          );
+        }
+        break;
       default:
         break;
     }

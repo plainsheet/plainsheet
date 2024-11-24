@@ -40,7 +40,7 @@ function LifeCycleHooksExamples() {
   const bottomSheet = useBottomSheet({
     beforeOpen: () => logEvent("beforeOpen"),
     afterOpen: () => logEvent("afterOpen"),
-    beforeClose: () => logEvent("beforeClose: Bottom sheet is"),
+    beforeClose: () => logEvent("beforeClose"),
     afterClose: () => logEvent("afterClose"),
     onDragStart: () => logEvent("onDragStart"),
     onDragMove: (direction, progress) =>
