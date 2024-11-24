@@ -22,7 +22,10 @@ import type { ObserverSetHandler } from "src/utils/proxy/observe";
 import { cubicBezier } from "../utils/animation/cubic-bezier";
 import { exists } from "../utils/types/exists";
 import { BOTTOM_SHEET_DEFAULT_PROPS } from "./bottom-sheet-defaults";
-import type { BottomSheetElements } from "./bottom-sheet-initializer";
+import type {
+  BottomSheetElements,
+  InitializeEventsReturnType,
+} from "./bottom-sheet-initializer";
 import { initializeBorderRadius } from "./style/style-initializer";
 
 export function overwriteDefaultProps(
@@ -70,7 +73,8 @@ export function interpretAnimationTimingsProp(
 export function createPropSetHandler(
   elements: BottomSheetElements,
   bottomSheetState: BottomSheetState,
-  propsWithDefaults: Required<BottomSheetCoreProps>
+  propsWithDefaults: Required<BottomSheetCoreProps>,
+  eventHandlers: InitializeEventsReturnType
 ): ObserverSetHandler {
   function handlePropSet(property: string | symbol, value: unknown): void {
     switch (property) {
@@ -160,6 +164,14 @@ export function createPropSetHandler(
           propsWithDefaults.backdropClass,
           value
         );
+        break;
+      case "expandable":
+        eventHandlers.clearEventListeners();
+        eventHandlers.attachEventListeners(propsWithDefaults);
+        break;
+      case "draggable":
+        eventHandlers.clearEventListeners();
+        eventHandlers.attachEventListeners(propsWithDefaults);
         break;
       case "draggingAnimationTimings":
         if (isAnimationTimingPoints(value)) {
