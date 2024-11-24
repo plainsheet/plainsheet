@@ -1,5 +1,13 @@
 # @plainsheet/react-plain-bottom-sheet
 
+## 0.4.6
+
+### Patch Changes
+
+- 890a1f4: feat(core): style customization feature
+- Updated dependencies [890a1f4]
+  - @plainsheet/core@0.7.6
+
 ## 0.4.5
 
 ### Patch Changes
