@@ -36,8 +36,7 @@ import {
   overwriteDefaultProps,
 } from "./initializer/bottom-sheet-props-initializer";
 import { isNumber } from "./utils/types/is-number";
-import { addClassName, mergeClassNames } from "./utils/dom/class-names";
-import { ClassNames } from "./class-names";
+import { addClassName } from "./utils/dom/class-names";
 
 export function createBottomSheet(
   props: BottomSheetCoreProps
@@ -97,7 +96,12 @@ export function createBottomSheet(
 
   const observedProps = observe(
     propsWithDefaults,
-    createPropSetHandler(elements, bottomSheetState, propsWithDefaults)
+    createPropSetHandler(
+      elements,
+      bottomSheetState,
+      propsWithDefaults,
+      eventHandlers
+    )
   );
 
   const { bottomSheetBackdrop, bottomSheetRoot, bottomSheetContainer } =

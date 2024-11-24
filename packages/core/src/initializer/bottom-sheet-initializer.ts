@@ -186,8 +186,10 @@ export interface InitializeEventsParams {
   options: InitializerOptions;
 }
 
-interface InitializeEventsReturnType {
-  attachEventListeners: () => void;
+export interface InitializeEventsReturnType {
+  attachEventListeners: (
+    updatedProps?: InitializeEventsParams["bottomSheetProps"]
+  ) => void;
   clearEventListeners: () => void;
   attacheOnOpenEventListeners: () => void;
   clearOnOpenEventListeners: () => void;
@@ -282,8 +284,12 @@ function initializeEvents({
     );
   }
 
-  function attachEventListeners(): void {
-    if (bottomSheetProps.draggable) {
+  function attachEventListeners(
+    updatedProps?: InitializeEventsParams["bottomSheetProps"]
+  ): void {
+    const propsForEventHandlers = updatedProps ?? bottomSheetProps;
+
+    if (propsForEventHandlers.draggable) {
       handleEventListener.addEventListeners({
         onStart: handleDragTriggerClickWithDragState,
       });
@@ -296,7 +302,10 @@ function initializeEvents({
         });
       });
     }
-    if (bottomSheetProps.draggable && bottomSheetProps.backgroundDraggable) {
+    if (
+      propsForEventHandlers.draggable &&
+      propsForEventHandlers.backgroundDraggable
+    ) {
       contentsWrapperEventListener.addEventListeners({
         onStart: handleDragTriggerClickWithDragState,
         onStartOptions: {
@@ -308,14 +317,14 @@ function initializeEvents({
       });
     }
 
-    if (bottomSheetProps.draggable) {
+    if (propsForEventHandlers.draggable) {
       windowEventListener.addEventListeners({
         onStart: onDragStart,
         onMove: onDragMove,
         onEnd: onDragEnd,
       });
     }
-    if (bottomSheetProps.draggable) {
+    if (propsForEventHandlers.draggable) {
       window.document.addEventListener("keyup", (e) => {
         if (e.key === "Escape") {
           options.onClose();
