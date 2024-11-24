@@ -1,5 +1,11 @@
 # plain-bottom-sheet-core
 
+## 0.7.5
+
+### Patch Changes
+
+- 8b1af49: feat(core): make the draggable reactive
+
 ## 0.7.4
 
 ### Patch Changes
