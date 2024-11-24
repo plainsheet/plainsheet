@@ -21,6 +21,7 @@ import type {
 import { TabEventListener } from "../utils/event-listeners/TabEventListener";
 import { EventPhase } from "../utils/event-listeners/EventPhase";
 import type { BottomSheetCoreProps } from "../types/bottom-sheet-props.type";
+import { initializeBorderRadius } from "./style/style-initializer";
 
 export interface InitializerOptions {
   animationFrame: AnimationFrame;
@@ -93,8 +94,9 @@ function createElements(
     ClassNames.Container
   );
   if (bottomSheetProps.containerBorderRadius) {
-    bottomSheetContainer.style.borderRadius =
-      bottomSheetProps.containerBorderRadius;
+    bottomSheetContainer.style.borderRadius = initializeBorderRadius(
+      bottomSheetProps.containerBorderRadius
+    );
   }
 
   const bottomSheetContainerGapFiller = createElement(
@@ -342,6 +344,8 @@ function initializeEvents({
   function attacheOnOpenEventListeners(): void {
     if (bottomSheetProps.shouldCloseOnOutsideClick) {
       bottomSheetBackdrop.addEventListener("click", handleWindowClick);
+    } else {
+      bottomSheetBackdrop.style.pointerEvents = "none";
     }
   }
 

@@ -8,15 +8,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 
 const placeHolderSheet = createPlaceholderBottomSheet();
 
-interface UseBottomSheetProps {
-  onBeforeOpen?: BottomSheetCoreProps["beforeOpen"];
-  onAfterOpen?: BottomSheetCoreProps["afterOpen"];
-  onBeforeClose?: BottomSheetCoreProps["beforeClose"];
-  onAfterClose?: BottomSheetCoreProps["afterClose"];
-  onDragStart?: BottomSheetCoreProps["onDragStart"];
-  onDragMove?: BottomSheetCoreProps["onDragMove"];
-  onDragEnd?: BottomSheetCoreProps["onDragEnd"];
-}
+interface UseBottomSheetProps extends Omit<BottomSheetCoreProps, "content"> {}
 
 interface UseBottomSheetReturn {
   /**
@@ -34,7 +26,7 @@ interface UseBottomSheetReturn {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-interface HookProvidedProps extends Omit<BottomSheetCoreProps, "content"> {
+interface HookProvidedProps extends UseBottomSheetProps {
   /**
    * `ref` of the BottomSheet component. Pass it to the component to use `instance`.
    */
@@ -54,34 +46,47 @@ export function useBottomSheet(
     setInstance(ref.current);
   }, [ref.current]);
 
-  const onBeforeOpen = () => {
-    props.onBeforeOpen?.();
+  const {
+    beforeOpen: beforeOpenProp,
+    afterOpen: afterOpenProp,
+    beforeClose: beforeCloseProp,
+    afterClose: afterCloseProp,
+    onDragStart: onDragStartProp,
+    onDragMove: onDragMoveProp,
+    onDragEnd: onDragEndProp,
+    ...restCoreProps
+  } = props;
+
+  const beforeOpen = () => {
+    beforeOpenProp?.();
   };
 
-  const onAfterOpen = () => {
-    props.onAfterOpen?.();
+  const afterOpen = () => {
+    afterOpenProp?.();
+
     setIsOpen(true);
   };
 
-  const onBeforeClose = () => {
-    props.onBeforeClose?.();
+  const beforeClose = () => {
+    beforeCloseProp?.();
   };
 
-  const onAfterClose = () => {
-    props.onAfterClose?.();
+  const afterClose = () => {
+    afterCloseProp?.();
+
     setIsOpen(false);
   };
 
   const onDragStart = () => {
-    props.onDragStart?.();
+    onDragStartProp?.();
   };
 
   const onDragMove = (direction: DraggingDirection, progress: number) => {
-    props.onDragMove?.(direction, progress);
+    onDragMoveProp?.(direction, progress);
   };
 
   const onDragEnd = () => {
-    props.onDragEnd?.();
+    onDragEndProp?.();
   };
 
   const hookProvidedProps = useMemo<HookProvidedProps>(() => {
@@ -89,26 +94,16 @@ export function useBottomSheet(
       ref,
       isOpen,
       setIsOpen,
-      beforeOpen: onBeforeOpen,
-      afterOpen: onAfterOpen,
-      beforeClose: onBeforeClose,
-      afterClose: onAfterClose,
+      beforeOpen,
+      afterOpen,
+      beforeClose,
+      afterClose,
       onDragStart,
       onDragMove,
       onDragEnd,
+      ...restCoreProps,
     };
-  }, [
-    ref.current,
-    isOpen,
-    setIsOpen,
-    onBeforeOpen,
-    onAfterOpen,
-    onBeforeClose,
-    onAfterClose,
-    onDragStart,
-    onDragMove,
-    onDragEnd,
-  ]);
+  }, [ref.current, isOpen, setIsOpen, props]);
 
   return {
     props: hookProvidedProps,
