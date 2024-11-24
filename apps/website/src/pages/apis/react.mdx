@@ -12,18 +12,19 @@ BottomSheet: (props: BottomSheetProps) => ReactNode;
 import { useState } from "react";
 import { BottomSheet } from "@plainsheet/react";
 
-export default function BottomSheet() {
+export default function Home() {
   const bottomSheet = useBottomSheet();
 
   return (
     <section>
-      <button onClick={() => setIsOpen(true)}>Open</button>
       <BottomSheet
         {...bottomSheet.props}
         // Other props
       >
-        Your contents
+        Your content goes here
       </BottomSheet>
+
+      <button onClick={bottomSheet.instance.open}>Open</button>
     </section>
   );
 }
@@ -31,25 +32,32 @@ export default function BottomSheet() {
 
 ## `BottomSheetProps`
 
-`BottomSheetProps` is the extension of `BottomSheetCoreProps`, and it lets you customize the bottom sheet's style, and behavior.  
-You can also imperatively control the bottom sheet using its `instance`. We will explain more on that later on this page.
+`BottomSheetProps` is the extension of `BottomSheetCoreProps`, that lets you customize the bottom sheet's style, and behavior.  
+You can also imperatively control the bottom sheet using its `instance`.  
+We will explain more on that later on this page.
 
 ### Behavior
 
-- **`defaultPosition?: BottomSheetPosition`**  
-  Optional. The initial position where the bottom sheet should appear.
+#### Closing
 
 - **`shouldCloseOnOutsideClick?: boolean`**  
   Optional. Determines if the bottom sheet should close when clicking outside of it.
 
-- **`snapPoints?: number[]`**  
-  Optional. [0.3, 0.8] will make the bottom sheet stop at 30% and 80% of the screen height, from the top.
+#### Positioning
 
-- **`expandable?: boolean`**  
-  Optional. If true, the bottom sheet can be dragged up above its content height. Default is `true`.
+- **`defaultPosition?: BottomSheetPosition`**  
+  Optional. The initial position where the bottom sheet should appear.
+
+#### Dragging
+
+- **`snapPoints?: number[]`**  
+  Optional. `[0.3, 0.8]` will make the bottom sheet stop at 30% and 80% of the screen height, from the top.
 
 - **`draggable?: boolean`**  
   Optional. If true, the bottom sheet can be dragged. Default is `true`.
+
+- **`expandable?: boolean`**  
+  Optional. If true, the bottom sheet can be dragged up above its content height. Default is `true`.
 
 - **`backgroundDraggable?: boolean`**  
   Optional. If true, the content's background can be dragged. Default is `true`.
@@ -58,6 +66,8 @@ You can also imperatively control the bottom sheet using its `instance`. We will
   Optional. Element selectors that will trigger dragging of the bottom sheet.
 
 ### Life Cycle Callback
+
+#### Closing
 
 - **`beforeOpen?: () => void`**  
   Optional. Function called before the bottom sheet opens.
@@ -73,6 +83,8 @@ You can also imperatively control the bottom sheet using its `instance`. We will
   Optional. Function called after the bottom sheet closes.  
   When using `useBottomSheet`, pass `afterClose` to the hook instead of `BottomSheet` so the hook can manage `isOpen` state for you.
 
+#### Dragging
+
 - **`onDragStart?: () => void`**  
   Optional. Function called when dragging starts.
 
@@ -85,22 +97,28 @@ You can also imperatively control the bottom sheet using its `instance`. We will
 - **`onDragEnd?: () => void`**  
   Optional. Function called when dragging ends.
 
+### Appearance
+
+#### Root
+
+- **`rootClass?: string | null`**  
+  Optional. Custom class for the root element of the bottom sheet.
+
+#### Dragging Handle
+
+- **`handleClass?: string | null`**  
+  Optional. Custom class for the handle element.
+
 - **`shouldShowHandle?: boolean`**  
   Optional. Determines if a handle should be shown at the top of the bottom sheet.
 
+#### Backdrop
+
+- **`backdropClass?: string | null`**  
+  Optional. Custom class for the backdrop element.
+
 - **`shouldShowBackdrop?: boolean`**  
   Optional. Determines if a backdrop is shown behind the bottom sheet.
-
-- **`containerBorderRadius?: CSSUnit | null`**  
-  Optional. Defines the border radius of the container.
-
-### Style
-
-- **`width?: string`**  
-  Optional. Specifies the width of the bottom sheet. Default is 100%.
-
-- **`marginTop?: number`**  
-  Optional. Space between the top of the bottom sheet and the viewport's top. Default is `20`.
 
 - **`backdropColor?: CSSColor | string | null`**  
   Optional. Sets the color of the backdrop.
@@ -108,20 +126,24 @@ You can also imperatively control the bottom sheet using its `instance`. We will
 - **`backDropTransition?: string | null`**  
   Optional. Defines the transition for the backdrop appearance.
 
-- **`rootClass?: string | null`**  
-  Optional. Custom class for the root element of the bottom sheet.
+#### Container
 
 - **`containerClass?: string | null`**  
   Optional. Custom class for the container element.
 
-- **`handleClass?: string | null`**  
-  Optional. Custom class for the handle element.
+- **`containerBorderRadius?: CSSUnit | null`**  
+  Optional. Defines the border radius of the container.
+
+- **`width?: string`**  
+  Optional. Specifies the width of the bottom sheet. Default is 100%.
+
+- **`marginTop?: number`**  
+  Optional. Space between the top of the bottom sheet and the viewport's top. Default is `20`.
+
+#### Content Wrapper
 
 - **`contentWrapperClass?: string | null`**  
   Optional. Custom class for the content wrapper element.
-
-- **`backdropClass?: string | null`**  
-  Optional. Custom class for the backdrop element.
 
 ### Animation
 
@@ -154,7 +176,7 @@ export default function Home() {
       <button onClick={() => bottomSheet.instance.open()}>Open</button>
 
       <button onClick={() => bottomSheet.instance.snapTo(0.5)}>
-        Move to center
+        Move it to the center of the screen
       </button>
 
       <BottomSheet {...bottomSheet.props}>Your contents</BottomSheet>
@@ -171,7 +193,7 @@ export default function Home() {
 ### Commands
 
 - **`mount(mountingPoint?: Element): void`**  
-  Mounts the bottom sheet to the DOM or to a provided mounting point. If no mounting point is specified, it defaults to appending to the body.
+  Mounts the bottom sheet to the DOM or to a provided mounting point. If no mounting point is specified, it defaults to appending the bottom sheet to the body.
 
 - **`open(): void`**  
   Opens the bottom sheet, making it visible on the screen.
@@ -191,13 +213,14 @@ export default function Home() {
   Returns a boolean indicating whether the bottom sheet is currently mounted in the DOM.
 
 - **`getIsOpen(): boolean`**  
-  Returns a boolean indicating whether the bottom sheet is currently open.
+  Returns a boolean indicating whether the bottom sheet is currently open.  
+  When its closing animation is in-progress, the bottom sheet is still considered as open.
 
 - **`getIsClosed(): boolean`**  
   Returns a boolean indicating whether the bottom sheet is currently closed.
 
 - **`getPosition(): BottomSheetPosition`**  
-  Returns the current position of the bottom sheet within the viewport.
+  Returns the current position of the bottom sheet's top within the viewport.
 
 - **`getHeight(): number`**  
   Returns the current height of the bottom sheet.
