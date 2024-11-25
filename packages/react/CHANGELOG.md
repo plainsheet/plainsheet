@@ -1,5 +1,13 @@
 # @plainsheet/react-plain-bottom-sheet
 
+## 0.4.7
+
+### Patch Changes
+
+- b4de797: Feat: add descriptions for the style API, improve the useBottomSheet interface
+- Updated dependencies [b4de797]
+  - @plainsheet/core@0.7.7
+
 ## 0.4.6
 
 ### Patch Changes
