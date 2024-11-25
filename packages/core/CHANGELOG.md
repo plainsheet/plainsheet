@@ -1,5 +1,11 @@
 # plain-bottom-sheet-core
 
+## 0.7.6
+
+### Patch Changes
+
+- 890a1f4: feat(core): style customization feature
+
 ## 0.7.5
 
 ### Patch Changes
