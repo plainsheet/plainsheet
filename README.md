@@ -18,9 +18,7 @@
 
 The **minimalistic**, **configurable** bottom sheet for any web project.
 
-### [Check out our website](https://www.plainsheet.org//), for a quick start guide, APIs, examples, and more!
-
-## Why?
+### [Check out our website](https://www.plainsheet.org//), for a quick start guide, API, examples, and more!
 
 ### 🧩 Framework-agnostic
 

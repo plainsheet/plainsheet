@@ -3,7 +3,6 @@
 import { BottomSheet, useBottomSheet } from "@plainsheet/react";
 import {
   Box,
-  Grid,
   Heading,
   Highlight,
   Input,
@@ -18,18 +17,10 @@ import { Radio } from "@/components/ui/radio";
 
 export default function CommandsExamplePage() {
   return (
-    <Grid
-      width={"full"}
-      height={"full"}
-      padding={"8"}
-      gridTemplateColumns={"50% 50%"}
-      gridAutoRows={"50%"}
-      justifyContent={"center"}
-      gap="5px"
-    >
+    <VStack width={"full"} height={"full"} padding={"8"} gap="5px">
       <MoveToExample />
       <CustomMountingPointExample />
-    </Grid>
+    </VStack>
   );
 }
 
@@ -42,7 +33,7 @@ function CustomMountingPointExample() {
       backgroundColor={"whiteAlpha.300"}
       padding={6}
       borderRadius={5}
-      width="full"
+      width="90%"
       height={"fit-content"}
       justifyContent={"center"}
       gap="6"
@@ -50,35 +41,34 @@ function CustomMountingPointExample() {
       <Heading size={"xl"}>Custom mounting point</Heading>
 
       <Box
-        background={"blue.100"}
         borderRadius={4}
         ref={mountingPointRef}
-        width={"full"}
+        width={"100%"}
         height={"full"}
         padding={4}
-        color={"black"}
+        color={"white"}
+        textAlign={"center"}
       >
         <Text>
+          Open the bottom sheet and inspect this element. <br />
           <Highlight
             query={"The bottom sheet is inside of it!"}
             styles={{ px: "0.5", bg: "blue.subtle", color: "blue.fg" }}
           >
-            Open the bottom sheet and inspect this element. The bottom sheet is
-            inside of it!
+            The bottom sheet is inside of it!
           </Highlight>
         </Text>
       </Box>
-      <VStack justifyContent={"center"} gap="6">
-        <Button onClick={() => customMountingPointBottomSheet.instance.open()}>
+
+      <VStack width="100%" justifyContent={"center"} gap="6">
+        <Button onClick={() => customMountingPointBottomSheet.open()}>
           Custom Mounting Point Example
         </Button>
         <BottomSheet
           {...customMountingPointBottomSheet.props}
           mountingPointRef={mountingPointRef}
         >
-          <ProductOptionsForm
-            onSubmit={customMountingPointBottomSheet.instance.open}
-          />
+          <ProductOptionsForm onSubmit={customMountingPointBottomSheet.open} />
         </BottomSheet>
       </VStack>
     </VStack>
@@ -91,12 +81,15 @@ function MoveToExample() {
   const [whereToMove, setWhereToMove] = useState("100");
   const [unit, setUnit] = useState<Unit>("px");
 
+  const formattedWhereToMove =
+    unit === "percent" ? Number(whereToMove) * 100 : whereToMove;
+
   return (
     <VStack
       backgroundColor={"whiteAlpha.300"}
       padding={6}
       borderRadius={5}
-      width="full"
+      width="90%"
       height={"fit-content"}
       justifyContent={"center"}
       gap="6"
@@ -104,7 +97,7 @@ function MoveToExample() {
       <VStack justifyContent={"center"} gap="6">
         <Heading size={"xl"}>Moving bottom sheet</Heading>
 
-        <Button onClick={() => bottomSheet.instance.open()}>Open</Button>
+        <Button onClick={() => bottomSheet.open()}>Open</Button>
 
         <BottomSheet {...bottomSheet.props}>
           <VStack
@@ -119,9 +112,9 @@ function MoveToExample() {
               }
 
               if (unit === "percent") {
-                bottomSheet.instance.snapTo(position);
+                bottomSheet.snapTo(position);
               } else {
-                bottomSheet.instance.moveTo(position);
+                bottomSheet.moveTo(position);
               }
             }}
           >
@@ -152,7 +145,7 @@ function MoveToExample() {
             />
 
             <Button type="submit">
-              Move it to {whereToMove} {unit}
+              Move it to {formattedWhereToMove} {unit}
             </Button>
           </VStack>
         </BottomSheet>

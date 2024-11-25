@@ -10,6 +10,7 @@ import {
   Box,
   createListCollection,
   HStack,
+  Highlight,
 } from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
 import {
@@ -28,13 +29,7 @@ import { Slider } from "@/components/ui/slider";
 
 export default function MutablePropsExamplePage() {
   return (
-    <VStack
-      width="full"
-      height="full"
-      padding="8"
-      justifyContent="center"
-      gap="5px"
-    >
+    <VStack width="full" padding="8" justifyContent="center" gap="5px">
       <MutablePropsExamples />
     </VStack>
   );
@@ -93,40 +88,53 @@ function MutablePropsExamples() {
   });
 
   return (
-    <HStack
+    <VStack
       backgroundColor={"transparent"}
       width={"full"}
-      alignItems={"flex-start"}
-      justifyContent={"space-between"}
+      alignItems={"center"}
+      justifyContent={"flex-start"}
     >
       <VStack
         backgroundColor={"whiteAlpha.300"}
-        width="fit-content"
-        borderRadius={5}
+        width="90%"
+        maxWidth={"80vw"}
+        height={"fit-content"}
         padding={6}
+        borderRadius={5}
         justifyContent="center"
         gap="6"
       >
-        <Heading size="xl">Mutable Props in Action</Heading>
-        <Button onClick={() => bottomSheet.instance.open()}>
-          Open Bottom Sheet
-        </Button>
-        <Button onClick={() => bottomSheet.instance.close()}>
-          Close Bottom Sheet
-        </Button>
+        <Heading size="xl">Mutable Props Example</Heading>
+        <Text whiteSpace={"pre-line"}>
+          <Highlight
+            query={"Mutable props are responsive states"}
+            styles={{ px: "0.5", bg: "blue.subtle", color: "blue.fg" }}
+          >
+            Mutable props are responsive states that update the bottom sheet
+            when they are changed.
+          </Highlight>
+          <br />
+          Change them using below controllers and see how the bottom sheet is
+          updated.
+        </Text>
+        <Button onClick={() => bottomSheet.open()}>Open Bottom Sheet</Button>
+        <Button onClick={() => bottomSheet.close()}>Close Bottom Sheet</Button>
       </VStack>
 
       <VStack
         backgroundColor={"whiteAlpha.300"}
-        width="content-fit"
+        width="90%"
+        maxWidth={"80vw"}
         height={"60vh"}
         padding={6}
         borderRadius={5}
         alignItems="start"
-        gap={4}
+        gap={8}
         overflowY={"scroll"}
       >
-        <Heading size="lg">Controllers</Heading>
+        <Heading size="xl" width="100%" textAlign={"center"}>
+          Controllers
+        </Heading>
         <Box>
           <Text>Default Position</Text>
           <VStack>
@@ -149,6 +157,7 @@ function MutablePropsExamples() {
             </SelectRoot>
           </VStack>
         </Box>
+
         <Checkbox
           checked={shouldCloseOnOutsideClick}
           onCheckedChange={(e) =>
@@ -296,7 +305,7 @@ function MutablePropsExamples() {
           ></iframe>
         </VStack>
       </BottomSheet>
-    </HStack>
+    </VStack>
   );
 }
 

@@ -35,7 +35,7 @@ function GettersExample() {
       <Heading size={"xl"}>
         See how getters change in response to events
       </Heading>
-      <Button onClick={() => bottomSheet.instance.open()}>Open it</Button>
+      <Button onClick={() => bottomSheet.open()}>Open it</Button>
       <Heading size={"md"}>
         isMounted: {BooleanIndicator(bottomSheet.instance.getIsMounted())}
       </Heading>

@@ -23,54 +23,54 @@ export default function AnimationsExamplePage() {
     <VStack height={"full"} justifyContent={"center"} gap="6">
       <VStack justifyContent={"center"} gap="6">
         <Heading size={"2xl"}>Common Animations</Heading>
-        <Button onClick={() => bottomSheetEase.instance.open()}>
+        <Button onClick={() => bottomSheetEase.open()}>
           Common Animation Timing - Ease
         </Button>
         <BottomSheet
           {...bottomSheetEase.props}
           draggingAnimationTimings={"ease"}
         >
-          <ProductOptionsForm onSubmit={bottomSheetEase.instance.open} />
+          <ProductOptionsForm onSubmit={bottomSheetEase.open} />
         </BottomSheet>
 
-        <Button onClick={() => bottomSheetEaseIn.instance.open()}>
+        <Button onClick={() => bottomSheetEaseIn.open()}>
           Common Animation Timing - Ease In
         </Button>
         <BottomSheet
           {...bottomSheetEaseIn.props}
           draggingAnimationTimings={"ease-in"}
         >
-          <ProductOptionsForm onSubmit={bottomSheetEaseIn.instance.open} />
+          <ProductOptionsForm onSubmit={bottomSheetEaseIn.open} />
         </BottomSheet>
 
-        <Button onClick={() => bottomSheetEaseOut.instance.open()}>
+        <Button onClick={() => bottomSheetEaseOut.open()}>
           Common Animation Timing - Ease Out
         </Button>
         <BottomSheet
           {...bottomSheetEaseOut.props}
           draggingAnimationTimings={"ease-out"}
         >
-          <ProductOptionsForm onSubmit={bottomSheetEaseOut.instance.open} />
+          <ProductOptionsForm onSubmit={bottomSheetEaseOut.open} />
         </BottomSheet>
 
-        <Button onClick={() => bottomSheetEaseInOut.instance.open()}>
+        <Button onClick={() => bottomSheetEaseInOut.open()}>
           Common Animation Timing - Ease In Out
         </Button>
         <BottomSheet
           {...bottomSheetEaseInOut.props}
           draggingAnimationTimings={"ease-in-out"}
         >
-          <ProductOptionsForm onSubmit={bottomSheetEaseInOut.instance.open} />
+          <ProductOptionsForm onSubmit={bottomSheetEaseInOut.open} />
         </BottomSheet>
 
-        <Button onClick={() => bottomSheetSpring.instance.open()}>
+        <Button onClick={() => bottomSheetSpring.open()}>
           Common Animation Timing - Spring
         </Button>
         <BottomSheet
           {...bottomSheetSpring.props}
           draggingAnimationTimings={"spring"}
         >
-          <ProductOptionsForm onSubmit={bottomSheetSpring.instance.open} />
+          <ProductOptionsForm onSubmit={bottomSheetSpring.open} />
         </BottomSheet>
       </VStack>
 
@@ -81,7 +81,7 @@ export default function AnimationsExamplePage() {
           onChange={(e) => setCustomAnimationTiming(e.target.value)}
           placeholder="ex) 0.45, 1.5, 0.55, 1.0"
         />
-        <Button onClick={() => bottomSheetCustom.instance.open()}>
+        <Button onClick={() => bottomSheetCustom.open()}>
           Custom Animation Timing
         </Button>
         <BottomSheet
@@ -93,7 +93,7 @@ export default function AnimationsExamplePage() {
             p2y,
           }}
         >
-          <ProductOptionsForm onSubmit={bottomSheetCustom.instance.open} />
+          <ProductOptionsForm onSubmit={bottomSheetCustom.open} />
         </BottomSheet>
       </VStack>
     </VStack>
