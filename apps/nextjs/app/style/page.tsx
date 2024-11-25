@@ -33,7 +33,7 @@ function StyleExample() {
       gap="6"
     >
       <Heading size={"xl"}>
-        See how you can style each element of the bottom sheet
+        Check out how you can style each element of the bottom sheet
       </Heading>
       <Button onClick={() => bottomSheet.instance.open()}>Open it</Button>
 

@@ -3,7 +3,6 @@
 import { BottomSheet, useBottomSheet } from "@plainsheet/react";
 import {
   Box,
-  Grid,
   Heading,
   Highlight,
   Input,
@@ -18,18 +17,10 @@ import { Radio } from "@/components/ui/radio";
 
 export default function CommandsExamplePage() {
   return (
-    <Grid
-      width={"full"}
-      height={"full"}
-      padding={"8"}
-      gridTemplateColumns={"50% 50%"}
-      gridAutoRows={"50%"}
-      justifyContent={"center"}
-      gap="5px"
-    >
+    <VStack width={"full"} height={"full"} padding={"8"} gap="5px">
       <MoveToExample />
       <CustomMountingPointExample />
-    </Grid>
+    </VStack>
   );
 }
 
@@ -68,6 +59,7 @@ function CustomMountingPointExample() {
           </Highlight>
         </Text>
       </Box>
+
       <VStack justifyContent={"center"} gap="6">
         <Button onClick={() => customMountingPointBottomSheet.instance.open()}>
           Custom Mounting Point Example
