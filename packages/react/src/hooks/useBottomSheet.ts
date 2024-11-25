@@ -4,7 +4,7 @@ import {
   createPlaceholderBottomSheet,
   DraggingDirection,
 } from "@plainsheet/core";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 const placeHolderSheet = createPlaceholderBottomSheet();
 
@@ -24,7 +24,13 @@ interface UseBottomSheetReturn {
    */
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  open: () => void;
+  close: () => void;
+  moveTo: MoveTo;
+  snapTo: SnapTo;
 }
+type MoveTo = (...params: Parameters<BottomSheetCore["moveTo"]>) => void;
+type SnapTo = (...params: Parameters<BottomSheetCore["snapTo"]>) => void;
 
 interface HookProvidedProps extends UseBottomSheetProps {
   /**
@@ -105,10 +111,34 @@ export function useBottomSheet(
     };
   }, [ref.current, isOpen, setIsOpen, props]);
 
+  const open = useCallback(() => {
+    setIsOpen(true);
+  }, [setIsOpen]);
+  const close = useCallback(() => {
+    setIsOpen(true);
+  }, [setIsOpen]);
+
+  const moveTo: MoveTo = useCallback(
+    (...params) => {
+      instance.moveTo(...params);
+    },
+    [instance]
+  );
+  const snapTo: SnapTo = useCallback(
+    (...params) => {
+      instance.snapTo(...params);
+    },
+    [instance]
+  );
+
   return {
     props: hookProvidedProps,
     instance,
     isOpen,
     setIsOpen,
+    open,
+    close,
+    moveTo,
+    snapTo,
   };
 }
