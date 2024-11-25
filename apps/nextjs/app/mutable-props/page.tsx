@@ -117,12 +117,8 @@ function MutablePropsExamples() {
           Change them using below controllers and see how the bottom sheet is
           updated.
         </Text>
-        <Button onClick={() => bottomSheet.instance.open()}>
-          Open Bottom Sheet
-        </Button>
-        <Button onClick={() => bottomSheet.instance.close()}>
-          Close Bottom Sheet
-        </Button>
+        <Button onClick={() => bottomSheet.open()}>Open Bottom Sheet</Button>
+        <Button onClick={() => bottomSheet.close()}>Close Bottom Sheet</Button>
       </VStack>
 
       <VStack

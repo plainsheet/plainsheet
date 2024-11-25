@@ -35,7 +35,7 @@ function StyleExample() {
       <Heading size={"xl"}>
         Check out how you can style each element of the bottom sheet
       </Heading>
-      <Button onClick={() => bottomSheet.instance.open()}>Open it</Button>
+      <Button onClick={() => bottomSheet.open()}>Open it</Button>
 
       <BottomSheet
         {...bottomSheet.props}

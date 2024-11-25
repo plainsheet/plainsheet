@@ -11,6 +11,7 @@ export default function Example() {
       height={"full"}
       padding={9}
       whiteSpace={"pre-line"}
+      margin="0 auto"
       justifyContent={"center"}
       gap="20px"
     >

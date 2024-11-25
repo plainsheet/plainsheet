@@ -60,12 +60,8 @@ function LifeCycleHooksExamples() {
       gap="6"
     >
       <Heading size="xl">Lifecycle Hooks in Action</Heading>
-      <Button onClick={() => bottomSheet.instance.open()}>
-        Open Bottom Sheet
-      </Button>
-      <Button onClick={() => bottomSheet.instance.close()}>
-        Close Bottom Sheet
-      </Button>
+      <Button onClick={() => bottomSheet.open()}>Open Bottom Sheet</Button>
+      <Button onClick={() => bottomSheet.close()}>Close Bottom Sheet</Button>
 
       <VStack
         ref={logsContainerRef}
