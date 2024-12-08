@@ -38,7 +38,7 @@ bottomSheet.open();
   Optional. The initial position where the bottom sheet should appear.
 
 - **`shouldCloseOnOutsideClick?: boolean`**  
-  Optional. Determines if the bottom sheet should close when clicking outside of it.
+  Optional. Determines if the bottom sheet should close when the outside is clicked
 
 - **`snapPoints?: number[]`**  
   Optional. [0.3, 0.8] will make the bottom sheet stop at 30% and 80% of the screen height, from the top.
@@ -82,13 +82,13 @@ bottomSheet.open();
   Optional. Function called when dragging ends.
 
 - **`shouldShowHandle?: boolean`**  
-  Optional. Determines if a handle should be shown at the top of the bottom sheet.
+  Optional. Determines if a handle should be shown.
 
 - **`shouldShowBackdrop?: boolean`**  
-  Optional. Determines if a backdrop is shown behind the bottom sheet.
+  Optional. Whether to show the backdrop or not.
 
 - **`containerBorderRadius?: CSSUnit | null`**  
-  Optional. Defines the border radius of the container.
+  Optional.
 
 ### Style
 
@@ -122,7 +122,9 @@ bottomSheet.open();
 ### Animation
 
 - **`draggingAnimationTimings?: CommonAnimation | AnimationTimingPoints | null`**  
-  Optional. Specifies the animation timings using a common preset or cubic Bezier curve points.
+  Optional. Specifies the animation timings using a common preset(ease, ease-in-out, spring, etc)  
+  or cubic Bezier curve points expressed as an object.  
+  It defaults to `ease`, which is the default iOS animation timing function.
 
 - **`draggingAnimationDuration?: number`**  
   Optional. Duration of the dragging animation in milliseconds.
@@ -147,7 +149,7 @@ bottomSheet.open();
 ### Mutable Properties
 
 - **`props: BottomSheetCoreProps`**  
-  Mutable properties that can be used to adjust the behavior of the Bottom Sheet on the fly.
+  Mutable properties to adjust the behavior of the Bottom Sheet on the fly.
 
 ### Commands
 
