@@ -1,5 +1,11 @@
 # plain-bottom-sheet-core
 
+## 0.7.7
+
+### Patch Changes
+
+- b4de797: Feat: add descriptions for the style API, improve the useBottomSheet interface
+
 ## 0.7.6
 
 ### Patch Changes
