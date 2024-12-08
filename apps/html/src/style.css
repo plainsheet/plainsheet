@@ -84,6 +84,23 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+#source-code-link {
+  background-color: #646cff;
+  color: white;
+
+  position: fixed;
+  left: 50%;
+  bottom: 5vh;
+
+  width: fit-content;
+  padding: 12px;
+  border-radius: 8px;
+  margin: 0 auto;
+
+  text-align: center;
+  transform: translateX(-50%);
+}
+
 .pbs-root {
   .pbs-container {
     padding: 0px 16px 16px 16px;

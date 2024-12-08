@@ -4,6 +4,7 @@ import { BottomSheet, useBottomSheet } from "@plainsheet/react";
 import { Heading, VStack } from "@chakra-ui/react";
 import { ProductOptionsForm } from "@/components/ecommerce-example/ProductOptionsForm";
 import { Button } from "@/components/ui/button";
+import { SourceCodeAlert } from "@/components/SourceCodeAlert";
 
 export default function StyleExamplePage() {
   return (
@@ -14,6 +15,7 @@ export default function StyleExamplePage() {
       justifyContent={"center"}
       gap="5px"
     >
+      <SourceCodeAlert link="https://github.com/plainsheet/plainsheet/blob/main/apps/nextjs/app/style/page.tsx" />
       <StyleExample />
     </VStack>
   );
@@ -24,7 +26,6 @@ function StyleExample() {
 
   return (
     <VStack
-      backgroundColor={"whiteAlpha.300"}
       padding={6}
       borderRadius={5}
       width="full"

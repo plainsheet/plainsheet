@@ -14,10 +14,19 @@ import { useRef, useState } from "react";
 import { ProductOptionsForm } from "@/components/ecommerce-example/ProductOptionsForm";
 import { Button } from "@/components/ui/button";
 import { Radio } from "@/components/ui/radio";
+import { SourceCodeAlert } from "@/components/SourceCodeAlert";
 
 export default function CommandsExamplePage() {
   return (
-    <VStack width={"full"} height={"full"} padding={"8"} gap="5px">
+    <VStack
+      width={"full"}
+      height={"full"}
+      padding={"8"}
+      justifyContent={"center"}
+      gap="5px"
+    >
+      <SourceCodeAlert link="https://github.com/plainsheet/plainsheet/blob/main/apps/nextjs/app/commands/page.tsx" />
+
       <MoveToExample />
       <CustomMountingPointExample />
     </VStack>

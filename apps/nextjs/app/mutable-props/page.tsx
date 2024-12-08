@@ -9,7 +9,6 @@ import {
   Input,
   Box,
   createListCollection,
-  HStack,
   Highlight,
 } from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
@@ -26,10 +25,18 @@ import {
   DraggingAnimationTimings,
 } from "@plainsheet/core";
 import { Slider } from "@/components/ui/slider";
+import { SourceCodeAlert } from "@/components/SourceCodeAlert";
 
 export default function MutablePropsExamplePage() {
   return (
-    <VStack width="full" padding="8" justifyContent="center" gap="5px">
+    <VStack
+      width="full"
+      padding="8"
+      justifyContent="center"
+      gap="5px"
+      paddingTop="8vh"
+    >
+      <SourceCodeAlert link="https://github.com/plainsheet/plainsheet/blob/main/apps/nextjs/app/mutable-props/page.tsx" />
       <MutablePropsExamples />
     </VStack>
   );
@@ -95,7 +102,6 @@ function MutablePropsExamples() {
       justifyContent={"flex-start"}
     >
       <VStack
-        backgroundColor={"whiteAlpha.300"}
         width="90%"
         maxWidth={"80vw"}
         height={"fit-content"}
@@ -118,7 +124,6 @@ function MutablePropsExamples() {
           updated.
         </Text>
         <Button onClick={() => bottomSheet.open()}>Open Bottom Sheet</Button>
-        <Button onClick={() => bottomSheet.close()}>Close Bottom Sheet</Button>
       </VStack>
 
       <VStack

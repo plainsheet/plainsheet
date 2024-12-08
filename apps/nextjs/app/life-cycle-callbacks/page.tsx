@@ -4,6 +4,7 @@ import { BottomSheet, useBottomSheet } from "@plainsheet/react";
 import { VStack, Heading, Text, Box } from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
 import { useRef, useState } from "react";
+import { SourceCodeAlert } from "@/components/SourceCodeAlert";
 
 export default function LifeCycleHooksExamplePage() {
   return (
@@ -14,6 +15,7 @@ export default function LifeCycleHooksExamplePage() {
       justifyContent="center"
       gap="5px"
     >
+      <SourceCodeAlert link="https://github.com/plainsheet/plainsheet/blob/main/apps/nextjs/app/life-cycle-callbacks/page.tsx" />
       <LifeCycleHooksExamples />
     </VStack>
   );
@@ -52,7 +54,6 @@ function LifeCycleHooksExamples() {
 
   return (
     <VStack
-      backgroundColor={"whiteAlpha.300"}
       padding={6}
       borderRadius={5}
       width="full"
@@ -61,47 +62,55 @@ function LifeCycleHooksExamples() {
     >
       <Heading size="xl">Lifecycle Hooks in Action</Heading>
       <Button onClick={() => bottomSheet.open()}>Open Bottom Sheet</Button>
-      <Button onClick={() => bottomSheet.close()}>Close Bottom Sheet</Button>
 
       <VStack
-        ref={logsContainerRef}
-        color="gray.800"
+        backgroundColor={"whiteAlpha.300"}
+        padding={6}
+        borderRadius={5}
         width="full"
-        height={"50vh"}
-        overflowY="auto"
-        backgroundColor="blue.100"
-        borderRadius="md"
-        padding="4"
-        marginTop="4"
-        boxShadow="sm"
+        justifyContent="center"
+        gap="6"
       >
-        <Box width={"fit-content"} minWidth={"1/4"}>
-          {logs.length > 0 ? (
-            logs.map((log, index) => (
-              <Text key={index} fontSize="sm">
-                {log}
-              </Text>
-            ))
-          ) : (
-            <Text fontSize="sm">Logs will appear here...</Text>
-          )}
-        </Box>
-      </VStack>
-
-      <BottomSheet {...bottomSheet.props}>
-        <VStack padding={6}>
-          <Heading size={"2xl"} color={"blackAlpha.900"}>
-            Oscar Peterson & Count Basie & Joe Pass 1980 - Words & Music
-          </Heading>
-          <iframe
-            src="https://www.youtube.com/embed/2HAZP7nWo6A"
-            width="560"
-            height="315"
-            title="A YouTube video"
-            allowFullScreen
-          />
+        <VStack
+          ref={logsContainerRef}
+          color="gray.800"
+          width="full"
+          height={"50vh"}
+          overflowY="auto"
+          backgroundColor="blue.100"
+          borderRadius="md"
+          padding="4"
+          marginTop="4"
+          boxShadow="sm"
+        >
+          <Box width={"fit-content"} minWidth={"1/4"}>
+            {logs.length > 0 ? (
+              logs.map((log, index) => (
+                <Text key={index} fontSize="sm">
+                  {log}
+                </Text>
+              ))
+            ) : (
+              <Text fontSize="sm">Logs will appear here...</Text>
+            )}
+          </Box>
         </VStack>
-      </BottomSheet>
+
+        <BottomSheet {...bottomSheet.props}>
+          <VStack padding={6}>
+            <Heading size={"2xl"} color={"blackAlpha.900"}>
+              Oscar Peterson & Count Basie & Joe Pass 1980 - Words & Music
+            </Heading>
+            <iframe
+              src="https://www.youtube.com/embed/2HAZP7nWo6A"
+              width="560"
+              height="315"
+              title="A YouTube video"
+              allowFullScreen
+            />
+          </VStack>
+        </BottomSheet>
+      </VStack>
     </VStack>
   );
 }
