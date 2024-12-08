@@ -16,6 +16,7 @@ export const SourceCodeAlert = ({ link }: { link: string }) => {
       icon={<LuTerminal />}
       position={"fixed"}
       top={"2vh"}
+      zIndex={10}
       width={"50%"}
       minWidth={"fit-content"}
     />
