@@ -10,6 +10,8 @@ We have [a project board](https://github.com/orgs/plainsheet/projects/2), which 
 Feel free to pick one and assign yourself to the item, and make a feature branch.  
 From there, you can start to develop the feature, and make a PR to the main branch.
 
+If you want to co-author with other collaborators, consider using [Coauthors](https://github.com/coauthors/coauthors)! it's a handy tool to add a co-author to your commits.
+
 ### Setting Up The Repository 💻
 
 1. Please install [NVM](https://github.com/nvm-sh/nvm?tab=readme-ov-file#installing-and-updating), if you haven't yet.

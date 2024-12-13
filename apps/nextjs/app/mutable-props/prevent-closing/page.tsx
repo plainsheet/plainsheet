@@ -40,7 +40,7 @@ function StyleExample() {
     >
       <Heading size={"xl"}>
         You can prevent a user from closing a bottom sheet using
-        <Code>preventClosing</Code>
+        <Code>preventClosing</Code>!
       </Heading>
       <VStack
         backgroundColor={"whiteAlpha.300"}
