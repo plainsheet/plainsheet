@@ -29,6 +29,11 @@ export interface BottomSheetCoreProps {
    */
   expandable?: boolean;
   /**
+   * If it is true, the bottom sheet can not be dragged down below its content height.
+   * defaults to false
+   */
+  preventClosing?: boolean;
+  /**
    * If it is true, the bottom sheet can be dragged. Set false to use the bottom sheet as a blocking dialog.
    * defaults to true
    */

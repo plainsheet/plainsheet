@@ -23,6 +23,7 @@ export const BOTTOM_SHEET_DEFAULT_PROPS: RequiredBottomSheetProps = {
   onDragMove: () => {},
   onDragEnd: () => {},
   expandable: true,
+  preventClosing: false,
   draggable: true,
   backgroundDraggable: true,
   shouldCloseOnOutsideClick: true,
