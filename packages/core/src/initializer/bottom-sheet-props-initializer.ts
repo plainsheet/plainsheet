@@ -169,6 +169,10 @@ export function createPropSetHandler(
         eventHandlers.clearEventListeners();
         eventHandlers.attachEventListeners(propsWithDefaults);
         break;
+      case "preventClosing":
+        eventHandlers.clearEventListeners();
+        eventHandlers.attachEventListeners(propsWithDefaults);
+        break;
       case "draggable":
         eventHandlers.clearEventListeners();
         eventHandlers.attachEventListeners(propsWithDefaults);

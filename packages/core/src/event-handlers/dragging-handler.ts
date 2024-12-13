@@ -108,6 +108,16 @@ function moveSheetToPointer(
     return;
   }
 
+  // check if disabledClosing
+  // then, stop dragging below the default position(content height, top, mid)
+
+  if (
+    bottomSheetProps.preventClosing &&
+    visibleContainerHeight <= containerHeight
+  ) {
+    return;
+  }
+
   animationFrame.start(() => {
     setTranslate(bottomSheetContainer, {
       y: draggingState.containerStartTranslate.y + offset,
@@ -256,6 +266,23 @@ export const handleDragEnd =
         }
       }
 
+      if (bottomSheetProps.preventClosing) {
+        const containerVisibleHeight = containerHeight + -containerEndY;
+
+        if (containerVisibleHeight >= containerHeight) {
+          const containerVisibleHeightAndContainerHeightOffset =
+            calcDiffOfHeight(containerVisibleHeight, containerHeight);
+          bottomSheetState.translateContainer({
+            startY: containerEndY,
+            endY:
+              containerEndY + containerVisibleHeightAndContainerHeightOffset,
+            animationFrame,
+            bottomSheetContainer,
+          });
+        }
+
+        return;
+      }
       onClose();
     }
   };

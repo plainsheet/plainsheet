@@ -28,6 +28,10 @@ export default function Example() {
           <Link href={"/mutable-props"}>Mutable Props</Link>
         </ChakraLink>
         <ChakraLink colorPalette="blue" asChild>
+          <Link href={"/mutable-props/prevent-closing"}>Prevent Closing</Link>
+        </ChakraLink>
+
+        <ChakraLink colorPalette="blue" asChild>
           <Link href={"/style"}>Style</Link>
         </ChakraLink>
         <ChakraLink colorPalette="blue" asChild>
