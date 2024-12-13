@@ -1,5 +1,13 @@
 # @plainsheet/react-plain-bottom-sheet
 
+## 0.4.8
+
+### Patch Changes
+
+- 4f6ed0d: Feat: adding a prop to control if the bottom sheet can be closed or not
+- Updated dependencies [4f6ed0d]
+  - @plainsheet/core@0.7.8
+
 ## 0.4.7
 
 ### Patch Changes

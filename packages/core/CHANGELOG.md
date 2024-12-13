@@ -1,5 +1,11 @@
 # plain-bottom-sheet-core
 
+## 0.7.8
+
+### Patch Changes
+
+- 4f6ed0d: Feat: adding a prop to control if the bottom sheet can be closed or not
+
 ## 0.7.7
 
 ### Patch Changes
