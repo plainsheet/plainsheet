@@ -1,0 +1,39 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+
+  @media (max-width: 540px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+.block {
+  background-color: rgb(42 42 42 / 41%);
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-self: flex-start;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  border: 1px solid transparent;
+  border-radius: 12px;
+
+  transition:
+    border-color 0.25s,
+    background-color 0.25s;
+
+  &:hover {
+    border: 1px solid rgb(104, 209, 250);
+  }
+}
+.title {
+  font-size: 16px;
+  font-weight: 600;
+}
+.description {
+  font-size: 14px;
+  font-weight: 500;
+  color: #d1d1d1;
+}

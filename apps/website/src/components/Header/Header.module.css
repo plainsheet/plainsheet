@@ -1,0 +1,18 @@
+.header {
+  position: relative;
+  margin-top: 100px;
+}
+
+.backdrop {
+  position: absolute;
+  z-index: -1;
+  background-image: radial-gradient(
+    circle,
+    rgb(179, 229, 255),
+    rgb(255 255 255 / 0%)
+  );
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+  filter: blur(100px);
+}
