@@ -31,6 +31,7 @@ export const BOTTOM_SHEET_DEFAULT_PROPS: RequiredBottomSheetProps = {
   shouldShowHandle: true,
   backDropTransition: null,
   backdropColor: null,
+  containerBackgroundColor: null,
   containerBorderRadius: null,
   rootClass: null,
   containerClass: null,
@@ -44,4 +45,5 @@ export const BOTTOM_SHEET_DEFAULT_PROPS: RequiredBottomSheetProps = {
   handleStyle: {},
   contentWrapperStyle: {},
   backdropStyle: {},
+  containerGapFillerStyle: {},
 };

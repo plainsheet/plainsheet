@@ -105,6 +105,12 @@ export function createPropSetHandler(
             initializeBorderRadius(value);
         }
         break;
+      case "containerBackgroundColor":
+        if (isString(value)) {
+          elements.bottomSheetContainer.style.backgroundColor = value;
+          elements.bottomSheetContainerGapFiller.style.backgroundColor = value;
+        }
+        break;
       case "backdropColor":
         if (isString(value)) {
           elements.bottomSheetBackdrop.style.backgroundColor = value;
@@ -222,6 +228,14 @@ export function createPropSetHandler(
           Object.assign(
             elements.bottomSheetContainer.style,
             propsWithDefaults.containerStyle
+          );
+        }
+        break;
+      case "containerGapFillerStyle":
+        if (propsWithDefaults.containerGapFillerStyle) {
+          Object.assign(
+            elements.bottomSheetContainerGapFiller.style,
+            propsWithDefaults.containerGapFillerStyle
           );
         }
         break;

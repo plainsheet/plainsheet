@@ -69,8 +69,14 @@ export function initializeBottomSheetElements(
   if (props.backdropStyle) {
     Object.assign(elements.bottomSheetBackdrop.style, props.backdropStyle);
   }
-  if (props.containerStyle) {
+  if (props.containerGapFillerStyle) {
     Object.assign(elements.bottomSheetContainer.style, props.containerStyle);
+  }
+  if (props.containerStyle) {
+    Object.assign(
+      elements.bottomSheetContainerGapFiller.style,
+      props.containerGapFillerStyle
+    );
   }
   if (props.handleStyle) {
     Object.assign(elements.bottomSheetHandleBar.style, props.handleStyle);
@@ -125,6 +131,12 @@ function createElements(
     ClassNames.GapFiller,
     ClassNames.GapFiller
   );
+  if (bottomSheetProps.containerBackgroundColor) {
+    bottomSheetContainer.style.backgroundColor =
+      bottomSheetProps.containerBackgroundColor;
+    bottomSheetContainerGapFiller.style.backgroundColor =
+      bottomSheetProps.containerBackgroundColor;
+  }
 
   const bottomSheetHandle = createElement(
     "button",
