@@ -1,5 +1,13 @@
 # @plainsheet/react-plain-bottom-sheet
 
+## 0.4.9
+
+### Patch Changes
+
+- 25eb87f: Feat: React 19 support
+- Updated dependencies [25eb87f]
+  - @plainsheet/core@0.7.9
+
 ## 0.4.8
 
 ### Patch Changes
