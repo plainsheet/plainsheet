@@ -7,9 +7,9 @@
     grid-template-columns: repeat(2, 1fr);
   }
 }
-.block {
-  background-color: rgb(42 42 42 / 41%);
 
+.block {
+  background-color: light-dark(rgb(220 220 220 / 41%), rgb(42 42 42 / 41%));
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -35,5 +35,5 @@
 .description {
   font-size: 14px;
   font-weight: 500;
-  color: #d1d1d1;
+  color: light-dark(#7b7b7b, #d1d1d1);
 }
