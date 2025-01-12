@@ -5,16 +5,15 @@ import {
   Span,
   Spinner,
 } from "@chakra-ui/react";
-import * as React from "react";
+import { forwardRef, ReactNode } from "react";
 
-interface ButtonLoadingProps {
+export interface ButtonProps extends ChakraButtonProps {
   loading?: boolean;
-  loadingText?: React.ReactNode;
+  loadingText?: ReactNode;
+  children: ReactNode;
 }
 
-export interface ButtonProps extends ChakraButtonProps, ButtonLoadingProps {}
-
-export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   function Button(props, ref) {
     const { loading, disabled, loadingText, children, ...rest } = props;
     if (!rest.backgroundColor) {

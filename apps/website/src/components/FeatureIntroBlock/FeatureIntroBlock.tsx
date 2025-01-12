@@ -1,6 +1,10 @@
 import css from "./FeatureIntroBlock.module.css";
-import { PropsWithChildren } from "react";
+import { ReactNode } from "react";
 
-export const FeatureIntroBlock = ({ children }: PropsWithChildren) => {
-  return <article className={css.block}>{children}</article>;
+export const FeatureIntroBlock = ({ children }: { children: ReactNode }) => {
+  return (
+    <article className={css.block}>
+      <>{children}</>
+    </article>
+  );
 };
