@@ -46,6 +46,10 @@ export default function Example() {
         <ChakraLink colorPalette="blue" asChild>
           <Link href={"/life-cycle-callbacks"}>Life Cycle Callbacks</Link>
         </ChakraLink>
+
+        <ChakraLink colorPalette="blue" asChild>
+          <Link href={"/react19"}>React 19 Support</Link>
+        </ChakraLink>
       </VStack>
     </VStack>
   );
