@@ -1,6 +1,10 @@
+import { ReactNode } from "react";
 import css from "./FeatureIntroBlock.module.css";
-import { PropsWithChildren } from "react";
 
-export const FeatureIntroTitle = ({ children }: PropsWithChildren) => {
-  return <h3 className={css.title}>{children}</h3>;
+export const FeatureIntroTitle = ({ children }: { children: ReactNode }) => {
+  return (
+    <h3 className={css.title}>
+      <>{children}</>
+    </h3>
+  );
 };

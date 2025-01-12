@@ -1,9 +1,8 @@
 {
   "eslint.workingDirectories": [
     "../apps/website",
-    "../apps/storybook",
     "../apps/html",
-    "../apps/next-app",
+    "../apps/nextjs",
     "./packages/core",
     "./packages/react",
     "./packages/utility"

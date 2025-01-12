@@ -94,7 +94,7 @@ The bottom sheet consists of below elements, which you can style as you want, an
 - **`shouldShowBackdrop?: boolean`**  
   Optional. Whether to show the backdrop or not.
 
-- **`backdropColor?: CSSColor | string | null`**  
+- **`backdropColor?: string | null`**  
   Optional. The color of the backdrop.
 
 - **`backDropTransition?: string | null`**  
@@ -108,6 +108,10 @@ The bottom sheet consists of below elements, which you can style as you want, an
 - **`containerClass?: string | null`**  
   Optional. A custom class.
 
+- **`containerBackgroundColor?: string | null`**  
+  Optional. The background color of the container and the gap filler.  
+  the gap filler is the element covers the space between container and the bottom of the screen, when the container is dragged up.
+
 - **`containerBorderRadius?: CSSUnit | null`**  
   Optional.
 
@@ -117,6 +121,11 @@ The bottom sheet consists of below elements, which you can style as you want, an
 - **`marginTop?: number`**  
   Optional. Space between the top of the bottom sheet and the viewport's top.  
   Defaults to `20`.
+
+#### ContainerGapFiller
+
+- **`containerGapFillerStyle?: CSSStyleDeclaration`**  
+  Optional. Styles the container gap filler.
 
 #### Content Wrapper
 

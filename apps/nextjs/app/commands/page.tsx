@@ -34,7 +34,7 @@ export default function CommandsExamplePage() {
 }
 
 function CustomMountingPointExample() {
-  const mountingPointRef = useRef();
+  const mountingPointRef = useRef<HTMLElement | undefined>(undefined);
   const customMountingPointBottomSheet = useBottomSheet();
 
   return (

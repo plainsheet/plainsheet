@@ -11,6 +11,7 @@ import {
   forwardRef,
   MutableRefObject,
   ReactNode,
+  RefObject,
   useCallback,
   useEffect,
   useImperativeHandle,
@@ -23,7 +24,7 @@ export type BottomSheetProps = {
   children: ReactNode;
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
-  mountingPointRef?: MutableRefObject<MountingPoint>;
+  mountingPointRef?: RefObject<MountingPoint> | MutableRefObject<MountingPoint>;
 } & CoreProps;
 type CoreProps = OmitKeyof<BottomSheetCoreProps, "content">;
 type MountingPoint = undefined | HTMLElement;

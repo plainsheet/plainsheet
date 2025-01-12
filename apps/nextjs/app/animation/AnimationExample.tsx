@@ -9,7 +9,6 @@ import { Button } from "@/components/ui/button";
 export function AnimationsExample() {
   const bottomSheetEase = useBottomSheet();
   const bottomSheetEaseIn = useBottomSheet();
-  1;
   const bottomSheetEaseOut = useBottomSheet();
   const bottomSheetEaseInOut = useBottomSheet();
   const bottomSheetSpring = useBottomSheet();

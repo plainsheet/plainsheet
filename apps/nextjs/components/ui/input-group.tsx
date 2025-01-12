@@ -1,13 +1,13 @@
-import type { BoxProps, InputElementProps } from "@chakra-ui/react"
-import { Group, InputElement } from "@chakra-ui/react"
-import * as React from "react"
+import type { BoxProps, InputElementProps } from "@chakra-ui/react";
+import { Group, InputElement } from "@chakra-ui/react";
+import * as React from "react";
 
 export interface InputGroupProps extends BoxProps {
-  startElementProps?: InputElementProps
-  endElementProps?: InputElementProps
-  startElement?: React.ReactNode
-  endElement?: React.ReactNode
-  children: React.ReactElement
+  startElementProps?: InputElementProps;
+  endElementProps?: InputElementProps;
+  startElement?: React.ReactNode;
+  endElement?: React.ReactNode;
+  children: React.ReactElement;
 }
 
 export const InputGroup = React.forwardRef<HTMLDivElement, InputGroupProps>(
@@ -19,7 +19,7 @@ export const InputGroup = React.forwardRef<HTMLDivElement, InputGroupProps>(
       endElementProps,
       children,
       ...rest
-    } = props
+    } = props;
 
     return (
       <Group ref={ref} {...rest}>
@@ -31,7 +31,7 @@ export const InputGroup = React.forwardRef<HTMLDivElement, InputGroupProps>(
         {React.cloneElement(children, {
           ...(startElement && { ps: "calc(var(--input-height) - 6px)" }),
           ...(endElement && { pe: "calc(var(--input-height) - 6px)" }),
-          ...children.props,
+          ...(children.props as object),
         })}
         {endElement && (
           <InputElement placement="end" {...endElementProps}>
@@ -39,6 +39,6 @@ export const InputGroup = React.forwardRef<HTMLDivElement, InputGroupProps>(
           </InputElement>
         )}
       </Group>
-    )
-  },
-)
+    );
+  }
+);

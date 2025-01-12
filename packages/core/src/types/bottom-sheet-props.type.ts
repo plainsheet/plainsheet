@@ -70,8 +70,9 @@ export interface BottomSheetCoreProps {
    * Border radius will be applied to the upper vertices.
    * ex) If it is 10px, border radius becomes `10px 10px 0px 0px`
    */
-  containerBorderRadius?: CSSUnit | string | null;
-  backdropColor?: CSSColor | string | null;
+  containerBorderRadius?: string | null;
+  containerBackgroundColor?: string | null;
+  backdropColor?: string | null;
   backDropTransition?: string | null;
 
   // NOTE: Custom CSS classes.
@@ -84,6 +85,7 @@ export interface BottomSheetCoreProps {
   // NOTE: Custom styles
   rootStyle?: PartialCSSStyles;
   containerStyle?: PartialCSSStyles;
+  containerGapFillerStyle?: PartialCSSStyles;
   handleStyle?: PartialCSSStyles;
   contentWrapperStyle?: PartialCSSStyles;
   backdropStyle?: PartialCSSStyles;
