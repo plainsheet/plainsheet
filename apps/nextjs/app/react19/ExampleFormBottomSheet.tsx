@@ -64,13 +64,14 @@ export default function ExampleFormBottomSheet() {
           name="name"
           placeholder="Enter your name!"
           required
+          color={"GrayText"}
         />
 
         <Button type="submit" disabled={pending} width={"100%"}>
           {pending ? "🟡 Submitting..." : "Submit"}
         </Button>
 
-        <VStack>
+        <VStack color={"GrayText"}>
           <p>
             Your name will be {optimisticState} if the form submission succeeds.
           </p>
