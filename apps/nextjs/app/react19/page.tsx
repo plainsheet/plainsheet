@@ -3,6 +3,7 @@ import { VStack } from "@chakra-ui/react";
 import ExampleFormBottomSheet from "./ExampleFormBottomSheet";
 import { BottomSheet, useBottomSheet } from "@plainsheet/react";
 import { Button } from "@/components/ui/button";
+import { SourceCodeAlert } from "@/components/SourceCodeAlert";
 
 export default function React19Page() {
   const bottomSheet = useBottomSheet({
@@ -19,6 +20,7 @@ export default function React19Page() {
           <ExampleFormBottomSheet />
         </VStack>
       </BottomSheet>
+      <SourceCodeAlert link="https://github.com/plainsheet/plainsheet/blob/main/apps/nextjs/app/react19/page.tsx" />
     </VStack>
   );
 }
