@@ -1,3 +1,5 @@
+import { CodePlayground } from "../../components/code/CodePlayground.tsx";
+
 # Quick Start Guide
 
 ## Installation
@@ -9,32 +11,25 @@ npm install @plainsheet/react
 ## Getting Started
 
 Call the `useBottomSheet` and pass the props to the `BottomSheet`.  
-It's that simple, and you have a full control over the bottom sheet via the `instance` and `props`.  
+It's that simple, and you have a full control over the bottom sheet via `props`.  
 For all the customizable options, check out [the API document](/apis/react)!
 
-```ts copy
-import { useState } from "react";
-import { BottomSheet } from "@plainsheet/react";
+<br />
 
-export default function Home() {
-  const bottomSheet = useBottomSheet({
-    props: {
-      // `BottomSheetCore` props
-    }
-  });
-
-  return (
-    <section>
-      <BottomSheet
-        {...bottomSheet.props}
-      >
-        Your content goes here
-      </BottomSheet>
-
-      <button onClick={bottomSheet.open}>
-        Open
-      </button>
-    </section>
-  );
-}
-```
+<CodePlayground
+  code={`import { BottomSheet, useBottomSheet } from "@plainsheet/react";
+  export default function App() {
+    const bottomSheet = useBottomSheet();
+    return (
+      <div style={{ textAlign: "center", marginTop: "2rem" }}>
+        <BottomSheet {...bottomSheet.props} >
+          &nbsp; Hello from Bottom Sheet 🦭
+        </BottomSheet>
+        <button onClick={bottomSheet.open}>
+          Open it!
+        </button>
+      </div>
+    );
+  }
+`}
+/>

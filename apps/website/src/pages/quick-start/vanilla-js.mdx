@@ -1,3 +1,5 @@
+import { VanillaCodePlayground } from "../../components/code/VanillaCodePlayground.tsx";
+
 # Quick Start Guide
 
 ## Installation
@@ -23,24 +25,22 @@ For all the customizable options, check out [the API document](/apis/vanilla-js)
 
 ### Using NPM
 
-```ts copy
+<VanillaCodePlayground
+  code={`
 import { createBottomSheet } from "@plainsheet/core";
 
-const bottomSheet = createBottomSheet({
-  content: `<div> 
-        Your content
-        </div>`,
-  // ...other `BottomSheetCoreProps`
-});
+const bottomSheet = createBottomSheet({ content: 'text' });
 
 bottomSheet.mount();
 bottomSheet.open();
 
 // Change the content, on the fly.
-bottomSheet.props.content = `<div>New Content</div>`;
-```
+bottomSheet.props.content = '<div>New Content <br/><br/><br/> </div>';
 
-### Using CDN
+`}
+/>
+
+### Using CDN (UMD Module)
 
 ```ts copy
 const bottomSheet = window.BottomSheet.createBottomSheet({
