@@ -3,3 +3,7 @@ figure {
   align-items: center;
   justify-content: center;
 }
+
+main {
+  overflow-x: hidden;
+}

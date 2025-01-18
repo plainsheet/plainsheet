@@ -32,7 +32,7 @@
   }
   25% {
     opacity: 1;
-    transform: scale(1.1) rotateZ(90deg);
+    transform: scale(1.2) rotateZ(90deg);
   }
   50% {
     opacity: 0.8;
@@ -40,7 +40,7 @@
   }
   75% {
     opacity: 1;
-    transform: scale(1.05) rotateZ(270deg);
+    transform: scale(1.1) rotateZ(270deg);
   }
   100% {
     opacity: 0.8;
