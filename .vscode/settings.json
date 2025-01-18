@@ -1,10 +1,6 @@
 {
   "eslint.workingDirectories": [
-    "../apps/website",
-    "../apps/html",
-    "../apps/nextjs",
-    "./packages/core",
-    "./packages/react",
-    "./packages/utility"
+    { "pattern": "apps/*/" },
+    { "pattern": "packages/*/" }
   ]
 }
