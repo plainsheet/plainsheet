@@ -26,17 +26,26 @@ For all the customizable options, check out [the API document](/apis/vanilla-js)
 ### Using NPM
 
 <VanillaCodePlayground
-  code={`
-import { createBottomSheet } from "@plainsheet/core";
+  code={`import { createBottomSheet } from "@plainsheet/core";
 
-const bottomSheet = createBottomSheet({ content: 'text' });
-
+const bottomSheet = createBottomSheet({ content: "text" });
 bottomSheet.mount();
-bottomSheet.open();
 
-// Change the content, on the fly.
-bottomSheet.props.content = '<div>New Content <br/><br/><br/> </div>';
+addEventListener("DOMContentLoaded", (event) => {
+  createButton("open-button", "Open it!", bottomSheet.open)
 
+  createButton("content-update-button", "Change the content!", () => {
+  bottomSheet.props.content = "<div>New Content <br/><br/><br/> </div>";
+  })
+});
+
+function createButton (id, text, onClick) {
+  const btn = document.createElement("button");
+  btn.setAttribute("id", id);
+  btn.textContent = text;
+  window.document.body.appendChild(btn);
+  document.querySelector("#" + id).addEventListener("click", onClick);
+}
 `}
 />
 

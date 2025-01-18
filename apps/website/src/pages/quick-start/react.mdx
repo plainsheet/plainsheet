@@ -18,18 +18,19 @@ For all the customizable options, check out [the API document](/apis/react)!
 
 <CodePlayground
   code={`import { BottomSheet, useBottomSheet } from "@plainsheet/react";
-  export default function App() {
-    const bottomSheet = useBottomSheet();
-    return (
-      <div style={{ textAlign: "center", marginTop: "2rem" }}>
-        <BottomSheet {...bottomSheet.props} >
-          &nbsp; Hello from Bottom Sheet 🦭
-        </BottomSheet>
-        <button onClick={bottomSheet.open}>
-          Open it!
-        </button>
-      </div>
-    );
-  }
+    
+export default function App() {
+  const bottomSheet = useBottomSheet();
+  return (
+    <div style={{ textAlign: "center", marginTop: "2rem" }}>
+      <BottomSheet {...bottomSheet.props} >
+        &nbsp; Hello from Bottom Sheet 🦭
+      </BottomSheet>
+      <button onClick={bottomSheet.open}>
+        Open it!
+      </button>
+    </div>
+  );
+}
 `}
 />

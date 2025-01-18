@@ -1,4 +1,4 @@
-export default {
+const metaConfig = {
   index: {
     title: "Home",
     type: "page",
@@ -16,3 +16,5 @@ export default {
     type: "page",
   },
 };
+
+export default metaConfig;
