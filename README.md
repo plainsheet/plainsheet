@@ -4,13 +4,14 @@
   </a>
 </p>
 
-<a href="https://bundlejs.com/?q=@plainsheet/core@latest" target="\_parent">
-  <img alt="" src="https://deno.bundlejs.com/badge?q=@plainsheet/core@latest&badge=detailed" />
-</a>
-
-<a href="https://bundlejs.com/?q=@plainsheet/react@latest&badge=detailed" target="\_parent">
-  <img alt="" src="https://deno.bundlejs.com/badge?q=@plainsheet/react@latest&badge=detailed" />
-</a>
+<p align="left">
+  <a href="https://bundlejs.com/?q=@plainsheet/core@latest" target="_blank">
+    <img alt="Bundle size @plainsheet/core" src="https://deno.bundlejs.com/badge?q=@plainsheet/core@latest&badge=detailed" />
+  </a>
+  <a href="https://bundlejs.com/?q=@plainsheet/react@latest" target="_blank">
+    <img alt="Bundle size @plainsheet/react" src="https://deno.bundlejs.com/badge?q=@plainsheet/react@latest&badge=detailed" />
+  </a>
+</p>
 
 <a href="https://codecov.io/gh/PeterByun/plain-bottom-sheet" > 
  <img src="https://codecov.io/gh/PeterByun/plain-bottom-sheet/graph/badge.svg?token=WFHGUAI3GC"/> 
