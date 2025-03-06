@@ -1,0 +1,53 @@
+import { CodePlayground } from "../../../components/CodePlayground/CodePlayground.tsx";
+
+## `BottomSheet`
+
+`BottomSheet` component is controlled by the `useBottomSheet` hook, so they go hand-in-hand.
+
+### Interface
+
+```ts
+BottomSheet: (props: BottomSheetProps) => ReactNode;
+```
+
+### Example
+
+<CodePlayground
+  code={`import { BottomSheet, useBottomSheet } from "@plainsheet/react";
+    
+export default function App() {
+  const bottomSheet = useBottomSheet({
+    // props to control your Bottom Sheet.
+  });
+  return (
+    <div style={{ textAlign: "center", marginTop: "2rem" }}>
+      <BottomSheet {...bottomSheet.props} >
+        &nbsp; Your content goes here 🦭
+      </BottomSheet>
+      <button onClick={bottomSheet.open}>
+        Open
+      </button>
+    </div>
+  );
+}
+`}
+/>
+
+```jsx /BottomSheet/ copy
+import { useState } from "react";
+import { BottomSheet } from "@plainsheet/react";
+
+export default function Home() {
+  const bottomSheet = useBottomSheet({
+    // props to control your Bottom Sheet.
+  });
+
+  return (
+    <section>
+      <BottomSheet {...bottomSheet.props}>Your content goes here</BottomSheet>
+
+      <button onClick={bottomSheet.open}>Open</button>
+    </section>
+  );
+}
+```

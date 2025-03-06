@@ -32,7 +32,13 @@ pnpm dev --filter @plainsheet/core --filter html
 #### Run the React dev server
 
 ```shell
-pnpm dev --filter @plainsheet/react --filter @plainsheet/core --filter nextjs
+pnpm dev --filter @plainsheet/core --filter @plainsheet/react --filter nextjs
+```
+
+#### Run the official website
+
+```shell
+pnpm dev --filter @plainsheet/core --filter @plainsheet/react --filter website
 ```
 
 #### Managing Packages
