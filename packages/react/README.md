@@ -4,6 +4,9 @@
   </a>
 </p>
 
+![Core NPM Downloads](https://img.shields.io/npm/dt/@plainsheet/react)
+![React NPM Downloads](https://img.shields.io/npm/dt/@plainsheet/core)
+
 <a href="https://bundlejs.com/?q=@plainsheet/core@latest" target="\_parent">
   <img alt="" src="https://deno.bundlejs.com/badge?q=@plainsheet/core@latest&badge=detailed" />
 </a>
