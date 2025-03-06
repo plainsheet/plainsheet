@@ -1,16 +1,14 @@
 <p align="center">
-  <a href="https://www.plainsheet.org/">
+  <a href="https://https://www.plainsheet.org/">
     <img src="https://github.com/plainsheet/plainsheet/raw/main/documents/assets/header.png" width="328" height="167">
   </a>
 </p>
 
-<a href="https://bundlejs.com/?q=@plainsheet/core@latest" target="\_parent">
-  <img alt="" src="https://deno.bundlejs.com/badge?q=@plainsheet/core@latest&badge=detailed" />
-</a>
+![Core Bundle Size](https://deno.bundlejs.com/badge?q=@plainsheet/core@latest&badge=detailed)
+![Core NPM Downloads](https://img.shields.io/npm/dt/@plainsheet/react)
 
-<a href="https://bundlejs.com/?q=@plainsheet/react@latest&badge=detailed" target="\_parent">
-  <img alt="" src="https://deno.bundlejs.com/badge?q=@plainsheet/react@latest&badge=detailed" />
-</a>
+![React Bundle Size](https://deno.bundlejs.com/badge?q=@plainsheet/react@latest&badge=detailed)
+![React NPM Downloads](https://img.shields.io/npm/dt/@plainsheet/core)
 
 <a href="https://codecov.io/gh/PeterByun/plain-bottom-sheet" > 
  <img src="https://codecov.io/gh/PeterByun/plain-bottom-sheet/graph/badge.svg?token=WFHGUAI3GC"/> 

@@ -4,16 +4,11 @@
   </a>
 </p>
 
+![Core Bundle Size](https://deno.bundlejs.com/badge?q=@plainsheet/core@latest&badge=detailed)
 ![Core NPM Downloads](https://img.shields.io/npm/dt/@plainsheet/react)
+
+![React Bundle Size](https://deno.bundlejs.com/badge?q=@plainsheet/react@latest&badge=detailed)
 ![React NPM Downloads](https://img.shields.io/npm/dt/@plainsheet/core)
-
-<a href="https://bundlejs.com/?q=@plainsheet/core@latest" target="\_parent">
-  <img alt="" src="https://deno.bundlejs.com/badge?q=@plainsheet/core@latest&badge=detailed" />
-</a>
-
-<a href="https://bundlejs.com/?q=@plainsheet/react@latest&badge=detailed" target="\_parent">
-  <img alt="" src="https://deno.bundlejs.com/badge?q=@plainsheet/react@latest&badge=detailed" />
-</a>
 
 <a href="https://codecov.io/gh/PeterByun/plain-bottom-sheet" > 
  <img src="https://codecov.io/gh/PeterByun/plain-bottom-sheet/graph/badge.svg?token=WFHGUAI3GC"/> 
@@ -21,9 +16,7 @@
 
 The **minimalistic**, **configurable** bottom sheet for any web project.
 
-### [Check out our website](https://www.plainsheet.org//), for a quick start guide, APIs, examples, and more!
-
-## Why?
+### [Check out our website](https://www.plainsheet.org//), for a quick start guide, API, examples, and more!
 
 ### 🧩 Framework-agnostic
 
@@ -62,7 +55,7 @@ Without any configs.
 ## Philosophy
 
 As the name suggests, we strive to make the plain bottom sheet minimalistic yet feature-rich and highly configurable.  
-We try our best to write concise, well-tested, and maintainable code to achieve this goal.
+To achieve this goal, we try our best to write concise, well-tested, and maintainable code.
 
 ## Support the project 🤍
 

@@ -22,6 +22,9 @@
     },
     "clean": {
       "cache": false
+    },
+    "readme": {
+      "cache": false
     }
   }
 }
