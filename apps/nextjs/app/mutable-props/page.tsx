@@ -53,7 +53,7 @@ function MutablePropsExamples() {
   const [backgroundDraggable, setBackgroundDraggable] = useState(true);
   const [expandable, setExpandable] = useState(true);
   const [snapPoints, setSnapPoints] = useState("0.5,0.7");
-  const [dragTriggers, setDragTriggers] = useState("#frank-iframe");
+  const [dragTriggers, setDragTriggers] = useState("#modal-title");
   const [draggingDuration, setDraggingDuration] = useState(500);
   const [draggingAnimationTimings, setDraggingAnimationTimings] =
     useState("spring");
@@ -296,11 +296,11 @@ function MutablePropsExamples() {
       </VStack>
 
       <BottomSheet {...bottomSheet.props}>
-        <VStack padding={6} color={"blackAlpha.900"} id="frank-iframe">
-          <Heading size={"2xl"}>
+        <VStack padding={6} color={"blackAlpha.900"}>
+          <Heading size={"2xl"} id="modal-title">
             Frank Sinatra & Count Basie - The Best Is Yet To Come
           </Heading>
-          <Text>The best is yet to come, folks.</Text>
+          <Text> The best is yet to come, folks.</Text>
           <iframe
             src="https://www.youtube.com/embed/IXpIoRhJeLQ"
             width="560"

@@ -64,7 +64,7 @@ function StyleExample() {
       </VStack>
 
       <BottomSheet {...bottomSheet.props}>
-        <ProductOptionsForm />
+        <ProductOptionsForm onSubmit={() => bottomSheet.close()} />
       </BottomSheet>
     </VStack>
   );

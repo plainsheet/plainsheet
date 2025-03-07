@@ -156,6 +156,7 @@ function MoveToExample() {
             <Button type="submit">
               Move it to {formattedWhereToMove} {unit}
             </Button>
+            <Button onClick={() => bottomSheet.close()}>Close</Button>
           </VStack>
         </BottomSheet>
       </VStack>
