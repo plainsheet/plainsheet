@@ -1,5 +1,14 @@
 # plain-bottom-sheet-core
 
+## 0.7.10
+
+### Patch Changes
+
+- 7f01005: - `close` methods of `useButtonSheet` properly closes the bottom sheet. Previously, only setting `isOpen` to false would close the bottom sheet.
+  - `draggable` should prevent dragging.
+  - `dragTriggers` should work with elements created after the bottom sheet is mounted
+  - `isClosed` is added to the `useButtonSheet`'s return object to determine if the bottom sheet is closed.
+
 ## 0.7.9
 
 ### Patch Changes
