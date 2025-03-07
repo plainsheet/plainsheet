@@ -65,7 +65,7 @@ export function createBottomSheet(
     originalDocumentOverflowY: null,
     originalDocumentOverscrollBehavior: null,
   } as const;
-  function recoverDocumentOverflowY() {
+  function recoverDocumentOverflowY(): void {
     if (
       draggingState.originalDocumentOverflowY &&
       draggingState.originalDocumentOverflowY !== "hidden"
