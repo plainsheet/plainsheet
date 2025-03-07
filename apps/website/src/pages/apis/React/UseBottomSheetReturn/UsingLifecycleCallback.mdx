@@ -1,0 +1,65 @@
+import { CodePlayground } from "../../../../components/CodePlayground/CodePlayground";
+
+## Using Life Cycle Callback
+
+The `useBottomSheet` hook provides several lifecycle callbacks that allow you to execute custom logic at different points in the bottom sheet's lifecycle. These callbacks can be particularly useful for managing state or triggering side effects when the bottom sheet opens or closes.
+
+#### Available Callbacks
+
+- **`beforeOpen?: () => void`**  
+  This optional callback is called before the bottom sheet opens. You can use it to perform any necessary actions or state updates prior to the bottom sheet becoming visible.
+
+- **`afterOpen?: () => void`**  
+  This optional callback is called after the bottom sheet has fully opened. It can be used to trigger actions that should occur once the bottom sheet is visible.
+
+- **`beforeClose?: () => void`**  
+  This optional callback is called before the bottom sheet begins to close. It allows you to handle any cleanup or state updates before the bottom sheet is removed from view.
+
+- **`afterClose?: () => void`**  
+  This optional callback is called after the bottom sheet has fully closed. You can use this to reset state or perform any actions that should occur after the bottom sheet is no longer visible.
+
+- **`onDragStart?: () => void`**  
+  Optional. Function called when dragging starts.
+
+- **`onDragMove?: (direction: DraggingDirection, progress: number) => void`**  
+  Optional. Function called during dragging. Parameters:
+
+  - `direction`: Current direction based on pointer start. Has handy boolean values like `isUp`, `isDown`, `stayedSame`.
+  - `progress`: A number from 0 to 1 representing how far the bottom sheet is dragged.
+
+- **`onDragEnd?: () => void`**  
+  Optional. Function called when dragging ends.
+
+<CodePlayground
+  code={`import { BottomSheet, useBottomSheet } from "@plainsheet/react";
+import { useState } from "react";
+
+export default function App() {
+  const bottomSheet = useBottomSheet({
+    beforeOpen: () => setMessage("Opening..."),
+    afterOpen: () => setMessage("Opened!"),
+    
+    beforeClose: () => setMessage("Closing..."),
+    afterClose: () => setMessage("Closed!"),
+
+    onDragStart: () => setMessage("Dragging..."),
+    onDragMove: (direction, progress) => setMessage("Dragging" + JSON.stringify(direction) + "at" + progress),
+    onDragEnd: () => setMessage("Drag ended!"),
+
+});
+
+const [message, setMessage] = useState("");
+
+return (
+
+<div style={{ textAlign: "center", marginTop: "2rem" }}>
+  <BottomSheet {...bottomSheet.props}>
+    &nbsp; Your content goes here 🦭
+  </BottomSheet>
+  <button onClick={bottomSheet.open}>Open</button>
+  <h3>{message}</h3>
+</div>
+);
+
+}
+`} />

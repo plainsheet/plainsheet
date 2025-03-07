@@ -224,7 +224,9 @@ export interface InitializeEventsReturnType {
     updatedProps?: InitializeEventsParams["bottomSheetProps"]
   ) => void;
   clearEventListeners: () => void;
-  attacheOnOpenEventListeners: () => void;
+  attacheOnOpenEventListeners: (
+    updatedProps?: InitializeEventsParams["bottomSheetProps"]
+  ) => void;
   clearOnOpenEventListeners: () => void;
 }
 function initializeEvents({
@@ -249,30 +251,7 @@ function initializeEvents({
   const gapFillerEventListener = new TabEventListener(
     bottomSheetContainerGapFiller
   );
-  const draggingTriggerEventListeners: TabEventListener[] =
-    bottomSheetProps.dragTriggers.reduce<TabEventListener[]>(
-      (listeners, selector) => {
-        const elements = bottomSheetRoot.querySelectorAll(selector);
-
-        if (!elements.length) {
-          return listeners;
-        }
-
-        const listenersToAdd = Array.from(elements)
-          .map((el) => {
-            if (el instanceof HTMLElement) {
-              return new TabEventListener(el);
-            }
-            return null;
-          })
-          .filter((listener): listener is TabEventListener => {
-            return Boolean(listener);
-          });
-
-        return [...listeners, ...listenersToAdd];
-      },
-      []
-    );
+  let draggingTriggerEventListeners: TabEventListener[] = [];
 
   const windowEventListener = new TabEventListener(
     window as unknown as HTMLElement
@@ -322,19 +301,6 @@ function initializeEvents({
   ): void {
     const propsForEventHandlers = updatedProps ?? bottomSheetProps;
 
-    if (propsForEventHandlers.draggable) {
-      handleEventListener.addEventListeners({
-        onStart: handleDragTriggerClickWithDragState,
-      });
-      draggingTriggerEventListeners.forEach((listener) => {
-        listener.addEventListeners({
-          onStart: handleDragTriggerClickWithDragState,
-          onStartOptions: {
-            eventPhase: EventPhase.Target,
-          },
-        });
-      });
-    }
     if (
       propsForEventHandlers.draggable &&
       propsForEventHandlers.backgroundDraggable
@@ -383,11 +349,61 @@ function initializeEvents({
     });
   }
 
-  function attacheOnOpenEventListeners(): void {
-    if (bottomSheetProps.shouldCloseOnOutsideClick) {
+  function attacheOnOpenEventListeners(
+    updatedProps?: InitializeEventsParams["bottomSheetProps"]
+  ): void {
+    const propsForEventHandlers = updatedProps ?? bottomSheetProps;
+
+    if (
+      bottomSheetProps.shouldCloseOnOutsideClick &&
+      !bottomSheetProps.preventClosing
+    ) {
       bottomSheetBackdrop.addEventListener("click", handleWindowClick);
     } else {
       bottomSheetBackdrop.style.pointerEvents = "none";
+    }
+
+    if (propsForEventHandlers.draggable) {
+      handleEventListener.addEventListeners({
+        onStart: handleDragTriggerClickWithDragState,
+      });
+
+      draggingTriggerEventListeners.forEach((listener) => {
+        listener.removeEventListeners({
+          onStart: handleDragTriggerClickWithDragState,
+        });
+      });
+      draggingTriggerEventListeners = bottomSheetProps.dragTriggers.reduce<
+        TabEventListener[]
+      >((listeners, selector) => {
+        const elements = bottomSheetRoot.querySelectorAll(selector);
+
+        if (!elements.length) {
+          return listeners;
+        }
+
+        const listenersToAdd = Array.from(elements)
+          .map((el) => {
+            if (el instanceof HTMLElement) {
+              return new TabEventListener(el);
+            }
+            return null;
+          })
+          .filter((listener): listener is TabEventListener => {
+            return Boolean(listener);
+          });
+
+        return [...listeners, ...listenersToAdd];
+      }, []);
+
+      draggingTriggerEventListeners.forEach((listener) => {
+        listener.addEventListeners({
+          onStart: handleDragTriggerClickWithDragState,
+          onStartOptions: {
+            eventPhase: EventPhase.Target,
+          },
+        });
+      });
     }
   }
 

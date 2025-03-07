@@ -1,0 +1,45 @@
+import { VanillaCodePlayground } from "../../../../components/CodePlayground/VanillaCodePlayground";
+
+## Getters
+
+- **`getIsMounted(): boolean`**  
+  Returns a boolean indicating whether the bottom sheet is currently mounted in the DOM.
+
+- **`getIsOpen(): boolean`**  
+  Returns a boolean indicating whether the bottom sheet is currently open.
+
+- **`getIsClosed(): boolean`**  
+  Returns a boolean indicating whether the bottom sheet is currently closed.
+
+- **`getPosition(): BottomSheetPosition`**  
+  Returns the current position of the bottom sheet within the viewport.
+
+- **`getHeight(): number`**  
+  Returns the current height of the bottom sheet.
+
+<VanillaCodePlayground
+  code={`import { createBottomSheet } from "@plainsheet/core";
+
+const bottomSheet = createBottomSheet({ content: "text" });
+bottomSheet.mount();
+
+addEventListener("DOMContentLoaded", (event) => {
+createButton("close-button", "Close", bottomSheet.close)
+createButton("is-mounted-button", "Is Mounted", () => console.log(bottomSheet.getIsMounted()))
+createButton("is-open-button", "Is Open", () => console.log(bottomSheet.getIsOpen()))
+createButton("is-closed-button", "Is Closed", () => console.log(bottomSheet.getIsClosed()))
+createButton("position-button", "Position", () => console.log(bottomSheet.getPosition()))
+createButton("height-button", "Height", () => console.log(bottomSheet.getHeight()))
+
+bottomSheet.open();
+});
+
+function createButton (id, text, onClick) {
+const btn = document.createElement("button");
+btn.setAttribute("id", id);
+btn.textContent = text;
+bottomSheet.elements.bottomSheetContentWrapper.appendChild(btn);
+document.querySelector("#" + id).addEventListener("click", onClick);
+}
+`}
+/>

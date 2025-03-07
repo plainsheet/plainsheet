@@ -183,6 +183,10 @@ export function createPropSetHandler(
         eventHandlers.clearEventListeners();
         eventHandlers.attachEventListeners(propsWithDefaults);
         break;
+      case "dragTriggers":
+        eventHandlers.clearEventListeners();
+        eventHandlers.attachEventListeners(propsWithDefaults);
+        break;
       case "draggingAnimationTimings":
         if (isAnimationTimingPoints(value)) {
           const validDraggingAnimationTimings =

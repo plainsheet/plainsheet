@@ -1,0 +1,69 @@
+import { VanillaCodePlayground } from "../../../../components/CodePlayground/VanillaCodePlayground";
+
+## Life Cycle Callback
+
+- **`beforeOpen?: () => void`**  
+  Optional. Function called before the bottom sheet opens.
+
+- **`afterOpen?: () => void`**  
+  Optional. Function called after the bottom sheet opens.
+
+- **`beforeClose?: () => void`**  
+  Optional. Function called before the bottom sheet closes.
+
+- **`afterClose?: () => void`**  
+  Optional. Function called after the bottom sheet closes.
+
+- **`onDragStart?: () => void`**  
+  Optional. Function called when dragging starts.
+
+- **`onDragMove?: (direction: DraggingDirection, progress: number) => void`**  
+  Optional. Function called during dragging. Parameters:
+
+  - `direction`: Current direction based on pointer start.
+  - `progress`: A number from 0 to 1 representing how far the bottom sheet is dragged.
+
+- **`onDragEnd?: () => void`**  
+  Optional. Function called when dragging ends.
+
+<VanillaCodePlayground
+  code={`import { createBottomSheet } from "@plainsheet/core";
+
+const bottomSheet = createBottomSheet({ content: "text",
+beforeOpen: () => updateStatus("Opening..."),
+afterOpen: () => updateStatus("Opened!"),
+beforeClose: () => updateStatus("Closing..."),
+afterClose: () => updateStatus("Closed!"),
+onDragStart: () => updateStatus("Dragging..."),
+onDragMove: (direction, progress) => updateStatus(JSON.stringify({progress, ...direction})),
+onDragEnd: () => updateStatus("Drag ended!"),
+shouldShowHandle: true,
+shouldShowBackdrop: true,
+containerBorderRadius: "10px"
+});
+bottomSheet.mount();
+
+addEventListener("DOMContentLoaded", (event) => {
+createStatus()
+createButton("open-button", "Open", bottomSheet.open)
+});
+
+function createButton (id, text, onClick) {
+const btn = document.createElement("button");
+btn.setAttribute("id", id);
+btn.textContent = text;
+window.document.body.appendChild(btn);
+document.querySelector("#" + id).addEventListener("click", onClick);
+}
+
+function createStatus () {
+const status = document.createElement("div");
+status.setAttribute("id", "status");
+window.document.body.appendChild(status);
+}
+function updateStatus (text) {
+const status = document.getElementById("status");
+status.textContent = text;
+}
+`}
+/>

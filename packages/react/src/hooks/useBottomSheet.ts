@@ -23,6 +23,7 @@ interface UseBottomSheetReturn {
    * a React state tells whether the bottom sheet is open.
    */
   isOpen: boolean;
+  isClosed: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   open: () => void;
   close: () => void;
@@ -45,7 +46,9 @@ export function useBottomSheet(
   props: UseBottomSheetProps = {}
 ): UseBottomSheetReturn {
   const ref = useRef<BottomSheetCore>(placeHolderSheet);
+
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const isClosed = !isOpen;
 
   const [instance, setInstance] = useState(ref.current);
   useEffect(() => {
@@ -115,7 +118,7 @@ export function useBottomSheet(
     setIsOpen(true);
   }, [setIsOpen]);
   const close = useCallback(() => {
-    setIsOpen(true);
+    setIsOpen(false);
   }, [setIsOpen]);
 
   const moveTo: MoveTo = useCallback(
@@ -135,6 +138,7 @@ export function useBottomSheet(
     props: hookProvidedProps,
     instance,
     isOpen,
+    isClosed,
     setIsOpen,
     open,
     close,

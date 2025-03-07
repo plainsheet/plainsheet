@@ -7,12 +7,12 @@ const metaConfig = {
     title: "Quick Start",
     type: "page",
   },
-  examples: {
-    title: "Examples",
+  apis: {
+    title: "API & Playground",
     type: "page",
   },
-  apis: {
-    title: "API",
+  examples: {
+    title: "Examples",
     type: "page",
   },
 };

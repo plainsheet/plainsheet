@@ -1,0 +1,54 @@
+import { VanillaCodePlayground } from "../../../components/CodePlayground/VanillaCodePlayground";
+
+### Interface
+
+`createBottomSheet` is a function that creates a new instance of a bottom sheet.  
+To control the bottom sheet, you can pass options to it, and use the return value of the function.  
+For more information on the options and methods available, see the [BottomSheetCore](/apis/Vanilla/BottomSheetCore/Commands).
+
+```ts
+createBottomSheet: (props: BottomSheetCoreProps) => BottomSheet;
+```
+
+### Example
+
+<VanillaCodePlayground
+  code={`import { createBottomSheet } from "@plainsheet/core";
+
+const bottomSheet = createBottomSheet({ content: "text" });
+bottomSheet.mount();
+
+addEventListener("DOMContentLoaded", (event) => {
+createButton("open-button", "Open", bottomSheet.open)
+});
+
+function createButton (id, text, onClick) {
+const btn = document.createElement("button");
+btn.setAttribute("id", id);
+btn.textContent = text;
+window.document.body.appendChild(btn);
+document.querySelector("#" + id).addEventListener("click", onClick);
+}
+`}
+/>
+
+```js /createBottomSheet/ copy
+import { createBottomSheet } from "@plainsheet/core";
+
+const bottomSheet = createBottomSheet({
+  content: `<article>
+            <h2>Bottom Sheet</h2>
+            <button
+                id="close"
+            > Close </button>
+        </article>`,
+  // ...other `BottomSheetCoreProps`
+});
+
+document
+  .querySelector("#close")
+  ?.addEventListener("click", () => bottomSheet.close());
+
+bottomSheet.mount();
+bottomSheet.open();
+```

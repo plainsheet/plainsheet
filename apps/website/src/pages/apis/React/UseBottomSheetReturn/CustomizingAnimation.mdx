@@ -1,0 +1,41 @@
+import { CodePlayground } from "../../../../components/CodePlayground/CodePlayground";
+
+## Customizing Animation
+
+You can define animation timings and durations to precisely control the animation's behavior.
+
+#### Animation Timings
+
+- **`draggingAnimationTimings?: CommonAnimation | AnimationTimingPoints | null`**  
+  Optional. Can be either:
+  - A common preset: `ease`, `eas-in`, `ease-out`, `ease-in-out`, `spring`
+  - A `draggingAnimationTimings` which is a cubic Bezier curve points expressed as an object such as `{ p1x: 0.42, p1y: 0, p2x: 0.58, p2y: 1 }`
+
+#### Animation Duration
+
+- **`draggingAnimationDuration?: number`**  
+  Optional. Duration of the dragging animation in milliseconds.
+
+<CodePlayground
+  code={`import { BottomSheet, useBottomSheet } from "@plainsheet/react";
+
+export default function App() {
+  const bottomSheet = useBottomSheet({
+    draggingAnimationTimings: 'ease-in-out',
+    // Or, draggingAnimationTimings: { p1x: 0.42, p1y: 0, p2x: 0.58, p2y: 1 },
+    draggingAnimationDuration: 300,
+  });
+  
+  return (
+    <div style={{ textAlign: "center", marginTop: "2rem" }}>
+      <BottomSheet {...bottomSheet.props}>
+        &nbsp; Your content goes here 🦭
+      </BottomSheet>
+      <button onClick={bottomSheet.open}>
+        Open
+      </button>
+    </div>
+  );
+}
+`}
+/>

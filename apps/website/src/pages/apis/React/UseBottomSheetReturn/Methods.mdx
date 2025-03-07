@@ -1,0 +1,44 @@
+import { CodePlayground } from "../../../../components/CodePlayground/CodePlayground";
+
+## Methods
+
+The `useBottomSheet` hook provides below methods to control the bottom sheet's behavior.
+
+- **`open(): void`**  
+  Opens the bottom sheet.
+
+- **`close(): void`**  
+  Closes the bottom sheet.
+
+- **`setIsOpen(open: boolean): void`**  
+  Sets the open state of the bottom sheet. It comes in handy when you want to make a toggle button.
+
+- **`moveTo(endY: number): void`**  
+  Moves the bottom sheet to a specified vertical position within the viewport. The top of the viewport is 0, increasing towards the bottom.
+
+- **`snapTo(percent: number): void`**  
+  Moves the bottom sheet to a relative position within the viewport based on percentage. For example, `0.1` would position the bottom sheet 10% below the top of the viewport.
+
+<CodePlayground
+  code={`import { BottomSheet, useBottomSheet } from "@plainsheet/react";
+
+export default function App() {
+  const bottomSheet = useBottomSheet();
+
+return (
+
+<div style={{ textAlign: "center", marginTop: "2rem" }}>
+  <BottomSheet {...bottomSheet.props}>
+    &nbsp; Your content goes here 🦭
+    <br />
+    <button onClick={() => bottomSheet.close}>Close</button>
+    <button onClick={() => bottomSheet.setIsOpen(false)}>Set Closed</button>
+    <button onClick={() => bottomSheet.moveTo(50)}>Move to 50px</button>
+    <button onClick={() => bottomSheet.snapTo(0.5)}>Snap to 50%</button>
+  </BottomSheet>
+  
+  <button onClick={bottomSheet.open}>Open</button>
+  <button onClick={() => bottomSheet.setIsOpen(true)}>Set Open</button>
+
+</div>
+); } `} />
