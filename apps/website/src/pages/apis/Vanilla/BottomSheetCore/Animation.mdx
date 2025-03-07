@@ -1,0 +1,36 @@
+import { VanillaCodePlayground } from "../../../../components/CodePlayground/VanillaCodePlayground";
+
+## Animation
+
+- **`draggingAnimationTimings?`: `CommonAnimation | AnimationTimingPoints | null`**  
+  Optional. Specifies the animation timings using a common preset (`ease`, `ease-in-out`, `spring`, etc.)  
+  or cubic Bezier curve points expressed as an object.  
+  It defaults to `ease`, which is the default iOS animation timing function.
+
+- **`draggingAnimationDuration?`: `number`**  
+  Optional. Duration of the dragging animation in milliseconds.
+
+<VanillaCodePlayground
+code={`import { createBottomSheet } from "@plainsheet/core";
+
+const bottomSheet = createBottomSheet({ content:
+"text",
+draggingAnimationTimings: "spring",
+// draggingAnimationTimings: { p1x: 0.42, p1y: 0, p2x: 0.58, p2y: 1 },
+});
+
+bottomSheet.mount();
+
+addEventListener("DOMContentLoaded", (event) => {
+createButton("open-button", "Open", bottomSheet.open)
+});
+
+function createButton (id, text, onClick) {
+const btn = document.createElement("button");
+btn.setAttribute("id", id);
+btn.textContent = text;
+window.document.body.appendChild(btn);
+document.querySelector("#" + id).addEventListener("click", onClick);
+}
+`}
+/>

@@ -1,0 +1,60 @@
+import { VanillaCodePlayground } from "../../../../components/CodePlayground/VanillaCodePlayground";
+
+## Behavior
+
+- **`defaultPosition?: BottomSheetPosition`**  
+  Optional. The initial position where the bottom sheet should appear.
+
+- **`shouldCloseOnOutsideClick?: boolean`**  
+  Optional. Determines if the bottom sheet should close when the outside is clicked.
+
+- **`snapPoints?: number[]`**  
+  Optional. `[0.3, 0.8]` will make the bottom sheet stop at 30% and 80% of the screen height, from the top.
+
+- **`expandable?: boolean`**  
+  Optional. If true, the bottom sheet can be dragged up above its content height. Default is `true`.
+
+- **`draggable?: boolean`**  
+  Optional. If true, the bottom sheet can be dragged. Default is `true`.
+
+- **`preventClosing?: boolean`**  
+  Optional. If true, the bottom sheet cannot be dragged down below its content height. Defaults to `false`.
+
+- **`backgroundDraggable?: boolean`**  
+  Optional. If true, the content's background can be dragged. Default is `true`.
+
+- **`dragTriggers?: string[]`**  
+  Optional. Element selectors that will trigger dragging of the bottom sheet.
+
+<VanillaCodePlayground
+  code={`import { createBottomSheet } from "@plainsheet/core";
+
+const bottomSheet = createBottomSheet({
+content: "text",
+shouldCloseOnOutsideClick: false,
+snapPoints: [0.6],
+expandable: true,
+draggable: true,
+preventClosing: true,
+backgroundDraggable: true,
+dragTriggers: [".drag-trigger"]
+});
+bottomSheet.mount();
+
+addEventListener("DOMContentLoaded", (event) => {
+createButton("open-button", "Open", bottomSheet.open);
+
+const closeBtn = createButton("close-button", "Close", bottomSheet.close);
+bottomSheet.elements.bottomSheetContentWrapper.appendChild(closeBtn);
+});
+
+function createButton (id, text, onClick) {
+const btn = document.createElement("button");
+btn.setAttribute("id", id);
+btn.textContent = text;
+window.document.body.appendChild(btn);
+document.querySelector("#" + id).addEventListener("click", onClick);
+return btn;
+}
+`}
+/>

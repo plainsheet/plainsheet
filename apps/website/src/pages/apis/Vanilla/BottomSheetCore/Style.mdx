@@ -1,0 +1,66 @@
+import { VanillaCodePlayground } from "../../../../components/CodePlayground/VanillaCodePlayground";
+
+## Style
+
+- **`width?: string`**  
+  Optional. Specifies the width of the bottom sheet. Default is `100%`.
+
+- **`marginTop?: number`**  
+  Optional. Space between the top of the bottom sheet and the viewport's top. Default is `20`.
+
+- **`backdropColor?: CSSColor | string | null`**  
+  Optional. Sets the color of the backdrop.
+
+- **`backDropTransition?: string | null`**  
+  Optional. Defines the transition for the backdrop appearance.
+
+- **`shouldShowHandle?: boolean`**  
+  Optional. Determines if a handle should be shown.
+
+- **`shouldShowBackdrop?: boolean`**  
+  Optional. Whether to show the backdrop or not.
+
+- **`containerBorderRadius?: CSSUnit | null`**  
+  Optional.
+
+- **`rootClass?: string | null`**  
+  Optional. Custom class for the root element of the bottom sheet.
+
+- **`containerClass?: string | null`**  
+  Optional. Custom class for the container element.
+
+- **`handleClass?: string | null`**  
+  Optional. Custom class for the handle element.
+
+- **`contentWrapperClass?: string | null`**  
+  Optional. Custom class for the content wrapper element.
+
+- **`backdropClass?: string | null`**  
+   Optional. Custom class for the backdrop element.
+
+<VanillaCodePlayground
+code={`import { createBottomSheet } from "@plainsheet/core";
+  const bottomSheet = createBottomSheet({
+  content: "text",
+  width: "60%",
+  marginTop: 100,
+  backdropColor: "rgba(77, 153, 239, 0.5)",
+  backDropTransition: "background-color 1s ease-out;",
+  shouldShowBackdrop: true,
+  containerBorderRadius: "5px",
+  shouldShowHandle: true,
+
+rootClass: "root-class",
+containerClass: "container-class",
+handleClass: "handle-class",
+contentWrapperClass: "content-wrapper-class",
+backdropClass: "backdrop-class"
+});
+bottomSheet.mount();
+
+addEventListener("DOMContentLoaded", (event) => {
+bottomSheet.open();
+});
+
+`}
+/>
