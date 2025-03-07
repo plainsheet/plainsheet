@@ -41,7 +41,7 @@ export function VanillaCodePlayground(props: CodePlaygroundBaseProps) {
       }}
       customSetup={{
         dependencies: {
-          "@plainsheet/core": "0.7.9",
+          "@plainsheet/core": "latest",
           ...depsToInstall,
         },
       }}
