@@ -1,0 +1,63 @@
+import { CodePlayground } from "../../../../components/CodePlayground/CodePlayground";
+
+## Using Getters
+
+The `instance` property of `useBottomSheet` provides several getters that allow you to access the state and properties of the bottom sheet. These getters can be useful for determining the current status of the bottom sheet and for making decisions based on its state.  
+Note that a getter from the instance is not a React State, so it won't trigger a re-render when they are called.  
+On the other hand, `isOpen` and `isClosed` are React States that will trigger a re-render when they are called.
+
+### Getters
+
+- **`isOpen(): boolean`**  
+  Returns a boolean indicating whether the bottom sheet is currently open. When its closing animation is in-progress, the bottom sheet is still considered as open.
+
+- **`isClosed(): boolean`**  
+  Returns a boolean indicating whether the bottom sheet is currently closed.
+- **`instance.getIsMounted(): boolean`**  
+  Returns a boolean indicating whether the bottom sheet is currently mounted in the DOM.
+
+- **`instance.getPosition(): BottomSheetPosition`**  
+  Returns the current position of the bottom sheet's top within the viewport.
+
+- **`instance.getHeight(): number`**  
+  Returns the current height of the bottom sheet.
+
+<CodePlayground
+  code={`import { BottomSheet, useBottomSheet } from "@plainsheet/react";
+    
+export default function App() {
+  const bottomSheet = useBottomSheet();
+return (
+
+<div style={{ textAlign: "center", marginTop: "2rem" }}>
+  <BottomSheet {...bottomSheet.props}>
+    &nbsp; Your content goes here 🦭
+    <br />
+    <button
+      onClick={() => {
+        console.log(bottomSheet.instance.getIsMounted());
+      }}
+    >Log Is Mounted</button>
+    <br />
+    <button
+      onClick={() => {
+        console.log(bottomSheet.instance.getPosition());
+      }}
+    >Log Position</button>
+    <br />
+    <button
+      onClick={() => {
+        console.log(bottomSheet.instance.getHeight());
+      }}
+    >Log Height</button>
+  </BottomSheet>
+  <button onClick={bottomSheet.open}>Open</button>
+
+  <div>
+    <strong>Is Open:</strong> {bottomSheet.isOpen.toString()}
+    <br />
+    <strong>is Closed:</strong> {bottomSheet.isClosed ? 'true' : 'false'}
+    <br />
+  </div>
+</div>
+); } `} />

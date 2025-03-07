@@ -1,13 +1,14 @@
 import { CodePlayground } from "../../../components/CodePlayground/CodePlayground.tsx";
 
-## `BottomSheet`
+## `useBottomSheet`
 
-`BottomSheet` component is controlled by the `useBottomSheet` hook, so they go hand-in-hand.
+`BottomSheet` component is controlled by `UseBottomSheetReturn`(the return type of `useBottomSheet`), so they go hand-in-hand.
+Check out the [UseBottomSheetReturn](/apis/React/UseBottomSheetReturn/Methods) for use cases and examples.
 
 ### Interface
 
 ```ts
-BottomSheet: (props: BottomSheetProps) => ReactNode;
+useBottomSheet: (props: UseBottomSheetProps) => UseBottomSheetReturn;
 ```
 
 ### Example
@@ -33,7 +34,7 @@ export default function App() {
 `}
 />
 
-```jsx /BottomSheet/ copy
+```jsx /useBottomSheet/ copy
 import { useState } from "react";
 import { BottomSheet } from "@plainsheet/react";
 
