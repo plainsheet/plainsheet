@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import summer from "../public/etienne-girardet-Xh6BpT-1tXo-unsplash.jpg";
-import { track } from "@vercel/analytics/react";
 
 export function Promo() {
   return (
@@ -29,13 +28,6 @@ export function Promo() {
               <button
                 type="button"
                 className="mt-8 block w-full rounded-md border border-transparent bg-white px-8 py-3 text-base font-medium text-gray-900 hover:bg-gray-100 sm:w-auto"
-                onClick={() => {
-                  track(
-                    "Clicked Shop Now",
-                    {},
-                    { flags: ["summer-sale", "free-delivery"] }
-                  );
-                }}
               >
                 Shop now
               </button>
