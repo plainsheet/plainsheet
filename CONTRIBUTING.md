@@ -17,7 +17,7 @@ If you want to co-author with other collaborators, consider using [coauthors](ht
 1. Please install [NVM](https://github.com/nvm-sh/nvm?tab=readme-ov-file#installing-and-updating), if you haven't yet.
 2. Run `nvm use`
 3. Run `pnpm install`
-4. Run `pnpm run dev --filter {workspace that you develop}`  
+4. Run `pnpm run dev --filter {workspace that you want to develop}`  
    3-1. A workspace name can be found in each `package.json`
 5. You should see the dev server running on the console. Happy coding!
 
