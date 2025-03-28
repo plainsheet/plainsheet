@@ -1,6 +1,6 @@
 {
   "name": "@plainsheet/core",
-  "version": "0.7.10",
+  "version": "0.7.11",
   "private": false,
   "sideEffects": false,
   "description": "The minimalistic, configurable React bottom-sheet for the Web developers",
