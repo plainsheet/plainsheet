@@ -11,6 +11,10 @@
 ![React Bundle Size](https://img.shields.io/bundlephobia/minzip/@plainsheet/react)
 ![React NPM Downloads](https://img.shields.io/npm/dt/@plainsheet/react)
 
+<a href="https://codecov.io/gh/PeterByun/plain-bottom-sheet" > 
+ <img src="https://codecov.io/gh/PeterByun/plain-bottom-sheet/graph/badge.svg?token=WFHGUAI3GC"/> 
+</a>
+
 The **minimalistic**, **configurable** bottom sheet for any web project.
 
 ### [Check out our website](https://www.plainsheet.org//), for a quick start guide, API, examples, and more!
