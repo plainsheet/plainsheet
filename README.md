@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://https://www.plainsheet.org/">
-    <img src="https://github.com/plainsheet/plainsheet/raw/main/documents/assets/header.png" width="328" height="167">
+    <img src="https://github.com/plainsheet/plainsheet/raw/main/documents/assets/readme-header.png" width="328" height="167">
   </a>
 </p>
 
