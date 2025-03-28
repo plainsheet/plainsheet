@@ -1,5 +1,11 @@
 # plain-bottom-sheet-core
 
+## 0.7.11
+
+### Patch Changes
+
+- 6b4fc74: fix(core): Prevent dragging end handlers from being fired when the bo…
+
 ## 0.7.10
 
 ### Patch Changes
