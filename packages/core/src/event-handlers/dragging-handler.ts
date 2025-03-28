@@ -190,17 +190,14 @@ export const handleDragEnd =
     const containerHeight = bottomSheetContainer.clientHeight;
 
     if (direction.isUp) {
+      if (!bottomSheetProps.expandable) {
+        return;
+      }
       const snapPointsInAsc = [...bottomSheetProps.snapPoints].sort(
         (left, right) => left - right
       );
 
       const containerVisibleHeight = containerHeight + -containerEndY;
-      if (
-        !bottomSheetProps.expandable &&
-        containerVisibleHeight >= containerHeight
-      ) {
-        return;
-      }
 
       for (const snapPoint of snapPointsInAsc) {
         // The diff between endY and startY can not be used because
