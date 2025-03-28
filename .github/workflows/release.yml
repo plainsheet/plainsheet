@@ -45,6 +45,7 @@ jobs:
       - name: Create Release Pull Request or Publish to npm
         id: changesets
         uses: changesets/action@v1
+        continue-on-error: true
         with:
           publish: pnpm release
         env:
@@ -53,5 +54,4 @@ jobs:
 
       - name: Send a Slack notification if a publish happens
         if: steps.changesets.outputs.published == 'true'
-        # You can do something when a publish happens.
         run: echo "Published! 🎉"
