@@ -4,11 +4,12 @@
   </a>
 </p>
 
-![Core Bundle Size](https://deno.bundlejs.com/badge?q=@plainsheet/core@latest&badge=detailed)
-![Core NPM Downloads](https://img.shields.io/npm/dt/@plainsheet/react)
-
-![React Bundle Size](https://deno.bundlejs.com/badge?q=@plainsheet/react@latest&badge=detailed)
-![React NPM Downloads](https://img.shields.io/npm/dt/@plainsheet/core)
+**Plainsheet/Core**  
+![Core Bundle Size](https://img.shields.io/bundlephobia/minzip/@plainsheet/core)
+![Core NPM Downloads](https://img.shields.io/npm/dt/@plainsheet/core)  
+**Plainsheet/React**  
+![React Bundle Size](https://img.shields.io/bundlephobia/minzip/@plainsheet/react)
+![React NPM Downloads](https://img.shields.io/npm/dt/@plainsheet/react)
 
 <a href="https://codecov.io/gh/PeterByun/plain-bottom-sheet" > 
  <img src="https://codecov.io/gh/PeterByun/plain-bottom-sheet/graph/badge.svg?token=WFHGUAI3GC"/> 
