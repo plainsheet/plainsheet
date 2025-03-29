@@ -18,9 +18,11 @@ test("Content should be reactive", async () => {
   const nextContent = "nextContent";
   bottomSheet.props.content = nextContent;
 
-  expect(
-    getByText(bottomSheet.elements.bottomSheetRoot, nextContent)
-  ).toBeTruthy();
+  const rootEl = bottomSheet.elements.bottomSheetRoot;
+  if (!rootEl) {
+    throw Error("Bottom sheet element not found");
+  }
+  expect(getByText(rootEl, nextContent)).toBeTruthy();
 });
 
 test("width should be reactive", async () => {
@@ -34,7 +36,11 @@ test("width should be reactive", async () => {
   const nextWidth = "80%";
   bottomSheet.props.width = nextWidth;
 
-  expect(bottomSheet.elements.bottomSheetContainer.style.width).toBe(nextWidth);
+  const rootEl = bottomSheet.elements.bottomSheetRoot;
+  if (!rootEl) {
+    throw Error("Bottom sheet element not found");
+  }
+  expect(rootEl.style.width).toBe(nextWidth);
 });
 
 test("class names should be reactive", () => {
