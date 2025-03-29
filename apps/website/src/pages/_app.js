@@ -1,5 +1,11 @@
 import "./app.css";
+import { Analytics } from "@vercel/analytics/react";
 
-export default function PBSDocs({ Component, pageProps }) {
-  return <Component {...pageProps} />;
+export default function PlainSheetWebsite({ Component, pageProps }) {
+  return (
+    <>
+      <Component {...pageProps} />;
+      <Analytics />
+    </>
+  );
 }
