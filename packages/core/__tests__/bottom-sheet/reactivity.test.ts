@@ -36,10 +36,11 @@ test("width should be reactive", async () => {
   const nextWidth = "80%";
   bottomSheet.props.width = nextWidth;
 
-  const rootEl = bottomSheet.elements.bottomSheetRoot;
+  const rootEl = bottomSheet.elements.bottomSheetContainer;
   if (!rootEl) {
     throw Error("Bottom sheet element not found");
   }
+
   expect(rootEl.style.width).toBe(nextWidth);
 });
 
@@ -83,9 +84,22 @@ test("class names should be reactive", () => {
 });
 
 test("dragging options should be reactive", () => {
-  // expandable
-  // draggable
-  // backgroundDraggable
-  // shouldCloseOnOutsideClick
-  expect(1 + 2).toBe(3);
+  const bottomSheet = createBottomSheet({
+    content: "",
+    expandable: false,
+    draggable: false,
+    backgroundDraggable: false,
+    shouldCloseOnOutsideClick: false,
+  });
+  bottomSheet.mount();
+
+  bottomSheet.props.expandable = true;
+  bottomSheet.props.draggable = true;
+  bottomSheet.props.backgroundDraggable = true;
+  bottomSheet.props.shouldCloseOnOutsideClick = true;
+
+  expect(bottomSheet.props.expandable).toBe(true);
+  expect(bottomSheet.props.draggable).toBe(true);
+  expect(bottomSheet.props.backgroundDraggable).toBe(true);
+  expect(bottomSheet.props.shouldCloseOnOutsideClick).toBe(true);
 });
