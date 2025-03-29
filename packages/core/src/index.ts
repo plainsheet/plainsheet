@@ -1,12 +1,14 @@
-export * from "./bottom-sheet";
-export * from "./types";
+export { createBottomSheet } from "./bottom-sheet";
+export type {
+  BottomSheetCore,
+  BottomSheetCoreProps,
+  BottomSheetPosition,
+  DraggingAnimationTimings,
+  SnapPoints,
+} from "./types";
 
-export * from "./initializer";
+export { createPlaceholderBottomSheet } from "./initializer";
 
-export * from "./class-names/class-names";
-export * from "./class-names/selectors";
+export type { DraggingDirection } from "./calculator";
 
-export * from "./calculator";
-export * from "./class-names";
-
-export * from "./utils";
+export type { AnimationTimingPoints } from "./utils";
