@@ -14,8 +14,14 @@ export function cubicBezier(
   // Limit the range of the change from the function.
   const limit = 0.001;
 
-  // t varies from 0 to 1.
   return function (t: number): number {
+    // Both functions accept one parameter: t, which varies from 0 to 1
+    // And both of them produce the result based on the curve(expressed with P1 and P2)
+
+    // X is the function to get the "time percentage" based on the input time and the curve
+    // this is because a cubic bezier curve is not a linear function.
+
+    // Y is the progress based on the "time percentage" and the curve
     return sampleCurveY(solveCurveX(t));
   };
 
