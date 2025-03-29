@@ -69,7 +69,6 @@ export function cubicBezier(
     // the newly found timing then can be used to find the corresponding y coordinate.
     return t2;
   }
-
   function sampleCurveX(t: number): number {
     // Using the cubic Bezier curve formula, solve for x of all points.
     return (
@@ -78,6 +77,7 @@ export function cubicBezier(
       Math.pow(t, 3)
     );
   }
+
   function sampleCurveY(t: number): number {
     // Solve for y of all points.
     return (
