@@ -1,5 +1,11 @@
 # plain-bottom-sheet-core
 
+## 0.7.12
+
+### Patch Changes
+
+- 814e097: fix: prevent the handle from shrikning in a flex box
+
 ## 0.7.11
 
 ### Patch Changes

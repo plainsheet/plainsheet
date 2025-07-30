@@ -1,5 +1,13 @@
 # @plainsheet/react-plain-bottom-sheet
 
+## 0.4.12
+
+### Patch Changes
+
+- 814e097: fix: prevent the handle from shrikning in a flex box
+- Updated dependencies [814e097]
+  - @plainsheet/core@0.7.12
+
 ## 0.4.11
 
 ### Patch Changes
