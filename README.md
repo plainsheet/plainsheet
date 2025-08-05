@@ -57,9 +57,15 @@ Without any configs.
 
 See PlainSheet in action! Real-world applications built by developers around the world:
 
-### 🤖 [BreezyLearn](https://www.breezylearn.com/)
+### 🍃 [BreezyLearn](https://www.breezylearn.com/)
 
-An AI-powered learning platform that helps students learn concepts through personalized lessons and interactive content.
+An AI-powered learning platform that helps anyone learn any topic through interactive content and tests.
+
+<p align="center">
+  <a href="https://www.breezylearn.com/">
+    <img src="https://github.com/plainsheet/plainsheet/raw/main/documents/assets/breezy-header.png" width="328" height="167">
+  </a>
+</p>
 
 _[Want to be featured here? Submit your project!](https://github.com/plainsheet/plainsheet/issues)_
 
