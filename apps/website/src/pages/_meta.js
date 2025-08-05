@@ -15,6 +15,10 @@ const metaConfig = {
     title: "Examples",
     type: "page",
   },
+  showcase: {
+    title: "Showcase",
+    type: "page",
+  },
 };
 
 export default metaConfig;

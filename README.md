@@ -53,6 +53,16 @@ Without any configs.
 
 ### ⚡️ Performant By Default
 
+## Showcase
+
+See PlainSheet in action! Real-world applications built by developers around the world:
+
+### 🤖 [BreezyLearn](https://www.breezylearn.com/)
+
+An AI-powered learning platform that helps students learn concepts through personalized lessons and interactive content.
+
+_[Want to be featured here? Submit your project!](https://github.com/plainsheet/plainsheet/issues)_
+
 ## Philosophy
 
 As the name suggests, we strive to make the plain bottom sheet minimalistic yet feature-rich and highly configurable.  
