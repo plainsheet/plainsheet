@@ -63,7 +63,7 @@ An AI-powered learning platform that helps anyone learn any topic through intera
 
 <p align="center">
   <a href="https://www.breezylearn.com/">
-    <img src="https://github.com/plainsheet/plainsheet/raw/main/documents/assets/breezy-header.png" width="328" height="167">
+    <img src="https://github.com/plainsheet/plainsheet/raw/main/documents/assets/breezy-header.png" width="256" height="256">
   </a>
 </p>
 
