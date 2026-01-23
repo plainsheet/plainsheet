@@ -36,9 +36,9 @@ return (
     <button onClick={() => bottomSheet.moveTo(50)}>Move to 50px</button>
     <button onClick={() => bottomSheet.snapTo(0.5)}>Snap to 50%</button>
   </BottomSheet>
-  
-  <button onClick={bottomSheet.open}>Open</button>
+  <button onClick={bottomSheet.open} style={{ margin: "0.5rem" }}>
+    Open
+  </button>
   <button onClick={() => bottomSheet.setIsOpen(true)}>Set Open</button>
-
 </div>
 ); } `} />

@@ -2,14 +2,16 @@ import { CodePlayground } from "../../../../components/CodePlayground/CodePlaygr
 
 ## Using Getters
 
-The `instance` property of `useBottomSheet` provides several getters that allow you to access the state and properties of the bottom sheet. These getters can be useful for determining the current status of the bottom sheet and for making decisions based on its state.  
-Note that a getter from the instance is not a React State, so it won't trigger a re-render when they are called.  
-On the other hand, `isOpen` and `isClosed` are React States that will trigger a re-render when they are called.
+The `instance` property of `useBottomSheet` provides several getters that allow you to access the state and properties of the bottom sheet.  
+These getters are useful for getting the status of the bottom sheet and making decisions based on them.  
+Note that a getter from the instance is not a React State, so it won't trigger a re-render when they are part of `useEffect`'s dependency array.  
+On the other hand, `isOpen` and `isClosed` are React States.
 
 ### Getters
 
 - **`isOpen(): boolean`**  
-  Returns a boolean indicating whether the bottom sheet is currently open. When its closing animation is in-progress, the bottom sheet is still considered as open.
+  Returns a boolean indicating whether the bottom sheet is currently open.  
+  When its closing animation is in-progress, the bottom sheet is still considered as open.
 
 - **`isClosed(): boolean`**  
   Returns a boolean indicating whether the bottom sheet is currently closed.

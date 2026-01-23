@@ -34,9 +34,9 @@ const bottomSheet = createBottomSheet({ content: "text" });
 bottomSheet.mount();
 
 addEventListener("DOMContentLoaded", (event) => {
-createButton("open-button", "Open it!", bottomSheet.open)
+createButton("open-button", "Open", bottomSheet.open)
 
-createButton("content-update-button", "Change the content!", () => {
+createButton("content-update-button", "Change content", () => {
 bottomSheet.props.content = "<div>New Content <br/><br/><br/> </div>";
 })
 });
@@ -45,6 +45,7 @@ function createButton (id, text, onClick) {
 const btn = document.createElement("button");
 btn.setAttribute("id", id);
 btn.textContent = text;
+btn.style.margin = "0.5rem";
 window.document.body.appendChild(btn);
 document.querySelector("#" + id).addEventListener("click", onClick);
 }
