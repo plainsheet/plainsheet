@@ -1,14 +1,13 @@
 # Welcome! ⛴️
 
 Thank you for being interested in the project!  
-**We welcome every contribution, from anyone.**  
-Feel free to reach out to use at [our Discord channel](https://discord.gg/pGzJgKKj) 🙌🏻
+We welcome every contribution, from anyone.
 
 ### How We Work
 
-We have [a project board](https://github.com/orgs/plainsheet/projects/2), which we keep our backlogs and tasks in progress.  
+We have [a project board](https://github.com/orgs/plainsheet/projects/2), which we keep our backlogs and tasks.  
 Feel free to pick one and assign yourself to the item, and make a feature branch.  
-From there, you can start to develop the feature, and make a PR to the main branch.
+From there, you can start developing the feature, and make a PR.
 
 If you want to co-author with other collaborators, consider using [coauthors](https://github.com/coauthors/coauthors)! it's a handy tool to add a co-author to your commits.
 

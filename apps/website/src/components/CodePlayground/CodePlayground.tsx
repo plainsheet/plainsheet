@@ -23,7 +23,20 @@ export function CodePlayground(props: CodePlaygroundBaseProps) {
       template={"react"}
       files={{
         "/App.js": {
-          code: props.code,
+          code:
+            props.code +
+            `
+          import './styles.css';
+          `,
+        },
+        "/styles.css": {
+          code: `
+          html, body {
+            height: 100%;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+          }
+          `,
         },
       }}
       customSetup={{
