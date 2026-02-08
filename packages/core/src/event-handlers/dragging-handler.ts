@@ -280,7 +280,6 @@ export const handleDragEnd =
 
         return;
       }
-      console.log("onclose");
       onClose();
     }
   };
