@@ -44,6 +44,9 @@ export default function Example() {
           <Link href={"/getters"}>Getters</Link>
         </ChakraLink>
         <ChakraLink colorPalette="blue" asChild>
+          <Link href={"/history"}>History</Link>
+        </ChakraLink>
+        <ChakraLink colorPalette="blue" asChild>
           <Link href={"/life-cycle-callbacks"}>Life Cycle Callbacks</Link>
         </ChakraLink>
 
