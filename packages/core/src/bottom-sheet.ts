@@ -4,7 +4,7 @@ import "./style/pbs-container.css";
 import "./style/pbs-handle.css";
 import "./style/pbs-content.css";
 
-import { setVisibility } from "./utils/dom/visibility";
+import { getVisibility, setVisibility } from "./utils/dom/visibility";
 import { initializeBottomSheetElements } from "./initializer/bottom-sheet-initializer";
 import { getTranslate, setTranslate } from "./utils/dom/translate";
 import { AnimationFrame } from "./utils/animation/animation-frame";
@@ -14,7 +14,10 @@ import {
   convertDefaultPositionToYCoordinate,
   extractPoints,
 } from "./calculator/position-calculator";
-import { translateContainerWithAnim } from "./animation/animation";
+import {
+  animateBackdropWithAnim,
+  translateContainerWithAnim,
+} from "./animation/animation";
 import type {
   BottomSheetState,
   DraggingState,
@@ -39,21 +42,30 @@ import { isNumber } from "./utils/types/is-number";
 import { addClassName } from "./utils/dom/class-names";
 
 export function createBottomSheet(
-  props: BottomSheetCoreProps
+  props: BottomSheetCoreProps,
 ): BottomSheetCore {
   const propsWithDefaults = overwriteDefaultProps(props);
 
   const validDraggingAnimationTimings = interpretAnimationTimingsProp(
-    props.draggingAnimationTimings
+    props.draggingAnimationTimings,
   );
   const translateContainer = translateContainerWithAnim(
     validDraggingAnimationTimings,
-    propsWithDefaults.draggingAnimationDuration
+    propsWithDefaults.draggingAnimationDuration,
+  );
+
+  const validBackdropAnimationTimings = interpretAnimationTimingsProp(
+    props.backdropAnimationTimings,
+  );
+  const animateBackdrop = animateBackdropWithAnim(
+    validBackdropAnimationTimings,
+    propsWithDefaults.backdropAnimationDuration,
   );
 
   const bottomSheetState: BottomSheetState = {
     isMounted: false,
     translateContainer,
+    animateBackdrop,
   };
   const draggingState: DraggingState = {
     startY: null,
@@ -91,7 +103,7 @@ export function createBottomSheet(
 
   const { elements, eventHandlers } = initializeBottomSheetElements(
     propsWithDefaults,
-    initializerOptions
+    initializerOptions,
   );
 
   const observedProps = observe(
@@ -100,8 +112,8 @@ export function createBottomSheet(
       elements,
       bottomSheetState,
       propsWithDefaults,
-      eventHandlers
-    )
+      eventHandlers,
+    ),
   );
 
   const { bottomSheetBackdrop, bottomSheetRoot, bottomSheetContainer } =
@@ -136,7 +148,7 @@ export function createBottomSheet(
   const open = (): void => {
     if (!getIsMounted()) {
       logError(
-        'Bottom Sheet is not mounted yet. call the "mount" method first.'
+        'Bottom Sheet is not mounted yet. call the "mount" method first.',
       );
     }
     props.beforeOpen?.();
@@ -164,7 +176,7 @@ export function createBottomSheet(
       viewportHeight,
       bottomSheetContainer.clientHeight,
       observedProps.marginTop,
-      observedProps.defaultPosition
+      observedProps.defaultPosition,
     );
 
     const startContainerY = getTranslate(bottomSheetContainer).y;
@@ -192,7 +204,7 @@ export function createBottomSheet(
   };
 
   function close(): void {
-    if (getIsClosed()) {
+    if (!getVisibility(bottomSheetContainer)) {
       return;
     }
 
@@ -208,11 +220,24 @@ export function createBottomSheet(
       bottomSheetContainer,
       onEnd: () => {
         props.afterClose?.();
-        setVisibility([bottomSheetBackdrop, bottomSheetContainer], false);
+        setVisibility([bottomSheetContainer], false);
 
         eventHandlers.clearOnOpenEventListeners();
       },
     });
+
+    if (Object.keys(observedProps.backdropAnimStyleCreators).length > 0) {
+      const backdropAnimationFrame = new AnimationFrame();
+      bottomSheetState.animateBackdrop({
+        animationFrame: backdropAnimationFrame,
+        backdrop: bottomSheetBackdrop,
+        styleCreators: observedProps.backdropAnimStyleCreators,
+        onEnd: () => {
+          setVisibility([bottomSheetBackdrop], false);
+          bottomSheetBackdrop.style.opacity = "1";
+        },
+      });
+    }
 
     recoverDocumentOverflowY();
   }
@@ -299,7 +324,7 @@ export function createBottomSheet(
     }: {
       viewportHeight: number;
       visibleHeight: number;
-    }
+    },
   ): {
     minOffset: number | null;
   } {
@@ -309,7 +334,7 @@ export function createBottomSheet(
       const snapPointHeight = snapPoint * viewportHeight;
       const visibleContainerAndSnapPointHeightOffset = calcDiffOfHeight(
         visibleHeight,
-        snapPointHeight
+        snapPointHeight,
       );
 
       if (
@@ -341,7 +366,7 @@ export function createBottomSheet(
     const snapPointsAboveBottomSheet = extractPoints(
       "above",
       { visibleHeight, viewportHeight },
-      snapPointsFromBottom
+      snapPointsFromBottom,
     );
     const { minOffset } = getMinOffsetFromPoints(snapPointsAboveBottomSheet, {
       visibleHeight,
@@ -358,7 +383,7 @@ export function createBottomSheet(
           viewportHeight,
           containerHeight,
           observedProps.marginTop,
-          "top"
+          "top",
         ),
         animationFrame,
         bottomSheetContainer,
@@ -390,7 +415,7 @@ export function createBottomSheet(
     const snapPointsBelowBottomSheet = extractPoints(
       "below",
       { visibleHeight, viewportHeight },
-      observedProps.snapPoints
+      observedProps.snapPoints,
     );
     const { minOffset } = getMinOffsetFromPoints(snapPointsBelowBottomSheet, {
       visibleHeight,
