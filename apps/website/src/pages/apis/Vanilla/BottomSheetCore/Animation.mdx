@@ -7,8 +7,18 @@ import { VanillaCodePlayground } from "../../../../components/CodePlayground/Van
   or cubic Bezier curve points expressed as an object.  
   It defaults to `ease`, which is the default iOS animation timing function.
 
+- **`backdropAnimationTimings?`: `CommonAnimation | AnimationTimingPoints | null`**  
+  Optional. Specifies the backdrop animation timings using a common preset (`ease`, `ease-in-out`, `spring`, etc.)  
+  or cubic Bezier curve points expressed as an object.
+
 - **`draggingAnimationDuration?`: `number`**  
   Optional. Duration of the dragging animation in milliseconds.
+
+- **`backdropAnimationDuration?`: `number`**  
+  Optional. Duration of the backdrop animation in milliseconds.
+
+- **`backdropAnimStyleCreators?`: `StyleCreators`**  
+  Optional. Style creators used for animating the backdrop. Each entry maps a CSS property to a function `(percent) => string`.
 
 <VanillaCodePlayground
 code={`import { createBottomSheet } from "@plainsheet/core";
@@ -17,6 +27,8 @@ const bottomSheet = createBottomSheet({ content:
 "text",
 draggingAnimationTimings: "spring",
 // draggingAnimationTimings: { p1x: 0.42, p1y: 0, p2x: 0.58, p2y: 1 },
+backdropAnimationTimings: "ease-in-out",
+backdropAnimationDuration: 250,
 });
 
 bottomSheet.mount();

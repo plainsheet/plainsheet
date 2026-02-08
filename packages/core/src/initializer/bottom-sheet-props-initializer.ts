@@ -15,7 +15,10 @@ import {
 import { isString } from "src/utils/types/is-string";
 import { isBoolean } from "src/utils/types/is-boolean";
 import { replaceClassName } from "src/utils/dom/class-names";
-import { translateContainerWithAnim } from "src/animation/animation";
+import {
+  animateBackdropWithAnim,
+  translateContainerWithAnim,
+} from "src/animation/animation";
 import { isNumber } from "src/utils/types/is-number";
 import { setHiddenClass } from "src/utils/dom/visibility";
 import type { ObserverSetHandler } from "src/utils/proxy/observe";
@@ -29,7 +32,7 @@ import type {
 import { initializeBorderRadius } from "./style/style-initializer";
 
 export function overwriteDefaultProps(
-  props: BottomSheetCoreProps
+  props: BottomSheetCoreProps,
 ): RequiredBottomSheetProps {
   const propsWithDefaults: RequiredBottomSheetProps = {
     ...BOTTOM_SHEET_DEFAULT_PROPS,
@@ -44,7 +47,7 @@ export function overwriteDefaultProps(
 
       return acc;
     },
-    {}
+    {},
   );
 
   const validProps = {
@@ -56,7 +59,7 @@ export function overwriteDefaultProps(
 }
 
 export function interpretAnimationTimingsProp(
-  draggingAnimationTimings: BottomSheetCoreProps["draggingAnimationTimings"]
+  draggingAnimationTimings: BottomSheetCoreProps["draggingAnimationTimings"],
 ): AnimationTimingFunction {
   if (isAnimationTimingPoints(draggingAnimationTimings)) {
     const { p1x, p1y, p2x, p2y } = draggingAnimationTimings;
@@ -74,7 +77,7 @@ export function createPropSetHandler(
   elements: BottomSheetElements,
   bottomSheetState: BottomSheetState,
   propsWithDefaults: Required<BottomSheetCoreProps>,
-  eventHandlers: InitializeEventsReturnType
+  eventHandlers: InitializeEventsReturnType,
 ): ObserverSetHandler {
   function handlePropSet(property: string | symbol, value: unknown): void {
     switch (property) {
@@ -128,7 +131,7 @@ export function createPropSetHandler(
         replaceClassName(
           elements.bottomSheetRoot,
           propsWithDefaults.rootClass,
-          value
+          value,
         );
         break;
       case "containerClass":
@@ -138,7 +141,7 @@ export function createPropSetHandler(
         replaceClassName(
           elements.bottomSheetContainer,
           propsWithDefaults.containerClass,
-          value
+          value,
         );
         break;
       case "handleClass":
@@ -148,7 +151,7 @@ export function createPropSetHandler(
         replaceClassName(
           elements.bottomSheetHandle,
           propsWithDefaults.handleClass,
-          value
+          value,
         );
         break;
       case "contentWrapperClass":
@@ -158,7 +161,7 @@ export function createPropSetHandler(
         replaceClassName(
           elements.bottomSheetContentWrapper,
           propsWithDefaults.contentWrapperClass,
-          value
+          value,
         );
         break;
       case "backdropClass":
@@ -168,7 +171,7 @@ export function createPropSetHandler(
         replaceClassName(
           elements.bottomSheetBackdrop,
           propsWithDefaults.backdropClass,
-          value
+          value,
         );
         break;
       case "expandable":
@@ -188,12 +191,12 @@ export function createPropSetHandler(
         eventHandlers.attachEventListeners(propsWithDefaults);
         break;
       case "draggingAnimationTimings":
-        if (isAnimationTimingPoints(value)) {
+        if (isAnimationTimingPoints(value) || isCommonAnimationTimingsKey(value)) {
           const validDraggingAnimationTimings =
             interpretAnimationTimingsProp(value);
           const translateContainer = translateContainerWithAnim(
             validDraggingAnimationTimings,
-            propsWithDefaults.draggingAnimationDuration
+            propsWithDefaults.draggingAnimationDuration,
           );
           bottomSheetState.translateContainer = translateContainer;
         }
@@ -201,21 +204,44 @@ export function createPropSetHandler(
       case "draggingAnimationDuration":
         if (isNumber(value)) {
           const validDraggingAnimationTimings = interpretAnimationTimingsProp(
-            propsWithDefaults.draggingAnimationTimings
+            propsWithDefaults.draggingAnimationTimings,
           );
-
           const translateContainer = translateContainerWithAnim(
             validDraggingAnimationTimings,
-            value
+            value,
           );
           bottomSheetState.translateContainer = translateContainer;
         }
         break;
+      case "backdropAnimationTimings":
+        if (isAnimationTimingPoints(value) || isCommonAnimationTimingsKey(value)) {
+          const validBackdropAnimationTimings =
+            interpretAnimationTimingsProp(value);
+          const animateBackdrop = animateBackdropWithAnim(
+            validBackdropAnimationTimings,
+            propsWithDefaults.backdropAnimationDuration,
+          );
+          bottomSheetState.animateBackdrop = animateBackdrop;
+        }
+        break;
+      case "backdropAnimationDuration":
+        if (isNumber(value)) {
+          const validBackdropAnimationTimings = interpretAnimationTimingsProp(
+            propsWithDefaults.backdropAnimationTimings,
+          );
+          const animateBackdrop = animateBackdropWithAnim(
+            validBackdropAnimationTimings,
+            value,
+          );
+          bottomSheetState.animateBackdrop = animateBackdrop;
+        }
+        break;
+
       case "rootStyle":
         if (propsWithDefaults.rootStyle) {
           Object.assign(
             elements.bottomSheetRoot.style,
-            propsWithDefaults.rootStyle
+            propsWithDefaults.rootStyle,
           );
         }
         break;
@@ -223,7 +249,7 @@ export function createPropSetHandler(
         if (propsWithDefaults.backdropStyle) {
           Object.assign(
             elements.bottomSheetBackdrop.style,
-            propsWithDefaults.backdropStyle
+            propsWithDefaults.backdropStyle,
           );
         }
         break;
@@ -231,7 +257,7 @@ export function createPropSetHandler(
         if (propsWithDefaults.containerStyle) {
           Object.assign(
             elements.bottomSheetContainer.style,
-            propsWithDefaults.containerStyle
+            propsWithDefaults.containerStyle,
           );
         }
         break;
@@ -239,7 +265,7 @@ export function createPropSetHandler(
         if (propsWithDefaults.containerGapFillerStyle) {
           Object.assign(
             elements.bottomSheetContainerGapFiller.style,
-            propsWithDefaults.containerGapFillerStyle
+            propsWithDefaults.containerGapFillerStyle,
           );
         }
         break;
@@ -247,7 +273,7 @@ export function createPropSetHandler(
         if (propsWithDefaults.handleStyle) {
           Object.assign(
             elements.bottomSheetHandleBar.style,
-            propsWithDefaults.handleStyle
+            propsWithDefaults.handleStyle,
           );
         }
         break;
@@ -255,7 +281,7 @@ export function createPropSetHandler(
         if (propsWithDefaults.contentWrapperStyle) {
           Object.assign(
             elements.bottomSheetContentWrapper.style,
-            propsWithDefaults.contentWrapperStyle
+            propsWithDefaults.contentWrapperStyle,
           );
         }
         break;
