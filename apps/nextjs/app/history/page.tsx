@@ -27,10 +27,10 @@ export default function HistoryExamplePage() {
 
 function HistoryExample() {
   const bottomSheet = useBottomSheet();
-  const history = useBottomSheetHistory({
+  useBottomSheetHistory({
     isOpen: bottomSheet.isOpen,
     onClose: bottomSheet.close,
-    hashPrefix: "pbs-example-",
+    hashPrefix: "demo",
   });
 
   return (
@@ -38,36 +38,14 @@ function HistoryExample() {
       <Heading size={"xl"}>Sync the sheet with browser history</Heading>
       <Text maxWidth="720px" textAlign="center">
         Open the sheet, then use your browser back button to close it. The hash
-        entry is pushed only while the sheet is open.
+        entry is pushed only while the sheet is open. Hash format is{" "}
+        #bottom-sheet-demo-{"{index}"}.
       </Text>
       <Button onClick={() => bottomSheet.open()}>Open it</Button>
-
-      <VStack
-        backgroundColor={"whiteAlpha.300"}
-        padding={6}
-        borderRadius={5}
-        width="50%"
-        height={"fit-content"}
-        justifyContent={"center"}
-        gap="3"
-      >
-        <Heading size={"md"}>hash: {history.hash}</Heading>
-        <Heading size={"md"}>
-          hasPushed: {BooleanIndicator(history.hasPushed)}
-        </Heading>
-        <Heading size={"md"}>
-          isTopmost: {BooleanIndicator(history.isTopmost)}
-        </Heading>
-        <Heading size={"md"}>id: {history.id}</Heading>
-      </VStack>
 
       <BottomSheet {...bottomSheet.props}>
         <ProductOptionsForm />
       </BottomSheet>
     </VStack>
   );
-}
-
-function BooleanIndicator(flag: boolean) {
-  return flag ? "✅" : "🔴";
 }

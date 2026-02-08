@@ -5,3 +5,4 @@ export * from "./log";
 export * from "./math";
 export * from "./proxy";
 export * from "./types";
+export { canUseHistory, canUseSessionStorage } from "./browser";

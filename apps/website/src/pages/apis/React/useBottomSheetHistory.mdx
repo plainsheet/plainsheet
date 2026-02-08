@@ -1,4 +1,4 @@
-import { CodePlayground } from "../../../components/CodePlayground/CodePlayground.tsx";
+import { CodePlayground } from "../../../components/CodePlayground/CodePlayground";
 
 ## `useBottomSheetHistory`
 
@@ -6,12 +6,14 @@ import { CodePlayground } from "../../../components/CodePlayground/CodePlaygroun
 stack. When the sheet opens, it pushes a hash entry. When the user presses the
 back button, the hook can close the sheet.
 
+Each hook instance gets a session-scoped index stored in `sessionStorage` under
+`plainsheet-hash-index`.
+
 ### Interface
 
 ```ts
-useBottomSheetHistory: (
-  options: UseBottomSheetHistoryOptions
-) => UseBottomSheetHistoryReturn;
+useBottomSheetHistory: (options: UseBottomSheetHistoryOptions) =>
+  UseBottomSheetHistoryReturn;
 ```
 
 ### Options
@@ -22,14 +24,15 @@ type UseBottomSheetHistoryOptions = {
   onClose: () => void;
   enabled?: boolean;
   hashPrefix?: string;
-  id?: string;
 };
 ```
 
 - **`isOpen`**: Current open state from `useBottomSheet`.
 - **`onClose`**: Callback to close the sheet (usually `bottomSheet.close`).
 - **`enabled`**: Enable/disable history syncing. Default: `true`.
-- **`hashPrefix`**: Prefix used for the URL hash. Default: `"pbs-"`.
+- **`hashPrefix`**: When provided, hash becomes
+  `#bottom-sheet-{hashPrefix}-{index}`. Without it, hash is
+  `#bottom-sheet-{index}`.
 - **`id`**: Optional stable id for the sheet. If omitted, a unique id is generated.
 
 ### Returns
@@ -53,13 +56,15 @@ export default function App() {
   const history = useBottomSheetHistory({
     isOpen: bottomSheet.isOpen,
     onClose: bottomSheet.close,
+    hashPrefix: "demo",
   });
 
-  return (
-    <div style={{ textAlign: "center", marginTop: "2rem" }}>
-      <BottomSheet {...bottomSheet.props}>
-        Your content goes here
-      </BottomSheet>
+return (
+
+<div style={{ textAlign: "center", marginTop: "2rem" }}>
+<BottomSheet {...bottomSheet.props}>
+Your content goes here
+</BottomSheet>
 
       <button onClick={bottomSheet.open}>Open</button>
       <div style={{ marginTop: "1rem" }}>
@@ -68,7 +73,8 @@ export default function App() {
         <div>isTopmost: {String(history.isTopmost)}</div>
       </div>
     </div>
-  );
+
+);
 }
 `}
 />

@@ -1,11 +1,14 @@
+import {
+  canUseHistory,
+  canUseSessionStorage,
+  isString,
+} from "@plainsheet/utility";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 type UseBottomSheetHistoryOptions = {
   isOpen: boolean;
   onClose: () => void;
-  enabled?: boolean;
   hashPrefix?: string;
-  id?: string;
 };
 
 type UseBottomSheetHistoryReturn = {
@@ -17,11 +20,8 @@ type UseBottomSheetHistoryReturn = {
 
 const issuedIds = new Set<string>();
 const openStack: string[] = [];
-let fallbackCounter = 0;
-
-function canUseHistory(): boolean {
-  return typeof window !== "undefined" && typeof window.history !== "undefined";
-}
+const SESSION_INDEX_KEY = "plainsheet-hash-index";
+let fallbackIndexCounter = 0;
 
 function ensureUniqueId(rawId: string): string {
   let candidate = rawId;
@@ -34,14 +34,21 @@ function ensureUniqueId(rawId: string): string {
   return candidate;
 }
 
-function generateId(): string {
-  if (typeof crypto !== "undefined" && "randomUUID" in crypto) {
-    return crypto.randomUUID();
+function getNextSessionIndex(): number {
+  if (canUseSessionStorage()) {
+    try {
+      const raw = window.sessionStorage.getItem(SESSION_INDEX_KEY);
+      const parsed = isString(raw) ? Number.parseInt(raw, 10) : 0;
+      const next = Number.isFinite(parsed) ? parsed + 1 : 0;
+      window.sessionStorage.setItem(SESSION_INDEX_KEY, String(next));
+      return next;
+    } catch (error) {
+      // Fall through to in-memory counter.
+    }
   }
-  fallbackCounter += 1;
-  return `${Date.now().toString(36)}-${Math.random()
-    .toString(36)
-    .slice(2)}-${fallbackCounter}`;
+
+  fallbackIndexCounter += 1;
+  return fallbackIndexCounter;
 }
 
 function pushToStack(id: string): void {
@@ -64,35 +71,36 @@ function isTopmostId(id: string): boolean {
 export function useBottomSheetHistory(
   options: UseBottomSheetHistoryOptions,
 ): UseBottomSheetHistoryReturn {
-  const { isOpen, onClose, enabled = true, hashPrefix = "pbs-", id } = options;
+  const { isOpen, onClose, hashPrefix = "" } = options;
 
-  const initialId = useMemo(() => {
-    const base = id ?? generateId();
-    return ensureUniqueId(base);
+  const { initialId, sessionIndex } = useMemo(() => {
+    const index = getNextSessionIndex();
+    return {
+      initialId: ensureUniqueId(String(index)),
+      sessionIndex: index,
+    };
   }, []);
 
   const [hasPushed, setHasPushed] = useState(false);
   const ignoreNextPopRef = useRef(false);
 
-  const hash = `#${hashPrefix}${initialId}`;
+  const hash =
+    hashPrefix.length > 0
+      ? `#bottom-sheet-${hashPrefix}-${sessionIndex}`
+      : `#bottom-sheet-${sessionIndex}`;
 
   useEffect(() => {
-    if (!enabled) {
-      return;
-    }
-
     if (isOpen) {
       pushToStack(initialId);
     } else {
       removeFromStack(initialId);
     }
-  }, [enabled, isOpen, initialId]);
+  }, [isOpen, initialId]);
 
   useEffect(() => {
-    if (!enabled || !canUseHistory()) {
+    if (!canUseHistory()) {
       return;
     }
-
     if (isOpen) {
       if (window.location.hash !== hash) {
         window.history.pushState({ pbsId: initialId }, "", hash);
@@ -100,15 +108,14 @@ export function useBottomSheetHistory(
       }
       return;
     }
-
     if (hasPushed && window.location.hash === hash) {
       ignoreNextPopRef.current = true;
       window.history.back();
     }
-  }, [enabled, isOpen, hash, hasPushed, initialId]);
+  }, [isOpen, hash, hasPushed, initialId]);
 
   useEffect(() => {
-    if (!enabled || !canUseHistory()) {
+    if (!canUseHistory()) {
       return;
     }
 
@@ -117,15 +124,12 @@ export function useBottomSheetHistory(
         ignoreNextPopRef.current = false;
         return;
       }
-
       if (!isOpen || !hasPushed) {
         return;
       }
-
       if (!isTopmostId(initialId)) {
         return;
       }
-
       if (window.location.hash !== hash) {
         onClose();
       }
@@ -137,7 +141,7 @@ export function useBottomSheetHistory(
       window.removeEventListener("popstate", handlePop);
       window.removeEventListener("hashchange", handlePop);
     };
-  }, [enabled, isOpen, hasPushed, initialId, hash, onClose]);
+  }, [isOpen, hasPushed, initialId, hash, onClose]);
 
   useEffect(() => {
     return () => {
