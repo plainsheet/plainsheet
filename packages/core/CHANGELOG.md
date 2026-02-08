@@ -1,5 +1,11 @@
 # plain-bottom-sheet-core
 
+## 1.0.0
+
+### Major Changes
+
+- a35e819: Feat: backdrop anim and history support
+
 ## 0.7.12
 
 ### Patch Changes

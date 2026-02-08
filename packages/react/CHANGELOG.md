@@ -1,5 +1,16 @@
 # @plainsheet/react-plain-bottom-sheet
 
+## 1.0.0
+
+### Major Changes
+
+- a35e819: Feat: backdrop anim and history support
+
+### Patch Changes
+
+- Updated dependencies [a35e819]
+  - @plainsheet/core@1.0.0
+
 ## 0.4.12
 
 ### Patch Changes
