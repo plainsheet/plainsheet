@@ -300,7 +300,6 @@ function MutablePropsExamples() {
           <Heading size={"2xl"} id="modal-title">
             Frank Sinatra & Count Basie - The Best Is Yet To Come
           </Heading>
-          <Text> The best is yet to come, folks.</Text>
           <iframe
             src="https://www.youtube.com/embed/IXpIoRhJeLQ"
             width="560"

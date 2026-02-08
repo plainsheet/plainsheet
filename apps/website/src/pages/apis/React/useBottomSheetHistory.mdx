@@ -1,0 +1,80 @@
+import { CodePlayground } from "../../../components/CodePlayground/CodePlayground";
+
+## `useBottomSheetHistory`
+
+`useBottomSheetHistory` syncs a Bottom Sheet's open state with the browser history
+stack. When the sheet opens, it pushes a hash entry. When the user presses the
+back button, the hook can close the sheet.
+
+Each hook instance gets a session-scoped index stored in `sessionStorage` under
+`plainsheet-hash-index`.
+
+### Interface
+
+```ts
+useBottomSheetHistory: (options: UseBottomSheetHistoryOptions) =>
+  UseBottomSheetHistoryReturn;
+```
+
+### Options
+
+```ts
+type UseBottomSheetHistoryOptions = {
+  isOpen: boolean;
+  onClose: () => void;
+  enabled?: boolean;
+  hashPrefix?: string;
+};
+```
+
+- **`isOpen`**: Current open state from `useBottomSheet`.
+- **`onClose`**: Callback to close the sheet (usually `bottomSheet.close`).
+- **`enabled`**: Enable/disable history syncing. Default: `true`.
+- **`hashPrefix`**: When provided, hash becomes
+  `#bottom-sheet-{hashPrefix}-{index}`. Without it, hash is
+  `#bottom-sheet-{index}`.
+- **`id`**: Optional stable id for the sheet. If omitted, a unique id is generated.
+
+### Returns
+
+```ts
+type UseBottomSheetHistoryReturn = {
+  id: string;
+  hash: string;
+  hasPushed: boolean;
+  isTopmost: boolean;
+};
+```
+
+### Example
+
+<CodePlayground
+  code={`import { BottomSheet, useBottomSheet, useBottomSheetHistory } from "@plainsheet/react";
+
+export default function App() {
+  const bottomSheet = useBottomSheet();
+  const history = useBottomSheetHistory({
+    isOpen: bottomSheet.isOpen,
+    onClose: bottomSheet.close,
+    hashPrefix: "demo",
+  });
+
+return (
+
+<div style={{ textAlign: "center", marginTop: "2rem" }}>
+<BottomSheet {...bottomSheet.props}>
+Your content goes here
+</BottomSheet>
+
+      <button onClick={bottomSheet.open}>Open</button>
+      <div style={{ marginTop: "1rem" }}>
+        <div>hash: {history.hash}</div>
+        <div>hasPushed: {String(history.hasPushed)}</div>
+        <div>isTopmost: {String(history.isTopmost)}</div>
+      </div>
+    </div>
+
+);
+}
+`}
+/>

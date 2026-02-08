@@ -40,6 +40,7 @@
     "readme": "sh ../../scripts/copy-root-readme.sh"
   },
   "devDependencies": {
+    "@plainsheet/utility": "workspace:*",
     "@internal/eslint-config": "workspace:*",
     "@internal/typescript-config": "workspace:*",
     "@testing-library/dom": "^10.1.0",

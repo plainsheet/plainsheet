@@ -44,14 +44,14 @@ export const BottomSheet = forwardRef<BottomSheetCore, BottomSheetProps>(
 
     const bottomSheetRef = useRef<BottomSheetCore>(placeholderBottomSheet);
     const [bottomSheet, setBottomSheet] = useState<BottomSheetCore>(
-      bottomSheetRef.current
+      bottomSheetRef.current,
     );
     useImperativeHandle(
       refToExpose,
       () => {
         return bottomSheet;
       },
-      [bottomSheet]
+      [bottomSheet],
     );
 
     const handleAfterClose = useCallback(() => {
@@ -89,6 +89,7 @@ export const BottomSheet = forwardRef<BottomSheetCore, BottomSheetProps>(
           ...coreProps,
           afterClose: handleAfterClose,
         });
+
         bottomSheetInstance.mount(mountingPoint);
 
         bottomSheetContentsWrapperRef.current =
@@ -101,7 +102,7 @@ export const BottomSheet = forwardRef<BottomSheetCore, BottomSheetProps>(
           bottomSheet.unmount();
         };
       },
-      [props.mountingPointRef, coreProps, handleAfterClose]
+      [props.mountingPointRef, coreProps, handleAfterClose],
     );
 
     useEffect(
@@ -111,7 +112,7 @@ export const BottomSheet = forwardRef<BottomSheetCore, BottomSheetProps>(
         });
         setBottomSheet(bottomSheetRef.current);
       },
-      [coreProps]
+      [coreProps],
     );
 
     useEffect(function cleanUp() {
@@ -124,10 +125,10 @@ export const BottomSheet = forwardRef<BottomSheetCore, BottomSheetProps>(
       // Attach the user-provided content to the bottom sheet
       return createPortal(
         props.children,
-        bottomSheetContentsWrapperRef.current
+        bottomSheetContentsWrapperRef.current,
       );
     }
 
     return null;
-  }
+  },
 );

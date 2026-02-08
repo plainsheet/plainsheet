@@ -26,7 +26,7 @@ export const COMMON_ANIMATION_KEYS = {
 
 export function isCommonAnimationTimingsKey(
   value: unknown
-): value is CommonAnimationKey {
+): value is CommonAnimation {
   for (const animName of Object.values(COMMON_ANIMATION_KEYS)) {
     if (animName === value) {
       return true;

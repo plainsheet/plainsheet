@@ -39,7 +39,7 @@ interface InitializeBottomSheetElementsReturnType {
 
 export function initializeBottomSheetElements(
   props: Required<BottomSheetCoreProps>,
-  options: InitializerOptions
+  options: InitializerOptions,
 ): InitializeBottomSheetElementsReturnType {
   const elements = createElements(props);
   combineElements(elements);
@@ -75,7 +75,7 @@ export function initializeBottomSheetElements(
   if (props.containerStyle) {
     Object.assign(
       elements.bottomSheetContainerGapFiller.style,
-      props.containerGapFillerStyle
+      props.containerGapFillerStyle,
     );
   }
   if (props.handleStyle) {
@@ -84,7 +84,7 @@ export function initializeBottomSheetElements(
   if (props.contentWrapperStyle) {
     Object.assign(
       elements.bottomSheetContentWrapper.style,
-      props.contentWrapperStyle
+      props.contentWrapperStyle,
     );
   }
 
@@ -102,7 +102,7 @@ export interface BottomSheetElements {
 }
 
 function createElements(
-  bottomSheetProps: Required<BottomSheetCoreProps>
+  bottomSheetProps: Required<BottomSheetCoreProps>,
 ): BottomSheetElements {
   const bottomSheetRoot = createElement(
     "dialog",
@@ -111,25 +111,25 @@ function createElements(
       ResetClassNames.Dialog,
       bottomSheetProps.rootClass,
     ]),
-    ClassNames.Root
+    ClassNames.Root,
   );
   bottomSheetRoot.ariaLabel = bottomSheetProps.ariaLabel;
 
   const bottomSheetContainer = createElement(
     "section",
     mergeClassNames([ClassNames.Container, bottomSheetProps.containerClass]),
-    ClassNames.Container
+    ClassNames.Container,
   );
   if (bottomSheetProps.containerBorderRadius) {
     bottomSheetContainer.style.borderRadius = initializeBorderRadius(
-      bottomSheetProps.containerBorderRadius
+      bottomSheetProps.containerBorderRadius,
     );
   }
 
   const bottomSheetContainerGapFiller = createElement(
     "div",
     ClassNames.GapFiller,
-    ClassNames.GapFiller
+    ClassNames.GapFiller,
   );
   if (bottomSheetProps.containerBackgroundColor) {
     bottomSheetContainer.style.backgroundColor =
@@ -146,7 +146,7 @@ function createElements(
       bottomSheetProps.shouldShowHandle ? null : UtilClassNames.Hidden,
       bottomSheetProps.handleClass,
     ]),
-    ClassNames.Handle
+    ClassNames.Handle,
   );
   bottomSheetHandle.setAttribute("type", "button");
   bottomSheetHandle.ariaLabel = "bottom sheet close button";
@@ -157,7 +157,7 @@ function createElements(
       ClassNames.HandleBar,
       bottomSheetProps.shouldShowHandle ? null : UtilClassNames.Hidden,
     ]),
-    ClassNames.HandleBar
+    ClassNames.HandleBar,
   );
 
   const bottomSheetContentWrapper = createElement(
@@ -166,7 +166,7 @@ function createElements(
       ClassNames.ContentWrapper,
       bottomSheetProps.contentWrapperClass,
     ]),
-    ClassNames.ContentWrapper
+    ClassNames.ContentWrapper,
   );
 
   const bottomSheetBackdrop = createElement(
@@ -176,7 +176,7 @@ function createElements(
       bottomSheetProps.backdropClass,
       UtilClassNames.Hidden,
     ]),
-    ClassNames.Backdrop
+    ClassNames.Backdrop,
   );
   if (bottomSheetProps.backdropColor) {
     bottomSheetBackdrop.style.backgroundColor = bottomSheetProps.backdropColor;
@@ -221,11 +221,11 @@ export interface InitializeEventsParams {
 
 export interface InitializeEventsReturnType {
   attachEventListeners: (
-    updatedProps?: InitializeEventsParams["bottomSheetProps"]
+    updatedProps?: InitializeEventsParams["bottomSheetProps"],
   ) => void;
   clearEventListeners: () => void;
   attacheOnOpenEventListeners: (
-    updatedProps?: InitializeEventsParams["bottomSheetProps"]
+    updatedProps?: InitializeEventsParams["bottomSheetProps"],
   ) => void;
   clearOnOpenEventListeners: () => void;
 }
@@ -246,22 +246,22 @@ function initializeEvents({
 
   const handleEventListener = new TabEventListener(bottomSheetHandle);
   const contentsWrapperEventListener = new TabEventListener(
-    bottomSheetContentWrapper
+    bottomSheetContentWrapper,
   );
   const gapFillerEventListener = new TabEventListener(
-    bottomSheetContainerGapFiller
+    bottomSheetContainerGapFiller,
   );
   let draggingTriggerEventListeners: TabEventListener[] = [];
 
   const windowEventListener = new TabEventListener(
-    window as unknown as HTMLElement
+    window as unknown as HTMLElement,
   );
 
   const onDragStart: EventCallback = handleDragStart(
     windowEventListener,
     bottomSheetContainer,
     bottomSheetProps,
-    options.draggingState
+    options.draggingState,
   );
 
   const onDragMove: EventCallback = handleDragMove(
@@ -269,7 +269,7 @@ function initializeEvents({
     bottomSheetContainer,
     bottomSheetProps,
     options.draggingState,
-    animationFrame
+    animationFrame,
   );
 
   const onDragEnd: EventCallback = handleDragEnd(
@@ -279,9 +279,8 @@ function initializeEvents({
     options.draggingState,
     animationFrame,
     options.onClose,
-    options.bottomSheetState
+    options.bottomSheetState,
   );
-
   function handleWindowClick(e: MouseEvent): void {
     if (e.target instanceof Element && !bottomSheetRoot.contains(e.target)) {
       options.onClose();
@@ -292,12 +291,12 @@ function initializeEvents({
     handleDragTriggerClick(
       options.draggingState,
       tabEvent.target,
-      bottomSheetElements.bottomSheetContentWrapper
+      bottomSheetElements.bottomSheetContentWrapper,
     );
   }
 
   function attachEventListeners(
-    updatedProps?: InitializeEventsParams["bottomSheetProps"]
+    updatedProps?: InitializeEventsParams["bottomSheetProps"],
   ): void {
     const propsForEventHandlers = updatedProps ?? bottomSheetProps;
 
@@ -342,7 +341,7 @@ function initializeEvents({
       }
       if (e.shiftKey && e.key === "Tab") {
         const lastFocusableElement = findLastFocusableElement(
-          bottomSheetElements.bottomSheetContentWrapper
+          bottomSheetElements.bottomSheetContentWrapper,
         );
         focusOn(lastFocusableElement);
       }
@@ -350,7 +349,7 @@ function initializeEvents({
   }
 
   function attacheOnOpenEventListeners(
-    updatedProps?: InitializeEventsParams["bottomSheetProps"]
+    updatedProps?: InitializeEventsParams["bottomSheetProps"],
   ): void {
     const propsForEventHandlers = updatedProps ?? bottomSheetProps;
 

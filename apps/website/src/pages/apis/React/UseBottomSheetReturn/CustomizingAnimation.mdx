@@ -11,10 +11,23 @@ You can define animation timings and durations to precisely control the animatio
   - A common preset: `ease`, `eas-in`, `ease-out`, `ease-in-out`, `spring`
   - A `draggingAnimationTimings` which is a cubic Bezier curve points expressed as an object such as `{ p1x: 0.42, p1y: 0, p2x: 0.58, p2y: 1 }`
 
+- **`backdropAnimationTimings?: CommonAnimation | AnimationTimingPoints | null`**  
+  Optional. Can be either:
+  - A common preset: `ease`, `eas-in`, `ease-out`, `ease-in-out`, `spring`
+  - A `backdropAnimationTimings` which is a cubic Bezier curve points expressed as an object such as `{ p1x: 0.42, p1y: 0, p2x: 0.58, p2y: 1 }`
+
 #### Animation Duration
 
 - **`draggingAnimationDuration?: number`**  
   Optional. Duration of the dragging animation in milliseconds.
+
+- **`backdropAnimationDuration?: number`**  
+  Optional. Duration of the backdrop animation in milliseconds.
+
+#### Advanced Backdrop Animation
+
+- **`backdropAnimStyleCreators?: StyleCreators`**  
+  Optional. Style creators used for animating the backdrop. Each entry maps a CSS property to a function `(percent) => string`.
 
 <CodePlayground
   code={`import { BottomSheet, useBottomSheet } from "@plainsheet/react";
@@ -24,6 +37,8 @@ export default function App() {
     draggingAnimationTimings: 'ease-in-out',
     // Or, draggingAnimationTimings: { p1x: 0.42, p1y: 0, p2x: 0.58, p2y: 1 },
     draggingAnimationDuration: 300,
+    backdropAnimationTimings: 'ease-in-out',
+    backdropAnimationDuration: 250,
   });
   
   return (

@@ -1,7 +1,6 @@
-# Welcome! ⛴️
+# Welcome!
 
-Thank you for being interested in the project!  
-We welcome every contribution, from anyone.
+Thank you for being interested in the project! We welcome contributions, so please feel free to open issues or PRs.
 
 ### How We Work
 

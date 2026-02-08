@@ -1,9 +1,9 @@
+import type { StyleCreators } from "src/animation/animation.type";
 import type { DraggingDirection } from "src/calculator/position-calculator.type";
 import type {
   AnimationTimingPoints,
   CommonAnimation,
 } from "src/utils/animation/animation.type";
-import type { CSSColor, CSSUnit } from "src/utils/types/css-attribute";
 
 export type RequiredBottomSheetProps = Required<BottomSheetCoreProps>;
 export interface BottomSheetCoreProps {
@@ -102,6 +102,23 @@ export interface BottomSheetCoreProps {
    * In milliseconds.
    */
   draggingAnimationDuration?: number;
+
+  /**
+   * Common animation timing functions such as "ease-in-out", or
+   * an object {p1x: number, p1y: number, p2x: number, p2y: number} that describes the timing of animations as a Bezier curve.
+   * @see https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timing-function
+   */
+  backdropAnimationTimings?: DraggingAnimationTimings;
+
+  /**
+   * In milliseconds.
+   */
+  backdropAnimationDuration?: number;
+
+  /**
+   * Style creators used for animating the backdrop.
+   */
+  backdropAnimStyleCreators?: StyleCreators;
 }
 export type DraggingAnimationTimings =
   | CommonAnimation

@@ -1,11 +1,15 @@
-import { addClassName, removeClassName } from "./class-names";
+import { addClassName, hasClassName, removeClassName } from "./class-names";
 
 const OPEN = "open";
 const HIDDEN = "hidden";
 
+export function getVisibility(element: Element): boolean {
+  return getHiddenClass(element);
+}
+
 export function setVisibility(
   element: Element | Element[],
-  visibility: boolean
+  visibility: boolean,
 ): void {
   const shouldOpen = visibility;
 
@@ -32,4 +36,8 @@ export function setHiddenClass(element: Element, shouldOpen: boolean): void {
     addClassName(element, HIDDEN);
     removeClassName(element, OPEN);
   }
+}
+
+export function getHiddenClass(element: Element): boolean {
+  return hasClassName(element, OPEN) && !hasClassName(element, HIDDEN);
 }

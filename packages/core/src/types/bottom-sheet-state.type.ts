@@ -1,9 +1,13 @@
-import type { translateContainerWithAnim } from "src/animation/animation";
+import type {
+  animateBackdropWithAnim,
+  translateContainerWithAnim,
+} from "src/animation/animation";
 import type { Coordinates, Position } from "src/animation/animation.type";
 
 export interface BottomSheetState {
   isMounted: boolean;
   translateContainer: ReturnType<typeof translateContainerWithAnim>;
+  animateBackdrop: ReturnType<typeof animateBackdropWithAnim>;
 }
 
 export interface DraggingState {

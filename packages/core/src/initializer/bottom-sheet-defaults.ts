@@ -40,6 +40,11 @@ export const BOTTOM_SHEET_DEFAULT_PROPS: RequiredBottomSheetProps = {
   backdropClass: null,
   draggingAnimationTimings: "ease-in-out",
   draggingAnimationDuration: 180,
+  backdropAnimationTimings: "ease-out",
+  backdropAnimationDuration: 180,
+  backdropAnimStyleCreators: {
+    opacity: (percent: number) => `${1 - percent}`,
+  },
   rootStyle: {},
   containerStyle: {},
   handleStyle: {},
