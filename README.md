@@ -55,7 +55,17 @@ Without any configs.
 
 ## Showcase
 
-See PlainSheet in action! Real-world applications built by developers around the world:
+See PlainSheet in action! Real-world applications around the world:
+
+### 🏪 [Wisely](https://shop.wisely.store/)
+
+A Korean D2C e-commerce startup offering everyday consumer goods and food through a modern online platform.
+
+<p align="center">
+  <a href="https://shop.wisely.store/">
+    <img src="https://github.com/plainsheet/plainsheet/raw/main/documents/assets/wisely-header.png" width="256" height="256">
+  </a>
+</p>
 
 ### 🍃 [BreezyLearn](https://www.breezylearn.com/)
 

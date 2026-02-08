@@ -10,6 +10,8 @@
 
   z-index: 1;
   transition: background-color 0.2s ease-out;
+  /* NOTE: Skip drawing of backface for better performance */
+  backface-visibility: "hidden";
 }
 .pbs-backdrop.hidden {
   visibility: hidden;
