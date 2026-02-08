@@ -148,6 +148,10 @@ importers:
         version: 5.5.4
 
   packages/core:
+    dependencies:
+      '@plainsheet/utility':
+        specifier: workspace:*
+        version: link:../utility
     devDependencies:
       '@internal/eslint-config':
         specifier: workspace:*
