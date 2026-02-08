@@ -1,5 +1,11 @@
 # plain-bottom-sheet-core
 
+## 1.0.1
+
+### Patch Changes
+
+- 157db39: fix: description
+
 ## 1.0.0
 
 ### Major Changes
