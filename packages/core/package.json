@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": false,
   "sideEffects": false,
-  "description": "The minimalistic, configurable React bottom-sheet for the Web developers",
+  "description": "The minimalistic, configurable bottom-sheet for the Web developers",
   "keywords": [
     "ui",
     "component",
