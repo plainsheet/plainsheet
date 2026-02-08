@@ -1,8 +1,9 @@
 export * from "./css-attribute";
-export * from "./exists";
-export * from "./is-boolean";
-export * from "./is-element";
-export * from "./is-number";
-export * from "./is-percent";
-export * from "./is-string";
-export * from "./omit-keyof";
+export { exists } from "./exists";
+export { isBoolean } from "./is-boolean";
+export { isElement, isHTMLElement } from "./is-element";
+export { isNumber } from "./is-number";
+export { isPercent } from "./is-percent";
+export { isString } from "./is-string";
+export type { OmitKeyof } from "./omit-keyof";
+export type { GetNonMutableKeys, GetMutableKeys, Mutable } from "./mutable";
