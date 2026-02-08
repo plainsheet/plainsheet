@@ -26,6 +26,10 @@ function LifeCycleHooksExamples() {
 
   const [logs, setLogs] = useState<string[]>([]);
   const logEvent = (message: string) => {
+    if (logs.length >= 100) {
+      setLogs([]);
+    }
+
     setLogs((prevLogs) => [
       ...prevLogs,
       `${new Date().toLocaleTimeString()}: ${message}`,
@@ -47,7 +51,7 @@ function LifeCycleHooksExamples() {
     onDragStart: () => logEvent("onDragStart"),
     onDragMove: (direction, progress) =>
       logEvent(
-        `onDragMove: Dragging in ${direction} direction. Progress: ${progress.toFixed(2)}`
+        `onDragMove: Dragging in ${direction} direction. Progress: ${progress.toFixed(2)}`,
       ),
     onDragEnd: () => logEvent("onDragEnd"),
   });
