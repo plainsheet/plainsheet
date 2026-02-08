@@ -9,7 +9,6 @@ import { createElement } from "../utils/dom/element";
 import { mergeClassNames } from "../utils/dom/class-names";
 import {
   handleDragEnd,
-  handleDragLeave,
   handleDragMove,
   handleDragStart,
   handleDragTriggerClick,
@@ -282,12 +281,6 @@ function initializeEvents({
     options.onClose,
     options.bottomSheetState,
   );
-  const onDragLeave = handleDragLeave(
-    bottomSheetProps,
-    options.draggingState,
-    options.onClose,
-  );
-
   function handleWindowClick(e: MouseEvent): void {
     if (e.target instanceof Element && !bottomSheetRoot.contains(e.target)) {
       options.onClose();
@@ -328,8 +321,6 @@ function initializeEvents({
         onMove: onDragMove,
         onEnd: onDragEnd,
       });
-      window.addEventListener("mouseout", onDragLeave);
-      window.addEventListener("touchcancel", onDragLeave);
     }
     if (propsForEventHandlers.draggable) {
       window.document.addEventListener("keyup", (e) => {
@@ -461,8 +452,6 @@ function initializeEvents({
       onMove: onDragMove,
       onEnd: onDragEnd,
     });
-    window.removeEventListener("mouseout", onDragLeave);
-    window.removeEventListener("touchcancel", onDragLeave);
   }
 
   return {
