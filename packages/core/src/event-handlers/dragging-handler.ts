@@ -44,6 +44,9 @@ export const handleDragStart =
     draggingState: DraggingState,
   ) =>
   (event: TabEvent) => {
+    if (!draggingState.isDragging) {
+      return;
+    }
     draggingState.startY = mouseEventListener.getCoordinates(event).y;
     draggingState.containerStartTranslate = getTranslate(bottomSheetContainer);
 
