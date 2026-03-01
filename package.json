@@ -1,6 +1,9 @@
 {
   "private": false,
   "name": "plainsheet",
+  "author": {
+    "name": "Peter Byun"
+  },
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
