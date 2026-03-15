@@ -67,16 +67,6 @@ A Korean D2C e-commerce startup offering everyday consumer goods and food throug
   </a>
 </p>
 
-### 🍃 [BreezyLearn](https://www.breezylearn.com/)
-
-An AI-powered learning platform that helps anyone learn any topic through interactive content and tests.
-
-<p align="center">
-  <a href="https://www.breezylearn.com/">
-    <img src="https://github.com/plainsheet/plainsheet/raw/main/documents/assets/breezy-header.png" width="256" height="256">
-  </a>
-</p>
-
 _[Want to be featured here? Submit your project!](https://github.com/plainsheet/plainsheet/issues)_
 
 ## Philosophy
